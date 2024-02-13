@@ -1,11 +1,18 @@
+/* Default of the page */
 * {
     font-size: 12px
 }
 
+/* H1-H7 and p */
 h1 {
     font-size: 7rem;
 }
 
+h2 {
+    font-size: 4rem;
+}
+
+/* Custom body */
 .loginPageBackground {
     background-image: url(../Assets/WebArt/LoginPageArt.png);
     background-size: cover;
@@ -16,10 +23,20 @@ h1 {
     background-size: cover;
 }
 
+/* Custom div classes */
 .center {
     text-align: center;
 }
 
+/* Custom form classes */
+.loginInformation {
+    background-color: dimgrey;
+    padding: 3rem;
+    border-radius: 1rem;
+    color: white;
+}
+
+/* Custom button classes */
 .startButton {
     background-color: darkgreen;
     color: white;
@@ -36,4 +53,10 @@ h1 {
     font-size: 3rem;
     padding: 3rem 5rem;
     border-radius: 1rem;
+}
+
+.logoutButton {
+    position: fixed;
+    top: 3rem;
+    right: 3rem;
 }
