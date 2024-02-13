@@ -1,0 +1,39 @@
+* {
+    font-size: 12px
+}
+
+h1 {
+    font-size: 7rem;
+}
+
+.loginPageBackground {
+    background-image: url(../Assets/WebArt/LoginPageArt.png);
+    background-size: cover;
+}
+
+.StartPageBackground {
+    background-image: url(../Assets/WebArt/StartPageArt.png);
+    background-size: cover;
+}
+
+.center {
+    text-align: center;
+}
+
+.startButton {
+    background-color: darkgreen;
+    color: white;
+    border-color: dimgrey;
+    font-size: 3rem;
+    padding: 3rem 5rem;
+    border-radius: 1rem;
+}
+
+.startButton:hover {
+    background-color: green;
+    color: lightgrey;
+    border-color: grey;
+    font-size: 3rem;
+    padding: 3rem 5rem;
+    border-radius: 1rem;
+}
