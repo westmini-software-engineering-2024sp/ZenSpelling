@@ -1,21 +1,20 @@
 from django.contrib import admin
 
-from .models import Options, Question
+from .models import Answer, Question
 
 
-class OptionInline(admin.TabularInline):
-    model = Options
+class AnswerInline(admin.TabularInline):
+    model = Answer
     extra = 4
 
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["question_text"]}),
-        ("Date information", {"fields": ["pub_date"], "classes": ["collapse"]}),
+        ("Other information", {"fields": ["correct_answer"], "classes": ["collapse"]}),
     ]
-    inlines = [OptionInline]
-    list_display = ["question_text", "pub_date", "was_published_recently"]
-    list_filter = ["pub_date"]
+    inlines = [AnswerInline]
+    list_display = ["question_text", "correct_answer", "percent_correct"]
     search_fields = ["question_text"]
 
 

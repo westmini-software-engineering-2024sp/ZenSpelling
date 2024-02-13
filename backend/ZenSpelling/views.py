@@ -5,25 +5,15 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+from .models import Answer, Question
 
-from .models import Options, Question
-from django.utils import timezone
-
-
-# Create your views here.
 
 class IndexView(generic.ListView):
     template_name = "ZenSpelling/index.html"
     context_object_name = "latest_question_list"
 
     def get_queryset(self):
-        """
-        Return the last five published questions (not including those set to be
-        published in the future).
-        """
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[
-               :5
-        ]
+        return Question.objects.all().order_by("-times_correct")[:5]
 
 
 class DetailView(generic.DetailView):
@@ -34,18 +24,19 @@ class DetailView(generic.DetailView):
         """
         Excludes any questions that aren't published yet.
         """
-        return Question.objects.filter(pub_date__lte=timezone.now())
+        return Question.objects.all()
 
 
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "ZenSpelling/results.html"
 
+
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
-        selected_option = question.options_set.get(pk=request.POST["option"])
-    except (KeyError, Options.DoesNotExist):
+        selected_option = question.answer_set.get(pk=request.POST["answer"])
+    except (KeyError, Answer.DoesNotExist):
         # Redisplay the question voting form.
         return render(
             request,
