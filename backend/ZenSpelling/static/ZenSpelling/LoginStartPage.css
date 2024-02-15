@@ -14,12 +14,12 @@ h2 {
 
 /* Custom body */
 .loginPageBackground {
-    background-image: url(../Assets/WebArt/LoginPageArt.png);
+    background-image: url(../../templates/ZenSpelling/Assets/WebArt/LoginPageArt.png);
     background-size: cover;
 }
 
 .StartPageBackground {
-    background-image: url(../Assets/WebArt/StartPageArt.png);
+    background-image: url(../../templates/ZenSpelling/Assets/WebArt/StartPageArt.png);
     background-size: cover;
 }
 

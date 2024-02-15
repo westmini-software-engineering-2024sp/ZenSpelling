@@ -1,5 +1,5 @@
 function startPageLoad() {
-    window.location.href = '../html/StartPage.html';
+    window.location.href = '../StartPage.html';
 }
 
 function login() {
