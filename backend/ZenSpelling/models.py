@@ -19,7 +19,8 @@ class User(models.Model):
     def percent_correct_lifetime(self):
         if self.questions_answered > 0:
             return (self.questions_correct / self.questions_answered) * 100
-        else: return 0
+        else:
+            return 0
 
 
 class Course(models.Model):
@@ -33,7 +34,7 @@ class Course(models.Model):
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
-    correct_answer = models.IntegerField(default=0)
+    correct_answer = models.ForeignKey("Answer", on_delete=models.RESTRICT, related_name="correct_answer")
     times_answered = models.IntegerField(default=0)
     times_correct = models.IntegerField(default=0)
 
@@ -47,7 +48,8 @@ class Question(models.Model):
     def percent_correct(self):
         if self.times_answered > 0:
             return (self.times_correct / self.times_answered) * 100
-        else: return 0
+        else:
+            return 0
 
 
 class Answer(models.Model):
