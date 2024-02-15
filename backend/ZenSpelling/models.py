@@ -17,7 +17,9 @@ class User(models.Model):
         description='Percent correct by number of questions',
     )
     def percent_correct_lifetime(self):
-        return (self.questions_correct / self.questions_answered) * 100
+        if self.questions_answered > 0:
+            return (self.questions_correct / self.questions_answered) * 100
+        else: return 0
 
 
 class Course(models.Model):
@@ -40,7 +42,9 @@ class Question(models.Model):
         description='Percent correct by number of questions answered'
     )
     def percent_correct(self):
-        return (self.times_correct / self.times_answered) * 100
+        if self.times_answered > 0:
+            return (self.times_correct / self.times_answered) * 100
+        else: return 0
 
 
 class Answer(models.Model):
