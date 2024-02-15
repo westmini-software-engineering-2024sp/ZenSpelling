@@ -26,6 +26,9 @@ class Course(models.Model):
     name = models.CharField(max_length=100)
     students = models.ManyToManyField(User)
 
+    def __str__(self):
+        return self.name
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
@@ -55,3 +58,5 @@ class Answer(models.Model):
         return self.answer_text
 
 
+class Tile(models.Model):
+    path = models.CharField(max_length=200)
