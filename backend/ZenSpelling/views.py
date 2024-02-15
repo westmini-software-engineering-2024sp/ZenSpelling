@@ -10,7 +10,7 @@ from .models import Answer, Question
 
 class IndexView(generic.ListView):
     template_name = "ZenSpelling/index.html"
-    context_object_name = "latest_question_list"
+    context_object_name = "hardest_question_list"
 
     def get_queryset(self):
         return Question.objects.all().order_by("-times_correct")[:5]
