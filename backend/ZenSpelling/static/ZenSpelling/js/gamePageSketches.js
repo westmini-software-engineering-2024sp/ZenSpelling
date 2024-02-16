@@ -3,6 +3,7 @@ let tileSketch;
 
 function setup() {
   gridSketch = new p5(GridSketch);
+  tileSketch = new p5(TileSketch);
 }
 
 let GridSketch = function(sketch) {
@@ -13,17 +14,15 @@ let GridSketch = function(sketch) {
   sketch.rotationAngle = 40;
 
   sketch.setup = function() {
-    sketch.canvasContainer = sketch.select('#canvas-container');
-    sketch.gridContainer = sketch.select('#grid-container');
+    sketch.gridContainer = select('#grid-container');
     sketch.boxSize = sketch.gridContainer.width / 4;
     let gridCanvas = sketch.createCanvas(sketch.gridContainer.width, sketch.gridContainer.height, sketch.WEBGL);
-    gridCanvas.parent(sketch.canvasContainer);
-    gridCanvas.class('sketch-canvas2');
+    gridCanvas.parent(sketch.gridContainer);
   }
 
   sketch.draw = function() {
     sketch.background("#228B22FF");
-    sketch.translate(0, -200, -200);
+    sketch.translate(0, -100, 0);
 
     for (let i = 0; i < sketch.cols; i++) {
       for (let j = 0; j < sketch.rows; j++) {
@@ -46,64 +45,22 @@ let GridSketch = function(sketch) {
 };
 
 let TileSketch = function(sketch) {
-  sketch.canvasContainer = null;
   sketch.tileContainer = null;
   sketch.tileSize = 0;
-  let dragging = false;
-  let offsetX = 0;
-  let offsetY = 0;
-  let rotationAngle = 0;
 
   sketch.setup = function() {
-    sketch.canvasContainer = sketch.select('#canvas-container');
-    sketch.tileContainer = sketch.select('#tile-container');
-    sketch.tileSize = sketch.tileContainer.width / 2;
-
-    let tileCanvas = sketch.createCanvas(sketch.canvasContainer.width, sketch.canvasContainer.height, sketch.WEBGL);
-    tileCanvas.parent(sketch.canvasContainer);
-    tileCanvas.class('sketch-canvas');
+    sketch.tileContainer = select('#tile-container');
+    sketch.tileSize = sketch.tileContainer.width / 3;
+    let tileCanvas = sketch.createCanvas(sketch.tileContainer.width, sketch.tileContainer.height, sketch.WEBGL);
+    tileCanvas.parent(sketch.tileContainer);
   }
 
   sketch.draw = function() {
-    sketch.clear();
-    // sketch.background("pink");
+    sketch.background("#228B22FF");
 
-    if(!dragging){
-      sketch.offsetX = sketch.canvasContainer.width/3;
-      sketch.translate(sketch.offsetX * -1, sketch.offsetY);
-      rotationAngle = sketch.frameCount * 0.0125;
-      sketch.rotateY(rotationAngle);
-    }
-
-    sketch.rotateX(sketch.radians(40));
+    sketch.rotateY(sketch.frameCount * 0.0125);
+    sketch.rotateX(45);
     sketch.fill('#6C3413FF');
-
     sketch.box(sketch.tileSize, sketch.tileSize, sketch.tileSize / 2);
   }
-
-  sketch.mousePressed = function() {
-    let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.width / 2, sketch.height / 2);
-    if (d < sketch.tileSize / 2) {
-      dragging = true;
-      sketch.offsetX = sketch.mouseX;
-      sketch.offsetY = sketch.mouseY;
-    }
-  }
-
-  sketch.mouseDragged = function() {
-    if (dragging) {
-      sketch.offsetX = sketch.mouseX - sketch.width / 2;
-      sketch.offsetY = sketch.mouseY - sketch.height / 2;
-    }
-  }
-
-  sketch.mouseReleased = function() {
-    dragging = false;
-    sketch.offsetX = sketch.canvasContainer.width/3;
-    sketch.offsetY = 0;
-  }
 };
-
-document.addEventListener("DOMContentLoaded", function() {
-  tileSketch = new p5(TileSketch);
-});
