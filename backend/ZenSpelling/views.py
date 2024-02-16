@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from .models import Answer, Question
+from .models import Answer, Question, User, Course
 
 
 class IndexView(generic.ListView):
@@ -30,6 +30,10 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "ZenSpelling/results.html"
+
+
+class StartView(generic.DetailView):
+    template_name = "ZenSpelling/LoginPage.html"
 
 
 def vote(request, question_id):
