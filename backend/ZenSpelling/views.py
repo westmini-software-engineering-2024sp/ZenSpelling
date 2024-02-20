@@ -34,14 +34,13 @@ class ResultsView(generic.DetailView):
 class LoginView(generic.FormView):
     form_class = LoginForm
     template_name = "ZenSpelling/LoginPage.html"
-    success_url = "start/"
+    success_url = "/start/"
 
     def form_valid(self, form):
         return super().form_valid(form)
 
 
-class StartView(generic.DetailView):
-    model = User
+class StartView(generic.TemplateView):
     template_name = "ZenSpelling/StartPage.html"
 
 
