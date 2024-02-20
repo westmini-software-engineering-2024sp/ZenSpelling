@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/user.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/user.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/csvimports.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/csvimports.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +115,7 @@
       <workItem from="1708019557648" duration="7071000" />
       <workItem from="1708040061157" duration="1654000" />
       <workItem from="1708362853856" duration="2186000" />
-      <workItem from="1708389099453" duration="30000" />
+      <workItem from="1708389099453" duration="907000" />
     </task>
     <servers />
   </component>

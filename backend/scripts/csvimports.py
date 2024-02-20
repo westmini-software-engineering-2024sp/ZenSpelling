@@ -1,4 +1,5 @@
 from ZenSpelling.models import User, Question, Answer, Course
+from django.contrib.auth.hashers import PBKDF2SHA1PasswordHasher as passhasher
 import csv
 # repetitive code added with assistance from copilot.
 
@@ -28,7 +29,7 @@ def user_import():
         for row in csv.reader(file):
             _, created = User.objects.get_or_create(
                 username=row[0],
-                password=row[1],
+                password=passhasher().encode(row[1], passhasher().salt()),
                 time_spent=row[2],
                 questions_answered=row[3],
                 questions_correct=row[4],
