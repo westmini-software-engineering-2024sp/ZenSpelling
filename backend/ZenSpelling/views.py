@@ -1,11 +1,10 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from .models import Answer, Question, User, Course
+from .forms import LoginForm
 
 
 class IndexView(generic.ListView):
@@ -32,8 +31,17 @@ class ResultsView(generic.DetailView):
     template_name = "ZenSpelling/results.html"
 
 
-class StartView(generic.DetailView):
+class LoginView(generic.FormView):
+    form_class = LoginForm
     template_name = "ZenSpelling/LoginPage.html"
+    success_url = "start/"
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class StartView(generic.View):
+    template_name = "ZenSpelling/StartPage.html"
 
 
 def vote(request, question_id):

@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ZenSpelling/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/LoginStartPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/LoginStartPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/Assets/WebArt/LoginPageArt.png" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/images/LoginPageArt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/Assets/WebArt/StartPageArt.png" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/images/StartPageArt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/LoginPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/LoginPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/StartPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/StartPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/html/LoginPage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/csvimports.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/csvimports.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,29 +46,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Django Server.softwareApp.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.base_site.html.executor&quot;: &quot;Run&quot;,
-    &quot;Python.csvimports (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.csvimports.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;ZenSpelling-4&amp;&amp;10-StartandLoginPage&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/capta/IdeaProjects/team-startup-jasper/backend/ZenSpelling/static/ZenSpelling/csv&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Django Server.softwareApp.executor": "Run",
+    "JavaScript Debug.base_site.html.executor": "Run",
+    "Python.csvimports (1).executor": "Run",
+    "Python.csvimports.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "django.template.preview.state": "SHOW_EDITOR",
+    "git-widget-placeholder": "ZenSpelling-4&&10-StartandLoginPage",
+    "last_opened_file_path": "C:/Users/capta/IdeaProjects/team-startup-jasper/backend/ZenSpelling/static/ZenSpelling/csv",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\static\ZenSpelling\images" />
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend" />
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\scripts" />
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling" />
@@ -115,7 +125,7 @@
       <workItem from="1708019557648" duration="7071000" />
       <workItem from="1708040061157" duration="1654000" />
       <workItem from="1708362853856" duration="2186000" />
-      <workItem from="1708389099453" duration="907000" />
+      <workItem from="1708389099453" duration="6184000" />
     </task>
     <servers />
   </component>

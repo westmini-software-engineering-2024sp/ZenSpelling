@@ -1,24 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <script src="js/LoginPage.js"></script>
+    <script src={% static 'js/LoginPage.js' %}></script>
 </head>
 <body class="loginPageBackground">
     <div class="center">
-            {% load static %}
             <link rel="stylesheet" href="{% static 'ZenSpelling/LoginStartPage.css' %}">
         <h1>Zen Spelling</h1>
         <h2>Log in</h2>
-        <form class="loginInformation">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br>
-            <button class="loginButton" type="button" onclick="login()">Log In</button>
+        <form method="post" class="loginInformation"> {% csrf_token %}
+            {{ form.as_p }}
+            <input class="loginButton" type="submit" onclick="login()" value="Login">
         </form>
     </div>
 </body>
