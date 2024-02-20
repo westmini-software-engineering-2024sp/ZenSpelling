@@ -43,7 +43,7 @@ def question_import():
             _, created = Question.objects.get_or_create(
                 question_text=row[0],
                 course=Course.objects.get(id=row[1]),
-                correct_answer=row[2],
+                correct_answer=Answer.objects.get(id=row[2]),
                 times_answered=row[3],
                 times_correct=row[4],
             )
@@ -51,7 +51,7 @@ def question_import():
 
 
 def run():
-    user_import()
+    #user_import()
     course_import()
     question_import()
     answer_import()

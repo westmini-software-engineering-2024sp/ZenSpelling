@@ -1,3 +1,8 @@
+/* Custom div classes */
+.center {
+    text-align: center;
+}
+
 /* This is from LoginStartPage.css, maybe inhert down? */
 .logoutButton {
     position: fixed;

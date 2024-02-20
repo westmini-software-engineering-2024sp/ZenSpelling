@@ -33,7 +33,8 @@ class ResultsView(generic.DetailView):
 
 
 class StartView(generic.DetailView):
-    template_name = "ZenSpelling/LoginPage.html"
+    model = User
+    template_name = "ZenSpelling/StartPage.html"
 
 
 def vote(request, question_id):

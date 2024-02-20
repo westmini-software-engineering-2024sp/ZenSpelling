@@ -1,14 +1,17 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Game Set Up Student</title>
-    <link rel="stylesheet" href="../../static/ZenSpelling/GameSetUp.css">
     <script src="js/GameSetUp.js"></script>
 </head>
 <body>
-    <h1>Hi, this needs to be set up!</h1>
-    <button class="logoutButton" onclick="logout()">Log Out</button>
-
+     <div class="center">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/GameSetUp.css' %}">
+        <h1>Hi, this needs to be set up!</h1>
+        <button class="logoutButton" onclick="logout()">Log Out</button>
+     </div>
 </body>
 </html>
