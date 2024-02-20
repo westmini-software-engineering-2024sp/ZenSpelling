@@ -51,7 +51,7 @@ def question_import():
 
 
 def run():
-    user_import()
+    #user_import()
     course_import()
     question_import()
     answer_import()

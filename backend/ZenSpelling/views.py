@@ -40,7 +40,8 @@ class LoginView(generic.FormView):
         return super().form_valid(form)
 
 
-class StartView(generic.View):
+class StartView(generic.DetailView):
+    model = User
     template_name = "ZenSpelling/StartPage.html"
 
 
