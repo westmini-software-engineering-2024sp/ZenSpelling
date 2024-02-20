@@ -28,6 +28,10 @@ body{
     background-color:lightgreen;
 }
 
+#canvas-container{
+    position:relative;
+}
+
 main{
     background-color: green;
     margin: 2em auto;
@@ -41,9 +45,11 @@ canvas{
 }
 
 div#grid-container{
-    display: flex;
-    align-items: center;
+    display:flex;
     justify-content: center;
+    top:0;
+    left:0;
+    align-items: center;
     background-color: lavender;
     padding: 3em;
     margin: auto;
@@ -53,9 +59,6 @@ div#grid-container{
 }
 
 div#tile-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: absolute;
     top : 10em;
     left: 1em;
@@ -65,6 +68,7 @@ div#tile-container{
     padding: 3em;
     margin-left: 6em;
     border-radius: 3em;
+    overflow: visible;
 }
 
 p{

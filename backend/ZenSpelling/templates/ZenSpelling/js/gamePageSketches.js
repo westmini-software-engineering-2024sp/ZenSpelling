@@ -3,7 +3,6 @@ let tileSketch;
 
 function setup() {
   gridSketch = new p5(GridSketch);
-  tileSketch = new p5(TileSketch);
 }
 
 let GridSketch = function(sketch) {
@@ -45,22 +44,55 @@ let GridSketch = function(sketch) {
 };
 
 let TileSketch = function(sketch) {
+  sketch.canvasContainer = null;
   sketch.tileContainer = null;
   sketch.tileSize = 0;
+  let dragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
 
   sketch.setup = function() {
-    sketch.tileContainer = select('#tile-container');
-    sketch.tileSize = sketch.tileContainer.width / 3;
-    let tileCanvas = sketch.createCanvas(sketch.tileContainer.width, sketch.tileContainer.height, sketch.WEBGL);
-    tileCanvas.parent(sketch.tileContainer);
+    sketch.canvasContainer = sketch.select('#canvas-container');
+    sketch.tileContainer = sketch.select('#tile-container');
+    sketch.tileSize = sketch.tileContainer.width / 4;
+    let tileCanvas = sketch.createCanvas(sketch.windowWidth, sketch.windowHeight, sketch.WEBGL);
+    tileCanvas.parent(sketch.canvasContainer);
+    tileCanvas.class(sketch.tileContainer)
   }
 
   sketch.draw = function() {
-    sketch.background("#228B22FF");
+    sketch.clear();
 
-    sketch.rotateY(sketch.frameCount * 0.0125);
+    if(!dragging){
+      sketch.rotateY(sketch.frameCount * 0.0125);
+      }
     sketch.rotateX(45);
     sketch.fill('#6C3413FF');
+    sketch.translate(offsetX, offsetY);
     sketch.box(sketch.tileSize, sketch.tileSize, sketch.tileSize / 2);
   }
+
+  sketch.mousePressed = function() {
+    let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.width / 2, sketch.height / 2);
+    if (d < sketch.tileSize / 2) {
+      dragging = true;
+      offsetX = sketch.mouseX;
+      offsetY = sketch.mouseY;
+    }
+  }
+
+  sketch.mouseDragged = function() {
+    if (dragging) {
+      offsetX = sketch.mouseX - sketch.width / 2;
+      offsetY = sketch.mouseY - sketch.height / 2;
+    }
+  }
+
+  sketch.mouseReleased = function() {
+    dragging = false;
+  }
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+  tileSketch = new p5(TileSketch);
+});
