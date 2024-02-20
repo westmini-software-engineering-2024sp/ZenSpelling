@@ -1,1 +1,0 @@
-Django/Database files go here
