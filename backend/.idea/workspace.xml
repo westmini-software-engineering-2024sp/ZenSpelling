@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="" />
+    <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/user.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/user.csv" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,26 +37,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Django Server.softwareApp.executor": "Run",
-    "JavaScript Debug.base_site.html.executor": "Run",
-    "Python.csvimports (1).executor": "Run",
-    "Python.csvimports.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ZenSpelling-6-database",
-    "last_opened_file_path": "C:/Users/capta/IdeaProjects/team-startup-jasper/backend/ZenSpelling/static/ZenSpelling/csv",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Django Server.softwareApp.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.base_site.html.executor&quot;: &quot;Run&quot;,
+    &quot;Python.csvimports (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.csvimports.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ZenSpelling-4&amp;&amp;10-StartandLoginPage&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/capta/IdeaProjects/team-startup-jasper/backend/ZenSpelling/static/ZenSpelling/csv&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend" />
@@ -62,30 +66,7 @@
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\static\ZenSpelling\csv" />
     </key>
   </component>
-  <component name="RunManager" selected="Django Server.softwareApp">
-    <configuration name="csvimports" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="softwareApp" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1,DJANGO_SETTINGS_MODULE=softwareApp.settings" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ZenSpelling" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\scripts\csvimports.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="softwareApp" type="Python.DjangoServer" factoryName="Django server">
       <module name="softwareApp" />
       <option name="ENV_FILES" value="" />
@@ -112,15 +93,6 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Django Server.softwareApp" />
-      <item itemvalue="Python.csvimports" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.csvimports" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -141,6 +113,9 @@
       <workItem from="1708019402860" duration="71000" />
       <workItem from="1708019476048" duration="71000" />
       <workItem from="1708019557648" duration="7071000" />
+      <workItem from="1708040061157" duration="1654000" />
+      <workItem from="1708362853856" duration="2186000" />
+      <workItem from="1708389099453" duration="30000" />
     </task>
     <servers />
   </component>
