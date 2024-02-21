@@ -1,6 +1,11 @@
+* {
+    font-family: 'Arial', sans-serif;
+}
+
 /* Custom div classes */
 .center {
     text-align: center;
+    object-position: center;
 }
 
 /* This is from LoginStartPage.css, maybe inhert down? */
@@ -9,3 +14,29 @@
     top: 3rem;
     right: 3rem;
 }
+
+.item-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li button {
+    background-color: green;
+}
+
+li button:hover {
+    background-color: springgreen;
+}
+

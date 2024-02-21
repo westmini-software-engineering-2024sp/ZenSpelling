@@ -1,5 +1,5 @@
 function startPageLoad() {
-    window.location.href = '../StartPage.html';
+    window.location.href = '../../../templates/ZenSpelling/StartPage.html';
 }
 
 function login() {

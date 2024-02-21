@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <script src={% static 'js/LoginPage.js' %}></script>
+    <script src={% static 'ZenSpelling/js/LoginPage.js' %}></script>
+    <link rel="stylesheet" href="{% static 'ZenSpelling/LoginStartPage.css' %}">
 </head>
 <body class="loginPageBackground">
     <div class="center">
-        <link rel="stylesheet" href="{% static 'ZenSpelling/LoginStartPage.css' %}">
         <h1>Zen Spelling</h1>
-        <h2>Log in</h2>
         <form method="post" class="loginInformation"> {% csrf_token %}
+            <h2>Log in</h2>
             {{ form.as_p }}
             <input class="loginButton" type="submit" onclick="login()" value="Login">
         </form>

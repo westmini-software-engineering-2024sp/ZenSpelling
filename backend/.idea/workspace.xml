@@ -6,6 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/GameSetUp.css" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/GameSetUp.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/LoginStartPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/LoginStartPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/GameSetUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/GameSetUp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/LoginPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/LoginPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/StartPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/StartPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/GameSetUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/js/GameSetUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/js/LoginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/StartPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/js/StartPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZenSpelling/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "django.template.preview.state": "SHOW_EDITOR",
     "git-widget-placeholder": "ZenSpelling-4&&10-StartandLoginPage",
-    "last_opened_file_path": "C:/Users/capta/IdeaProjects/team-startup-jasper/backend/ZenSpelling/static/ZenSpelling/csv",
+    "last_opened_file_path": "C:/Users/capta/IdeaProjects/team-startup-jasper/backend/ZenSpelling/static/ZenSpelling",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,11 +69,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\static\ZenSpelling" />
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\static\ZenSpelling\images" />
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend" />
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\scripts" />
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling" />
-      <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\static\ZenSpelling\csv" />
     </key>
   </component>
   <component name="RunManager">
@@ -116,7 +125,7 @@
       <workItem from="1708019557648" duration="7071000" />
       <workItem from="1708040061157" duration="1654000" />
       <workItem from="1708362853856" duration="2186000" />
-      <workItem from="1708389099453" duration="10413000" />
+      <workItem from="1708389099453" duration="21716000" />
     </task>
     <servers />
   </component>

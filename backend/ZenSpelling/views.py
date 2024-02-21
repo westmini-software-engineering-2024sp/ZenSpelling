@@ -44,6 +44,10 @@ class StartView(generic.TemplateView):
     template_name = "ZenSpelling/StartPage.html"
 
 
+class SetupView(generic.TemplateView):
+    template_name = "ZenSpelling/GameSetUp.html"
+
+
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:

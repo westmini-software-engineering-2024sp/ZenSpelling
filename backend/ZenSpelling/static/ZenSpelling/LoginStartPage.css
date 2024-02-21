@@ -1,6 +1,7 @@
 /* Default of the page */
 * {
-    font-size: 12px
+    font-size: 12px;
+    font-family: 'Arial', sans-serif;
 }
 
 /* H1-H7 and p */
@@ -10,6 +11,7 @@ h1 {
 
 h2 {
     font-size: 4rem;
+    padding-top: -10rem;
 }
 
 /* Custom body */
@@ -30,10 +32,13 @@ h2 {
 
 /* Custom form classes */
 .loginInformation {
-    background-color: dimgrey;
-    padding: 3rem;
+    background-color: darkgreen;
+    padding: 1rem 4rem 4rem 4rem;
     border-radius: 1rem;
+    margin-outside: 2rem;
     color: white;
+    width: 20rem;
+    display: inline-block;
 }
 
 /* Custom button classes */
