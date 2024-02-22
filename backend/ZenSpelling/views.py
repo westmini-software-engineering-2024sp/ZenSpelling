@@ -32,7 +32,7 @@ class ResultsView(generic.DetailView):
     template_name = "ZenSpelling/results.html"
 
 
-class GameView(generic.View):
+class GameView(generic.TemplateView):
     template_name = "ZenSpelling/gamePage.html"
 
 
