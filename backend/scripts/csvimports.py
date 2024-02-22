@@ -9,6 +9,7 @@ def answer_import():
             _, created = Answer.objects.get_or_create(
                 answer_text=row[0],
                 question=Question.objects.get(id=row[1]),
+                correct=row[2],
             )
             print(created)
 
@@ -42,9 +43,8 @@ def question_import():
             _, created = Question.objects.get_or_create(
                 question_text=row[0],
                 course=Course.objects.get(id=row[1]),
-                correct_answer=row[2],
-                times_answered=row[3],
-                times_correct=row[4],
+                times_answered=row[2],
+                times_correct=row[3],
             )
             print(created)
 

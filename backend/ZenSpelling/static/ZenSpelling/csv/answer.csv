@@ -1,4 +1,4 @@
-﻿yes,1
-no,1
-yes/no,1
-definitely not,1
+﻿yes,1,False
+no,1,True
+yes/no,1,False
+definitely not,1,False

@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="" />
+    <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/answer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/answer.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/question.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/question.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/csvimports.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/csvimports.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softwareApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/softwareApp/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +44,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Django Server.softwareApp.executor": "Run",
     "JavaScript Debug.base_site.html.executor": "Run",
     "Python.csvimports (1).executor": "Run",
