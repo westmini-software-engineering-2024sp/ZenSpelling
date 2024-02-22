@@ -3,7 +3,7 @@
 }
 
 body {
-    background: url(images/garden.svg.jpeg);
+    background: url(images/levelComplete.svg) no-repeat;
     background-size: cover;
     height: 100vh;
 }

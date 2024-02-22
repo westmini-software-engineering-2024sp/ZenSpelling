@@ -55,4 +55,7 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse("ZenSpelling:results", args=(question.id,)))
 
 
+def play_game(request):
+    # Any additional logic for the view can be added here
+    return render(request, 'ZenSpelling/loginPage.html')
 

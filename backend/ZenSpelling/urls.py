@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import play_game
 
 from . import views
 
@@ -8,4 +9,5 @@ urlpatterns = [
     path("<int:pk>/", views.DetailView.as_view(), name="detail"),
     path("<int:pk>/results/", views.ResultsView.as_view(), name="results"),
     path("<int:question_id>/vote/", views.vote, name="vote"),
+    path('play/', play_game, name='play_game'),
 ]
