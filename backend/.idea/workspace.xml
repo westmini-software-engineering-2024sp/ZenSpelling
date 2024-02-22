@@ -6,12 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/answer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/answer.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/question.csv" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/csv/question.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0002_tile.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0003_alter_question_correct_answer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0004_remove_question_correct_answer_answer_correct.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0005_student_delete_user_alter_course_students.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/csvimports.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/csvimports.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/softwareApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/softwareApp/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
