@@ -11,10 +11,10 @@ class AnswerInline(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["question_text"]}),
-        ("Other information", {"fields": ["correct_answer", "course"], "classes": ["collapse"]}),
+        ("Other information", {"fields": ["course"], "classes": ["collapse"]}),
     ]
     inlines = [AnswerInline]
-    list_display = ["question_text", "correct_answer", "percent_correct"]
+    list_display = ["question_text", "percent_correct"]
     search_fields = ["question_text"]
 
 

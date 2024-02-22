@@ -1,16 +1,16 @@
 from django.db import models
 from django.contrib import admin
+from django.contrib.auth.models import User
 
 
-class User(models.Model):
-    username = models.CharField(max_length=40, unique=True)
-    password = models.CharField(max_length=256)  # to be hashed before saving
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     time_spent = models.DecimalField(max_digits=5, decimal_places=2)  # minutes
     questions_answered = models.IntegerField(default=0)
     questions_correct = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
     @admin.display(
         ordering='questions_answered',
@@ -34,7 +34,6 @@ class Course(models.Model):
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
-    correct_answer = models.ForeignKey("Answer", on_delete=models.RESTRICT, related_name="correct_answer")
     times_answered = models.IntegerField(default=0)
     times_correct = models.IntegerField(default=0)
 
@@ -55,6 +54,7 @@ class Question(models.Model):
 class Answer(models.Model):
     answer_text = models.CharField(max_length=200)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    correct = models.BooleanField(default=False)
 
     def __str__(self):
         return self.answer_text
