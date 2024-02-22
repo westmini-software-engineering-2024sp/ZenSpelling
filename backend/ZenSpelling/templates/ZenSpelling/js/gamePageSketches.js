@@ -13,15 +13,17 @@ let GridSketch = function(sketch) {
   sketch.rotationAngle = 40;
 
   sketch.setup = function() {
-    sketch.gridContainer = select('#grid-container');
+    sketch.canvasContainer = sketch.select('#canvas-container');
+    sketch.gridContainer = sketch.select('#grid-container');
     sketch.boxSize = sketch.gridContainer.width / 4;
     let gridCanvas = sketch.createCanvas(sketch.gridContainer.width, sketch.gridContainer.height, sketch.WEBGL);
-    gridCanvas.parent(sketch.gridContainer);
+    gridCanvas.parent(sketch.canvasContainer);
+    gridCanvas.class('sketch-canvas2');
   }
 
   sketch.draw = function() {
     sketch.background("#228B22FF");
-    sketch.translate(0, -100, 0);
+    sketch.translate(0, -200, -200);
 
     for (let i = 0; i < sketch.cols; i++) {
       for (let j = 0; j < sketch.rows; j++) {
@@ -50,23 +52,35 @@ let TileSketch = function(sketch) {
   let dragging = false;
   let offsetX = 0;
   let offsetY = 0;
+  let initialRotationAngle = 0;
+  let rotationAngle = 0;
 
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
     sketch.tileContainer = sketch.select('#tile-container');
-    sketch.tileSize = sketch.tileContainer.width / 4;
-    let tileCanvas = sketch.createCanvas(sketch.windowWidth, sketch.windowHeight, sketch.WEBGL);
+    sketch.tileSize = sketch.tileContainer.width / 2;
+    offsetX = sketch.canvasContainer.width/3;
+    let tileCanvas = sketch.createCanvas(sketch.canvasContainer.width, sketch.canvasContainer.height, sketch.WEBGL);
     tileCanvas.parent(sketch.canvasContainer);
-    tileCanvas.class(sketch.tileContainer)
+    tileCanvas.class('sketch-canvas');
   }
 
   sketch.draw = function() {
     sketch.clear();
+    // sketch.background("pink");
+    // Calculate rotation angle based on the position of the mouse and the position of the sketch
+    let mouseXRelativeToSketch = sketch.mouseX - (width / 2 + offsetX);
+    let mouseYRelativeToSketch = sketch.mouseY - (height / 2 + offsetY);
+    rotationAngle = sketch.atan2(mouseYRelativeToSketch, mouseXRelativeToSketch);
 
     if(!dragging){
-      sketch.rotateY(sketch.frameCount * 0.0125);
-      }
-    sketch.rotateX(45);
+      rotationAngle = sketch.frameCount * 0.0125;
+      sketch.rotateY(rotationAngle);
+    }else{
+      rotationAngle = initialRotationAngle;
+    }
+
+    sketch.rotateX(sketch.radians(40));
     sketch.fill('#6C3413FF');
     sketch.translate(offsetX, offsetY);
     sketch.box(sketch.tileSize, sketch.tileSize, sketch.tileSize / 2);
@@ -90,6 +104,8 @@ let TileSketch = function(sketch) {
 
   sketch.mouseReleased = function() {
     dragging = false;
+    offsetX = 0;
+    offsetY = 0;
   }
 };
 

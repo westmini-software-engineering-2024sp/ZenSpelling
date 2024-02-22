@@ -25,48 +25,54 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color:lightgreen;
+    background-color:lightblue;
 }
 
-#canvas-container{
+main#canvas-container{
     position:relative;
-}
-
-main{
-    background-color: green;
-    margin: 2em auto;
-    padding: 5em;
+    background-color: red;
+    padding: 3em;
+    margin: auto;
     border-radius: 3em;
-    height:75vh;
+    height:100%;
+    width:100%;
 }
 
 canvas{
     border-radius: 3em;
 }
 
-div#grid-container{
-    display:flex;
-    justify-content: center;
+.sketch-canvas{
+    position: absolute;
     top:0;
     left:0;
+}
+
+.sketch-canvas2{
+    position: absolute;
+    top:5em;
+    left:30em;
+}
+
+#grid-container{
+    position: revert;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    background-color: lavender;
+    background-color: orange;
     padding: 3em;
     margin: auto;
-    width: 600px;
-    height: 400px;
+    width: 65vw;
+    height: 80vh;
     border-radius: 3em;
 }
 
 div#tile-container{
-    position: absolute;
-    top : 10em;
-    left: 1em;
     width: 300px;
-    height: 400px;
+    height: 500px;
     background-color: lavender;
-    padding: 3em;
     margin-left: 6em;
+    margin-top: 5em;
     border-radius: 3em;
     overflow: visible;
 }
