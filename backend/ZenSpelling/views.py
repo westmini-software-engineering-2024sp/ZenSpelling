@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
@@ -32,6 +32,10 @@ class ResultsView(generic.DetailView):
     template_name = "ZenSpelling/results.html"
 
 
+class GameView(generic.View):
+    template_name = "ZenSpelling/gamePage.html"
+
+
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -53,6 +57,3 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse("ZenSpelling:results", args=(question.id,)))
-
-
-
