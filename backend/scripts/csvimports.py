@@ -1,4 +1,5 @@
-from ZenSpelling.models import User, Question, Answer, Course
+from ZenSpelling.models import Question, Answer, Course, Student
+from django.contrib.auth.models import User
 import csv
 # repetitive code added with assistance from copilot.
 
@@ -9,6 +10,7 @@ def answer_import():
             _, created = Answer.objects.get_or_create(
                 answer_text=row[0],
                 question=Question.objects.get(id=row[1]),
+                correct=row[2],
             )
             print(created)
 
@@ -26,12 +28,15 @@ def course_import():
 def user_import():
     with open("./ZenSpelling/static/ZenSpelling/csv/user.csv") as file:
         for row in csv.reader(file):
-            _, created = User.objects.get_or_create(
+            result, created = User.objects.get_or_create(
                 username=row[0],
                 password=row[1],
+            )
+            _, created = Student.objects.get_or_create(
+                user=result,
                 time_spent=row[2],
                 questions_answered=row[3],
-                questions_correct=row[4],
+                questions_correct=row[4]
             )
             print(created)
 
@@ -42,9 +47,8 @@ def question_import():
             _, created = Question.objects.get_or_create(
                 question_text=row[0],
                 course=Course.objects.get(id=row[1]),
-                correct_answer=row[2],
-                times_answered=row[3],
-                times_correct=row[4],
+                times_answered=row[2],
+                times_correct=row[3],
             )
             print(created)
 
