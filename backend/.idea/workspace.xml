@@ -4,9 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+    <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="added ticket 22 (complete level page)">
+      <change afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/images/background.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/images/levelComplete.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/loginStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/loginPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/LoginStartPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/LoginStartPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/LoginPage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/complete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/GameSetUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/GameSetUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/loginJS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/StartPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js/StartPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZenSpelling/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZenSpelling/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softwareApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/softwareApp/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +53,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Django Server.backend.executor": "Run",
     "Django Server.softwareApp.executor": "Run",
     "JavaScript Debug.base_site.html.executor": "Run",
     "Python.csvimports (1).executor": "Run",
@@ -47,24 +61,28 @@
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/capta/python/ZenSpelling/backend",
+    "git-widget-placeholder": "ZenSpelling-22-completeScreen",
+    "last_opened_file_path": "/Users/drakeauclaire/Documents/GitHub/team-startup-jasper/backend/ZenSpelling/static/ZenSpelling/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
+    "settings.editor.selected.configurable": "com.jetbrains.django.DjangoModulesConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/images" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling" />
+      <recent name="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling" />
+      <recent name="$PROJECT_DIR$/ZenSpelling/templates/ZenSpelling/js" />
+      <recent name="$PROJECT_DIR$/ZenSpelling/static/ZenSpelling/images" />
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend" />
-      <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\scripts" />
-      <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling" />
-      <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\static\ZenSpelling\csv" />
     </key>
   </component>
   <component name="RunManager" selected="Django Server.backend">
@@ -97,9 +115,11 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="PYTHONUNBUFFERED" value="1,DJANGO_SETTINGS_MODULE=softwareApp.settings" />
+        <env name="DJANGO_SETTINGS_MODULE" value="softwareApp.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (backend)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -125,6 +145,7 @@
         <env name="DJANGO_SETTINGS_MODULE" value="softwareApp.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (backend)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -170,12 +191,31 @@
       <workItem from="1708019402860" duration="71000" />
       <workItem from="1708019476048" duration="71000" />
       <workItem from="1708019557648" duration="7071000" />
-      <workItem from="1708660314232" duration="654000" />
+      <workItem from="1708451455339" duration="3122000" />
+      <workItem from="1708538084770" duration="259000" />
+      <workItem from="1708541054401" duration="406000" />
+      <workItem from="1708544786188" duration="120000" />
+      <workItem from="1708581543419" duration="2969000" />
+      <workItem from="1708587331971" duration="1979000" />
+      <workItem from="1708622497384" duration="4453000" />
     </task>
+    <task id="LOCAL-00001" summary="added ticket 22 (complete level page)">
+      <option name="closed" value="true" />
+      <created>1708452275257</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1708452275257</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added ticket 22 (complete level page)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added ticket 22 (complete level page)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/backend$csvimports.coverage" NAME="csvimports Coverage Results" MODIFIED="1707958603674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ZenSpelling" />

@@ -1,24 +1,38 @@
+{%  load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="../../static/ZenSpelling/LoginStartPage.css">
-    <script src="../../static/ZenSpelling/js/LoginPage.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In </title>
+    <link rel="stylesheet" href="{% static 'ZenSpelling/loginStyle.css' %}">
+    <script src="{% static 'ZenSpelling/js/LoginPage.js' %}"></script>
 </head>
-<body class="loginPageBackground">
-    <div class="center">
-        <h1>Zen Spelling</h1>
-        <h2>Log in</h2>
-        <form class="loginInformation">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br>
-            <button class="loginButton" type="button" onclick="login()">Log In</button>
-        </form>
+<body>
+    <div class = "gameTitle">
+    <h1> Zen Spelling</h1>
     </div>
+    <div class = "container">
+        <img src = "{% static 'ZenSpelling/images/background.svg' %}" alt = "Background Image" class = "bg">
+        <div class = "login"> 
+            <h2> Sign In</h2>
+            <div class = "inputBox">
+                <input id = 'username' type = "text" placeholder = "Username">
+            </div>
+            <div class = "inputBox">
+                <input id = 'password' type = "text" placeholder = "Password">
+            </div>
+            <div class = "inputBox">
+                <!-- <input type = "submit" onclick=login() value = "login" id = "btn"> -->
+                <button class="btn" type="button" onclick = login()>Log In</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script> 
+
+        button.addEventListener("click", startPageLoad());
+    
+    </script> -->
 </body>
 </html>

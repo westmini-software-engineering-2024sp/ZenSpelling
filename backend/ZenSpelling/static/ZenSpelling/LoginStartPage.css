@@ -6,10 +6,12 @@
 /* H1-H7 and p */
 h1 {
     font-size: 7rem;
+    color: darkolivegreen;
 }
 
 h2 {
     font-size: 4rem;
+    color: darkolivegreen;
 }
 
 /* Custom body */
@@ -30,11 +32,19 @@ h2 {
 
 /* Custom form classes */
 .loginInformation {
-    background-color: dimgrey;
-    padding: 3rem;
+    background-color: darkolivegreen;
+    padding: 4rem;
     border-radius: 1rem;
     color: white;
+    margin-left: 500px;
+    margin-right: 500px;
+    margin-top : 175px;
 }
+
+.loginInformation h2 {
+    color: white;
+}
+
 
 /* Custom button classes */
 .startButton {

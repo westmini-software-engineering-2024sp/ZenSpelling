@@ -31,6 +31,7 @@ class Course(models.Model):
         return self.name
 
 
+
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
