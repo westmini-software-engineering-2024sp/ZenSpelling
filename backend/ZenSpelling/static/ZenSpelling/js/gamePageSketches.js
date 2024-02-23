@@ -18,12 +18,12 @@ let GridSketch = function(sketch) {
     sketch.boxSize = sketch.gridContainer.width / 4;
     let gridCanvas = sketch.createCanvas(sketch.gridContainer.width, sketch.gridContainer.height, sketch.WEBGL);
     gridCanvas.parent(sketch.canvasContainer);
-    gridCanvas.class('sketch-canvas2');
+    gridCanvas.class('grid-canvas');
   }
 
   sketch.draw = function() {
     sketch.background("#228B22FF");
-    sketch.translate(0, -200, -200);
+    sketch.translate(0, -100, -300);
 
     for (let i = 0; i < sketch.cols; i++) {
       for (let j = 0; j < sketch.rows; j++) {
@@ -50,49 +50,57 @@ let TileSketch = function(sketch) {
   sketch.tileContainer = null;
   sketch.tileSize = 0;
   let dragging = false;
-  let rotationAngle = frameCount * 0.0125;
   let offsetX = 0;
   let offsetY = 0;
 
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
     sketch.tileContainer = sketch.select('#tile-container');
-    sketch.tileSize = sketch.tileContainer.width / 2;
+    sketch.tileSize = sketch.tileContainer.width / 2.5;
 
     let tileCanvas = sketch.createCanvas(sketch.canvasContainer.width, sketch.canvasContainer.height, sketch.WEBGL);
     tileCanvas.parent(sketch.canvasContainer);
-    tileCanvas.class('sketch-canvas');
-    offsetX = 100;
+    tileCanvas.class('tile-canvas');
   }
 
   sketch.draw = function() {
     sketch.clear();
     // sketch.background("pink");
 
+    // Move origin to the left side of the canvas
+
+
     if(!dragging){
-      sketch.rotateY(rotationAngle);
+      offsetX = -sketch.width / 3
+      sketch.translate(offsetX, offsetY);
+      sketch.rotateY(sketch.frameCount * 0.0125);
+    } else {
+      sketch.translate(offsetX, offsetY);
     }
 
     sketch.rotateX(sketch.radians(40));
     sketch.fill('#6C3413FF');
 
-    sketch.translate(width/2 + offsetX, height / 2 + offsetY, 0);
     sketch.box(sketch.tileSize, sketch.tileSize, sketch.tileSize / 2);
   }
 
   sketch.mousePressed = function() {
-    let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.width / 2, sketch.height / 2);
-    if (d < sketch.tileSize / 2) {
+    let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.canvasContainer.width/2 - (sketch.width/3), sketch.canvasContainer.height/2);
+    console.log(sketch.mouseX);
+    console.log(sketch.width/3)
+    console.log(sketch.mouseY);
+    console.log(d);
+    console.log(sketch.tileSize);
+    console.log(dragging);
+    if (d < sketch.tileSize/2) {
       dragging = true;
-      offsetX = sketch.mouseX;
-      offsetY = sketch.mouseY;
     }
   }
 
   sketch.mouseDragged = function() {
     if (dragging) {
-      sketch.offsetX = sketch.mouseX;
-      sketch.offsetY = sketch.mouseY;
+      offsetX = sketch.mouseX - sketch.width / 2;
+      offsetY = sketch.mouseY - sketch.height / 2;
       console.log(sketch.mouseX)
       console.log(sketch.mouseY)
     }
@@ -101,8 +109,8 @@ let TileSketch = function(sketch) {
 
   sketch.mouseReleased = function() {
     dragging = false;
-    sketch.offsetX = 0;
-    sketch.offsetY = 0;
+    offsetX = 0;
+    offsetY = 0;
   }
 };
 
