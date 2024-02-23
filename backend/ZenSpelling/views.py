@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
@@ -48,27 +48,7 @@ class SetupView(generic.TemplateView):
     template_name = "ZenSpelling/GameSetUp.html"
 
 
-def vote(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    try:
-        selected_option = question.answer_set.get(pk=request.POST["answer"])
-    except (KeyError, Answer.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(
-            request,
-            "ZenSpelling/detail.html",
-            {
-                "question": question,
-                "error_message": "You didn't select an option.",
-            },
-        )
-    else:
-        selected_option.votes += 1
-        selected_option.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        return HttpResponseRedirect(reverse("ZenSpelling:results", args=(question.id,)))
-
+class GameView(generic.TemplateView):
+    template_name = "ZenSpelling/gamePage.html"
 
 

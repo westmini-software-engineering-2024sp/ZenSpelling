@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3852a9f7-765c-4f41-ad0d-e165b04f6f8e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0002_tile.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0003_alter_question_correct_answer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0004_remove_question_correct_answer_answer_correct.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZenSpelling/migrations/0005_student_delete_user_alter_course_students.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/csvimports.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/csvimports.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +47,9 @@
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ZenSpelling-6-database",
-    "last_opened_file_path": "C:/Users/capta/IdeaProjects/team-startup-jasper/backend/ZenSpelling/static/ZenSpelling/csv",
+    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/capta/python/ZenSpelling/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,7 +67,7 @@
       <recent name="C:\Users\capta\IdeaProjects\team-startup-jasper\backend\ZenSpelling\static\ZenSpelling\csv" />
     </key>
   </component>
-  <component name="RunManager" selected="Django Server.softwareApp">
+  <component name="RunManager" selected="Django Server.backend">
     <configuration name="csvimports" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="softwareApp" />
       <option name="ENV_FILES" value="" />
@@ -95,6 +91,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="backend" type="Python.DjangoServer" factoryName="Django server">
+      <module name="backend" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="softwareApp" type="Python.DjangoServer" factoryName="Django server">
       <module name="softwareApp" />
       <option name="ENV_FILES" value="" />
@@ -105,7 +125,6 @@
         <env name="DJANGO_SETTINGS_MODULE" value="softwareApp.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.11 (backend)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -122,6 +141,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Django Server.backend" />
       <item itemvalue="Django Server.softwareApp" />
       <item itemvalue="Python.csvimports" />
     </list>
@@ -150,6 +170,7 @@
       <workItem from="1708019402860" duration="71000" />
       <workItem from="1708019476048" duration="71000" />
       <workItem from="1708019557648" duration="7071000" />
+      <workItem from="1708660314232" duration="654000" />
     </task>
     <servers />
   </component>
