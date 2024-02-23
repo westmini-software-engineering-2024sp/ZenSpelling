@@ -52,6 +52,10 @@ class GameView(generic.TemplateView):
     template_name = "ZenSpelling/gamePage.html"
 
 
+class CompleteView(generic.TemplateView):
+    template_name = "ZenSpelling/complete.html"
+
+
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -73,9 +77,4 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse("ZenSpelling:results", args=(question.id,)))
-
-
-def play_game(request):
-    # Any additional logic for the view can be added here
-    return render(request, 'ZenSpelling/LoginPage.html')
 
