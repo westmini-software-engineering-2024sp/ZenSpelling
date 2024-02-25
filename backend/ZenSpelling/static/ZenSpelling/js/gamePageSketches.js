@@ -1,10 +1,6 @@
 let gridSketch;
 let tileSketch;
 
-function setup() {
-  gridSketch = new p5(GridSketch);
-}
-
 let GridSketch = function(sketch) {
   sketch.gridContainer = null;
   sketch.cols = 3;
@@ -22,7 +18,8 @@ let GridSketch = function(sketch) {
   }
 
   sketch.draw = function() {
-    sketch.background("#228B22FF");
+    sketch.clear();
+    // sketch.background("#228B22FF");
     sketch.translate(0, -100, -300);
 
     for (let i = 0; i < sketch.cols; i++) {
@@ -52,6 +49,13 @@ let TileSketch = function(sketch) {
   let dragging = false;
   let offsetX = 0;
   let offsetY = 0;
+  let testTile;
+
+  sketch.preload = function() {
+    // Load model with normalise parameter set to true
+    let modelUrl = '/static/Assets/Tiles/testTile.obj';
+    testTile = sketch.loadModel(modelUrl, true);
+}
 
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
@@ -67,9 +71,6 @@ let TileSketch = function(sketch) {
     sketch.clear();
     // sketch.background("pink");
 
-    // Move origin to the left side of the canvas
-
-
     if(!dragging){
       offsetX = -sketch.width / 3
       sketch.translate(offsetX, offsetY);
@@ -78,34 +79,31 @@ let TileSketch = function(sketch) {
       sketch.translate(offsetX, offsetY);
     }
 
+    sketch.rotateX(sketch.PI);
+    sketch.rotateY(sketch.PI);
     sketch.rotateX(sketch.radians(40));
     sketch.fill('#6C3413FF');
 
-    sketch.box(sketch.tileSize, sketch.tileSize, sketch.tileSize / 2);
+    // sketch.box(sketch.tileSize, sketch.tileSize, sketch.tileSize / 2);
+    // sketch.normalMaterial();
+    sketch.model(testTile);
   }
 
   sketch.mousePressed = function() {
     let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.canvasContainer.width/2 - (sketch.width/3), sketch.canvasContainer.height/2);
-    console.log(sketch.mouseX);
-    console.log(sketch.width/3)
-    console.log(sketch.mouseY);
-    console.log(d);
-    console.log(sketch.tileSize);
-    console.log(dragging);
     if (d < sketch.tileSize/2) {
       dragging = true;
     }
+    return false;
   }
 
   sketch.mouseDragged = function() {
     if (dragging) {
       offsetX = sketch.mouseX - sketch.width / 2;
       offsetY = sketch.mouseY - sketch.height / 2;
-      console.log(sketch.mouseX)
-      console.log(sketch.mouseY)
+      return false;
     }
   }
-
 
   sketch.mouseReleased = function() {
     dragging = false;
@@ -115,6 +113,7 @@ let TileSketch = function(sketch) {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
-  tileSketch = new p5(TileSketch);
+   gridSketch = new p5(GridSketch);
+   tileSketch = new p5(TileSketch);
 });
 
