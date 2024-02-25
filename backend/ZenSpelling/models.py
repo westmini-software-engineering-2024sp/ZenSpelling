@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 
 class Student(models.Model):
@@ -21,6 +22,11 @@ class Student(models.Model):
             return (self.questions_correct / self.questions_answered) * 100
         else:
             return 0
+
+    @staticmethod
+    def authenticate_user(self, username, password):
+        user = authenticate(username=username, password=password)
+        return user
 
 
 class Course(models.Model):

@@ -12,7 +12,13 @@
         <h1>Zen Spelling</h1>
         <form method="post" class="loginInformation"> {% csrf_token %}
             <h2>Log in</h2>
-            {{ form.as_p }}
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+            <br>
+            <br>
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password }}
+            <br>
             <input class="loginButton" type="submit" onclick="login()" value="Login">
         </form>
     </div>

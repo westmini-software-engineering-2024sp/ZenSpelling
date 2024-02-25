@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from .models import Answer, Question, User, Course
+from .models import Answer, Question, Student, Course
 from .forms import LoginForm
+from django.contrib.auth import authenticate, login
 
 
 class IndexView(generic.ListView):
@@ -37,7 +38,20 @@ class LoginView(generic.FormView):
     success_url = "/start/"
 
     def form_valid(self, form):
-        return super().form_valid(form)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+
+        print(username + " " + password)
+
+        user = authenticate(self.request, username=username, password=password)
+
+        if user is not None:
+            login(self.request, user)
+            return super().form_valid(form)
+        else:
+            print("Invalid username or password")
+            form.add_error(None, "Invalid username or password")
+            return self.form_invalid(form)
 
 
 class StartView(generic.TemplateView):
