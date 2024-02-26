@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from .models import Answer, Question
+from django.http import JsonResponse
+from .models import Tile
 
 
 class IndexView(generic.ListView):
@@ -63,3 +65,7 @@ def play_game(request):
     # Any additional logic for the view can be added here
     return render(request, 'ZenSpelling/LoginPage.html')
 
+
+def tile_paths(request):
+    file_paths = list(Tile.objects.values_list('path', flat=True))
+    return JsonResponse(file_paths, safe=False)

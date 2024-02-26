@@ -1,6 +1,8 @@
-from ZenSpelling.models import Question, Answer, Course, Student
+from ZenSpelling.models import Question, Answer, Course, Student, Tile
 from django.contrib.auth.models import User
 import csv
+
+
 # repetitive code added with assistance from copilot.
 
 
@@ -53,10 +55,20 @@ def question_import():
             print(created)
 
 
+def tile_import():
+    with open("./ZenSpelling/static/ZenSpelling/csv/tile.csv") as file:
+        for row in csv.reader(file):
+            _, created = Tile.objects.get_or_create(
+                path=row[0],
+            )
+            print(created)
+
+
 def run():
     user_import()
     course_import()
     question_import()
     answer_import()
+    tile_import()
 
     print("Done")
