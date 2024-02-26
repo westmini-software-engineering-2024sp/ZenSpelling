@@ -68,4 +68,4 @@ def play_game(request):
 
 def tile_paths(request):
     file_paths = list(Tile.objects.values_list('path', flat=True))
-    return JsonResponse(file_paths, safe=False)
+    return JsonResponse({'tile_paths': file_paths})

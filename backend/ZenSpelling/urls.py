@@ -11,4 +11,5 @@ urlpatterns = [
     path("<int:question_id>/vote/", views.vote, name="vote"),
     path("game/", views.GameView.as_view(), name="GameView"),
     path('play/', play_game, name='play_game'),
+    path('tilepaths/', views.tile_paths, name='tilepaths')
 ]

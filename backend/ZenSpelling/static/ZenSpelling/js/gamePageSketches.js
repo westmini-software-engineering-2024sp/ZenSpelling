@@ -46,16 +46,15 @@ let TileSketch = function(sketch) {
   sketch.canvasContainer = null;
   sketch.tileContainer = null;
   sketch.tileSize = 0;
+  let filepaths = []
   let dragging = false;
   let offsetX = 0;
   let offsetY = 0;
   let testTile;
 
   sketch.preload = function() {
-    // Load model with normalise parameter set to true
-    let modelUrl = '/static/Assets/Tiles/testTile.obj';
-    testTile = sketch.loadModel(modelUrl, true);
-}
+    loadFilepaths()
+  }
 
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
@@ -65,6 +64,16 @@ let TileSketch = function(sketch) {
     let tileCanvas = sketch.createCanvas(sketch.canvasContainer.width, sketch.canvasContainer.height, sketch.WEBGL);
     tileCanvas.parent(sketch.canvasContainer);
     tileCanvas.class('tile-canvas');
+  }
+
+  function loadFilepaths() {
+  fetch('/tilepaths/')
+    .then(response => response.json())
+    .then(data => {
+      filepaths = data.tile_paths;
+      testTile = sketch.loadModel(filepaths[0], true);
+    })
+    .catch(error => console.error('Error fetching filepaths:', error));
   }
 
   sketch.draw = function() {
@@ -85,8 +94,9 @@ let TileSketch = function(sketch) {
     sketch.fill('#6C3413FF');
 
     // sketch.box(sketch.tileSize, sketch.tileSize, sketch.tileSize / 2);
-    // sketch.normalMaterial();
+    if (testTile) {
     sketch.model(testTile);
+    }
   }
 
   sketch.mousePressed = function() {
