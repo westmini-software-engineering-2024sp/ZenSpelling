@@ -7,7 +7,7 @@ import csv
 
 
 def answer_import():
-    with open("./ZenSpelling/static/ZenSpelling/csv/answer.csv") as file:
+    with open("./ZenSpelling/static/ZenSpelling/csv/answer.csv", mode='r', encoding='utf-8-sig') as file:
         for row in csv.reader(file):
             _, created = Answer.objects.get_or_create(
                 answer_text=row[0],
@@ -18,7 +18,7 @@ def answer_import():
 
 
 def course_import():
-    with open("./ZenSpelling/static/ZenSpelling/csv/course.csv") as file:
+    with open("./ZenSpelling/static/ZenSpelling/csv/course.csv", mode='r', encoding='utf-8-sig') as file:
         for row in csv.reader(file):
             result, created = Course.objects.get_or_create(
                 name=row[0],
@@ -28,7 +28,7 @@ def course_import():
 
 
 def user_import():
-    with open("./ZenSpelling/static/ZenSpelling/csv/user.csv") as file:
+    with open("./ZenSpelling/static/ZenSpelling/csv/user.csv", mode='r', encoding='utf-8-sig') as file:
         for row in csv.reader(file):
             result, created = User.objects.get_or_create(
                 username=row[0],
@@ -44,7 +44,7 @@ def user_import():
 
 
 def question_import():
-    with open("./ZenSpelling/static/ZenSpelling/csv/question.csv") as file:
+    with open("./ZenSpelling/static/ZenSpelling/csv/question.csv", mode='r', encoding='utf-8-sig') as file:
         for row in csv.reader(file):
             _, created = Question.objects.get_or_create(
                 question_text=row[0],
@@ -56,7 +56,7 @@ def question_import():
 
 
 def tile_import():
-    with open("./ZenSpelling/static/ZenSpelling/csv/tile.csv") as file:
+    with open("./ZenSpelling/static/ZenSpelling/csv/tile.csv", mode='r', encoding='utf-8-sig') as file:
         for row in csv.reader(file):
             _, created = Tile.objects.get_or_create(
                 path=row[0],
