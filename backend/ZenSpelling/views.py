@@ -6,6 +6,7 @@ from django.views import generic
 from .models import Answer, Question, Student, Course
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class IndexView(generic.ListView):
@@ -54,19 +55,23 @@ class LoginView(generic.FormView):
             return self.form_invalid(form)
 
 
-class StartView(generic.TemplateView):
+class StartView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
     template_name = "ZenSpelling/StartPage.html"
 
 
-class SetupView(generic.TemplateView):
+class SetupView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
     template_name = "ZenSpelling/GameSetUp.html"
 
 
-class GameView(generic.TemplateView):
+class GameView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
     template_name = "ZenSpelling/gamePage.html"
 
 
-class CompleteView(generic.TemplateView):
+class CompleteView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
     template_name = "ZenSpelling/complete.html"
 
 
