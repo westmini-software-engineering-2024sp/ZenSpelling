@@ -53,7 +53,7 @@ let TileSketch = function(sketch) {
   let testTile;
 
   sketch.preload = function() {
-    loadFilepaths()
+    loadTilepaths()
   }
 
   sketch.setup = function() {
@@ -66,7 +66,7 @@ let TileSketch = function(sketch) {
     tileCanvas.class('tile-canvas');
   }
 
-  function loadFilepaths() {
+  function loadTilepaths() {
   fetch('/tilepaths/')
     .then(response => response.json())
     .then(data => {
