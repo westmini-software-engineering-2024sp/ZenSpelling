@@ -3,9 +3,9 @@
 <fieldset>
     <legend><h1>{{ question.question_text }}</h1></legend>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    {% for option in question.options_set.all %}
-        <input type="radio" name="option" id="option{{ forloop.counter }}" value="{{ option.id }}">
-        <label for="option{{ forloop.counter }}">{{ option.options_text }}</label><br>
+    {% for answer in question.answer_set.all %}
+        <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}">
+        <label for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br>
     {% endfor %}
 </fieldset>
 <input type="submit" value="Vote">

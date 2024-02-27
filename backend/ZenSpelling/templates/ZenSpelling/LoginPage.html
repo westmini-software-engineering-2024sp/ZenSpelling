@@ -8,22 +8,17 @@
     <link rel="stylesheet" href="{% static 'ZenSpelling/loginStyle.css' %}">
 </head>
 <body>
-<img src = "{% static 'ZenSpelling/images/background.svg' %}" alt = "Background Image" class = "bg">
     <div class = "container">
-            <h1 style = "color: brown;font-size: 5em;position: relative;
-            width: 100%;
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 10px;">Zen Spelling </h1>
-            <h2> Sign In</h2>
-        <form method="post" class="loginInformation"> {% csrf_token %}
+        <form method="post" class="login"> {% csrf_token %}
+            <h1>Zen Spelling</h1>
+            <h2>Sign In</h2>
             <div class = "inputBox">
-                <label for="{{ form.username.id_for_label }}">Username:</label>
+                <!-- <label for="{{ form.username.id_for_label }}">Username:</label> -->
                 {{ form.username }}
                 <!-- <input id='username' type="text" placeholder="Username"> -->
             </div>
             <div class = "inputBox">
-                <label for="{{ form.password.id_for_label }}">Password:</label>
+                <!-- <label for="{{ form.password.id_for_label }}">Password:</label> -->
                 {{ form.password }}
                 <!--<input id = 'password' type = "text" placeholder = "Password"> -->
             </div>
@@ -33,11 +28,5 @@
             </div>
         </form>
     </div>
-
-    <!-- <script> 
-
-        button.addEventListener("click", startPageLoad());
-    
-    </script> -->
 </body>
 </html>
