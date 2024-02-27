@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Answer, Question, Course
+from .models import Answer, Question, Course, Tile
 
 
 class AnswerInline(admin.TabularInline):
@@ -20,5 +20,6 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Course)
+admin.site.register(Tile)
 
 
