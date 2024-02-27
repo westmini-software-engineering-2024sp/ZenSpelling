@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from .models import Answer, Question, Student, Course
+from .models import Answer, Question, Student, Course, Tile
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -97,3 +97,7 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse("ZenSpelling:results", args=(question.id,)))
 
+
+def tile_paths(request):
+    file_paths = list(Tile.objects.values_list('path', flat=True))
+    return JsonResponse({'tile_paths': file_paths})

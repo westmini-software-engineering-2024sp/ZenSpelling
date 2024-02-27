@@ -8,6 +8,8 @@
 html{
     height: 100vh;
     width: 100%;
+    background-image: url("images/background.svg");
+    background-size: cover;
 }
 
 header{
@@ -25,13 +27,13 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color:lightgreen;
+    /*background-color:lightgreen;*/
     height:98vh;
 }
 
 main#canvas-container{
     position:relative;
-    background-color: red;
+    /*background-color: red;*/
     margin: 2em auto;
     padding: 5em;
     border-radius: 3em;
@@ -44,7 +46,8 @@ canvas{
 }
 
 div#grid-container{
-    background-color: orange;
+    background-color: forestgreen;
+    opacity: 0.75;
     padding: 3em;
     width: 900px;
     height: 550px;
@@ -54,7 +57,8 @@ div#grid-container{
 div#tile-container{
     width: 350px;
     height: 400px;
-    background-color: blueviolet;
+    background-color: forestgreen;
+    opacity: 0.75;
     padding: 3em;
     margin-top: 7em;
     margin-left: 6em;
@@ -88,5 +92,5 @@ footer{
     margin-top: auto;
     text-align: center;
     height: 2vh;
-    background: pink;
+    /*background: pink;*/
 }
