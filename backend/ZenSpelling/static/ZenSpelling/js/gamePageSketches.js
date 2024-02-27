@@ -119,8 +119,31 @@ let TileSketch = function(sketch) {
     dragging = false;
     offsetX = 0;
     offsetY = 0;
+    showModal();
   }
 };
+
+function showModal() {
+  // Show the modal
+  $('#myModal').css('display', 'block');
+
+  // Close the modal when the close button is clicked
+  $('.close').click(function() {
+    $('#myModal').css('display', 'none');
+  });
+
+  $.ajax({
+    url: '/2',
+    method: 'GET',
+    success: function(response) {
+      console.log(response.data);
+      $('#modal-content').text(response.data);
+    },
+    error: function(xhr, status, error) {
+      console.error(xhr.responseText);
+    }
+  });
+}
 
 document.addEventListener("DOMContentLoaded", function() {
    gridSketch = new p5(GridSketch);
