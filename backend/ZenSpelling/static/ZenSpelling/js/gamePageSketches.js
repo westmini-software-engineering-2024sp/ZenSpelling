@@ -120,6 +120,7 @@ let TileSketch = function(sketch) {
     offsetX = 0;
     offsetY = 0;
     showModal();
+    // completeGame();
   }
 };
 
@@ -133,16 +134,18 @@ function showModal() {
   });
 
   $.ajax({
-    url: '/2',
+    url: '../ZenSpelling/1',
     method: 'GET',
     success: function(response) {
-      console.log(response.data);
-      $('#modal-content').text(response.data);
-    },
-    error: function(xhr, status, error) {
-      console.error(xhr.responseText);
+      let data = response;
+      console.log(data);
+      $('#modal-content').html(data);
     }
   });
+}
+
+function completeGame(){
+  window.location.href = '../complete/';
 }
 
 document.addEventListener("DOMContentLoaded", function() {
