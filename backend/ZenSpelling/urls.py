@@ -12,4 +12,5 @@ urlpatterns = [
     path("ZenSpelling/<int:pk>/", views.DetailView.as_view(), name="detail"),
     path("ZenSpelling/<int:pk>/results/", views.ResultsView.as_view(), name="results"),
     path("ZenSpelling/<int:question_id>/vote/", views.vote, name="vote"),
+    path("tilepaths/", views.tile_paths, name="tilePaths"),
 ]
