@@ -17,7 +17,12 @@
     margin-bottom: 10px;
 }
 
-.container {
+body {
+    background: url("images/background.svg");
+    object-fit: cover;
+}
+
+.container  {
     position: relative;
     display: flex;
     justify-content: center;
@@ -27,6 +32,7 @@
     overflow: hidden;
 }
 
+/*
 .container .bg {
     position: absolute;
     top: 0;
@@ -36,6 +42,8 @@
     object-fit: cover;
     pointer-events: none;
 }
+*/
+
 
 .login {
     position: relative;
@@ -51,7 +59,7 @@
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
 }
 
-.login h2, h1 {
+.container h1, h2 {
     position: relative;
     width: 100%;
     text-align: center;
@@ -73,9 +81,11 @@
 
 .login .inputBox {
     position: relative;
+    color: white;
+    font-size: 1em;
 }
 
-.login .inputBox input {
+.login .inputBox {
     position: relative;
     width: 100%;
     padding: 15px 20px;
@@ -88,7 +98,7 @@
     margin-bottom: 30px;
 }
 
-.login .inputBox .btn {
+.login .inputBox #btn {
     position: relative;
     width: 100%;
     padding: 15px 20px;
@@ -105,7 +115,7 @@
     color: black;
 }
 
-.login .inputBox .btn {
+.login .inputBox #btn {
     position: relative;
     border: none;
     outline: none;

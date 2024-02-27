@@ -3,6 +3,8 @@ from django.contrib import admin
 from .models import Answer, Question, Course, Tile
 
 
+
+admin.site.site_header = "Teacher View"
 class AnswerInline(admin.TabularInline):
     model = Answer
     extra = 4
