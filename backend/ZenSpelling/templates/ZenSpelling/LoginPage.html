@@ -5,29 +5,31 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <script src={% static 'ZenSpelling/js/LoginPage.js' %}></script>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/LoginStartPage.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/loginStyle.css' %}">
 </head>
 <body>
+<img src = "{% static 'ZenSpelling/images/background.svg' %}" alt = "Background Image" class = "bg">
     <div class = "container">
-        <img src = "{% static 'ZenSpelling/images/background.svg' %}" alt = "Background Image" class = "bg">
-        <form class = "login">
             <h1 style = "color: brown;font-size: 5em;position: relative;
             width: 100%;
             text-align: center;
             font-weight: 600;
             margin-bottom: 10px;">Zen Spelling </h1>
             <h2> Sign In</h2>
+        <form method="post" class="loginInformation"> {% csrf_token %}
             <div class = "inputBox">
                 <label for="{{ form.username.id_for_label }}">Username:</label>
-                <input id = 'username' type = "text" placeholder = "Username">
+                {{ form.username }}
+                <!-- <input id='username' type="text" placeholder="Username"> -->
             </div>
             <div class = "inputBox">
                 <label for="{{ form.password.id_for_label }}">Password:</label>
-                <input id = 'password' type = "text" placeholder = "Password">
+                {{ form.password }}
+                <!--<input id = 'password' type = "text" placeholder = "Password"> -->
             </div>
             <div class = "inputBox">
-                <!-- <input type = "submit" onclick=login() value = "login" id = "btn"> -->
-                <button class="btn" type="button" onclick = login()>Log In</button>
+                <input type = "submit" onclick=login() value = "login" id = "btn">
+                <!-- <button class="btn" type="submit" onclick = login()>Log In</button> -->
             </div>
         </form>
     </div>
