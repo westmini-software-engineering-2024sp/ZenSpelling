@@ -51,6 +51,7 @@ let TileSketch = function(sketch) {
   let offsetX = 0;
   let offsetY = 0;
   let testTile;
+  let modal = false;
 
   sketch.preload = function() {
     loadTilepaths()
@@ -116,32 +117,35 @@ let TileSketch = function(sketch) {
   }
 
   sketch.mouseReleased = function() {
-    dragging = false;
-    offsetX = 0;
-    offsetY = 0;
-    showModal();
+    if(!modal){
+      modal = showModal();
+    }
+      dragging = false;
+      offsetX = 0;
+      offsetY = 0;
+
     // completeGame();
   }
 };
 
 function showModal() {
-  // Show the modal
+  let modal = true;
+
   $('#myModal').css('display', 'block');
 
-  // Close the modal when the close button is clicked
   $('.close').click(function() {
     $('#myModal').css('display', 'none');
   });
 
   $.ajax({
-    url: '../ZenSpelling/1',
+    url: '../ZenSpelling/2',
     method: 'GET',
     success: function(response) {
-      let data = response;
-      console.log(data);
-      $('#modal-content').html(data);
+      $('#modal-content').html(response);
     }
   });
+
+  return modal;
 }
 
 function completeGame(){

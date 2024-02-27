@@ -1,4 +1,5 @@
-<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">
+{#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#} 
+<form action="{% url 'ZenSpelling:complete' %}" method="get"> <!-- Using this for demo -->
 {% csrf_token %}
 <fieldset>
     <legend><h1>{{ question.question_text }}</h1></legend>
@@ -8,6 +9,7 @@
         <label for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br>
     {% endfor %}
 </fieldset>
+
 <input type="submit" value="Let's Spell!">
 </form>
 
