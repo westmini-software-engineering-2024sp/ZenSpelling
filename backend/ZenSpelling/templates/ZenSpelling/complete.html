@@ -1,34 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Level Complete</title>
-    <link rel = "stylesheet" href = "../../static/ZenSpelling/style.css">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/style.css' %}">
 </head>
 <body>
 
-    <div class ="container">
-        <h1 class = "title"> Level Complete</h1>
+    <div class="container">
+        <h1 class="title"> Level Complete</h1>
     </div>
 
-    <a href = "StartPage.html" class = "main"> Main Menu </a>
+    <a href="/start/" class="main"> Main Menu </a>
 
-    <div class = "box">
-    <div class = "score">
-        <h3> Score: 16/16</h3>
+    <div class="box">
+    <div class="score">
+        <h3>Score: 16/16</h3>
     </div>
 
-    <div class = "percent">
+    <div class="percent">
         <h3> Percentage: 100% </h3>
     </div>
 
-    <a href = "GameSetUp.html" class = "btn"> Restart </a>
-    <a href = "#" class = "btn2"> Continue </a>
+    <a href="/setup/" class="btn">Restart</a>
+    <a href="#" class="btn2">Continue</a> <!-- will go to level select or something like that -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 
-    <script src = "js/interact.js"> </script>
+    <script src="{% static 'ZenSpelling/js/interact.js' %}"> </script>
 
 
 </body>

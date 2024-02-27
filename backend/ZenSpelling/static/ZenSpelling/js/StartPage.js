@@ -1,8 +1,7 @@
 function startGame() {
-    //window.location.href = '../html/LoginPage.html';
-    window.location.href = '../../../templates/ZenSpelling/GameSetUp.html';
+    window.location.href = '/setup/';
 }
 
 function logout() {
-    window.location.href = '../../../templates/ZenSpelling/LoginPage.html';
+    window.location.href = '/';
 }

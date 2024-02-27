@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Start Page</title>
-    <link rel="stylesheet" href="../../static/ZenSpelling/LoginStartPage.css">
-    <script src="../../static/ZenSpelling/js/StartPage.js"></script>
+    <link rel="stylesheet" href={% static 'ZenSpelling/LoginStartPage.css' %}>
+    <script src={% static 'ZenSpelling/js/StartPage.js' %}></script>
 </head>
 <body class="StartPageBackground">
     <div class="center">

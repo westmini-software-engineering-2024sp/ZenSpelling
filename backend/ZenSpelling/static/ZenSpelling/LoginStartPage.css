@@ -1,6 +1,7 @@
 /* Default of the page */
 * {
-    font-size: 12px
+    font-size: 12px;
+    font-family: 'Arial', sans-serif;
 }
 
 /* H1-H7 and p */
@@ -16,12 +17,12 @@ h2 {
 
 /* Custom body */
 .loginPageBackground {
-    background-image: url(../../templates/ZenSpelling/Assets/WebArt/LoginPageArt.png);
+    background-image: url(images/LoginPageArt.png);
     background-size: cover;
 }
 
 .StartPageBackground {
-    background-image: url(../../templates/ZenSpelling/Assets/WebArt/StartPageArt.png);
+    background-image: url(images/StartPageArt.png);
     background-size: cover;
 }
 
@@ -35,6 +36,7 @@ h2 {
     background-color: darkolivegreen;
     padding: 4rem;
     border-radius: 1rem;
+    margin-outside: 2rem;
     color: white;
     margin-left: 500px;
     margin-right: 500px;

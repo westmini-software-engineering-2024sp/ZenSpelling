@@ -1,3 +1,7 @@
 function logout() {
-    window.location.href = '../../../templates/ZenSpelling/LoginPage.html';
+    window.location.href = '/';
+}
+
+function playGame() {
+    window.location.href = '/game/'
 }

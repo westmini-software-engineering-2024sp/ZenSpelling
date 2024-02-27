@@ -1,11 +1,12 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from .models import Answer, Question
+from .models import Answer, Question, Student, Course
+from .forms import LoginForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class IndexView(generic.ListView):
@@ -32,8 +33,46 @@ class ResultsView(generic.DetailView):
     template_name = "ZenSpelling/results.html"
 
 
-class GameView(generic.TemplateView):
+class LoginView(generic.FormView):
+    form_class = LoginForm
+    template_name = "ZenSpelling/LoginPage.html"
+    success_url = "/start/"
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+
+        print(username + " " + password)
+
+        user = authenticate(self.request, username=username, password=password)
+
+        if user is not None:
+            login(self.request, user)
+            return super().form_valid(form)
+        else:
+            print("Invalid username or password")
+            form.add_error(None, "Invalid username or password")
+            return self.form_invalid(form)
+
+
+class StartView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
+    template_name = "ZenSpelling/StartPage.html"
+
+
+class SetupView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
+    template_name = "ZenSpelling/GameSetUp.html"
+
+
+class GameView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
     template_name = "ZenSpelling/gamePage.html"
+
+
+class CompleteView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
+    template_name = "ZenSpelling/complete.html"
 
 
 def vote(request, question_id):
@@ -57,9 +96,4 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse("ZenSpelling:results", args=(question.id,)))
-
-
-def play_game(request):
-    # Any additional logic for the view can be added here
-    return render(request, 'ZenSpelling/LoginPage.html')
 
