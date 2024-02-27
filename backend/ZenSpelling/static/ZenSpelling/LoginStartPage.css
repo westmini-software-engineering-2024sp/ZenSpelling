@@ -7,12 +7,12 @@
 /* H1-H7 and p */
 h1 {
     font-size: 7rem;
-    color: darkolivegreen;
+    color: brown;
 }
 
 h2 {
     font-size: 4rem;
-    color: darkolivegreen;
+    color: brown;
 }
 
 /* Custom body */
@@ -22,7 +22,7 @@ h2 {
 }
 
 .StartPageBackground {
-    background-image: url(images/StartPageArt.png);
+    background-image: url(images/background.svg);
     background-size: cover;
 }
 
@@ -50,7 +50,7 @@ h2 {
 
 /* Custom button classes */
 .startButton {
-    background-color: darkgreen;
+    background-color: transparent;
     color: white;
     border-color: dimgrey;
     font-size: 3rem;
@@ -59,7 +59,7 @@ h2 {
 }
 
 .startButton:hover {
-    background-color: green;
+    background-color: transparent;
     color: lightgrey;
     border-color: grey;
     font-size: 3rem;
