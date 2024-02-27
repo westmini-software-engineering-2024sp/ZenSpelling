@@ -4,8 +4,11 @@
 
 /* Custom div classes */
 .center {
-    text-align: center;
-    object-position: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }
 
 /* This is from LoginStartPage.css, maybe inhert down? */
@@ -19,6 +22,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
+}
+
+html {
+    background: url("images/background.svg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+h1 {
+    color: brown;
+    text-align: center;
+    object-position: center;
+    text-shadow: 1px 1px black;
+    font-size: 3.5em;
 }
 
 ul {
