@@ -123,8 +123,6 @@ let TileSketch = function(sketch) {
       dragging = false;
       offsetX = 0;
       offsetY = 0;
-
-    // completeGame();
   }
 };
 
@@ -141,7 +139,7 @@ function showModal() {
     url: '../ZenSpelling/2',
     method: 'GET',
     success: function(response) {
-      $('#modal-content').html(response);
+      $('#myModal').html(response);
     }
   });
 
@@ -156,4 +154,29 @@ document.addEventListener("DOMContentLoaded", function() {
    gridSketch = new p5(GridSketch);
    tileSketch = new p5(TileSketch);
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  const openModalBtn = document.getElementById('openModalBtn');
+  const modal = document.getElementById('modal');
+  const closeModalBtn = modal.querySelector('.close');
+
+  // Hide the modal initially using JavaScript
+  modal.style.display = 'none';
+
+  openModalBtn.addEventListener('click', () => {
+    modal.style.display = 'block';
+  });
+
+  closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  });
+});
+
+
 

@@ -1,0 +1,86 @@
+*{
+    padding:0;
+    margin:0;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.question{
+    color: white;
+    font-size: 5em;
+    text-align: center;
+    padding:1em;
+}
+
+.submit-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}
+
+.modal-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: forestgreen;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.option{
+    font-size:3em;
+    color:green;
+    background-color: white;
+    cursor:pointer;
+    border: 3px solid green;
+    border-radius:3em;
+    width: 50%;
+    padding:0.2em;
+    margin:0.1em;
+    text-align: center;
+}
+
+.choice:focus + .option{
+    background-color: green;
+    color:white;
+}
+
+.option:hover{
+    font-size:4em;
+    transition: font-size  0.5s ease-in-out;
+}
+
+.sub{
+    font-size:3em;
+    padding:1em;
+    background-color: green;
+    border-radius: 3em;
+    color:white;
+    text-align: center;
+    width:25%;
+    cursor: pointer;
+}
+
+.sub:hover{
+    font-size: 4em;
+    transition: 0.5s ease;
+}
+.choice:focus + .sub{
+    background-color: darkgreen;
+}
+
+.choice{
+    position: absolute;
+    left: -9999px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
