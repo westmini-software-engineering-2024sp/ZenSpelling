@@ -3,8 +3,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    background-color: darkgreen;
-    background-image: url("images/background.svg");
 }
 
 .title {
@@ -17,7 +15,7 @@
     margin-bottom: 10px;
 }
 
-body {
+html {
     background: url("images/background.svg");
     object-fit: cover;
 }
@@ -48,14 +46,12 @@ body {
 .login {
     position: relative;
     padding: 4em;
-    /* backdrop-filter: blur(15px); */
     border: 1px solid #fff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.0);
-    border-right: 1px solid rgba(255, 255, 255, 0.0);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
     width: 500px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
 }
 
@@ -90,12 +86,11 @@ body {
     width: 100%;
     padding: 15px 20px;
     outline: none;
-    font-size: 1.25em;
-    color:black;
+    font-size: 1.5em;
+    color:#fff;
     border-radius: 5px;
-    background: #fff;
     border: none;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .login .inputBox #btn {
