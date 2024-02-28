@@ -1,15 +1,21 @@
+{% load static %}
 {#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#} 
-<form action="{% url 'ZenSpelling:complete' %}" method="get"> <!-- Using this for demo -->
+<link rel="stylesheet" href="{% static 'ZenSpelling/modalStyle.css' %}">
+
+<form class="modal-main" action="{% url 'ZenSpelling:complete' %}" method="get"> <!-- Using this for demo -->
 {% csrf_token %}
-<fieldset>
-    <legend><h1>{{ question.question_text }}</h1></legend>
+<div class="modal-container">
+    <h1 class="question">{{ question.question_text }}</h1>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     {% for answer in question.answer_set.all %}
-        <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}">
-        <label for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br>
+        <input class="choice" type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}">
+        <label class="option" for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br>
     {% endfor %}
-</fieldset>
-
-<input type="submit" value="Let's Spell!">
+</div>
+<div class="submit-container">
+    <input class="choice" id="subinput" type="submit" value="Let's Spell!" name="sub" >
+    <label class="sub" for="subinput">Let's Spell!</label>
+</div>
 </form>
+
 

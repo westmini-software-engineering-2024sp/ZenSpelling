@@ -3,27 +3,24 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    background-color: darkgreen;
-    background-image: url("images/background.svg");
+    /*background-image: url("images/background.svg");*/
 }
 
 .title {
     color: brown;
     font-size: 5em;
-    position: relative;
     width: 100%;
     text-align: center;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
-body {
+html {
     background: url("images/background.svg");
-    object-fit: cover;
+    background-size: cover;
 }
 
 .container  {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,7 +43,6 @@ body {
 
 
 .login {
-    position: relative;
     padding: 4em;
     /* backdrop-filter: blur(15px); */
     border: 1px solid #fff;
@@ -60,7 +56,6 @@ body {
 }
 
 .container h1, h2 {
-    position: relative;
     width: 100%;
     text-align: center;
     font-size: 3em;
@@ -72,7 +67,6 @@ body {
 .login h1 {
     font-size: 5em;
     color: brown;
-    position: relative;
     width: 100%;
     text-align: center;
     font-weight: 600;
@@ -80,13 +74,11 @@ body {
 }
 
 .login .inputBox {
-    position: relative;
     color: white;
     font-size: 1em;
 }
 
 .login .inputBox {
-    position: relative;
     width: 100%;
     padding: 15px 20px;
     outline: none;
@@ -99,7 +91,6 @@ body {
 }
 
 .login .inputBox #btn {
-    position: relative;
     width: 100%;
     padding: 15px 20px;
     outline: none;
@@ -116,7 +107,6 @@ body {
 }
 
 .login .inputBox #btn {
-    position: relative;
     border: none;
     outline: none;
     background: darkgreen;
