@@ -6,6 +6,25 @@
     /*background-image: url("images/background.svg");*/
 }
 
+.teacherButton {
+    position: fixed;
+    top: 3em;
+    right: 3em;
+    border: none;
+    outline: none;
+    background: darkgreen;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.25em;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.teacherButton:hover {
+    background: green;
+    cursor: pointer;
+}
+
 .title {
     color: brown;
     font-size: 5em;
@@ -16,7 +35,7 @@
 }
 
 html {
-    background: url("images/background.svg");
+    background: green url("images/background.svg");
     background-size: cover;
 }
 
