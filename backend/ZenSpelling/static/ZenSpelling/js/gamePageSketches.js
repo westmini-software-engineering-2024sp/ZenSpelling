@@ -1,5 +1,10 @@
 let gridSketch;
 let tileSketch;
+let gridModels;
+let tileStack;
+let currentTile;
+let currentFilepath;
+let placedTilePath;
 
 let GridSketch = function(sketch) {
   sketch.gridContainer = null;
@@ -7,6 +12,7 @@ let GridSketch = function(sketch) {
   sketch.rows = 3;
   sketch.boxSize = 0;
   sketch.rotationAngle = 40;
+  gridModels = [];
 
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
@@ -15,6 +21,12 @@ let GridSketch = function(sketch) {
     let gridCanvas = sketch.createCanvas(sketch.gridContainer.width, sketch.gridContainer.height, sketch.WEBGL);
     gridCanvas.parent(sketch.canvasContainer);
     gridCanvas.class('grid-canvas');
+
+    // Initialize tile models array
+    for (let i = 0; i < sketch.cols * sketch.rows; i++) {
+      gridModels.push(null);
+    }
+    console.log(gridModels);
   }
 
   sketch.draw = function() {
@@ -22,23 +34,57 @@ let GridSketch = function(sketch) {
     // sketch.background("#228B22FF");
     sketch.translate(0, -100, -300);
 
+    let gridIndex = 0;
+
     for (let i = 0; i < sketch.cols; i++) {
       for (let j = 0; j < sketch.rows; j++) {
         let x = i * sketch.boxSize;
         let y = j * sketch.boxSize * sketch.cos(sketch.radians(sketch.rotationAngle));
         let z = j * sketch.boxSize * sketch.sin(sketch.radians(sketch.rotationAngle));
-        sketch.drawBox(x, y, z, sketch.boxSize, sketch.rotationAngle);
+
+        sketch.drawBox(x, y, z, sketch.boxSize, sketch.rotationAngle, gridModels[gridIndex]);
+        // console.log(gridIndex + ' : ' + gridModels[gridIndex]);
+        gridIndex++;
       }
     }
   }
 
-  sketch.drawBox = function(x, y, z, size, rotationAngle) {
+  sketch.drawBox = function(x, y, z, size, rotationAngle, model) {
     sketch.push();
     sketch.translate(x - sketch.width / 2 + size, y - sketch.height / 2 + size, z - sketch.height / 2);
-    sketch.rotateX(sketch.radians(rotationAngle));
-    sketch.fill('#6C3413FF');
-    sketch.box(size, size, size / 2);
+
+    if (model) {
+      sketch.rotateX(sketch.radians(150));
+      sketch.fill('#6C3413FF');
+      sketch.model(model);
+    } else {
+      sketch.rotateX(sketch.radians(rotationAngle));
+      sketch.fill('#6C3413FF');
+      sketch.box(size, size, size / 2);
+    }
     sketch.pop();
+  }
+
+  sketch.mouseReleased = function() {
+    // Calculate grid position based on mouse coordinates
+    let col = Math.floor(sketch.mouseX / sketch.boxSize);
+    console.log(col);
+    let row = Math.floor(sketch.mouseY / (sketch.boxSize * sketch.cos(sketch.radians(sketch.rotationAngle))));
+    console.log(row);
+
+    // Calculate index in tileModels array
+    let index = col + row;
+    console.log(index);
+
+    // Assign the next filepath from the stack to the clicked position
+    if (index < sketch.cols * sketch.rows) {
+      console.log('A');
+      console.log(currentTile);
+      gridModels[index] = sketch.loadModel(currentFilepath, true);
+      console.log('B');
+    }
+
+    console.log(gridModels);
   }
 };
 
@@ -46,12 +92,13 @@ let TileSketch = function(sketch) {
   sketch.canvasContainer = null;
   sketch.tileContainer = null;
   sketch.tileSize = 0;
-  let filepaths = []
+
   let dragging = false;
   let offsetX = 0;
   let offsetY = 0;
-  let testTile;
   let modal = false;
+
+  tileStack = []; // Initialize an empty array to act as a stack for file paths
 
   sketch.preload = function() {
     loadTilepaths()
@@ -68,13 +115,22 @@ let TileSketch = function(sketch) {
   }
 
   function loadTilepaths() {
-  fetch('/tilepaths/')
-    .then(response => response.json())
-    .then(data => {
-      filepaths = data.tile_paths;
-      testTile = sketch.loadModel(filepaths[0], true);
-    })
-    .catch(error => console.error('Error fetching filepaths:', error));
+    fetch('/tilepaths/')
+      .then(response => response.json())
+      .then(data => {
+        tileStack.push(...data.tile_paths);
+        loadNextTile();
+      })
+      .catch(error => console.error('Error fetching filepaths:', error));
+  }
+
+  function loadNextTile() {
+    currentFilepath = tileStack.pop();
+    if (currentFilepath) {
+      currentTile = sketch.loadModel(currentFilepath, true);
+    } else {
+      console.log('No more tiles in stack');
+    }
   }
 
   sketch.draw = function() {
@@ -94,15 +150,14 @@ let TileSketch = function(sketch) {
     sketch.rotateX(sketch.radians(40));
     sketch.fill('#6C3413FF');
 
-    // sketch.box(sketch.tileSize, sketch.tileSize, sketch.tileSize / 2);
-    if (testTile) {
-    sketch.model(testTile);
+    if (currentTile) {
+    sketch.model(currentTile);
     }
   }
 
   sketch.mousePressed = function() {
     let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.canvasContainer.width/2 - (sketch.width/3), sketch.canvasContainer.height/2);
-    if (d < sketch.tileSize/2) {
+    if (d < sketch.tileSize) {
       dragging = true;
     }
     return false;
@@ -117,9 +172,12 @@ let TileSketch = function(sketch) {
   }
 
   sketch.mouseReleased = function() {
-    if(!modal){
-      modal = showModal();
-    }
+    placedTilePath = currentFilepath;
+    loadNextTile();
+
+    // if(!modal){
+    //   modal = showModal();
+    // }
       dragging = false;
       offsetX = 0;
       offsetY = 0;
@@ -172,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   window.addEventListener('click', (event) => {
-    if (event.target == modal) {
+    if (event.target === modal) {
       modal.style.display = 'none';
     }
   });
