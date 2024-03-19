@@ -136,7 +136,7 @@ function showModal() {
   });
 
   $.ajax({
-    url: '../ZenSpelling/2',
+    url: '../ZenSpelling/' + generateQuestion(),
     method: 'GET',
     success: function(response) {
       $('#myModal').html(response);
@@ -144,6 +144,17 @@ function showModal() {
   });
 
   return modal;
+}
+
+/*
+ * This function will generate which question should pop up
+ * In the end, I want this to generate the question array with length gameboardSize
+ */
+function generateQuestion() {
+  var gameboardSize = localStorage.getItem('gameboardSize');
+  console.log(gameboardSize);
+
+  return Math.floor(Math.random() * gameboardSize) + 1;
 }
 
 function completeGame(){
