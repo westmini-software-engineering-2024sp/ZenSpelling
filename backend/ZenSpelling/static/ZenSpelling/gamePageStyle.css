@@ -13,31 +13,16 @@ html{
     overflow: hidden;
 }
 
-header{
-    display: flex;
-    justify-content: center;
-    padding: 3em 0 0 0;
-    color: darkgreen;
-}
-
-h1 {
-    font-size: 3em;
-}
-
 body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /*background-color:lightgreen;*/
     height:98vh;
     overflow:hidden;
 }
 
 main#canvas-container{
     position:relative;
-    /*background-color: red;*/
-    margin: 2em auto;
-    padding: 5em;
     border-radius: 3em;
     height:90vh;
     width:100vw;
@@ -95,7 +80,6 @@ footer{
     height: 2vh;
 }
 
-/* Modal styles */
 .modal {
     position: fixed;
     z-index: 1;
