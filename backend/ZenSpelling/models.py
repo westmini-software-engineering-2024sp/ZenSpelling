@@ -24,7 +24,7 @@ class Student(models.Model):
             return 0
 
     @staticmethod
-    def authenticate_user(self, username, password):
+    def authenticate_user(username, password):
         user = authenticate(username=username, password=password)
         return user
 
@@ -76,18 +76,10 @@ class Tile(models.Model):
 class QuestionSet(models.Model):
     name = models.CharField(max_length=200)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-
-class MultipleQuestion(models.Model):
-    questionSet = models.ForeignKey(QuestionSet, on_delete=models.CASCADE)
     questions = models.ManyToManyField(Question)
 
+    @admin.display(
+        description='Set of questions to be answered in a level'
+    )
     def __str__(self):
-        return self.questionSet.name
-
-
-
-
+        return self.name

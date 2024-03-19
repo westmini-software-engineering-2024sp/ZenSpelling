@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Answer, Question, Course, Tile, MultipleQuestion, QuestionSet
+from .models import Answer, Question, Course, Tile, QuestionSet
 
 
 admin.site.site_header = "Teacher View"
@@ -23,13 +23,13 @@ class QuestionAdmin(admin.ModelAdmin):
 
 class AddQuestionSet(admin.ModelAdmin):
     fieldsets = [
-        (None, {"fields": ["name", "course"]})
+        (None, {"fields": [("name", "course"), "questions"]})
     ]
+    list_display = ["name"]
+    search_fields = ["name"]
 
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Course)
 admin.site.register(Tile)
-admin.site.register(AddQuestionSet)
-
-
+admin.site.register(QuestionSet, AddQuestionSet)
