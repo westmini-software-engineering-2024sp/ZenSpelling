@@ -1,10 +1,13 @@
 let gridSketch;
 let tileSketch;
-let gridModels;
+let gridCollisions;
 let tileStack;
 let currentTile;
 let currentFilepath;
 let placedTilePath;
+let dataArray = {};
+let tileSize = 0;
+let placed = false;
 
 let GridSketch = function(sketch) {
   sketch.gridContainer = null;
@@ -12,27 +15,40 @@ let GridSketch = function(sketch) {
   sketch.rows = 3;
   sketch.boxSize = 0;
   sketch.rotationAngle = 40;
-  gridModels = [];
 
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
     sketch.gridContainer = sketch.select('#grid-container');
-    sketch.boxSize = sketch.gridContainer.width / 4;
+
     let gridCanvas = sketch.createCanvas(sketch.gridContainer.width, sketch.gridContainer.height, sketch.WEBGL);
+
     gridCanvas.parent(sketch.canvasContainer);
     gridCanvas.class('grid-canvas');
 
-    // Initialize tile models array
-    for (let i = 0; i < sketch.cols * sketch.rows; i++) {
-      gridModels.push(null);
+    sketch.calculateBoxSize();
+
+    // Initialize utility data
+    for (let i = 0; i < sketch.cols; i++) {
+        for(let j = 0; j < sketch.rows; j++){
+            let key = i.toString() + j.toString();
+            dataArray[key] = {
+              x: "0",
+              y: "0",
+              z: "0",
+              collision: false,
+              model : ""
+            };
+        }
     }
-    console.log(gridModels);
+  }
+
+  sketch.calculateBoxSize = function() {
+    sketch.boxSize = sketch.gridContainer.width / 4;
   }
 
   sketch.draw = function() {
     sketch.clear();
-    // sketch.background("#228B22FF");
-    sketch.translate(0, -100, -300);
+    sketch.translate(0, -100, -200);
 
     let gridIndex = 0;
 
@@ -42,56 +58,69 @@ let GridSketch = function(sketch) {
         let y = j * sketch.boxSize * sketch.cos(sketch.radians(sketch.rotationAngle));
         let z = j * sketch.boxSize * sketch.sin(sketch.radians(sketch.rotationAngle));
 
-        sketch.drawBox(x, y, z, sketch.boxSize, sketch.rotationAngle, gridModels[gridIndex]);
-        // console.log(gridIndex + ' : ' + gridModels[gridIndex]);
+        dataArray[i + '' + j].x = x;
+        dataArray[i + '' + j].y = y;
+        dataArray[i + '' + j].z = z;
+
+        sketch.drawBox(x, y, z, sketch.boxSize, sketch.rotationAngle, dataArray[i + '' + j].model, sketch.rotationAngle, dataArray[i + '' + j].collision);
+
         gridIndex++;
       }
     }
   }
 
-  sketch.drawBox = function(x, y, z, size, rotationAngle, model) {
+  sketch.drawBox = function(x, y, z, size, rotationAngle, model, collision) {
     sketch.push();
     sketch.translate(x - sketch.width / 2 + size, y - sketch.height / 2 + size, z - sketch.height / 2);
+    // sketch.translate(x,y,z);
+    if(collision){
+      sketch.fill('rgba(255,255,255,0.5)');
+    } else {
+      sketch.fill('rgba(255,255,255,0.10)');
+    }
 
     if (model) {
-      sketch.rotateX(sketch.radians(150));
-      sketch.fill('#6C3413FF');
-      sketch.model(model);
+      sketch.image(model, -100, -100);
     } else {
       sketch.rotateX(sketch.radians(rotationAngle));
-      sketch.fill('#6C3413FF');
       sketch.box(size, size, size / 2);
     }
     sketch.pop();
   }
 
+  sketch.setCollisionStatus = function(index, status) {
+    gridCollisions[index] = status;
+  }
+
   sketch.mouseReleased = function() {
     // Calculate grid position based on mouse coordinates
-    let col = Math.floor(sketch.mouseX / sketch.boxSize);
-    console.log(col);
-    let row = Math.floor(sketch.mouseY / (sketch.boxSize * sketch.cos(sketch.radians(sketch.rotationAngle))));
-    console.log(row);
-
-    // Calculate index in tileModels array
-    let index = col + row;
-    console.log(index);
-
-    // Assign the next filepath from the stack to the clicked position
-    if (index < sketch.cols * sketch.rows) {
-      console.log('A');
-      console.log(currentTile);
-      gridModels[index] = sketch.loadModel(currentFilepath, true);
-      console.log('B');
+    let gridSize = Object.keys(dataArray).length;
+    for(let i = 0; i < Math.sqrt(gridSize); i++){
+      for(let j = 0; j < Math.sqrt(gridSize); j++){
+        let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x, dataArray[i + '' + j].y);
+        console.log("x:", sketch.mouseX);
+        console.log("gridX: ", dataArray[i + '' + j].x);
+        console.log("y: ", sketch.mouseY);
+        console.log("gridY: ", dataArray[i + '' + j].y);
+        if (d < tileSize && dataArray[i + '' + j].model === '') {
+          dataArray[i + '' + j].model = sketch.loadImage(currentFilepath, function (img) {
+            img.resize(300, 0);
+            placed = true;
+          })
+        }
+      }
     }
+  }
 
-    console.log(gridModels);
+  sketch.windowResized = function() {
+    sketch.calculateBoxSize();
+    sketch.resizeCanvas(sketch.gridContainer.width, sketch.gridContainer.height);
   }
 };
 
 let TileSketch = function(sketch) {
   sketch.canvasContainer = null;
   sketch.tileContainer = null;
-  sketch.tileSize = 0;
 
   let dragging = false;
   let offsetX = 0;
@@ -107,11 +136,17 @@ let TileSketch = function(sketch) {
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
     sketch.tileContainer = sketch.select('#tile-container');
-    sketch.tileSize = sketch.tileContainer.width / 2.5;
 
     let tileCanvas = sketch.createCanvas(sketch.canvasContainer.width, sketch.canvasContainer.height, sketch.WEBGL);
     tileCanvas.parent(sketch.canvasContainer);
     tileCanvas.class('tile-canvas');
+
+    sketch.calculateTileSize();
+    loadTilepaths();
+  }
+
+  sketch.calculateTileSize = function() {
+    tileSize = sketch.tileContainer.width / 2.5;
   }
 
   function loadTilepaths() {
@@ -127,60 +162,81 @@ let TileSketch = function(sketch) {
   function loadNextTile() {
     currentFilepath = tileStack.pop();
     if (currentFilepath) {
-      currentTile = sketch.loadModel(currentFilepath, true);
+      currentTile = sketch.loadImage(currentFilepath, function(img) {
+        img.resize(300, 0);
+      });
     } else {
-      console.log('No more tiles in stack');
+      currentTile = '';
     }
   }
 
   sketch.draw = function() {
     sketch.clear();
-    // sketch.background("pink");
 
     if(!dragging){
-      offsetX = -sketch.width / 3
-      sketch.translate(offsetX, offsetY);
-      sketch.rotateY(sketch.frameCount * 0.0125);
-    } else {
-      sketch.translate(offsetX, offsetY);
+      offsetX = -sketch.width / 2.5;
+      offsetY = -sketch.height / 2.5;
     }
 
-    sketch.rotateX(sketch.PI);
-    sketch.rotateY(sketch.PI);
-    sketch.rotateX(sketch.radians(40));
-    sketch.fill('#6C3413FF');
+    sketch.translate(offsetX, offsetY);
 
     if (currentTile) {
-    sketch.model(currentTile);
+        sketch.image(currentTile, 0, 0);
     }
   }
 
   sketch.mousePressed = function() {
-    let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.canvasContainer.width/2 - (sketch.width/3), sketch.canvasContainer.height/2);
-    if (d < sketch.tileSize) {
-      dragging = true;
+    let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.canvasContainer.width / 2 - (sketch.width / 3), sketch.canvasContainer.height / 2);
+    if (d < tileSize) {
+        dragging = true;
     }
     return false;
   }
 
-  sketch.mouseDragged = function() {
+sketch.mouseDragged = function() {
     if (dragging) {
-      offsetX = sketch.mouseX - sketch.width / 2;
-      offsetY = sketch.mouseY - sketch.height / 2;
-      return false;
+        offsetX = sketch.mouseX - sketch.width / 1.5;
+        offsetY = sketch.mouseY - sketch.height / 1.5;
+        return false;
     }
   }
 
+    // Loop through grid sketches and check for collision
+    // for (let i = 0; i < gridSketch.cols * gridSketch.rows; i++) {
+    //   let gridX = i % gridSketch.cols * gridSketch.boxSize;
+    //   let gridY = Math.floor(i / gridSketch.cols) * gridSketch.boxSize * sketch.cos(sketch.radians(gridSketch.rotationAngle));
+    //   let gridWidth = gridSketch.boxSize;
+    //   let gridHeight = gridSketch.boxSize;
+    //
+    //   // Check collision with current grid box
+    //   if (sketch.collidePointRect(sketch.mouseX, sketch.mouseY, gridX, gridY, gridWidth, gridHeight)) {
+    //     // Collision detected with grid box i
+    //     gridSketch.setCollisionStatus(i, true);
+    //   } else {
+    //     // No collision detected, reset collision status for this box
+    //     gridSketch.setCollisionStatus(i, false);
+    //   }
+    // }
+
+
   sketch.mouseReleased = function() {
     placedTilePath = currentFilepath;
-    loadNextTile();
+    if(placed){
+      loadNextTile();
+    }
 
     // if(!modal){
     //   modal = showModal();
     // }
       dragging = false;
+      placed = false;
       offsetX = 0;
       offsetY = 0;
+  }
+
+  sketch.windowResized = function() {
+    sketch.calculateTileSize();
+    sketch.resizeCanvas(sketch.canvasContainer.width, sketch.canvasContainer.height);
   }
 };
 
@@ -234,6 +290,11 @@ document.addEventListener("DOMContentLoaded", function() {
       modal.style.display = 'none';
     }
   });
+
+  window.addEventListener('resize', function () {
+    "use strict";
+    window.location.reload();
+});
 });
 
 

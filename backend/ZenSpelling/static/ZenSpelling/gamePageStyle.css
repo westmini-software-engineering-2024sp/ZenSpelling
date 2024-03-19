@@ -36,14 +36,14 @@ div#grid-container{
     background-color: forestgreen;
     opacity: 0.75;
     padding: 3em;
-    width: 900px;
-    height: 550px;
+    width: 60%;
+    height: 100%;
     border-radius: 3em;
 }
 
 div#tile-container{
-    width: 300px;
-    height: 400px;
+    width: 20%;
+    height: 80%;
     background-color: forestgreen;
     opacity: 0.75;
     padding: 3em;
