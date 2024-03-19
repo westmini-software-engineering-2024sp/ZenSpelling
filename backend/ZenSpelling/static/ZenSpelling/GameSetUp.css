@@ -18,11 +18,17 @@
     right: 3rem;
 }
 
+.logoutButton:hover {
+    border-color: #006b1b;
+    border-radius: .5em;
+    background-color: #fff;
+    cursor: pointer;
+}
+
 .item-center {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
 }
 
 html {
