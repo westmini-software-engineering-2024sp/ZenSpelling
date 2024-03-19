@@ -71,3 +71,23 @@ class Tile(models.Model):
 
     def __str__(self):
         return self.path
+
+
+class QuestionSet(models.Model):
+    name = models.CharField(max_length=200)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class MultipleQuestion(models.Model):
+    questionSet = models.ForeignKey(QuestionSet, on_delete=models.CASCADE)
+    questions = models.ManyToManyField(Question)
+
+    def __str__(self):
+        return self.questionSet.name
+
+
+
+
