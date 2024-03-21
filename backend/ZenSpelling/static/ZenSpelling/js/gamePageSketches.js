@@ -8,13 +8,13 @@ let placedTilePath;
 let dataArray = {};
 let tileSize = 0;
 let placed = false;
+let shiftX, shiftY;
 
 let GridSketch = function(sketch) {
   sketch.gridContainer = null;
-  sketch.cols = 3;
-  sketch.rows = 3;
+  sketch.cols = 4;
+  sketch.rows = 4;
   sketch.boxSize = 0;
-  sketch.rotationAngle = 40;
 
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
@@ -33,7 +33,6 @@ let GridSketch = function(sketch) {
         dataArray[key] = {
           x: "0",
           y: "0",
-          z: "0",
           collision: false,
           model : ""
         };
@@ -42,48 +41,41 @@ let GridSketch = function(sketch) {
   }
 
   sketch.calculateBoxSize = function() {
-    sketch.boxSize = sketch.gridContainer.width / 4;
+    sketch.boxSize = sketch.gridContainer.height * 0.9 / sketch.cols;
   }
 
   sketch.draw = function() {
     sketch.clear();
-    sketch.translate(0, -100, -200);
-
-    let gridIndex = 0;
 
     for (let i = 0; i < sketch.cols; i++) {
       for (let j = 0; j < sketch.rows; j++) {
-        let x = i * sketch.boxSize;
-        let y = j * sketch.boxSize * sketch.cos(sketch.radians(sketch.rotationAngle));
-        let z = j * sketch.boxSize * sketch.sin(sketch.radians(sketch.rotationAngle));
+        let x = (i * sketch.boxSize) - (sketch.rows/2 * sketch.boxSize);
+        let y = (j * sketch.boxSize) - (sketch.cols/2 * sketch.boxSize);
 
         dataArray[i + '' + j].x = x;
         dataArray[i + '' + j].y = y;
-        dataArray[i + '' + j].z = z;
 
-        sketch.drawBox(x, y, z, sketch.boxSize, sketch.rotationAngle, dataArray[i + '' + j].model, sketch.rotationAngle, dataArray[i + '' + j].collision);
-
-        gridIndex++;
+        sketch.drawBox(x, y, sketch.boxSize, dataArray[i + '' + j].model, dataArray[i + '' + j].collision);
       }
     }
   }
 
-  sketch.drawBox = function(x, y, z, size, rotationAngle, model, collision) {
+  sketch.drawBox = function(x, y, size, model, collision) {
     sketch.push();
-    sketch.translate(x - sketch.width / 2 + size, y - sketch.height / 2 + size, z - sketch.height / 2);
 
-    if(collision){
-      sketch.fill('rgba(255,255,255,0.5)');
+    if(collision === true){
+      console.log('collision');
+      sketch.fill('rgba(175,155,29,0.5)');
     } else {
       sketch.fill('rgba(255,255,255,0.10)');
     }
 
     if (model) {
-      sketch.image(model, -100, -100);
+      sketch.image(model, x, y);
     } else {
-      sketch.rotateX(sketch.radians(rotationAngle));
-      sketch.box(size, size, size / 2);
+      sketch.square(x, y, size);
     }
+
     sketch.pop();
   }
 
@@ -93,14 +85,18 @@ let GridSketch = function(sketch) {
 
   sketch.mouseReleased = function() {
     let gridSize = Object.keys(dataArray).length;
+    let xShift = sketch.gridContainer.width/2 + sketch.boxSize/2;
+    let yShift = sketch.gridContainer.height/2 + sketch.boxSize/2;
+
     for(let i = 0; i < Math.sqrt(gridSize); i++){
       for(let j = 0; j < Math.sqrt(gridSize); j++){
-        let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x, dataArray[i + '' + j].y);
-        if (d < tileSize && dataArray[i + '' + j].model === '') {
+        let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
+
+        if (d < tileSize/2 && dataArray[i + '' + j].model === '') {
           dataArray[i + '' + j].model = sketch.loadImage(currentFilepath, function (img) {
-            img.resize(300, 0);
+            img.resize(sketch.boxSize, 0);
             placed = true;
-          })
+          });
         }
       }
     }
@@ -189,28 +185,21 @@ let TileSketch = function(sketch) {
 
   sketch.mouseDragged = function() {
     if (dragging) {
-        offsetX = sketch.mouseX - sketch.width / 1.5;
-        offsetY = sketch.mouseY - sketch.height / 1.5;
+        offsetX = sketch.mouseX - sketch.width/1.8;
+        offsetY = sketch.mouseY - sketch.height/1.2;
         return false;
+    }
+
+    let gridSize = Object.keys(dataArray).length;
+
+    for (let i = 0; i < gridSketch.cols * gridSketch.rows; i++) {
+      for (let j = 0; j < Math.sqrt(gridSize); j++){
+        let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + shiftX, dataArray[i + '' + j].y + shiftY);
+        dataArray[i + '' + j].collision = d < tileSize;
+      }
     }
   }
 
-    // Loop through grid sketches and check for collision
-    // for (let i = 0; i < gridSketch.cols * gridSketch.rows; i++) {
-    //   let gridX = i % gridSketch.cols * gridSketch.boxSize;
-    //   let gridY = Math.floor(i / gridSketch.cols) * gridSketch.boxSize * sketch.cos(sketch.radians(gridSketch.rotationAngle));
-    //   let gridWidth = gridSketch.boxSize;
-    //   let gridHeight = gridSketch.boxSize;
-    //
-    //   // Check collision with current grid box
-    //   if (sketch.collidePointRect(sketch.mouseX, sketch.mouseY, gridX, gridY, gridWidth, gridHeight)) {
-    //     // Collision detected with grid box i
-    //     gridSketch.setCollisionStatus(i, true);
-    //   } else {
-    //     // No collision detected, reset collision status for this box
-    //     gridSketch.setCollisionStatus(i, false);
-    //   }
-    // }
 
   sketch.mouseReleased = function() {
     placedTilePath = currentFilepath;
@@ -231,7 +220,7 @@ let TileSketch = function(sketch) {
     sketch.calculateTileSize();
     sketch.resizeCanvas(sketch.canvasContainer.width, sketch.canvasContainer.height);
   }
-};
+}
 
 function showModal() {
   let modal = true;
@@ -258,11 +247,9 @@ function completeGame(){
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-   gridSketch = new p5(GridSketch);
-   tileSketch = new p5(TileSketch);
-});
+  gridSketch = new p5(GridSketch);
+  tileSketch = new p5(TileSketch);
 
-document.addEventListener("DOMContentLoaded", function() {
   const openModalBtn = document.getElementById('openModalBtn');
   const modal = document.getElementById('modal');
   const closeModalBtn = modal.querySelector('.close');
@@ -283,9 +270,8 @@ document.addEventListener("DOMContentLoaded", function() {
       modal.style.display = 'none';
     }
   });
+});
 
-  window.addEventListener('resize', function () {
-    "use strict";
+window.addEventListener('resize', function () {
     window.location.reload();
   });
-});

@@ -36,10 +36,12 @@ canvas{
 div#grid-container{
     background-color: forestgreen;
     opacity: 0.75;
-    padding: 3em;
     width: 60%;
     height: 90%;
     border-radius: 3em;
+    position: absolute;
+    top: 5em;
+    left:40em;
 }
 
 div#tile-container{
@@ -56,6 +58,7 @@ div#tile-container{
     position: absolute;
     top: 5em;
     left:40em;
+    background-color: orange;
 }
 
 .tile-canvas{
@@ -77,6 +80,7 @@ footer{
     margin-top: auto;
     text-align: center;
     height: 2vh;
+    color: white;
 }
 
 .modal {
