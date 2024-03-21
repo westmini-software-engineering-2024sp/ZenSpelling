@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Answer, Question, Course, Tile, QuestionSet
+from .models import Answer, Question, Course, Tile, QuestionSet, Student
 
 
 admin.site.site_header = "Teacher View"
@@ -32,4 +32,5 @@ class AddQuestionSet(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Course)
 admin.site.register(Tile)
+admin.site.register(Student)
 admin.site.register(QuestionSet, AddQuestionSet)
