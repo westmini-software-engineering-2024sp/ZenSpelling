@@ -29,7 +29,16 @@ let GridSketch = function(sketch) {
     gridDimension = 4;
 
     sketch.calculateBoxSize();
+    sketch.buildDataArray();
+  }
 
+  sketch.calculateBoxSize = function() {
+    sketch.boxSize = sketch.gridContainer.height * 0.9 / gridDimension;
+    xShift = sketch.gridContainer.width/2 + sketch.boxSize/2;
+    yShift = sketch.gridContainer.height/2 + sketch.boxSize/2;
+  }
+
+  sketch.buildDataArray = function() {
     for (let i = 0; i < gridDimension; i++) {
       for(let j = 0; j < gridDimension; j++){
         let key = i.toString() + j.toString();
@@ -43,22 +52,13 @@ let GridSketch = function(sketch) {
     }
   }
 
-  sketch.calculateBoxSize = function() {
-    sketch.boxSize = sketch.gridContainer.height * 0.9 / gridDimension;
-    xShift = sketch.gridContainer.width/2 + sketch.boxSize/2;
-    yShift = sketch.gridContainer.height/2 + sketch.boxSize/2;
-  }
-
   sketch.draw = function() {
     sketch.clear();
 
     for (let i = 0; i < gridDimension; i++) {
       for (let j = 0; j < gridDimension; j++) {
-        let x = (i * sketch.boxSize) - (gridDimension/2 * sketch.boxSize);
-        let y = (j * sketch.boxSize) - (gridDimension/2 * sketch.boxSize);
-
-        dataArray[i + '' + j].x = x;
-        dataArray[i + '' + j].y = y;
+        let x = dataArray[i + '' + j].x = (i * sketch.boxSize) - (gridDimension/2 * sketch.boxSize);
+        let y = dataArray[i + '' + j].y = (j * sketch.boxSize) - (gridDimension/2 * sketch.boxSize);
 
         sketch.drawBox(x, y, sketch.boxSize, dataArray[i + '' + j].model, dataArray[i + '' + j].collision);
       }
