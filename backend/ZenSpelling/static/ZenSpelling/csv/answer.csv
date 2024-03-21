@@ -6,3 +6,15 @@ malebox,2,False
 mailbocks,2,False
 mailbox,2,True
 maelbox,2,False
+fruit,3,True
+fuirt,3,False
+vetable,3,False
+vegetables,3,False
+yes,4,False
+no,4,True
+yes/no,4,False
+definitely not,4,False
+pats,5,False
+pets,5,True
+petas,5,False
+peta,5,False

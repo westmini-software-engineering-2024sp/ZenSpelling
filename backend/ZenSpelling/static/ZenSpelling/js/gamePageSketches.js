@@ -135,8 +135,12 @@ function showModal() {
     $('#myModal').css('display', 'none');
   });
 
+  if (localStorage.getItem('questionsGenerated') === 'true') {
+    generateQuestion();
+  }
+
   $.ajax({
-    url: '../ZenSpelling/' + generateQuestion(),
+    url: '../ZenSpelling/' + getGeneratedQuestion(),
     method: 'GET',
     success: function(response) {
       $('#myModal').html(response);
@@ -154,7 +158,27 @@ function generateQuestion() {
   var gameboardSize = localStorage.getItem('gameboardSize');
   console.log(gameboardSize);
 
-  return Math.floor(Math.random() * gameboardSize) + 1;
+  var questionArray = [];
+
+  for (let i = 0; i < gameboardSize; i++) {
+    let uniqueNumber;
+    do {
+      uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;
+    } while (questionArray.includes(uniqueNumber)); // Ensure the number is unique
+    questionArray[i] = uniqueNumber;
+  }
+
+  localStorage.setItem('questionBank', JSON.stringify(questionArray));
+  localStorage.setItem('questionNumber', 0);
+  localStorage.setItem('questionsGenerated', 'true');
+}
+
+function getGeneratedQuestion() {
+  //console.log(localStorage);
+  var question = JSON.parse(localStorage.getItem('questionBank'));
+  var index = localStorage.getItem('questionNumber');
+  localStorage.setItem('questionNumber', (index+1));
+  return question[index];
 }
 
 function completeGame(){
