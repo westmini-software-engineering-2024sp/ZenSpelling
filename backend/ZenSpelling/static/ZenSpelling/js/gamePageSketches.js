@@ -136,6 +136,7 @@ function showModal() {
   });
 
   if (localStorage.getItem('questionsGenerated') === 'true') {
+    console.log("Generating Questions");
     generateQuestion();
   }
 
@@ -150,35 +151,13 @@ function showModal() {
   return modal;
 }
 
-/*
- * This function will generate which question should pop up
- * In the end, I want this to generate the question array with length gameboardSize
- */
-function generateQuestion() {
-  var gameboardSize = localStorage.getItem('gameboardSize');
-  console.log(gameboardSize);
-
-  var questionArray = [];
-
-  for (let i = 0; i < gameboardSize; i++) {
-    let uniqueNumber;
-    do {
-      uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;
-    } while (questionArray.includes(uniqueNumber)); // Ensure the number is unique
-    questionArray[i] = uniqueNumber;
-  }
-
-  localStorage.setItem('questionBank', JSON.stringify(questionArray));
-  localStorage.setItem('questionNumber', 0);
-  localStorage.setItem('questionsGenerated', 'true');
-}
-
 function getGeneratedQuestion() {
-  //console.log(localStorage);
-  var question = JSON.parse(localStorage.getItem('questionBank'));
+  console.log(localStorage);
+  return 2;
+  /*var question = JSON.parse(localStorage.getItem('questionBank'));
   var index = localStorage.getItem('questionNumber');
   localStorage.setItem('questionNumber', (index+1));
-  return question[index];
+  return question[index];*/
 }
 
 function completeGame(){
