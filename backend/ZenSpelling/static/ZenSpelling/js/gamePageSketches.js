@@ -1,19 +1,20 @@
 let gridSketch;
 let tileSketch;
 let gridCollisions;
-let tileStack;
+let tileStack = [];
 let currentTile;
 let currentFilepath;
 let placedTilePath;
 let dataArray = {};
 let tileSize = 0;
 let placed = false;
-let shiftX, shiftY;
+let xShift, yShift;
+let tileLeftOffset, gridLeftOffset, tileGridOffsetDiff;
+let dragging= false;
+let gridDimension;
 
 let GridSketch = function(sketch) {
   sketch.gridContainer = null;
-  sketch.cols = 4;
-  sketch.rows = 4;
   sketch.boxSize = 0;
 
   sketch.setup = function() {
@@ -25,10 +26,12 @@ let GridSketch = function(sketch) {
     gridCanvas.parent(sketch.canvasContainer);
     gridCanvas.class('grid-canvas');
 
+    gridDimension = 4;
+
     sketch.calculateBoxSize();
 
-    for (let i = 0; i < sketch.cols; i++) {
-      for(let j = 0; j < sketch.rows; j++){
+    for (let i = 0; i < gridDimension; i++) {
+      for(let j = 0; j < gridDimension; j++){
         let key = i.toString() + j.toString();
         dataArray[key] = {
           x: "0",
@@ -41,16 +44,18 @@ let GridSketch = function(sketch) {
   }
 
   sketch.calculateBoxSize = function() {
-    sketch.boxSize = sketch.gridContainer.height * 0.9 / sketch.cols;
+    sketch.boxSize = sketch.gridContainer.height * 0.9 / gridDimension;
+    xShift = sketch.gridContainer.width/2 + sketch.boxSize/2;
+    yShift = sketch.gridContainer.height/2 + sketch.boxSize/2;
   }
 
   sketch.draw = function() {
     sketch.clear();
 
-    for (let i = 0; i < sketch.cols; i++) {
-      for (let j = 0; j < sketch.rows; j++) {
-        let x = (i * sketch.boxSize) - (sketch.rows/2 * sketch.boxSize);
-        let y = (j * sketch.boxSize) - (sketch.cols/2 * sketch.boxSize);
+    for (let i = 0; i < gridDimension; i++) {
+      for (let j = 0; j < gridDimension; j++) {
+        let x = (i * sketch.boxSize) - (gridDimension/2 * sketch.boxSize);
+        let y = (j * sketch.boxSize) - (gridDimension/2 * sketch.boxSize);
 
         dataArray[i + '' + j].x = x;
         dataArray[i + '' + j].y = y;
@@ -64,8 +69,7 @@ let GridSketch = function(sketch) {
     sketch.push();
 
     if(collision === true){
-      console.log('collision');
-      sketch.fill('rgba(175,155,29,0.5)');
+      sketch.fill('rgba(61,175,29,1.0)');
     } else {
       sketch.fill('rgba(255,255,255,0.10)');
     }
@@ -84,15 +88,11 @@ let GridSketch = function(sketch) {
   }
 
   sketch.mouseReleased = function() {
-    let gridSize = Object.keys(dataArray).length;
-    let xShift = sketch.gridContainer.width/2 + sketch.boxSize/2;
-    let yShift = sketch.gridContainer.height/2 + sketch.boxSize/2;
+    for(let i = 0; i < gridDimension; i++){
+      for(let j = 0; j < gridDimension; j++){
+        // let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
 
-    for(let i = 0; i < Math.sqrt(gridSize); i++){
-      for(let j = 0; j < Math.sqrt(gridSize); j++){
-        let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
-
-        if (d < tileSize/2 && dataArray[i + '' + j].model === '') {
+        if (dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '') {
           dataArray[i + '' + j].model = sketch.loadImage(currentFilepath, function (img) {
             img.resize(sketch.boxSize, 0);
             placed = true;
@@ -112,12 +112,9 @@ let TileSketch = function(sketch) {
   sketch.canvasContainer = null;
   sketch.tileContainer = null;
 
-  let dragging = false;
   let offsetX = 0;
   let offsetY = 0;
   let modal = false;
-
-  tileStack = []; // Initialize an empty array to act as a stack for file paths
 
   sketch.preload = function() {
     loadTilepaths()
@@ -131,12 +128,18 @@ let TileSketch = function(sketch) {
     tileCanvas.parent(sketch.canvasContainer);
     tileCanvas.class('tile-canvas');
 
+    tileLeftOffset = parseFloat(window.getComputedStyle(document.getElementById("grid-container"))
+              .getPropertyValue("left"));
+    gridLeftOffset = parseFloat(window.getComputedStyle(document.getElementById("tile-container"))
+              .getPropertyValue("left"));
+    tileGridOffsetDiff = tileLeftOffset - gridLeftOffset + gridSketch.gridContainer.width/2 + gridSketch.boxSize/2;
+
     sketch.calculateTileSize();
     loadTilepaths();
   }
 
   sketch.calculateTileSize = function() {
-    tileSize = sketch.tileContainer.width / 2.5;
+    tileSize = sketch.tileContainer.width * 0.80;
   }
 
   function loadTilepaths() {
@@ -153,7 +156,7 @@ let TileSketch = function(sketch) {
     currentFilepath = tileStack.pop();
     if (currentFilepath) {
       currentTile = sketch.loadImage(currentFilepath, function(img) {
-        img.resize(250, 0);
+        img.resize(tileSize, 0);
       });
     } else {
       currentTile = '';
@@ -164,7 +167,7 @@ let TileSketch = function(sketch) {
     sketch.clear();
 
     if(!dragging){
-      offsetX = -sketch.width / 2.35;
+      offsetX = -sketch.width / 2.1;
       offsetY = -sketch.height / 3;
     }
 
@@ -176,7 +179,7 @@ let TileSketch = function(sketch) {
   }
 
   sketch.mousePressed = function() {
-    let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.canvasContainer.width / 2 - (sketch.width / 3), sketch.canvasContainer.height / 2);
+    let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
     if (d < tileSize) {
         dragging = true;
     }
@@ -185,21 +188,18 @@ let TileSketch = function(sketch) {
 
   sketch.mouseDragged = function() {
     if (dragging) {
-        offsetX = sketch.mouseX - sketch.width/1.8;
-        offsetY = sketch.mouseY - sketch.height/1.2;
-        return false;
-    }
+      offsetX = sketch.mouseX - sketch.width/1.8;
+      offsetY = sketch.mouseY - sketch.height/1.2;
 
-    let gridSize = Object.keys(dataArray).length;
-
-    for (let i = 0; i < gridSketch.cols * gridSketch.rows; i++) {
-      for (let j = 0; j < Math.sqrt(gridSize); j++){
-        let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + shiftX, dataArray[i + '' + j].y + shiftY);
-        dataArray[i + '' + j].collision = d < tileSize;
+      for (let i = 0; i < gridDimension; i++) {
+        for (let j = 0; j < gridDimension; j++){
+          let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + tileGridOffsetDiff, dataArray[i + '' + j].y + yShift);
+          dataArray[i + '' + j].collision = d < tileSize/4;
+        }
       }
+      return false;
     }
   }
-
 
   sketch.mouseReleased = function() {
     placedTilePath = currentFilepath;
@@ -207,9 +207,9 @@ let TileSketch = function(sketch) {
       loadNextTile();
     }
 
-    // if(!modal){
-    //   modal = showModal();
-    // }
+    if(!modal){
+      modal = showModal();
+    }
       dragging = false;
       placed = false;
       offsetX = 0;
