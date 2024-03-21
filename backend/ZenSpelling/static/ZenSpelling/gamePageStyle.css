@@ -35,7 +35,6 @@ canvas{
 
 div#grid-container{
     background-color: forestgreen;
-    opacity: 0.75;
     width: 60%;
     height: 90%;
     border-radius: 3em;
@@ -48,7 +47,6 @@ div#tile-container{
     width: 20%;
     height: 90%;
     background-color: forestgreen;
-    opacity: 0.75;
     border-radius: 3em;
     overflow: visible;
 }

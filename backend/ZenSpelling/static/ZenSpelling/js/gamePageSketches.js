@@ -1,6 +1,5 @@
 let gridSketch;
 let tileSketch;
-let gridCollisions;
 let tileStack = [];
 let currentTile;
 let currentFilepath;
@@ -26,6 +25,7 @@ let GridSketch = function(sketch) {
     gridCanvas.parent(sketch.canvasContainer);
     gridCanvas.class('grid-canvas');
 
+    // TODO : Parameterize this based on user board-size choice.
     gridDimension = 4;
 
     sketch.calculateBoxSize();
@@ -81,10 +81,6 @@ let GridSketch = function(sketch) {
     }
 
     sketch.pop();
-  }
-
-  sketch.setCollisionStatus = function(index, status) {
-    gridCollisions[index] = status;
   }
 
   sketch.mouseReleased = function() {
@@ -254,7 +250,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const modal = document.getElementById('modal');
   const closeModalBtn = modal.querySelector('.close');
 
-  // Hide the modal initially using JavaScript
   modal.style.display = 'none';
 
   openModalBtn.addEventListener('click', () => {
@@ -274,4 +269,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
 window.addEventListener('resize', function () {
     window.location.reload();
-  });
+});
