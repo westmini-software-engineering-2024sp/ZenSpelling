@@ -135,11 +135,6 @@ function showModal() {
     $('#myModal').css('display', 'none');
   });
 
-  if (localStorage.getItem('questionsGenerated') === 'true') {
-    console.log("Generating Questions");
-    generateQuestion();
-  }
-
   $.ajax({
     url: '../ZenSpelling/' + getGeneratedQuestion(),
     method: 'GET',

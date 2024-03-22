@@ -22,7 +22,7 @@ function generateQuestion(gameboardSize) {
         } while (questionArray.includes(uniqueNumber));
         questionArray[i] = uniqueNumber;
     }*/
-    localStorage.setItem('boardsize', gameboardSize);
-    localStorage.setItem('questionBank', questionArray);
+    localStorage.setItem('gameboardSize', gameboardSize);
+    localStorage.setItem('questionBank', JSON.stringify(questionArray));
     localStorage.setItem('questionNumber', 0);
 }
