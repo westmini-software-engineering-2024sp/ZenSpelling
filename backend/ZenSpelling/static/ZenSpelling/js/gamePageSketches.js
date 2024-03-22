@@ -148,11 +148,10 @@ function showModal() {
 
 function getGeneratedQuestion() {
   console.log(localStorage);
-  return 2;
-  /*var question = JSON.parse(localStorage.getItem('questionBank'));
+  var question = JSON.parse(localStorage.getItem('questionBank'));
   var index = localStorage.getItem('questionNumber');
   localStorage.setItem('questionNumber', (index+1));
-  return question[index];*/
+  return question[index];
 }
 
 function completeGame(){
