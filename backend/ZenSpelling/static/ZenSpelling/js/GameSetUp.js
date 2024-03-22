@@ -14,7 +14,8 @@ function playGame(size) {
  */
 function generateQuestion(gameboardSize) {
     var questionArray = [];
-    var questionNumber = gameboardSize*gameboardSize;
+    //var questionNumber = gameboardSize*gameboardSize; //uncomment this if wanting to generate the entire board
+    var questionNumber = gameboardSize; //uncomment this if wanting to run just the bare minimum of questions for testing
 
     for (let i = 0; i < questionNumber; i++) {
         let uniqueNumber;
@@ -27,5 +28,5 @@ function generateQuestion(gameboardSize) {
     localStorage.setItem('boardsize', questionNumber);
     localStorage.setItem('gameboardSize', gameboardSize);
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
-    localStorage.setItem('questionNumber', 0);
+    localStorage.setItem('questionNumber', JSON.stringify(0));
 }

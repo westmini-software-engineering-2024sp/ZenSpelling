@@ -150,7 +150,9 @@ function getGeneratedQuestion() {
   console.log(localStorage);
   var question = JSON.parse(localStorage.getItem('questionBank'));
   var index = localStorage.getItem('questionNumber');
-  localStorage.setItem('questionNumber', (index+1));
+  var nextIndex = JSON.parse(localStorage.getItem('questionNumber'));
+  localStorage.setItem('questionNumber', (nextIndex+1));
+  console.log(localStorage);
   return question[index];
 }
 
