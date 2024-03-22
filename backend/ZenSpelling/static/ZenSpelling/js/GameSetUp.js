@@ -14,15 +14,17 @@ function playGame(size) {
  */
 function generateQuestion(gameboardSize) {
     var questionArray = [];
+    var questionNumber = gameboardSize*gameboardSize;
 
-    for (let i = 0; i < gameboardSize; i++) {
+    for (let i = 0; i < questionNumber; i++) {
         let uniqueNumber;
         do {
-          uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;
+          uniqueNumber = Math.floor(Math.random() * questionNumber) + 1;
         } while (questionArray.includes(uniqueNumber));
         questionArray[i] = uniqueNumber;
     }
 
+    localStorage.setItem('boardsize', questionNumber);
     localStorage.setItem('gameboardSize', gameboardSize);
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
     localStorage.setItem('questionNumber', 0);
