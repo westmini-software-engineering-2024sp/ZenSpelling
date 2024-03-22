@@ -25,6 +25,7 @@ function generateQuestion(gameboardSize) {
         questionArray[i] = uniqueNumber;
     }
 
+    //set start time
     localStorage.setItem('boardsize', questionNumber);
     localStorage.setItem('gameboardSize', gameboardSize);
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
