@@ -12,7 +12,12 @@ h1 {
 
 h2 {
     font-size: 4rem;
-    color: brown;
+    color: white;
+}
+
+.start {
+    font-size: 2em;
+    font-weight: 700;
 }
 
 /* Custom body */
@@ -53,21 +58,25 @@ h2 {
 
 /* Custom button classes */
 .startButton {
-    background-color: transparent;
-    color: white;
+    /* background-color: transparent; */
+    color: brown;
     border-color: dimgrey;
     font-size: 3rem;
     padding: 3rem 5rem;
     border-radius: 1rem;
+    margin-bottom: 6em;
+    backdrop-filter: blur(10px);
+    background-color: rgb(27, 27, 27, 0.3);
 }
 
 .startButton:hover {
-    background-color: transparent;
     color: lightgrey;
     border-color: grey;
     font-size: 3rem;
     padding: 3rem 5rem;
     border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    background-color: rgb(27, 27, 27, 0.3);
 }
 
 .logoutButton {

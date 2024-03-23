@@ -30,6 +30,11 @@
     align-items: center;
     justify-content: center;
 }
+.item-center .text {
+    color: white;
+    font-weight: 400;
+    font-size: 2em;
+}
 
 html {
     background: url("images/background.svg") no-repeat center center fixed;
@@ -37,29 +42,35 @@ html {
 }
 
 h1 {
-    color: brown;
+    color: white;
     text-align: center;
     object-position: center;
     text-shadow: 1px 1px black;
     font-size: 4em;
+    margin-bottom:5em;
 }
 
 ul {
     list-style-type: none;
-    margin: auto;
     padding: 0;
     overflow: hidden;
 }
 
 li {
     float: left;
+    padding: 2em;
 }
 
 li button {
     background-color: green;
+    transition: .5s;
 }
 
 li button:hover {
-    background-color: springgreen;
+    cursor: pointer;
+    background-color: greenyellow;
+    transform: scale(1.2);
+    backdrop-filter: blur(3px);
 }
+
 
