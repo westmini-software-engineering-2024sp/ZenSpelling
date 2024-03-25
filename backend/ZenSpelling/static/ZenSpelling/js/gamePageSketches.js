@@ -12,10 +12,15 @@ let tileLeftOffset, gridLeftOffset, tileGridOffsetDiff;
 let dragging= false;
 let gridDimension;
 
+// Creating the sketch of the game-board.
 let GridSketch = function(sketch) {
   sketch.gridContainer = null;
   sketch.boxSize = 0;
 
+  /* Initial setup, defines html elements that will bound the canvas.
+  ** Define the size of each grid box based on canvas size.
+  ** Build out the json array that will hold metadata for each grid box.
+  */
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
     sketch.gridContainer = sketch.select('#grid-container');
@@ -25,6 +30,7 @@ let GridSketch = function(sketch) {
     gridCanvas.parent(sketch.canvasContainer);
     gridCanvas.class('grid-canvas');
 
+    // Determines the width & height of the game board. Hard-coded for now.
     // TODO : Parameterize this based on user board-size choice.
     gridDimension = 4;
 
@@ -38,6 +44,7 @@ let GridSketch = function(sketch) {
     yShift = sketch.gridContainer.height/2 + sketch.boxSize/2;
   }
 
+  // This array will be the main reference for the program to determine how to handle each grid box.
   sketch.buildDataArray = function() {
     for (let i = 0; i < gridDimension; i++) {
       for(let j = 0; j < gridDimension; j++){
@@ -52,6 +59,7 @@ let GridSketch = function(sketch) {
     }
   }
 
+  // The method that draws each grid box.
   sketch.draw = function() {
     sketch.clear();
 
@@ -65,11 +73,13 @@ let GridSketch = function(sketch) {
     }
   }
 
+  // This determines if the grid box remains a box, or is a placed tile image.
+  // It also determines if a grid box is highlighted when hovered over.
   sketch.drawBox = function(x, y, size, model, collision) {
     sketch.push();
 
     if(collision === true){
-      sketch.fill('rgba(61,175,29,1.0)');
+      sketch.fill('rgb(210,179,25)');
     } else {
       sketch.fill('rgba(255,255,255,0.10)');
     }
@@ -83,9 +93,11 @@ let GridSketch = function(sketch) {
     sketch.pop();
   }
 
+  // Decides if an image needs to be loaded in the metadata array when user releases cursor.
   sketch.mouseReleased = function() {
     for(let i = 0; i < gridDimension; i++){
       for(let j = 0; j < gridDimension; j++){
+        // Saving this equation for now in case it is needed later.
         // let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
 
         if (dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '') {
@@ -98,12 +110,14 @@ let GridSketch = function(sketch) {
     }
   }
 
+  // Dynamic window resizing.
   sketch.windowResized = function() {
     sketch.calculateBoxSize();
     sketch.resizeCanvas(sketch.gridContainer.width, sketch.gridContainer.height);
   }
 };
 
+// Creating a sketch of the current tile to be placed.
 let TileSketch = function(sketch) {
   sketch.canvasContainer = null;
   sketch.tileContainer = null;
@@ -116,6 +130,9 @@ let TileSketch = function(sketch) {
     loadTilepaths()
   }
 
+  /*
+  ** Same as GridSketch.setup(), with additional math to calculate position offset of the tile.
+   */
   sketch.setup = function() {
     sketch.canvasContainer = sketch.select('#canvas-container');
     sketch.tileContainer = sketch.select('#tile-container');
@@ -138,6 +155,7 @@ let TileSketch = function(sketch) {
     tileSize = sketch.tileContainer.width * 0.80;
   }
 
+  // Fetch tilepath endpoints and load them in a stack.
   function loadTilepaths() {
     fetch('/tilepaths/')
       .then(response => response.json())
@@ -159,6 +177,7 @@ let TileSketch = function(sketch) {
     }
   }
 
+  // This draws the tile sketch.
   sketch.draw = function() {
     sketch.clear();
 
@@ -174,6 +193,7 @@ let TileSketch = function(sketch) {
     }
   }
 
+  // This activates dragging toggle if cursor is in range of the tile.
   sketch.mousePressed = function() {
     let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
     if (d < tileSize) {
@@ -182,6 +202,8 @@ let TileSketch = function(sketch) {
     return false;
   }
 
+  // Constant recalculation of tile position when dragging.
+  // Checks for collision with grid boxes.
   sketch.mouseDragged = function() {
     if (dragging) {
       offsetX = sketch.mouseX - sketch.width/1.8;
@@ -197,27 +219,30 @@ let TileSketch = function(sketch) {
     }
   }
 
+  // Loads next tile in stack if current tile is successfully placed. Question modal is shown.
   sketch.mouseReleased = function() {
     placedTilePath = currentFilepath;
     if(placed){
       loadNextTile();
     }
 
-    if(!modal){
-      modal = showModal();
-    }
+    // if(!modal){
+    //   modal = showModal();
+    // }
       dragging = false;
       placed = false;
       offsetX = 0;
       offsetY = 0;
   }
 
+  // Dynamic window resizing.
   sketch.windowResized = function() {
     sketch.calculateTileSize();
     sketch.resizeCanvas(sketch.canvasContainer.width, sketch.canvasContainer.height);
   }
 }
 
+// Fetches question/answers to populate modal.
 function showModal() {
   let modal = true;
 
@@ -242,6 +267,7 @@ function completeGame(){
   window.location.href = '../complete/';
 }
 
+// Waits to create sketches until after DOM is loaded. This mitigates lag.
 document.addEventListener("DOMContentLoaded", function() {
   gridSketch = new p5(GridSketch);
   tileSketch = new p5(TileSketch);
@@ -267,6 +293,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+// Dynamic window resizing.
+// TODO : This currently works, except it does not preserve the game board state on reload.
+//  Possible solution: Use cookie to save game state.
 window.addEventListener('resize', function () {
     window.location.reload();
 });
