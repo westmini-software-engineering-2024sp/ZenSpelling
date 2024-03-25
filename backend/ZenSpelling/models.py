@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Student(models.Model):
@@ -24,9 +26,18 @@ class Student(models.Model):
             return 0
 
     @staticmethod
-    def authenticate_user(self, username, password):
+    def authenticate_user(username, password):
         user = authenticate(username=username, password=password)
         return user
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Student.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.student.save()
 
 
 class Course(models.Model):
@@ -71,3 +82,15 @@ class Tile(models.Model):
 
     def __str__(self):
         return self.path
+
+
+class QuestionSet(models.Model):
+    name = models.CharField(max_length=200)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    questions = models.ManyToManyField(Question)
+
+    @admin.display(
+        description='Set of questions to be answered in a level'
+    )
+    def __str__(self):
+        return self.name
