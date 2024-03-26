@@ -35,7 +35,7 @@ def user_import():
             result, created = User.objects.get_or_create(
                 username=row[0],
                 password=hasher.encode(hasher(), row[1], hasher.salt(hasher())),
-                is_staff=row[5],
+                is_staff=row[2],
             )
             print(created)
 
