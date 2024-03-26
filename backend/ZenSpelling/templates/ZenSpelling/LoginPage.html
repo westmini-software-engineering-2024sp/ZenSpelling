@@ -6,9 +6,40 @@
     <title>Login Page</title>
     <script src={% static 'ZenSpelling/js/LoginPage.js' %}></script>
     <link rel="stylesheet" href="{% static 'ZenSpelling/loginStyle.css' %}">
+    <style>
+  /* Define styles for the twinkling pixel */
+  .twinkling-pixel {
+    width: 5px;
+    height: 5px;
+    background-color: yellow; /* White color */
+    position: absolute;
+    opacity: 0; /* Initially invisible */
+  }
+
+  #twinkling-container> :nth-child(odd) {
+    animation: twinkling 1.5s infinite alternate;
+      width: 3px;
+      height: 3px;
+  }
+  
+  #twinkling-container> :nth-child(even) {
+    animation: twinkling 3s infinite alternate;
+  }
+  
+  /* Define the animation */
+  @keyframes twinkling {
+    0% {
+      opacity: 0; /* Fade in */
+    }
+    100% {
+      opacity: 1; /* Fade out */
+    }
+  }
+</style>
 </head>
 <body>
     <button class="teacherButton" onclick="teacherPortal()">Teacher Portal</button>
+    <button id="mute_play"> Turn Music ON </button>
     <div class = "container">
         <form method="post" class="login"> {% csrf_token %}
             <h1>Zen Spelling</h1>
@@ -29,9 +60,42 @@
             </div>
         </form>
     </div>
-    <audio controls>
-    <source src="{{ MEDIA_URL }}bgMusic.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+    <div id="twinkling-container">
+        <div class = "twinkling-pixel"> </div>
+    </div>
+
+    <audio id = "background-music" loop>
+        <source src="{% static 'Resources/calm.mp3' %}" type="audio/mp3">
+        No browser support
     </audio>
+    
+<script>
+  // Function to create twinkling pixels at random positions
+  function createTwinklingPixel() {
+    let pixel = document.createElement('div');
+    pixel.className = 'twinkling-pixel';
+    pixel.style.left = Math.random() * window.innerWidth + 'px';
+    pixel.style.top = Math.random() * window.innerHeight + 'px';
+    document.getElementById('twinkling-container').appendChild(pixel);
+  }
+
+  // Create multiple twinkling pixels
+  for (let i = 0; i < 120; i++) {
+    createTwinklingPixel();
+  }
+
+  document.getElementById("mute_play").onclick = function() {
+      let audio = document.getElementById("background-music");
+      
+      if(audio.paused) {
+          audio.play();
+          this.textContent = "Turn Music OFF";
+      }
+      else {
+          audio.pause();
+          this.textContent = "Turn Music ON";
+      }
+  }
+</script>
 </body>
 </html>
