@@ -226,9 +226,9 @@ let TileSketch = function(sketch) {
       loadNextTile();
     }
 
-    // if(!modal){
-    //   modal = showModal();
-    // }
+    if(!modal){
+      modal = showModal();
+     }
       dragging = false;
       placed = false;
       offsetX = 0;
