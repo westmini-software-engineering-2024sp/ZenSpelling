@@ -95,15 +95,18 @@ let GridSketch = function(sketch) {
 
   // Decides if an image needs to be loaded in the metadata array when user releases cursor.
   sketch.mouseReleased = function() {
+    let valid;
     for(let i = 0; i < gridDimension; i++){
       for(let j = 0; j < gridDimension; j++){
         // Saving this equation for now in case it is needed later.
         // let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
 
-        if (dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '') {
+        valid = dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '';
+        console.log('Placed1: ', placed);
+        if (valid) {
+          placed = true;
           dataArray[i + '' + j].model = sketch.loadImage(currentFilepath, function (img) {
             img.resize(sketch.boxSize, 0);
-            placed = true;
           });
         }
       }
@@ -226,13 +229,14 @@ let TileSketch = function(sketch) {
       loadNextTile();
     }
 
-    // if(!modal){
-    //   modal = showModal();
-    // }
-      dragging = false;
-      placed = false;
-      offsetX = 0;
-      offsetY = 0;
+    if(!modal){
+      modal = showModal();
+    }
+
+    dragging = false;
+    placed = false;
+    offsetX = 0;
+    offsetY = 0;
   }
 
   // Dynamic window resizing.
