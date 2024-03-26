@@ -37,12 +37,6 @@ def user_import():
                 password=hasher.encode(hasher(), row[1], hasher.salt(hasher())),
                 is_staff=row[5],
             )
-            _, created = Student.objects.get_or_create(
-                user=result,
-                time_spent=row[2],
-                questions_answered=row[3],
-                questions_correct=row[4]
-            )
             print(created)
 
 

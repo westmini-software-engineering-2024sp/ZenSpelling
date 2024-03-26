@@ -10,13 +10,13 @@
 <body>
 <button class="logoutButton" onclick="logout()">Log Out</button>
     <div class="center">
-        <h1>Choose your Game Board Size</h1>
+        <h1>Choose Board Size and Question Set</h1>
         <br>
         <div class="item-center">
             <ul>
-                <li><button onclick="playGame()"><img alt="3x3grid" height = 220em width = 220em src={% static 'ZenSpelling/images/threebythree.png' %}/></button></li>
-                <li><button onclick="playGame()"><img alt="4x4grid" height = 250em width = 250em src={% static 'ZenSpelling/images/fourbyfour.png' %}/></button></li>
-                <li><button onclick="playGame()"><img alt="5x5grid" height = 275em width = 275em src={% static 'ZenSpelling/images/fivebyfive.png' %}/></button></li>
+                <li> <div class = "text"> 3x3</div> <button onclick="playGame()"><img alt="3x3grid" height = 250em width = 250em src={% static 'ZenSpelling/images/myCanvas-3.png' %}/></button></li>
+                <li> <div class = "text"> 4x4</div> <button onclick="playGame()"><img alt="4x4grid" height = 250em width = 250em src={% static 'ZenSpelling/images/myCanvas-4.png' %}/></button></li>
+                <li> <div class = "text"> 5x5</div> <button onclick="playGame()"><img alt="5x5grid" height = 250em width = 250em src={% static 'ZenSpelling/images/myCanvas-5.png' %}/></button></li>
             </ul>
         </div>
     </div>
