@@ -32,7 +32,8 @@ let GridSketch = function(sketch) {
 
     // Determines the width & height of the game board. Hard-coded for now.
     // TODO : Parameterize this based on user board-size choice.
-    gridDimension = 4;
+    //gridDimension = 4;
+    gridDimension = localStorage.getItem('boardsize');
 
     sketch.calculateBoxSize();
     sketch.buildDataArray();
@@ -226,9 +227,9 @@ let TileSketch = function(sketch) {
       loadNextTile();
     }
 
-    // if(!modal){
-    //   modal = showModal();
-    // }
+     if(!modal){
+       modal = showModal();
+     }
       dragging = false;
       placed = false;
       offsetX = 0;

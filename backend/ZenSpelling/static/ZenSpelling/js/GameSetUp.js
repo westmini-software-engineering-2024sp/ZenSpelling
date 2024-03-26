@@ -26,7 +26,7 @@ function generateQuestion(gameboardSize) {
     }
 
     //set start time
-    localStorage.setItem('boardsize', questionNumber);
+    localStorage.setItem('boardsize', questionNumber); //edge length
     localStorage.setItem('gameboardSize', gameboardSize);
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
     localStorage.setItem('questionNumber', JSON.stringify(0));
