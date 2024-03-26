@@ -34,12 +34,6 @@ def user_import():
                 username=row[0],
                 password=row[1],
             )
-            _, created = Student.objects.get_or_create(
-                user=result,
-                time_spent=row[2],
-                questions_answered=row[3],
-                questions_correct=row[4]
-            )
             print(created)
 
 

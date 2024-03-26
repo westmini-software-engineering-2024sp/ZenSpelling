@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    time_spent = models.DecimalField(max_digits=5, decimal_places=2)  # minutes
+    time_spent = models.DecimalField(max_digits=5, decimal_places=2, default=0)  # minutes
     questions_answered = models.IntegerField(default=0)
     questions_correct = models.IntegerField(default=0)
 
