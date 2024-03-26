@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    time_spent = models.DecimalField(max_digits=5, decimal_places=2)  # minutes
+    time_spent = models.DecimalField(max_digits=5, decimal_places=2, default=0)  # minutes
     questions_answered = models.IntegerField(default=0)
     questions_correct = models.IntegerField(default=0)
 
@@ -30,14 +30,14 @@ class Student(models.Model):
         user = authenticate(username=username, password=password)
         return user
 
-    # @receiver(post_save, sender=User)
-    # def create_user_profile(sender, instance, created, **kwargs):
-    #     if created:
-    #         Student.objects.create(user=instance)
-    #
-    # @receiver(post_save, sender=User)
-    # def save_user_profile(sender, instance, **kwargs):
-    #     instance.student.save()
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Student.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.student.save()
 
 
 class Course(models.Model):
