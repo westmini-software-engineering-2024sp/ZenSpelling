@@ -2,7 +2,7 @@
 {#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#} 
 <link rel="stylesheet" href="{% static 'ZenSpelling/modalStyle.css' %}">
 
-<form id="questionForm" class="modal-main" method="get"> <!-- must change to only submit when the i == gameboardSize -->
+<form id="questionForm" class="modal-main" action="{% url 'ZenSpelling:gamePage' %}" method="get"> <!-- must change to only submit when the i == gameboardSize -->
 {% csrf_token %}
 <div class="modal-container">
     <h1 class="question">{{ question.question_text }}</h1>
