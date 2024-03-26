@@ -166,3 +166,5 @@ cython_debug/
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+
+backend/ZenSpelling/migrations
