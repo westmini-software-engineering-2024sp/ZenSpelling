@@ -7,7 +7,7 @@
     <title>Play Game!</title>
     <link rel="stylesheet" href="{% static 'ZenSpelling/gamePageStyle.css' %}">
     <script src={% static 'Resources/p5.min.js' %}></script>
-    <script src={% static 'ZenSpelling/js/gamePageSketches.js'%}></script>
+    <script src={% static 'ZenSpelling/js/gamePageSketches.js' %}></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
   </head>
   <body>
@@ -15,6 +15,8 @@
         <div class="grid-canvas" id="grid-container"></div> <!-- Container div for main board. -->
         <div class="tile-canvas" id="tile-container"></div> <!-- Container div for tile sideboard -->
         <div id="myModal" class="modal"></div>
+        <audio id="click-sound" src={% static 'Resources/clickSound.mp3' %}></audio>
+        <audio id="release-sound" src={% static 'Resources/releaseSound.mp3' %}></audio>
     </main>
     <footer>Team Jasper 2024</footer>
   </body>

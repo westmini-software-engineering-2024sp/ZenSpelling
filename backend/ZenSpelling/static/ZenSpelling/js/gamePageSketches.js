@@ -11,6 +11,10 @@ let xShift, yShift;
 let tileLeftOffset, gridLeftOffset, tileGridOffsetDiff;
 let dragging= false;
 let gridDimension;
+let hoverSounds = [];
+let pulse = 1.0;
+let oscillatePulse = 1;
+
 
 // Creating the sketch of the game-board.
 let GridSketch = function(sketch) {
@@ -80,6 +84,7 @@ let GridSketch = function(sketch) {
 
     if(collision === true){
       sketch.fill('rgb(210,179,25)');
+      // playSound(hoverSounds[]);
     } else {
       sketch.fill('rgba(255,255,255,0.10)');
     }
@@ -102,7 +107,6 @@ let GridSketch = function(sketch) {
         // let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
 
         valid = dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '';
-        console.log('Placed1: ', placed);
         if (valid) {
           placed = true;
           dataArray[i + '' + j].model = sketch.loadImage(currentFilepath, function (img) {
@@ -130,7 +134,7 @@ let TileSketch = function(sketch) {
   let modal = false;
 
   sketch.preload = function() {
-    loadTilepaths()
+    loadTilepaths();
   }
 
   /*
@@ -192,15 +196,31 @@ let TileSketch = function(sketch) {
     sketch.translate(offsetX, offsetY);
 
     if (currentTile) {
-        sketch.image(currentTile, 0, 0);
+      if(dragging){
+        if (pulse > 1.09) {
+          oscillatePulse = 0;
+        } else if (pulse < 0.91) {
+          oscillatePulse = 1;
+        }
+
+        if (oscillatePulse === 1) {
+          pulse += 0.004;
+        } else if (oscillatePulse === 0) {
+          pulse -= 0.004;
+        }
+      }
+
+      sketch.image(currentTile, 0, 0, currentTile.width * pulse, currentTile.height * pulse);
     }
   }
 
   // This activates dragging toggle if cursor is in range of the tile.
   sketch.mousePressed = function() {
     let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
+
     if (d < tileSize) {
-        dragging = true;
+      playSound('click-sound');
+      dragging = true;
     }
     return false;
   }
@@ -226,6 +246,7 @@ let TileSketch = function(sketch) {
   sketch.mouseReleased = function() {
     placedTilePath = currentFilepath;
     if(placed){
+      playSound('release-sound');
       loadNextTile();
     }
 
@@ -235,6 +256,8 @@ let TileSketch = function(sketch) {
 
     dragging = false;
     placed = false;
+    pulse = 1.0;
+    oscillatePulse = 1;
     offsetX = 0;
     offsetY = 0;
   }
@@ -269,6 +292,11 @@ function showModal() {
 
 function completeGame(){
   window.location.href = '../complete/';
+}
+
+function playSound(soundId) {
+  let soundEffect = document.getElementById(soundId);
+  soundEffect.play();
 }
 
 // Waits to create sketches until after DOM is loaded. This mitigates lag.
