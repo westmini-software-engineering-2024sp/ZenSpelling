@@ -19,14 +19,13 @@ body{
     justify-content: center;
     height:98vh;
     overflow:hidden;
+    cursor: url("../Assets/bee.png"), pointer;
 }
 
 main#canvas-container{
     position:relative;
     height:100vh;
     width:100vw;
-    /*background-color: cornflowerblue;*/
-    opacity: 0.75;
 }
 
 canvas{
@@ -34,7 +33,7 @@ canvas{
 }
 
 div#grid-container{
-    background-color: forestgreen;
+    background-color: rgba(34, 139, 34, 0.75);
     width: 60%;
     height: 90%;
     border-radius: 3em;
@@ -46,7 +45,7 @@ div#grid-container{
 div#tile-container{
     width: 20%;
     height: 90%;
-    background-color: forestgreen;
+    background-color: rgba(34, 139, 34, 0.75);
     border-radius: 3em;
     overflow: visible;
 }
@@ -55,7 +54,6 @@ div#tile-container{
     position: absolute;
     top: 5em;
     left:40em;
-    background-color: forestgreen;
 }
 
 .tile-canvas{
