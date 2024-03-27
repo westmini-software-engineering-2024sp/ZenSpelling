@@ -1,9 +1,14 @@
 from django.contrib import admin
-
+from django.contrib.auth.admin import User, UserAdmin as BaseUserAdmin
 from .models import Answer, Question, Course, Tile, QuestionSet, Student
 
 
-admin.site.site_header = "Teacher View"
+class UserAdmin(BaseUserAdmin):
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(Course=request.user.student.course)
 
 
 class AnswerInline(admin.TabularInline):
@@ -29,6 +34,8 @@ class AddQuestionSet(admin.ModelAdmin):
     search_fields = ["name"]
 
 
+admin.site.site_header = "Teacher View"
+#admin.site.register(UserAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Course)
 admin.site.register(Tile)
