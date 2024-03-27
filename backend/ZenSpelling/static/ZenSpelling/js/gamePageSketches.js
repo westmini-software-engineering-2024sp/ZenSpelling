@@ -11,9 +11,10 @@ let xShift, yShift;
 let tileLeftOffset, gridLeftOffset, tileGridOffsetDiff;
 let dragging= false;
 let gridDimension;
-let hoverSounds = [];
+let hoverSounds = ['a4', 'b4', 'c3', 'd3', 'e3', 'g3'];
 let pulse = 1.0;
 let oscillatePulse = 1;
+let soundPlayed = false;
 
 
 // Creating the sketch of the game-board.
@@ -57,7 +58,8 @@ let GridSketch = function(sketch) {
           x: "0",
           y: "0",
           collision: false,
-          model : ""
+          model : "",
+          new: false
         };
       }
     }
@@ -82,11 +84,13 @@ let GridSketch = function(sketch) {
   sketch.drawBox = function(x, y, size, model, collision) {
     sketch.push();
 
-    if(collision === true){
+    if(collision === true && !soundPlayed){
       sketch.fill('rgb(210,179,25)');
-      // playSound(hoverSounds[]);
+      // playSound(hoverSounds[0]).play();
+      // soundPlayed = true;
     } else {
       sketch.fill('rgba(255,255,255,0.10)');
+      // soundPlayed = false;
     }
 
     if (model) {
@@ -109,6 +113,7 @@ let GridSketch = function(sketch) {
         valid = dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '';
         if (valid) {
           placed = true;
+          dataArray[i + '' + j].new = true;
           dataArray[i + '' + j].model = sketch.loadImage(currentFilepath, function (img) {
             img.resize(sketch.boxSize, 0);
           });
@@ -134,7 +139,8 @@ let TileSketch = function(sketch) {
   let modal = false;
 
   sketch.preload = function() {
-    loadTilepaths();
+    // TODO : Implement more dynamic parameterization for this.
+    loadTilepaths(Math.pow(gridDimension, 2));
   }
 
   /*
@@ -155,22 +161,38 @@ let TileSketch = function(sketch) {
     tileGridOffsetDiff = tileLeftOffset - gridLeftOffset + gridSketch.gridContainer.width/2 + gridSketch.boxSize/2;
 
     sketch.calculateTileSize();
-    loadTilepaths();
   }
 
   sketch.calculateTileSize = function() {
     tileSize = sketch.tileContainer.width * 0.80;
   }
 
-  // Fetch tilepath endpoints and load them in a stack.
-  function loadTilepaths() {
+  /* Fetch tilepaths from endpoint and load them in a stack.
+  ** This will fetch repeat tiles to compensate for a smaller tile count vs. grid size.
+  ** (We may not need that logic if we have 25+ tile assets).
+   */
+  function loadTilepaths(desiredCount) {
     fetch('/tilepaths/')
-      .then(response => response.json())
-      .then(data => {
-        tileStack.push(...data.tile_paths);
-        loadNextTile();
-      })
-      .catch(error => console.error('Error fetching filepaths:', error));
+    .then(response => response.json())
+    .then(data => {
+      const fetchedTilePaths = data.tile_paths;
+      const repetitions = Math.ceil(desiredCount / fetchedTilePaths.length);
+      const extendedTilePaths = Array.from({ length: repetitions },
+          () => fetchedTilePaths).flat().slice(0, desiredCount);
+      tileStack.push(...extendedTilePaths);
+      shuffleTileStack(tileStack);
+      loadNextTile();
+    })
+    .catch(error => console.error('Error fetching filepaths:', error));
+  }
+
+  // Fisher-Yates shuffle algorithm to randomize tiles.
+  function shuffleTileStack(tileStack) {
+    for (let i = tileStack.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [tileStack[i], tileStack[j]] = [tileStack[j], tileStack[i]];
+    }
+    return tileStack;
   }
 
   function loadNextTile() {
@@ -184,13 +206,24 @@ let TileSketch = function(sketch) {
     }
   }
 
-  // This draws the tile sketch.
+  // This draws the tile sketch. Includes pulsing animations.
   sketch.draw = function() {
     sketch.clear();
 
     if(!dragging){
       offsetX = -sketch.width / 2.1;
       offsetY = -sketch.height / 3;
+      if (pulse > 1.03) {
+          oscillatePulse = 0;
+        } else if (pulse < 0.96) {
+          oscillatePulse = 1;
+        }
+
+        if (oscillatePulse === 1) {
+          pulse += 0.002;
+        } else if (oscillatePulse === 0) {
+          pulse -= 0.001;
+        }
     }
 
     sketch.translate(offsetX, offsetY);
@@ -204,13 +237,12 @@ let TileSketch = function(sketch) {
         }
 
         if (oscillatePulse === 1) {
-          pulse += 0.004;
+          pulse += 0.008;
         } else if (oscillatePulse === 0) {
           pulse -= 0.004;
         }
       }
-
-      sketch.image(currentTile, 0, 0, currentTile.width * pulse, currentTile.height * pulse);
+      sketch.image(currentTile, 0, 0, 0, currentTile.height * pulse);
     }
   }
 
@@ -219,7 +251,7 @@ let TileSketch = function(sketch) {
     let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
 
     if (d < tileSize) {
-      playSound('click-sound');
+      playSound('click-sound').play();
       dragging = true;
     }
     return false;
@@ -246,7 +278,7 @@ let TileSketch = function(sketch) {
   sketch.mouseReleased = function() {
     placedTilePath = currentFilepath;
     if(placed){
-      playSound('release-sound');
+      playSound('release-sound').play();
       loadNextTile();
     }
 
@@ -296,13 +328,21 @@ function completeGame(){
 
 function playSound(soundId) {
   let soundEffect = document.getElementById(soundId);
-  soundEffect.play();
+
+  // Nested function, in case we want to add more functionality (pause, reset, playOnce, etc).
+  return {
+    play: function() {
+      soundEffect.play();
+    }
+  };
 }
 
 // Waits to create sketches until after DOM is loaded. This mitigates lag.
 document.addEventListener("DOMContentLoaded", function() {
   gridSketch = new p5(GridSketch);
   tileSketch = new p5(TileSketch);
+
+  playSound('bg-music').play();
 
   const openModalBtn = document.getElementById('openModalBtn');
   const modal = document.getElementById('modal');
