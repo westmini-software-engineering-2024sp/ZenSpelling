@@ -19,6 +19,7 @@ body{
     justify-content: center;
     height:98vh;
     overflow:hidden;
+    cursor: url("../Assets/bee.png"), pointer;
 }
 
 main#canvas-container{
