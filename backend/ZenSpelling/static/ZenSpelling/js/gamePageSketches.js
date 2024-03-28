@@ -9,7 +9,7 @@ let tileSize = 0;
 let placed = false;
 let xShift, yShift;
 let tileLeftOffset, gridLeftOffset, tileGridOffsetDiff;
-let dragging= false;
+let dragging = false;
 let gridDimension;
 let hoverSounds = ['a4', 'b4', 'c3', 'd3', 'e3', 'g3'];
 let pulse = 1.0;
@@ -36,6 +36,7 @@ let GridSketch = function(sketch) {
     gridCanvas.class('grid-canvas');
 
     // Determines the width & height of the game board. Hard-coded for now.
+    // TODO : Parameterize this based on user board-size choice.
     gridDimension = localStorage.getItem('boardsize');
 
     sketch.calculateBoxSize();
@@ -138,9 +139,8 @@ let TileSketch = function(sketch) {
   let modal = false;
 
   sketch.preload = function() {
-    loadNextTile();
     // TODO : Implement more dynamic parameterization for this.
-    //loadTilepaths(Math.pow(gridDimension, 2));
+    loadTilepaths(Math.pow(gridDimension, 2));
   }
 
   /*
@@ -161,9 +161,29 @@ let TileSketch = function(sketch) {
     tileGridOffsetDiff = tileLeftOffset - gridLeftOffset + gridSketch.gridContainer.width/2 + gridSketch.boxSize/2;
 
     sketch.calculateTileSize();
+  }
 
   sketch.calculateTileSize = function() {
     tileSize = sketch.tileContainer.width * 0.80;
+  }
+
+  /* Fetch tilepaths from endpoint and load them in a stack.
+  ** This will fetch repeat tiles to compensate for a smaller tile count vs. grid size.
+  ** (We may not need that logic if we have 25+ tile assets).
+   */
+  function loadTilepaths(desiredCount) {
+    fetch('/tilepaths/')
+    .then(response => response.json())
+    .then(data => {
+      const fetchedTilePaths = data.tile_paths;
+      const repetitions = Math.ceil(desiredCount / fetchedTilePaths.length);
+      const extendedTilePaths = Array.from({ length: repetitions },
+          () => fetchedTilePaths).flat().slice(0, desiredCount);
+      tileStack.push(...extendedTilePaths);
+      shuffleTileStack(tileStack);
+      loadNextTile();
+    })
+    .catch(error => console.error('Error fetching filepaths:', error));
   }
 
   // Fisher-Yates shuffle algorithm to randomize tiles.
@@ -176,18 +196,15 @@ let TileSketch = function(sketch) {
   }
 
   function loadNextTile() {
-    if (tileStack.length > 0) {
-        currentFilepath = tileStack.pop();
-        currentTile = sketch.loadImage(currentFilepath, function(img) {
-            img.resize(tileSize, 0);
-        });
-        localStorage.setItem('tileBank', JSON.stringify(tileStack)); //I don't know if this is needed since the stack should(?) automatically change
+    currentFilepath = tileStack.pop();
+    if (currentFilepath) {
+      currentTile = sketch.loadImage(currentFilepath, function(img) {
+        img.resize(tileSize, 0);
+      });
     } else {
-        console.log("No more tiles in the stack.");
-        currentTile = '';
+      currentTile = '';
     }
-}
-
+  }
 
   // This draws the tile sketch. Includes pulsing animations.
   sketch.draw = function() {
@@ -268,6 +285,7 @@ let TileSketch = function(sketch) {
     if(!modal){
       modal = showModal();
     }
+
     dragging = false;
     placed = false;
     pulse = 1.0;
@@ -294,7 +312,7 @@ function showModal() {
   });
 
   $.ajax({
-    url: '../ZenSpelling/' + getGeneratedQuestion(),
+    url: '../ZenSpelling/2',
     method: 'GET',
     success: function(response) {
       $('#myModal').html(response);
@@ -302,16 +320,6 @@ function showModal() {
   });
 
   return modal;
-}
-
-function getGeneratedQuestion() {
-  console.log(localStorage);
-  var question = JSON.parse(localStorage.getItem('questionBank'));
-  var index = localStorage.getItem('questionNumber');
-  var nextIndex = JSON.parse(localStorage.getItem('questionNumber'));
-  localStorage.setItem('questionNumber', (nextIndex+1));
-  console.log(localStorage);
-  return question[index];
 }
 
 function completeGame(){

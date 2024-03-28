@@ -5,6 +5,9 @@ function logout() {
 function playGame(size) {
     generateQuestion(size);
     generateTileStack();
+    //var tilestack = JSON.parse(localStorage.getItem('tileBank'));
+    //tilestack = shuffleTileStack(tilestack);
+    //localStorage.setItem('tileBank', JSON.stringify(tilestack));
     generateGameboard(size);
 
     window.location.href = '/game/'
@@ -22,7 +25,7 @@ function generateQuestion(gameboardSize) {
     for (let i = 0; i < questionNumber; i++) {
         let uniqueNumber;
         do {
-          uniqueNumber = Math.floor(Math.random() * questionNumber) + 1;
+            uniqueNumber = Math.floor(Math.random() * questionNumber) + 1;
         } while (questionArray.includes(uniqueNumber));
         questionArray[i] = uniqueNumber;
     }
@@ -35,7 +38,7 @@ function generateQuestion(gameboardSize) {
 }
 
 // Fetch tilepath endpoints and load them in a stack.
-    //How many tiles are loaded into the stack, how is that determined?
+//How many tiles are loaded into the stack, how is that determined?
 function generateTileStack(gameboardSize) {
     let tileStack = [];
 
@@ -48,6 +51,15 @@ function generateTileStack(gameboardSize) {
         .catch(error => console.error('Error fetching filepaths:', error));
 }
 
+// Fisher-Yates shuffle algorithm to randomize tiles. helper method
+function shuffleTileStack(tileStack) {
+    for (let i = tileStack.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tileStack[i], tileStack[j]] = [tileStack[j], tileStack[i]];
+    }
+    return tileStack;
+}
+
 function generateGameboard(size) {
-    var gameboardSize = size*size;
+    var gameboardSize = size * size;
 }
