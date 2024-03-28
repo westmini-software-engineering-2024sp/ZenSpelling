@@ -31,8 +31,6 @@ let GridSketch = function(sketch) {
     gridCanvas.class('grid-canvas');
 
     // Determines the width & height of the game board. Hard-coded for now.
-    // TODO : Parameterize this based on user board-size choice.
-    //gridDimension = 4;
     gridDimension = localStorage.getItem('boardsize');
 
     sketch.calculateBoxSize();

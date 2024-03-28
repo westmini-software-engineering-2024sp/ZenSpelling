@@ -4,7 +4,8 @@ function logout() {
 
 function playGame(size) {
     generateQuestion(size);
-    loadTilepaths();
+    generateTileStack();
+    generateGameboard(size);
 
     window.location.href = '/game/'
 }
@@ -32,8 +33,10 @@ function generateQuestion(gameboardSize) {
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
     localStorage.setItem('questionNumber', JSON.stringify(0));
 }
+
 // Fetch tilepath endpoints and load them in a stack.
-function loadTilepaths() {
+    //How many tiles are loaded into the stack, how is that determined?
+function generateTileStack(gameboardSize) {
     let tileStack = [];
 
     fetch('/tilepaths/')
@@ -43,4 +46,8 @@ function loadTilepaths() {
             localStorage.setItem('tileBank', JSON.stringify(tileStack));
         })
         .catch(error => console.error('Error fetching filepaths:', error));
+}
+
+function generateGameboard(size) {
+    var gameboardSize = size*size;
 }
