@@ -25,6 +25,9 @@ class Student(models.Model):
         else:
             return 0
 
+    def get_course(self):
+        return self.user.objects.get(course__students=self.user.)
+
     @staticmethod
     def authenticate_user(username, password):
         user = authenticate(username=username, password=password)
