@@ -1,6 +1,6 @@
 let gridSketch;
 let tileSketch;
-let tileStack = [];
+let tileStack = JSON.parse(localStorage.getItem('tileBank')) || [];
 let currentTile;
 let currentFilepath;
 let placedTilePath;
@@ -131,7 +131,7 @@ let TileSketch = function(sketch) {
   let modal = false;
 
   sketch.preload = function() {
-    loadTilepaths()
+    loadNextTile();
   }
 
   /*
@@ -152,7 +152,7 @@ let TileSketch = function(sketch) {
     tileGridOffsetDiff = tileLeftOffset - gridLeftOffset + gridSketch.gridContainer.width/2 + gridSketch.boxSize/2;
 
     sketch.calculateTileSize();
-    loadTilepaths();
+    loadNextTile();
   }
 
   sketch.calculateTileSize = function() {
@@ -160,7 +160,7 @@ let TileSketch = function(sketch) {
   }
 
   // Fetch tilepath endpoints and load them in a stack.
-  function loadTilepaths() {
+  /*function loadTilepaths() {
     fetch('/tilepaths/')
       .then(response => response.json())
       .then(data => {
@@ -168,18 +168,21 @@ let TileSketch = function(sketch) {
         loadNextTile();
       })
       .catch(error => console.error('Error fetching filepaths:', error));
-  }
+  }*/
 
   function loadNextTile() {
-    currentFilepath = tileStack.pop();
-    if (currentFilepath) {
-      currentTile = sketch.loadImage(currentFilepath, function(img) {
-        img.resize(tileSize, 0);
-      });
+    if (tileStack.length > 0) {
+        currentFilepath = tileStack.pop();
+        currentTile = sketch.loadImage(currentFilepath, function(img) {
+            img.resize(tileSize, 0);
+        });
+        localStorage.setItem('tileBank', JSON.stringify(tileStack)); //I don't know if this is needed since the stack should(?) automatically change
     } else {
-      currentTile = '';
+        console.log("No more tiles in the stack.");
+        currentTile = '';
     }
-  }
+}
+
 
   // This draws the tile sketch.
   sketch.draw = function() {
