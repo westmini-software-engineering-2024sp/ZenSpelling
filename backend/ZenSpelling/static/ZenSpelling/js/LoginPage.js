@@ -28,10 +28,15 @@ function login() {
     }
 }
 
-let play = document.getElementById("play");
-function playMusic() {
-    let audio = new Audio("bgMusic.mp3");
-        audio.play();
-}
-play.addEventListener("click", playMusic);
+// function createTwinklingPixel() {
+//     let pixel = document.createElement('div');
+//     pixel.className = 'twinkling-pixel';
+//     pixel.style.left = Math.random() * window.innerWidth + 'px';
+//     pixel.style.top = Math.random() * window.innerHeight + 'px';
+//     document.getElementById('twinkling-container').appendChild(pixel);
+//   }
+//
+//   for(let i = 0; i < 50; i++) {
+//       createTwinklingPixel();
+//   }
 

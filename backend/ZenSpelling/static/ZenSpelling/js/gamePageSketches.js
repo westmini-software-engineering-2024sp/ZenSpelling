@@ -292,6 +292,7 @@ let TileSketch = function(sketch) {
     oscillatePulse = 1;
     offsetX = 0;
     offsetY = 0;
+
   }
 
   // Dynamic window resizing.
