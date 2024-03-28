@@ -5,3 +5,4 @@ function logout() {
 function playGame() {
     window.location.href = '/game/'
 }
+

@@ -12,6 +12,15 @@
     <div class="center">
         <h1>Choose Board Size and Question Set</h1>
         <br>
+            <ul class = "listOfSets">
+            {% for question_set in question_sets %}
+                <li class = "questionSets">
+                <button class = "sets">
+                    {{ question_set.name }}
+                </button>
+                </li>
+            {% endfor %}
+            </ul>
         <div class="item-center">
             <ul>
                 <li> <div class = "text"> 3x3</div> <button onclick="playGame()"><img alt="3x3grid" height = 250em width = 250em src={% static 'ZenSpelling/images/myCanvas-3.png' %}/></button></li>

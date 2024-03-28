@@ -42,6 +42,8 @@ html {
 }
 
 h1 {
+    position: relative;
+    top: 1vh;
     color: white;
     text-align: center;
     object-position: center;
@@ -72,5 +74,42 @@ li button:hover {
     transform: scale(1.2);
     backdrop-filter: blur(3px);
 }
+
+ul .question-sets{
+    position: absolute;
+    top: 10em;
+    right: 5em;
+    color: black;
+    font-size: 3em;
+}
+
+/* -------- QUESTION_SET CSS ---------- */
+
+.questionSets {
+    color: white;
+    margin-bottom: -4vh;
+    margin-top: -4vh;
+}
+
+.listOfSets {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+    margin-top: -8em;
+    font-size: 2em;
+}
+
+.sets {
+    padding: 2vh;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: 700;
+    color: black;
+}
+
+
+
+
 
 
