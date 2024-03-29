@@ -254,7 +254,7 @@ let TileSketch = function (sketch) {
         placedTilePath = currentFilepath;
         if (placed) {
             playSound('release-sound').play();
-            loadNextTile();
+            //loadNextTile();
         }
 
         if (!modal) {
