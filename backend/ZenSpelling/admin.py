@@ -18,7 +18,8 @@ class QuestionAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        return qs if request.user.is_superuser else qs.filter(course__is=request.user.get_course())
+        print(request.user.student.course.name)
+        return qs if request.user.is_superuser else qs.filter(course__name=request.user.student.course.name)
 
 
 class AddQuestionSet(admin.ModelAdmin):

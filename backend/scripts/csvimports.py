@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import PBKDF2SHA1PasswordHasher as hasher
 import csv
 
-
-
 # repetitive code added with assistance from copilot.
 
 
@@ -22,10 +20,9 @@ def answer_import():
 def course_import():
     with open("./ZenSpelling/static/ZenSpelling/csv/course.csv", mode='r', encoding='utf-8-sig') as file:
         for row in csv.reader(file):
-            result, created = Course.objects.get_or_create(
+            _, created = Course.objects.get_or_create(
                 name=row[0],
             )
-            result.students.add(row[1])
             print(created)
 
 

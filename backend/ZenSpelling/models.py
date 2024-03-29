@@ -6,46 +6,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    time_spent = models.DecimalField(max_digits=5, decimal_places=2, default=0)  # minutes
-    questions_answered = models.IntegerField(default=0)
-    questions_correct = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.user.username
-
-    @admin.display(
-        ordering='questions_answered',
-        description='Percent correct by number of questions',
-    )
-    def percent_correct_lifetime(self):
-        if self.questions_answered > 0:
-            return (self.questions_correct / self.questions_answered) * 100
-        else:
-            return 0
-
-    def get_course(self):
-        return self.user.objects.get(course__students=self.user.)
-
-    @staticmethod
-    def authenticate_user(username, password):
-        user = authenticate(username=username, password=password)
-        return user
-
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Student.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.student.save()
-
-
 class Course(models.Model):
     name = models.CharField(max_length=100)
-    students = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
@@ -69,6 +31,41 @@ class Question(models.Model):
             return (self.times_correct / self.times_answered) * 100
         else:
             return 0
+
+
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    course = models.ManyToManyField(Course, default=None)
+    time_spent = models.DecimalField(max_digits=5, decimal_places=2, default=0)  # minutes
+    questions_answered = models.IntegerField(default=0)
+    questions_correct = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.user.username
+
+    @admin.display(
+        ordering='questions_answered',
+        description='Percent correct by number of questions',
+    )
+    def percent_correct_lifetime(self):
+        if self.questions_answered > 0:
+            return (self.questions_correct / self.questions_answered) * 100
+        else:
+            return 0
+
+    @staticmethod
+    def authenticate_user(username, password):
+        user = authenticate(username=username, password=password)
+        return user
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Student.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.student.save()
 
 
 class Answer(models.Model):
