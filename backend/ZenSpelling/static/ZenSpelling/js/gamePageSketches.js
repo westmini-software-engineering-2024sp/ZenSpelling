@@ -287,7 +287,7 @@ function showModal() {
     });
 
     $.ajax({
-        url: '../ZenSpelling/2',
+        url: '../ZenSpelling/' + getGeneratedQuestion(),
         method: 'GET',
         success: function (response) {
             $('#myModal').html(response);
@@ -295,6 +295,16 @@ function showModal() {
     });
 
     return modal;
+}
+
+function getGeneratedQuestion() {
+  console.log(localStorage);
+  var question = JSON.parse(localStorage.getItem('questionBank'));
+  var index = localStorage.getItem('questionNumber');
+  var nextIndex = JSON.parse(localStorage.getItem('questionNumber'));
+  localStorage.setItem('questionNumber', (nextIndex+1));
+  console.log(localStorage);
+  return question[index];
 }
 
 function completeGame() {
