@@ -10,6 +10,7 @@ html{
     width: 100%;
     background-image: url("images/background.svg");
     background-size: cover;
+    background-position: center;
     overflow: hidden;
 }
 
@@ -33,7 +34,10 @@ canvas{
 }
 
 div#grid-container{
-    background-color: rgba(34, 139, 34, 0.75);
+    background-image: url("../Assets/gamePageBackground.png");
+    background-size: cover;
+    background-position: center;
+    /*background-color: rgba(34, 139, 34, 0.75);*/
     width: 60%;
     height: 90%;
     border-radius: 3em;
@@ -45,9 +49,11 @@ div#grid-container{
 div#tile-container{
     width: 20%;
     height: 90%;
-    background-color: rgba(34, 139, 34, 0.75);
+    /*background-color: rgba(34, 139, 34, 0.75);*/
     border-radius: 3em;
     overflow: visible;
+    background-image: url("../Assets/gamePageBackground.png");
+    background-size: cover;
 }
 
 .grid-canvas{

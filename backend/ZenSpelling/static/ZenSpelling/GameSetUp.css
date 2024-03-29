@@ -82,6 +82,7 @@ ul .question-sets{
 /* -------- QUESTION_SET CSS ---------- */
 
 .questionSets {
+    color: white;
     margin-bottom: -4vh;
     margin-top: -4vh;
 }

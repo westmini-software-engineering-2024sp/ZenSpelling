@@ -37,7 +37,7 @@ let GridSketch = function(sketch) {
 
     // Determines the width & height of the game board. Hard-coded for now.
     // TODO : Parameterize this based on user board-size choice.
-    gridDimension = 4;
+    gridDimension = 3;
 
     sketch.calculateBoxSize();
     sketch.buildDataArray();
@@ -113,8 +113,14 @@ let GridSketch = function(sketch) {
         valid = dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '';
         if (valid) {
           placed = true;
+
+          // Extract numeric digits from currentFilePath
+          const numericDigits = currentFilepath.match(/\d+/)[0];
+          // Construct the new filepath
+          const newFilepath = `/static/Assets/GridTiles/gridTile${numericDigits}.png`;
+
           dataArray[i + '' + j].new = true;
-          dataArray[i + '' + j].model = sketch.loadImage(currentFilepath, function (img) {
+          dataArray[i + '' + j].model = sketch.loadImage(newFilepath, function (img) {
             img.resize(sketch.boxSize, 0);
           });
         }
@@ -334,7 +340,14 @@ function playSound(soundId) {
   return {
     play: function() {
       soundEffect.play();
-    }
+    },
+
+    loop: function() {
+      soundEffect.loop = true;
+      soundEffect.play();
+    },
+
+    soundEffect: soundEffect
   };
 }
 
@@ -343,7 +356,11 @@ document.addEventListener("DOMContentLoaded", function() {
   gridSketch = new p5(GridSketch);
   tileSketch = new p5(TileSketch);
 
-  playSound('bg-music').play();
+  let calmMusic = playSound('calm');
+  calmMusic.soundEffect.oncanplaythrough = function() {
+    calmMusic.play();
+    calmMusic.loop();
+  };
 
   const openModalBtn = document.getElementById('openModalBtn');
   const modal = document.getElementById('modal');
