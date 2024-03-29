@@ -181,6 +181,18 @@ let TileSketch = function (sketch) {
         }
     }
 
+    function loadNextTileInStack() {
+        if (tileStack.length > 0) {
+            currentFilepath = tileStack.pop();
+            currentTile = sketch.loadImage(currentFilepath, function (img) {
+                img.resize(tileSize, 0);
+            });
+        } else {
+            console.log("No more tiles in the stack.");
+            currentTile = '';
+        }
+    }
+
     // This draws the tile sketch. Includes pulsing animations.
     sketch.draw = function () {
         sketch.clear();
@@ -254,7 +266,7 @@ let TileSketch = function (sketch) {
         placedTilePath = currentFilepath;
         if (placed) {
             playSound('release-sound').play();
-            //loadNextTile();
+            loadNextTileInStack();
         }
 
         if (!modal) {
