@@ -79,8 +79,44 @@ h2 {
     background-color: rgb(27, 27, 27, 0.3);
 }
 
+#mute_play {
+    position: fixed;
+    top: 5rem;
+    right: 2rem;
+    border-radius: 10px;
+    border-color: black;
+    padding: 5px;
+    outline: none;
+    background: #0a5e0a;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+#mute_play:hover {
+    background: green;
+    cursor: pointer;
+}
+
 .logoutButton {
     position: fixed;
-    top: 3rem;
-    right: 3rem;
+    top: 2rem;
+    right: 2rem;
+    border-radius: 10px;
+    border-color: black;
+    padding: 5px;
+    outline: none;
+    background: #0a5e0a;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.logoutButton:hover {
+    background: green;
+    cursor: pointer;
 }

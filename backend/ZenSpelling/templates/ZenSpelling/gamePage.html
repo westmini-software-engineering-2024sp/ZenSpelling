@@ -29,5 +29,17 @@
 {#        <audio id="g3" src={% static 'Resources/HoverNotes/g3.wav' %}></audio>#}
     </main>
     <footer>Team Jasper 2024</footer>
+  
+  <script>
+        // Function to check if the music should be playing
+        function checkMusic() {
+            let musicPlaying = sessionStorage.getItem('musicPlaying');
+            if (musicPlaying === 'true') {
+                // Your code to resume playing the music
+                // For demonstration purposes, let's just log a message
+            }
+        }
+  window.onload = checkMusic;
+  </script>
   </body>
 </html>

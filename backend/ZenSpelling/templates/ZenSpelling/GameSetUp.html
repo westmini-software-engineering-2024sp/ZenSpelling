@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="{% static 'ZenSpelling/GameSetUp.css' %}">
 </head>
 <body>
-<button class="logoutButton" onclick="logout()">Log Out</button>
     <div class="center">
+        <button id="mute_play"> Turn Music ON </button>
+        <button class="logoutButton" onclick="logout()">Log Out</button>
         <h1>Choose Board Size and Question Set</h1>
         <br>
             <ul class = "listOfSets">
             {% for question_set in question_sets %}
                 <li class = "questionSets">
-                <button class = "sets">
+                <button class = "sets" onclick="logout()">
                     {{ question_set.name }}
                 </button>
                 </li>
@@ -29,5 +30,47 @@
             </ul>
         </div>
     </div>
+
+<audio id = "background-music" loop>
+        <source src="{% static 'Resources/calm.mp3' %}" type="audio/mp3">
+        No browser support
+    </audio>
+
+<script> 
+    document.getElementById("mute_play").onclick = function() {
+      let audio = document.getElementById("background-music");
+      
+      if(audio.paused) {
+          audio.play();
+          this.textContent = "Turn Music OFF";
+      }
+      else {
+          audio.pause();
+          this.textContent = "Turn Music ON";
+      }
+  }
+  
+  function playMusic() {
+            // Your code to start playing the music
+            // Store the state of the music player in session storage
+            sessionStorage.setItem('musicPlaying', 'true');
+        }
+
+        // Function to check if the music should be playing
+        function checkMusic() {
+            let musicPlaying = sessionStorage.getItem('musicPlaying');
+            if (musicPlaying === 'true') {
+                // Your code to resume playing the music
+                // For demonstration purposes, let's just log a message
+            }
+        }
+  window.onload = checkMusic;
+    
+    function changeColor() {
+        document.getElementsByClassName("questionSets")
+    }
+    
+    
+</script>
 </body>
 </html>

@@ -8,10 +8,41 @@
     <script src={% static 'ZenSpelling/js/StartPage.js' %}></script>
 </head>
 <body class="StartPageBackground">
+    <button id="mute_play"> Turn Music ON </button>
     <button class="logoutButton" onclick="logout()">Log Out</button>
     <div class="center">
         <h1> Welcome to Zen Spelling </h1>
         <button class="startButton" onclick="startGame()"> <span class = "start"> Start </span></button>
     </div>
+<script>
+    document.getElementById("mute_play").onclick = function() {
+      let audio = document.getElementById("background-music");
+
+      if(audio.paused) {
+          audio.play();
+          this.textContent = "Turn Music OFF";
+      }
+      else {
+          audio.pause();
+          this.textContent = "Turn Music ON";
+      }
+  }
+
+  function playMusic() {
+            // Your code to start playing the music
+            // Store the state of the music player in session storage
+            sessionStorage.setItem('musicPlaying', 'true');
+        }
+
+        // Function to check if the music should be playing
+        function checkMusic() {
+            let musicPlaying = sessionStorage.getItem('musicPlaying');
+            if (musicPlaying === 'true') {
+                // Your code to resume playing the music
+                // For demonstration purposes, let's just log a message
+            }
+        }
+  window.onload = checkMusic;
+</script>
 </body>
 </html>

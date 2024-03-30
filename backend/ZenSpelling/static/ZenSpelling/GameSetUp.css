@@ -1,5 +1,13 @@
 * {
     font-family: 'Arial', sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100vh;
+    width: 100vw;
+    background: url("images/background.svg") no-repeat center center fixed;
+    background-size: cover;
 }
 
 /* Custom div classes */
@@ -12,18 +20,6 @@
 }
 
 /* This is from LoginStartPage.css, maybe inhert down? */
-.logoutButton {
-    position: fixed;
-    top: 3rem;
-    right: 3rem;
-}
-
-.logoutButton:hover {
-    border-color: #006b1b;
-    border-radius: .5em;
-    background-color: #fff;
-    cursor: pointer;
-}
 
 .item-center {
     display: flex;
@@ -36,19 +32,16 @@
     font-size: 2em;
 }
 
-html {
-    background: url("images/background.svg") no-repeat center center fixed;
-    background-size: cover;
-}
-
 h1 {
+    width: 70vw;
+    text-align: center;
+    margin-left: 4em;
     position: relative;
     top: 1vh;
     color: white;
-    text-align: center;
     object-position: center;
     text-shadow: 1px 1px black;
-    font-size: 4em;
+    font-size: 3em;
     margin-bottom:5em;
 }
 
@@ -66,6 +59,8 @@ li {
 li button {
     background-color: green;
     transition: .5s;
+    color: white;
+    border-radius: 10px;
 }
 
 li button:hover {
@@ -73,6 +68,7 @@ li button:hover {
     background-color: greenyellow;
     transform: scale(1.2);
     backdrop-filter: blur(3px);
+    color: black;
 }
 
 ul .question-sets{
@@ -86,7 +82,6 @@ ul .question-sets{
 /* -------- QUESTION_SET CSS ---------- */
 
 .questionSets {
-    color: white;
     margin-bottom: -4vh;
     margin-top: -4vh;
 }
@@ -95,7 +90,7 @@ ul .question-sets{
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: -8em;
     font-size: 2em;
 }
@@ -105,8 +100,50 @@ ul .question-sets{
     border-radius: 10px;
     font-size: large;
     font-weight: 700;
-    color: black;
 }
+
+#mute_play {
+    position: fixed;
+    top: 4rem;
+    right: 2rem;
+    border-radius: 10px;
+    border-color: black;
+    padding: 5px;
+    outline: none;
+    background: #0a5e0a;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+#mute_play:hover {
+    background: green;
+    cursor: pointer;
+}
+
+.logoutButton {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    border-radius: 10px;
+    border-color: black;
+    padding: 5px;
+    outline: none;
+    background: #0a5e0a;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.logoutButton:hover {
+    background: green;
+    cursor: pointer;
+}
+
 
 
 
