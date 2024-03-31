@@ -6,7 +6,6 @@
 }
 
 .question{
-    color: white;
     font-size: 5em;
     text-align: center;
     padding:1em;
@@ -18,6 +17,31 @@
     justify-content: center;
     align-items: center;
     width:100%;
+    cursor: url("../Assets/bee.png"), pointer;
+}
+
+@keyframes slideDown {
+      0% {
+        transform: translateY(-100%);
+    }
+    50% {
+        transform: translateY(10%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes slideUp {
+      0% {
+        transform: translateY(0%);
+    }
+    50% {
+        transform: translateY(10%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
 }
 
 .modal-container{
@@ -25,62 +49,57 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: forestgreen;
-    animation: fadeIn 1s ease-in-out forwards;
+    background-color: #e7c116;
+    animation: slideDown 0.5s ease-out;
 }
 
 .option{
     font-size:3em;
-    color:green;
     background-color: white;
-    cursor:pointer;
-    border: 3px solid green;
+    border: 3px solid black;
     border-radius:3em;
     width: 50%;
     padding:0.2em;
     margin:0.1em;
     text-align: center;
+    cursor: url("../Assets/bee.png"), pointer;
 }
 
 .choice:focus + .option{
-    background-color: green;
+    background-color: black;
     color:white;
 }
 
 .option:hover{
-    font-size:4em;
+    background-color: #e7c116;
+    color:white;
     transition: font-size  0.5s ease-in-out;
 }
 
 .sub{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size:3em;
     padding:1em;
-    background-color: green;
-    border-radius: 3em;
-    color:white;
+    background-color: #e7c116;
+    border-radius: 50%;
+    color:black;
     text-align: center;
-    width:25%;
-    cursor: pointer;
+    width:5em;
+    height:5em;
+    cursor: url("../Assets/bee.png"), pointer;
 }
 
 .sub:hover{
-    font-size: 4em;
+    font-size: 3.5em;
     transition: 0.5s ease;
-}
-.choice:focus + .sub{
-    background-color: darkgreen;
+    background-color: black;
+    color:white;
+    border: 5px solid #e7c116;
 }
 
 .choice{
     position: absolute;
     left: -9999px;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
