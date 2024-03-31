@@ -1,19 +1,14 @@
 {% load static %}
-{#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#} 
 <link rel="stylesheet" href="{% static 'ZenSpelling/modalStyle.css' %}">
+<script src={% static 'ZenSpelling/js/question.js' %}></script>
+<script src={% static 'Resources/jquery3.7.1.js' %}></script>
 
-<form id="questionForm" class="modal-main" action="{% url 'ZenSpelling:gamePage' %}" method="get"> <!-- must change to only submit when the i == gameboardSize -->
-{% csrf_token %}
-<div class="modal-container">
-    <h1 class="question">{{ question.question_text }}</h1>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    {% for answer in question.answer_set.all %}
-        <input class="choice" type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}">
-        <label class="option" for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br>
-    {% endfor %}
+<div id="questionForm" class="modal-main">
+    <div class="modal-container">
+        <h1 class="question" id="questionText"></h1>
+        <div id="answersContainer"></div>
+    </div>
+    <div class="submit-container">
+        <button class="choice" id="submitBtn">Let's Spell!</button>
+    </div>
 </div>
-<div class="submit-container">
-    <input class="choice" id="subinput" type="submit" value="Let's Spell!" name="sub" >
-    <label class="sub" for="subinput">Let's Spell!</label>
-</div>
-</form>
