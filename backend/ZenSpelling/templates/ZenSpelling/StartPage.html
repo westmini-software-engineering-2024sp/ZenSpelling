@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>Start Page</title>
     <link rel="stylesheet" href={% static 'ZenSpelling/start-page.css' %}>
+    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
     <script src={% static 'ZenSpelling/js/StartPage.js' %}></script>
+    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
 </head>
 <body class="StartPageBackground">
     <button id="mute_play"> Turn Music ON </button>
@@ -13,6 +15,9 @@
     <div class="center">
         <h1> Ready to Spell? </h1>
         <button class="startButton" onclick="startGame()"> <span class = "start"> Start </span></button>
+    </div>
+    <div id="twinkling-container">
+        <div class = "twinkling-pixel"> </div>
     </div>
 <script>
     document.getElementById("mute_play").onclick = function() {

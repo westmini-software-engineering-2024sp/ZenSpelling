@@ -6,7 +6,7 @@
 html {
     height: 100vh;
     width: 100vw;
-    background: url("images/background.svg") no-repeat center center fixed;
+    background: green url("images/background.svg") no-repeat center fixed;
     background-size: cover;
     cursor: url("../Assets/bee.png"), pointer;
 }
@@ -65,11 +65,11 @@ li button {
 }
 
 li button:hover {
-    cursor: pointer;
     background-color: greenyellow;
     transform: scale(1.2);
     backdrop-filter: blur(3px);
     color: black;
+    cursor: url("../Assets/bee.png"), pointer;
 }
 
 ul .question-sets{

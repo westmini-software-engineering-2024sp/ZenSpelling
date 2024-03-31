@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play Game!</title>
     <link rel="stylesheet" href="{% static 'ZenSpelling/game-page-style.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
     <script src={% static 'Resources/p5.min.js' %}></script>
     <script src={% static 'ZenSpelling/js/gamePageSketches.js' %}></script>
+    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
   </head>
   <body>
@@ -28,6 +30,9 @@
 {#        <audio id="e3" src={% static 'Resources/HoverNotes/e3.wav' %}></audio>#}
 {#        <audio id="g3" src={% static 'Resources/HoverNotes/g3.wav' %}></audio>#}
     </main>
+    <div id="twinkling-container">
+        <div class = "twinkling-pixel"> </div>
+    </div>
     <footer>Team Jasper 2024</footer>
   
   <script>
