@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <script src={% static 'ZenSpelling/js/LoginPage.js' %}></script>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/loginStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/login-style.css' %}">
     <style>
   /* Define styles for the twinkling pixel */
   .twinkling-pixel {
@@ -17,13 +17,15 @@
   }
 
   #twinkling-container> :nth-child(odd) {
-    animation: twinkling 1.5s infinite alternate;
+    animation: twinkling 2.1s infinite alternate;
       width: 3px;
       height: 3px;
+      z-index: -1;
   }
   
   #twinkling-container> :nth-child(even) {
-    animation: twinkling 3s infinite alternate;
+    animation: twinkling 1.3s infinite alternate;
+      z-index: -1;
   }
   
   /* Define the animation */
@@ -45,14 +47,12 @@
             <h1>Zen Spelling</h1>
             <h2>Sign In</h2>
             <div class = "inputBox">
-                 <label for="{{ form.username.id_for_label }}">Username:</label> 
+                <label for="{{ form.username.id_for_label }}">Username</label>
                 {{ form.username }}
-                 <!-- <input id='username' type="text" placeholder="Username"> -->
             </div>
             <div class = "inputBox">
-                 <label for="{{ form.password.id_for_label }}">Password:</label> 
+                <label for="{{ form.password.id_for_label }}">Password</label>
                 {{ form.password }}
-               <!--  <input id = 'password' type = "text" placeholder = "Password"> -->
             </div>
             <div class = "inputBox">
                 <input type = "submit" onclick=login() value = "Login" id = "btn">

@@ -1,6 +1,6 @@
 {% load static %}
 {#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#} 
-<link rel="stylesheet" href="{% static 'ZenSpelling/modalStyle.css' %}">
+<link rel="stylesheet" href="{% static 'ZenSpelling/modal-complete-style.css' %}">
 
 <form class="modal-main" action="{% url 'ZenSpelling:complete' %}" method="get"> <!-- Using this for demo -->
 {% csrf_token %}

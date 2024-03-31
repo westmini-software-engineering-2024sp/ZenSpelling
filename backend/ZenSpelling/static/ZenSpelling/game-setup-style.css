@@ -8,6 +8,7 @@ html {
     width: 100vw;
     background: url("images/background.svg") no-repeat center center fixed;
     background-size: cover;
+    cursor: url("../Assets/bee.png"), pointer;
 }
 
 /* Custom div classes */
@@ -19,7 +20,7 @@ html {
     width: 100%;
 }
 
-/* This is from LoginStartPage.css, maybe inhert down? */
+/* This is from start-page.css, maybe inhert down? */
 
 .item-center {
     display: flex;

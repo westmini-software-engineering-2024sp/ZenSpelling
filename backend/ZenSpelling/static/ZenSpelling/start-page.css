@@ -4,10 +4,18 @@
     font-family: 'Arial', sans-serif;
 }
 
+html{
+    background: green url(images/background.svg);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    overflow:hidden;
+}
+
 /* H1-H7 and p */
 h1 {
     font-size: 7rem;
-    color: brown;
+    color:white;
 }
 
 h2 {
@@ -18,17 +26,7 @@ h2 {
 .start {
     font-size: 2em;
     font-weight: 700;
-}
 
-/* Custom body */
-.loginPageBackground {
-    background-image: url(images/LoginPageArt.png);
-    background-size: cover;
-}
-
-.StartPageBackground {
-    background-image: url(images/background.svg);
-    background-size: cover;
 }
 
 /* Custom div classes */
@@ -59,7 +57,7 @@ h2 {
 /* Custom button classes */
 .startButton {
     /* background-color: transparent; */
-    color: brown;
+    color: white;
     border-color: dimgrey;
     font-size: 3rem;
     padding: 3rem 5rem;
@@ -67,6 +65,7 @@ h2 {
     margin-bottom: 6em;
     backdrop-filter: blur(10px);
     background-color: rgb(27, 27, 27, 0.3);
+    cursor: pointer;
 }
 
 .startButton:hover {
