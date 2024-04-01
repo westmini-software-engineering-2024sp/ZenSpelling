@@ -1,0 +1,30 @@
+/* Define styles for the twinkling pixel */
+.twinkling-pixel {
+  width: 5px;
+  height: 5px;
+  background-color: yellow; /* White color */
+  position: absolute;
+  opacity: 0; /* Initially invisible */
+}
+
+#twinkling-container> :nth-child(odd) {
+  animation: twinkling 2.1s infinite alternate;
+    width: 3px;
+    height: 3px;
+    z-index: -1;
+}
+
+#twinkling-container> :nth-child(even) {
+  animation: twinkling 1.3s infinite alternate;
+    z-index: -1;
+}
+
+/* Define the animation */
+@keyframes twinkling {
+  0% {
+    opacity: 0; /* Fade in */
+  }
+  100% {
+    opacity: 1; /* Fade out */
+  }
+}

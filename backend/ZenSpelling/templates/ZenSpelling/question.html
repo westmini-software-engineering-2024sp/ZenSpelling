@@ -1,14 +1,41 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'ZenSpelling/modalStyle.css' %}">
+
+<link rel="stylesheet" href="{% static 'ZenSpelling/modal-style.css' %}">
 <script src={% static 'ZenSpelling/js/question.js' %}></script>
 <script src={% static 'Resources/jquery3.7.1.js' %}></script>
 
-<div id="questionForm" class="modal-main">
-    <div class="modal-container">
-        <h1 class="question" id="questionText"></h1>
-        <div id="answersContainer"></div>
-    </div>
-    <div class="submit-container">
-        <button class="choice" id="submitBtn">Let's Spell!</button>
-    </div>
+{#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#}
+
+<form id="myForm" class="modal-main" action="{% url 'ZenSpelling:complete' %}" method="get"> <!-- Using this for demo -->
+{% csrf_token %}
+<div class="modal-container">
+    <h1 class="question">{{ question.question_text }}</h1>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for answer in question.answer_set.all %}
+        <input class="choice" type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}">
+        <label class="option" for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br>
+    {% endfor %}
 </div>
+<div class="submit-container">
+    <input class="choice" id="subinput" type="submit" value="Spell!" name="sub" >
+    <label class="sub" for="subinput" onclick="closeModal()">SPELL!</label>
+</div>
+</form>
+
+<script>
+    // TODO: As of now, does not work.
+    function closeModal() {
+      const modal1 = document.getElementById("myModal");
+      modal1.classList.remove("slideDown")
+        console.log('yes');
+      modal1.classList.add("slideUp"); // Add slideUp animation class
+    
+      setTimeout(() => {
+        modal1.style.display = "none"; // Hide the modal after animation
+        modal1.classList.remove("slideUp"); // Remove slideUp animation class
+        modal1.classList.add("slideDown")
+        document.body.style.overflow = ""; // Re-enable scrolling of background content
+      }, 500)// Adjust timeout to match animation duration
+      modal = false;
+    }
+</script>

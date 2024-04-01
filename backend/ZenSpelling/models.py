@@ -94,3 +94,12 @@ class QuestionSet(models.Model):
     )
     def __str__(self):
         return self.name
+
+    """
+    @receiver(post_save, sender=Question)
+    def add_to_main_question_set(sender, instance, created, **kwargs):
+        if created:
+            main_question_set, _ = QuestionSet.objects.get_or_create(name='Main')
+            main_question_set.questions.add(instance)
+            main_question_set.save()
+            """

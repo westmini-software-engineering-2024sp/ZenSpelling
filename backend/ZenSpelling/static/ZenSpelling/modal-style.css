@@ -1,0 +1,105 @@
+*{
+    padding:0;
+    margin:0;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.question{
+    font-size: 5em;
+    text-align: center;
+    padding:1em;
+}
+
+.submit-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    cursor: url("../Assets/bee.png"), pointer;
+}
+
+@keyframes slideDown {
+      0% {
+        transform: translateY(-100%);
+    }
+    50% {
+        transform: translateY(10%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes slideUp {
+      0% {
+        transform: translateY(0%);
+    }
+    50% {
+        transform: translateY(10%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+.modal-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e7c116;
+    animation: slideDown 0.5s ease-out;
+}
+
+.option{
+    font-size:3em;
+    background-color: white;
+    border: 3px solid black;
+    border-radius:3em;
+    width: 50%;
+    padding:0.2em;
+    margin:0.1em;
+    text-align: center;
+    cursor: url("../Assets/bee.png"), pointer;
+}
+
+.choice:focus + .option{
+    background-color: black;
+    color:white;
+}
+
+.option:hover{
+    background-color: #e7c116;
+    color:white;
+    transition: font-size  0.5s ease-in-out;
+}
+
+.sub{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:3em;
+    padding:1em;
+    background-color: #e7c116;
+    border-radius: 50%;
+    color:black;
+    text-align: center;
+    width:5em;
+    height:5em;
+    cursor: url("../Assets/bee.png"), pointer;
+}
+
+.sub:hover{
+    font-size: 3.5em;
+    transition: 0.5s ease;
+    background-color: black;
+    color:white;
+    border: 5px solid #e7c116;
+}
+
+.choice{
+    position: absolute;
+    left: -9999px;
+}

@@ -15,6 +15,7 @@ let hoverSounds = ['a4', 'b4', 'c3', 'd3', 'e3', 'g3'];
 let pulse = 1.0;
 let oscillatePulse = 1;
 let soundPlayed = false;
+let modal = false;
 
 
 // Creating the sketch of the game-board.
@@ -34,6 +35,7 @@ let GridSketch = function (sketch) {
 
         gridCanvas.parent(sketch.canvasContainer);
         gridCanvas.class('grid-canvas');
+
 
         // Determines the width & height of the game board. Hard-coded for now.
         // TODO : Parameterize this based on user board-size choice.
@@ -62,6 +64,30 @@ let GridSketch = function (sketch) {
                     new: false
                 };
             }
+    sketch.pop();
+  }
+
+  // Decides if an image needs to be loaded in the metadata array when user releases cursor.
+  sketch.mouseReleased = function() {
+    let valid;
+    for(let i = 0; i < gridDimension; i++){
+      for(let j = 0; j < gridDimension; j++){
+        // Saving this equation for now in case it is needed later.
+        // let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
+
+        valid = dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '';
+        if (valid) {
+          placed = true;
+
+          // Extract numeric digits from currentFilePath
+          const numericDigits = currentFilepath.match(/\d+/)[0];
+          // Construct the new filepath
+          const newFilepath = `/static/Assets/GridTiles/gridTile${numericDigits}.png`;
+
+          dataArray[i + '' + j].new = true;
+          dataArray[i + '' + j].model = sketch.loadImage(newFilepath, function (img) {
+            img.resize(sketch.boxSize, 0);
+          });
         }
     }
 
@@ -134,9 +160,8 @@ let TileSketch = function (sketch) {
     sketch.canvasContainer = null;
     sketch.tileContainer = null;
 
-    let offsetX = 0;
-    let offsetY = 0;
-    let modal = false;
+  let offsetX = 0;
+  let offsetY = 0;
 
     sketch.preload = function () {
         // TODO : Implement more dynamic parameterization for this.
@@ -269,6 +294,48 @@ let TileSketch = function (sketch) {
             loadNextTileInStack();
         }
 
+    if (d < tileSize && !modal) {
+      playSound('click-sound').play();
+      dragging = true;
+    }
+    return false;
+  }
+
+  // Constant recalculation of tile position when dragging.
+  // Checks for collision with grid boxes.
+  sketch.mouseDragged = function() {
+    if (dragging && !modal) {
+      offsetX = sketch.mouseX - sketch.width/1.8;
+      offsetY = sketch.mouseY - sketch.height/1.2;
+
+      for (let i = 0; i < gridDimension; i++) {
+        for (let j = 0; j < gridDimension; j++){
+          let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + tileGridOffsetDiff, dataArray[i + '' + j].y + yShift);
+          dataArray[i + '' + j].collision = d < tileSize/4;
+        }
+      }
+      return false;
+    }
+  }
+
+  // Loads next tile in stack if current tile is successfully placed. Question modal is shown.
+  sketch.mouseReleased = function() {
+    placedTilePath = currentFilepath;
+    if(placed){
+      playSound('release-sound').play();
+      modal = true;
+      showModal();
+      loadNextTile();
+    }
+
+    dragging = false;
+    placed = false;
+    pulse = 1.0;
+    oscillatePulse = 1;
+    offsetX = 0;
+    offsetY = 0;
+  }
+
         if (!modal) {
             modal = showModal();
         }
@@ -332,6 +399,20 @@ function playSound(soundId) {
             soundEffect.play();
         }
     };
+
+  // Nested function, in case we want to add more functionality (pause, reset, playOnce, etc).
+  return {
+    play: function() {
+      soundEffect.play();
+    },
+
+    loop: function() {
+      soundEffect.loop = true;
+      soundEffect.play();
+    },
+
+    soundEffect: soundEffect
+  };
 }
 
 // Waits to create sketches until after DOM is loaded. This mitigates lag.
@@ -360,6 +441,22 @@ document.addEventListener("DOMContentLoaded", function () {
             modal.style.display = 'none';
         }
     });
+
+  let calmMusic = playSound('calm');
+  calmMusic.soundEffect.oncanplaythrough = function() {
+    calmMusic.play();
+    calmMusic.loop();
+  };
+
+  const modal = document.getElementById('modal');
+  modal.style.display = 'block';
+
+  window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+    } else {
+       modal.style.display = 'none';
+    }
+  });
 });
 
 // Dynamic window resizing.

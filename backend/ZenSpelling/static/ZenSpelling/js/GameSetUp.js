@@ -12,7 +12,6 @@ function playGame(size) {
 
     window.location.href = '/game/'
 }
-
 /*
  * This function will generate which question should pop up
  * In the end, I want this to generate the question array with length gameboardSize

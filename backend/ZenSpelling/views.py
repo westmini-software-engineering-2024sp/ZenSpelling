@@ -3,10 +3,11 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from .models import Answer, Question, Student, Course, Tile
+from .models import Answer, Question, Student, Course, Tile, QuestionSet
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 
 
 class IndexView(generic.ListView):
@@ -37,6 +38,7 @@ class LoginView(generic.FormView):
     form_class = LoginForm
     template_name = "ZenSpelling/LoginPage.html"
     success_url = "/start/"
+    bgMusicPath = settings.MEDIA_URL
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
@@ -61,6 +63,7 @@ class StartView(LoginRequiredMixin, generic.TemplateView):
 class SetupView(LoginRequiredMixin, generic.TemplateView):
     login_url = "/"
     template_name = "ZenSpelling/GameSetUp.html"
+    question_sets = QuestionSet.objects.all()
 
 
 class GameView(LoginRequiredMixin, generic.TemplateView):
@@ -99,3 +102,8 @@ def vote(request, question_id):
 def tile_paths(request):
     file_paths = list(Tile.objects.values_list('path', flat=True))
     return JsonResponse({'tile_paths': file_paths})
+
+
+def display_question_sets(request):
+    question_sets = QuestionSet.objects.all()
+    return render(request, 'ZenSpelling/GameSetUp.html', {'question_sets': question_sets})

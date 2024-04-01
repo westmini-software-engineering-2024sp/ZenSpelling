@@ -5,23 +5,24 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <script src={% static 'ZenSpelling/js/LoginPage.js' %}></script>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/loginStyle.css' %}">
+    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+    <link rel="stylesheet" href="{% static 'ZenSpelling/login-style.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
 </head>
 <body>
     <button class="teacherButton" onclick="teacherPortal()">Teacher Portal</button>
+    <button id="mute_play"> Turn Music ON </button>
     <div class = "container">
         <form method="post" class="login"> {% csrf_token %}
             <h1>Zen Spelling</h1>
             <h2>Sign In</h2>
             <div class = "inputBox">
-                 <label for="{{ form.username.id_for_label }}">Username:</label> 
+                <label for="{{ form.username.id_for_label }}">Username</label>
                 {{ form.username }}
-                 <!-- <input id='username' type="text" placeholder="Username"> -->
             </div>
             <div class = "inputBox">
-                 <label for="{{ form.password.id_for_label }}">Password:</label> 
+                <label for="{{ form.password.id_for_label }}">Password</label>
                 {{ form.password }}
-               <!--  <input id = 'password' type = "text" placeholder = "Password"> -->
             </div>
             <div class = "inputBox">
                 <input type = "submit" onclick=login() value = "Login" id = "btn">
@@ -29,9 +30,14 @@
             </div>
         </form>
     </div>
-    <audio controls>
-    <source src="{{ MEDIA_URL }}Music/bgMusic.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+    
+    <div id="twinkling-container">
+        <div class = "twinkling-pixel"> </div>
+    </div>
+
+    <audio id = "background-music" loop>
+        <source src="{% static 'Resources/calm.mp3' %}" type="audio/mp3">
+        No browser support
     </audio>
 </body>
 </html>
