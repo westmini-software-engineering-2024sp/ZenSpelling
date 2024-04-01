@@ -2,6 +2,7 @@
 var answerArray = JSON.parse(localStorage.getItem('answerBank')) || [];
 
 // TODO: As of now, does not work.
+// But it does
 function closeModal() {
     const modal1 = document.getElementById("myModal");
     modal1.classList.remove("slideDown")
@@ -20,22 +21,48 @@ function closeModal() {
 
 function submitAnswer() {
     let formAnswer = document.getElementById("myForm");
-    var index = localStorage.getItem('questionNumber'); // Same as gamePageSketches
+    let index = localStorage.getItem('questionNumber'); // Same as gamePageSketches
 
-    formAnswer.addEventListener("submit", function(event) {
+    formAnswer.addEventListener("submit", function (event) {
         event.preventDefault();
-        var answer = document.querySelector('input[name="answer"]:checked').value;
+        let answer = document.querySelector('input[name="answer"]:checked').value;
 
-        answerArray[index-1] = parseInt(answer);
+        answerArray[index - 1] = parseInt(answer);
         localStorage.setItem('answerBank', JSON.stringify(answerArray));
         console.log(answerArray);
 
         closeModal();
 
-        //this needs to do an ajax call to the server, sending answer (the pk of answer.csv)
-        //django needs to send back true or false, then js will handle the tile switching
+        /*
+        if (Math.random() > .5) {
+            let correct = parseInt(localStorage.getItem('correctAnswers'));
+            correct = correct + 1;
+            localStorage.setItem('correctAnswers', JSON.stringify(correct));
+        }
+        */
 
+        fetch('/answer/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': parseInt(answer)
+            },
+            body: JSON.stringify({
+                answer: answer
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            closeModal();
+        })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     });
+
+    //this needs to do an ajax call to the server, sending answer (the pk of answer.csv)
+    //django needs to send back true or false, then js will handle the tile switching
+
 }
 
 function gameComplete() {

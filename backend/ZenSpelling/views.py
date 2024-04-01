@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -107,3 +109,25 @@ def tile_paths(request):
 def display_question_sets(request):
     question_sets = QuestionSet.objects.all()
     return render(request, 'ZenSpelling/GameSetUp.html', {'question_sets': question_sets})
+
+
+def submit_answer(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            answer_text = data.get('answer')
+
+            answer_exists = Answer.objects.filter(
+                answer_text=answer_text,
+                correct=True
+            ).exists()
+
+            # Return a JSON response indicating whether a correct answer exists
+            return JsonResponse({'exists': answer_exists})
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+        except Exception as e:
+            # For production, consider logging the error
+            return JsonResponse({'error': 'An error occurred.'}, status=500)
+    else:
+        return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
