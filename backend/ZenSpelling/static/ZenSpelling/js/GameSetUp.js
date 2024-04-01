@@ -5,9 +5,7 @@ function logout() {
 function playGame(size) {
     generateQuestion(size);
     generateTileStack();
-    var tilestack = JSON.parse(localStorage.getItem('tileBank'));
-    tilestack = shuffleTileStack(tilestack);
-    localStorage.setItem('tileBank', JSON.stringify(tilestack));
+    shuffleTileStack();
     generateGameboard(size);
 
     window.location.href = '/game/'
@@ -38,7 +36,7 @@ function generateQuestion(gameboardSize) {
 
 // Fetch tilepath endpoints and load them in a stack.
 //How many tiles are loaded into the stack, how is that determined?
-function generateTileStack(gameboardSize) {
+function generateTileStack() {
     let tileStack = [];
 
     fetch('/tilepaths/')
@@ -50,12 +48,16 @@ function generateTileStack(gameboardSize) {
         .catch(error => console.error('Error fetching filepaths:', error));
 }
 
-function shuffleTileStack(tileStack) {
+//this is not working and I do not know why
+function shuffleTileStack() {
+    var tileStack = JSON.parse(localStorage.getItem('tileBank'));
+
     for (let i = tileStack.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [tileStack[i], tileStack[j]] = [tileStack[j], tileStack[i]];
     }
-    return tileStack;
+
+    localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
 function generateGameboard(size) {

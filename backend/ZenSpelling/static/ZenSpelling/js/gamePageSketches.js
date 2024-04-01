@@ -1,6 +1,6 @@
 let gridSketch;
 let tileSketch;
-let tileStack = [];
+let tileStack = JSON.parse(localStorage.getItem('tileBank')) || [];;
 let currentTile;
 let currentFilepath;
 let placedTilePath;
@@ -36,9 +36,7 @@ let GridSketch = function(sketch) {
     gridCanvas.parent(sketch.canvasContainer);
     gridCanvas.class('grid-canvas');
 
-    // Determines the width & height of the game board. Hard-coded for now.
-    // TODO : Parameterize this based on user board-size choice.
-    gridDimension = 3;
+    gridDimension = localStorage.getItem('boardsize');
 
     sketch.calculateBoxSize();
     sketch.buildDataArray();
@@ -146,7 +144,8 @@ let TileSketch = function(sketch) {
 
   sketch.preload = function() {
     // TODO : Implement more dynamic parameterization for this.
-    loadTilepaths(Math.pow(gridDimension, 2));
+    //loadTilepaths(Math.pow(gridDimension, 2));
+    loadNextTile();
   }
 
   /*
@@ -177,40 +176,30 @@ let TileSketch = function(sketch) {
   ** This will fetch repeat tiles to compensate for a smaller tile count vs. grid size.
   ** (We may not need that logic if we have 25+ tile assets).
    */
-  function loadTilepaths(desiredCount) {
-    fetch('/tilepaths/')
-    .then(response => response.json())
-    .then(data => {
-      const fetchedTilePaths = data.tile_paths;
-      const repetitions = Math.ceil(desiredCount / fetchedTilePaths.length);
-      const extendedTilePaths = Array.from({ length: repetitions },
-          () => fetchedTilePaths).flat().slice(0, desiredCount);
-      tileStack.push(...extendedTilePaths);
-      shuffleTileStack(tileStack);
-      loadNextTile();
-    })
-    .catch(error => console.error('Error fetching filepaths:', error));
-  }
-
-  // Fisher-Yates shuffle algorithm to randomize tiles.
-  function shuffleTileStack(tileStack) {
-    for (let i = tileStack.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [tileStack[i], tileStack[j]] = [tileStack[j], tileStack[i]];
-    }
-    return tileStack;
-  }
-
   function loadNextTile() {
-    currentFilepath = tileStack.pop();
-    if (currentFilepath) {
-      currentTile = sketch.loadImage(currentFilepath, function(img) {
-        img.resize(tileSize, 0);
-      });
-    } else {
-      currentTile = '';
+        if (tileStack.length > 0) {
+            currentFilepath = tileStack.pop();
+            currentTile = sketch.loadImage(currentFilepath, function (img) {
+                img.resize(tileSize, 0);
+            });
+            localStorage.setItem('tileBank', JSON.stringify(tileStack)); //I don't know if this is needed since the stack should(?) automatically change
+        } else {
+            console.log("No more tiles in the stack.");
+            currentTile = '';
+        }
     }
-  }
+
+    function loadNextTileInStack() {
+        if (tileStack.length > 0) {
+            currentFilepath = tileStack.pop();
+            currentTile = sketch.loadImage(currentFilepath, function (img) {
+                img.resize(tileSize, 0);
+            });
+        } else {
+            console.log("No more tiles in the stack.");
+            currentTile = '';
+        }
+    }
 
   // This draws the tile sketch. Includes pulsing animations.
   sketch.draw = function() {
@@ -287,7 +276,7 @@ let TileSketch = function(sketch) {
       playSound('release-sound').play();
       modal = true;
       showModal();
-      loadNextTile();
+      loadNextTileInStack();
     }
 
     dragging = false;

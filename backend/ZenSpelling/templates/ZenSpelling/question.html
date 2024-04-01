@@ -1,8 +1,10 @@
 {% load static %}
 {#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#} 
 <link rel="stylesheet" href="{% static 'ZenSpelling/modal-style.css' %}">
+<script src={% static 'ZenSpelling/js/question.js' %}></script>
+<script src={% static 'Resources/jquery3.7.1.js' %}></script>
 
-<form id="myForm" class="modal-main" action="{% url 'ZenSpelling:complete' %}" method="get"> <!-- Using this for demo -->
+<form id="myForm" class="modal-main" action="{% url 'ZenSpelling:gamePage' %}" method="get"> <!-- Using this for demo -->
 {% csrf_token %}
 <div class="modal-container">
     <h1 class="question">{{ question.question_text }}</h1>
