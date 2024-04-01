@@ -35,6 +35,7 @@ function generateQuestion(sidelength) {
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
     localStorage.setItem('answerBank', JSON.stringify(answerArray));
     localStorage.setItem('questionNumber', JSON.stringify(0));
+    localStorage.setItem('correctAnswers', JSON.stringify(0));
 }
 
 // Fetch tilepath endpoints and load them in a stack.

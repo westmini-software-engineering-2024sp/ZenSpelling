@@ -31,6 +31,10 @@ function submitAnswer() {
         console.log(answerArray);
 
         closeModal();
+
+        //this needs to do an ajax call to the server, sending answer (the pk of answer.csv)
+        //django needs to send back true or false, then js will handle the tile switching
+
     });
 }
 

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Level Complete</title>
     <link rel="stylesheet" href="{% static 'ZenSpelling/complete-style.css' %}">
+    <script src={% static 'ZenSpelling/js/complete.js' %}></script>
 </head>
 <body>
 
@@ -16,11 +17,11 @@
 
     <div class="box">
     <div class="score">
-        <h3>Score: 16/16</h3>
+        <h3>Score: <span id="scoreDisplay"></span></h3> <!-- is there a better way to do this-->
     </div>
 
     <div class="percent">
-        <h3> Percentage: 100% </h3>
+        <h3> Percentage: <span id="percentDisplay"></span> %</h3>
     </div>
 
     <a href="/setup/" class="btn">Restart</a>
