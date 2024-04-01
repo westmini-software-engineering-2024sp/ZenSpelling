@@ -4,15 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Start Page</title>
-    <link rel="stylesheet" href={% static 'ZenSpelling/LoginStartPage.css' %}>
+    <link rel="stylesheet" href={% static 'ZenSpelling/start-page.css' %}>
+    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
     <script src={% static 'ZenSpelling/js/StartPage.js' %}></script>
+    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
 </head>
 <body class="StartPageBackground">
     <button id="mute_play"> Turn Music ON </button>
     <button class="logoutButton" onclick="logout()">Log Out</button>
     <div class="center">
-        <h1> Welcome to Zen Spelling </h1>
+        <h1> Ready to Spell? </h1>
         <button class="startButton" onclick="startGame()"> <span class = "start"> Start </span></button>
+    </div>
+    <div id="twinkling-container">
+        <div class = "twinkling-pixel"> </div>
     </div>
 <script>
     document.getElementById("mute_play").onclick = function() {

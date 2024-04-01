@@ -5,37 +5,9 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <script src={% static 'ZenSpelling/js/LoginPage.js' %}></script>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/loginStyle.css' %}">
-    <style>
-  /* Define styles for the twinkling pixel */
-  .twinkling-pixel {
-    width: 5px;
-    height: 5px;
-    background-color: yellow; /* White color */
-    position: absolute;
-    opacity: 0; /* Initially invisible */
-  }
-
-  #twinkling-container> :nth-child(odd) {
-    animation: twinkling 1.5s infinite alternate;
-      width: 3px;
-      height: 3px;
-  }
-  
-  #twinkling-container> :nth-child(even) {
-    animation: twinkling 3s infinite alternate;
-  }
-  
-  /* Define the animation */
-  @keyframes twinkling {
-    0% {
-      opacity: 0; /* Fade in */
-    }
-    100% {
-      opacity: 1; /* Fade out */
-    }
-  }
-</style>
+    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+    <link rel="stylesheet" href="{% static 'ZenSpelling/login-style.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
 </head>
 <body>
     <button class="teacherButton" onclick="teacherPortal()">Teacher Portal</button>
@@ -45,14 +17,12 @@
             <h1>Zen Spelling</h1>
             <h2>Sign In</h2>
             <div class = "inputBox">
-                 <label for="{{ form.username.id_for_label }}">Username:</label> 
+                <label for="{{ form.username.id_for_label }}">Username</label>
                 {{ form.username }}
-                 <!-- <input id='username' type="text" placeholder="Username"> -->
             </div>
             <div class = "inputBox">
-                 <label for="{{ form.password.id_for_label }}">Password:</label> 
+                <label for="{{ form.password.id_for_label }}">Password</label>
                 {{ form.password }}
-               <!--  <input id = 'password' type = "text" placeholder = "Password"> -->
             </div>
             <div class = "inputBox">
                 <input type = "submit" onclick=login() value = "Login" id = "btn">
@@ -60,6 +30,7 @@
             </div>
         </form>
     </div>
+    
     <div id="twinkling-container">
         <div class = "twinkling-pixel"> </div>
     </div>
@@ -68,51 +39,5 @@
         <source src="{% static 'Resources/calm.mp3' %}" type="audio/mp3">
         No browser support
     </audio>
-    
-<script>
-  // Function to create twinkling pixels at random positions
-  function createTwinklingPixel() {
-    let pixel = document.createElement('div');
-    pixel.className = 'twinkling-pixel';
-    pixel.style.left = Math.random() * window.innerWidth + 'px';
-    pixel.style.top = Math.random() * window.innerHeight + 'px';
-    document.getElementById('twinkling-container').appendChild(pixel);
-  }
-
-  // Create multiple twinkling pixels
-  for (let i = 0; i < 120; i++) {
-    createTwinklingPixel();
-  }
-
-  document.getElementById("mute_play").onclick = function() {
-      let audio = document.getElementById("background-music");
-
-      if (audio.paused) {
-          audio.play();
-          this.textContent = "Turn Music OFF";
-      } else {
-          audio.pause();
-          this.textContent = "Turn Music ON";
-      }
-
-      function playMusic() {
-          // Your code to start playing the music
-          // Store the state of the music player in session storage
-          sessionStorage.setItem('musicPlaying', 'true');
-      }
-
-      // Function to check if the music should be playing
-      function checkMusic() {
-          let musicPlaying = sessionStorage.getItem('musicPlaying');
-          if (musicPlaying === 'true') {
-              // Your code to resume playing the music
-              // For demonstration purposes, let's just log a message
-          }
-      }
-
-      window.onload = checkMusic;
-
-  }
-</script>
 </body>
 </html>

@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>Game Set Up Student</title>
     <script src={% static 'ZenSpelling/js/GameSetUp.js' %}></script>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/GameSetUp.css' %}">
+    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+    <link rel="stylesheet" href="{% static 'ZenSpelling/game-setup-style.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
 </head>
 <body>
     <div class="center">
@@ -29,6 +31,9 @@
                 <li> <div class = "text"> 5x5</div> <button onclick="playGame()"><img alt="5x5grid" height = 250em width = 250em src={% static 'ZenSpelling/images/myCanvas-5.png' %}/></button></li>
             </ul>
         </div>
+    </div>
+    <div id="twinkling-container">
+        <div class = "twinkling-pixel"> </div>
     </div>
 
 <audio id = "background-music" loop>

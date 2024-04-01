@@ -1,8 +1,8 @@
 {% load static %}
 {#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#} 
-<link rel="stylesheet" href="{% static 'ZenSpelling/modalStyle.css' %}">
+<link rel="stylesheet" href="{% static 'ZenSpelling/modal-style.css' %}">
 
-<form class="modal-main" action="{% url 'ZenSpelling:complete' %}" method="get"> <!-- Using this for demo -->
+<form id="myForm" class="modal-main" action="{% url 'ZenSpelling:complete' %}" method="get"> <!-- Using this for demo -->
 {% csrf_token %}
 <div class="modal-container">
     <h1 class="question">{{ question.question_text }}</h1>
@@ -13,9 +13,27 @@
     {% endfor %}
 </div>
 <div class="submit-container">
-    <input class="choice" id="subinput" type="submit" value="Let's Spell!" name="sub" >
-    <label class="sub" for="subinput">Let's Spell!</label>
+    <input class="choice" id="subinput" type="submit" value="Spell!" name="sub" >
+    <label class="sub" for="subinput" onclick="closeModal()">SPELL!</label>
 </div>
 </form>
+
+<script>
+    // TODO: As of now, does not work.
+    function closeModal() {
+      const modal1 = document.getElementById("myModal");
+      modal1.classList.remove("slideDown")
+        console.log('yes');
+      modal1.classList.add("slideUp"); // Add slideUp animation class
+    
+      setTimeout(() => {
+        modal1.style.display = "none"; // Hide the modal after animation
+        modal1.classList.remove("slideUp"); // Remove slideUp animation class
+        modal1.classList.add("slideDown")
+        document.body.style.overflow = ""; // Re-enable scrolling of background content
+      }, 500)// Adjust timeout to match animation duration
+      modal = false;
+    }
+</script>
 
 

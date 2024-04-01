@@ -15,6 +15,7 @@ let hoverSounds = ['a4', 'b4', 'c3', 'd3', 'e3', 'g3'];
 let pulse = 1.0;
 let oscillatePulse = 1;
 let soundPlayed = false;
+let modal = false;
 
 
 // Creating the sketch of the game-board.
@@ -37,7 +38,7 @@ let GridSketch = function(sketch) {
 
     // Determines the width & height of the game board. Hard-coded for now.
     // TODO : Parameterize this based on user board-size choice.
-    gridDimension = 4;
+    gridDimension = 3;
 
     sketch.calculateBoxSize();
     sketch.buildDataArray();
@@ -113,8 +114,14 @@ let GridSketch = function(sketch) {
         valid = dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '';
         if (valid) {
           placed = true;
+
+          // Extract numeric digits from currentFilePath
+          const numericDigits = currentFilepath.match(/\d+/)[0];
+          // Construct the new filepath
+          const newFilepath = `/static/Assets/GridTiles/gridTile${numericDigits}.png`;
+
           dataArray[i + '' + j].new = true;
-          dataArray[i + '' + j].model = sketch.loadImage(currentFilepath, function (img) {
+          dataArray[i + '' + j].model = sketch.loadImage(newFilepath, function (img) {
             img.resize(sketch.boxSize, 0);
           });
         }
@@ -136,7 +143,6 @@ let TileSketch = function(sketch) {
 
   let offsetX = 0;
   let offsetY = 0;
-  let modal = false;
 
   sketch.preload = function() {
     // TODO : Implement more dynamic parameterization for this.
@@ -250,7 +256,7 @@ let TileSketch = function(sketch) {
   sketch.mousePressed = function() {
     let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
 
-    if (d < tileSize) {
+    if (d < tileSize && !modal) {
       playSound('click-sound').play();
       dragging = true;
     }
@@ -260,7 +266,7 @@ let TileSketch = function(sketch) {
   // Constant recalculation of tile position when dragging.
   // Checks for collision with grid boxes.
   sketch.mouseDragged = function() {
-    if (dragging) {
+    if (dragging && !modal) {
       offsetX = sketch.mouseX - sketch.width/1.8;
       offsetY = sketch.mouseY - sketch.height/1.2;
 
@@ -279,11 +285,9 @@ let TileSketch = function(sketch) {
     placedTilePath = currentFilepath;
     if(placed){
       playSound('release-sound').play();
+      modal = true;
+      showModal();
       loadNextTile();
-    }
-
-    if(!modal){
-      modal = showModal();
     }
 
     dragging = false;
@@ -292,7 +296,6 @@ let TileSketch = function(sketch) {
     oscillatePulse = 1;
     offsetX = 0;
     offsetY = 0;
-
   }
 
   // Dynamic window resizing.
@@ -304,7 +307,6 @@ let TileSketch = function(sketch) {
 
 // Fetches question/answers to populate modal.
 function showModal() {
-  let modal = true;
 
   $('#myModal').css('display', 'block');
 
@@ -319,13 +321,8 @@ function showModal() {
       $('#myModal').html(response);
     }
   });
-
-  return modal;
 }
 
-function completeGame(){
-  window.location.href = '../complete/';
-}
 
 function playSound(soundId) {
   let soundEffect = document.getElementById(soundId);
@@ -334,7 +331,14 @@ function playSound(soundId) {
   return {
     play: function() {
       soundEffect.play();
-    }
+    },
+
+    loop: function() {
+      soundEffect.loop = true;
+      soundEffect.play();
+    },
+
+    soundEffect: soundEffect
   };
 }
 
@@ -343,25 +347,19 @@ document.addEventListener("DOMContentLoaded", function() {
   gridSketch = new p5(GridSketch);
   tileSketch = new p5(TileSketch);
 
-  playSound('bg-music').play();
+  let calmMusic = playSound('calm');
+  calmMusic.soundEffect.oncanplaythrough = function() {
+    calmMusic.play();
+    calmMusic.loop();
+  };
 
-  const openModalBtn = document.getElementById('openModalBtn');
   const modal = document.getElementById('modal');
-  const closeModalBtn = modal.querySelector('.close');
-
-  modal.style.display = 'none';
-
-  openModalBtn.addEventListener('click', () => {
-    modal.style.display = 'block';
-  });
-
-  closeModalBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
+  modal.style.display = 'block';
 
   window.addEventListener('click', (event) => {
     if (event.target === modal) {
-      modal.style.display = 'none';
+    } else {
+       modal.style.display = 'none';
     }
   });
 });

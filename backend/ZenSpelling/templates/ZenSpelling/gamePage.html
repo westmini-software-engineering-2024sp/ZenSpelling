@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play Game!</title>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/gamePageStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/game-page-style.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
     <script src={% static 'Resources/p5.min.js' %}></script>
     <script src={% static 'ZenSpelling/js/gamePageSketches.js' %}></script>
+    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
   </head>
   <body>
@@ -16,11 +18,11 @@
         <div class="tile-canvas" id="tile-container"></div> <!-- Container div for tile sideboard -->
         <div id="myModal" class="modal"></div>
         
-        <audio id="bg-music" src={% static 'Resources/Music/bgMusic.mp3' %}></audio>
+        <audio id="calm" src={% static 'Resources/Music/calm.mp3' %}></audio>
         <audio id="click-sound" src={% static 'Resources/SoundEffects/clickSound.mp3' %}></audio>
         <audio id="release-sound" src={% static 'Resources/SoundEffects/releaseSound.mp3' %}></audio>
         
-{#        TODO : This is my attempts at implementing hover sounds. Defer to R3.#}
+{#        TODO : This is my attempt at implementing hover sounds. Defer to R3.#}
 {#        <audio id="a4" src={% static 'Resources/HoverNotes/a4.wav' %}></audio>#}
 {#        <audio id="b4" src={% static 'Resources/HoverNotes/b4.wav' %}></audio>#}
 {#        <audio id="c3" src={% static 'Resources/HoverNotes/c3.wav' %}></audio>#}
@@ -28,6 +30,9 @@
 {#        <audio id="e3" src={% static 'Resources/HoverNotes/e3.wav' %}></audio>#}
 {#        <audio id="g3" src={% static 'Resources/HoverNotes/g3.wav' %}></audio>#}
     </main>
+    <div id="twinkling-container">
+        <div class = "twinkling-pixel"> </div>
+    </div>
     <footer>Team Jasper 2024</footer>
   
   <script>
