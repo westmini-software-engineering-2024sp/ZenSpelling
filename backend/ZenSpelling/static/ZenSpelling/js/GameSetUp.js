@@ -10,12 +10,14 @@ function playGame(size) {
 
     window.location.href = '/game/'
 }
+
 /*
  * This function will generate which question should pop up
  * In the end, I want this to generate the question array with length gameboardSize
  */
 function generateQuestion(gameboardSize) {
     var questionArray = [];
+    var answerArray = [];
     //var questionNumber = gameboardSize*gameboardSize; //uncomment this if wanting to generate the entire board
     var questionNumber = gameboardSize; //uncomment this if wanting to run just the bare minimum of questions for testing
 
@@ -31,6 +33,7 @@ function generateQuestion(gameboardSize) {
     localStorage.setItem('boardsize', questionNumber); //edge length
     localStorage.setItem('gameboardSize', gameboardSize);
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
+    localStorage.setItem('answerBank', JSON.stringify(answerArray));
     localStorage.setItem('questionNumber', JSON.stringify(0));
 }
 

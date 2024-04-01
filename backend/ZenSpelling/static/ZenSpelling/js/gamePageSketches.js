@@ -1,6 +1,6 @@
 let gridSketch;
 let tileSketch;
-let tileStack = JSON.parse(localStorage.getItem('tileBank')) || [];;
+let tileStack = JSON.parse(localStorage.getItem('tileBank')) || [];
 let currentTile;
 let currentFilepath;
 let placedTilePath;
@@ -182,13 +182,14 @@ let TileSketch = function(sketch) {
             currentTile = sketch.loadImage(currentFilepath, function (img) {
                 img.resize(tileSize, 0);
             });
-            localStorage.setItem('tileBank', JSON.stringify(tileStack)); //I don't know if this is needed since the stack should(?) automatically change
+            localStorage.setItem('tileBank', JSON.stringify(tileStack));
         } else {
             console.log("No more tiles in the stack.");
             currentTile = '';
         }
     }
 
+    // do this ONLY if you need to read the next tile but do not need to remove it from the stack
     function loadNextTileInStack() {
         if (tileStack.length > 0) {
             currentFilepath = tileStack.pop();
@@ -312,6 +313,7 @@ function showModal() {
   });
 }
 
+// From the localStorage questionBank, it gets the next question
 function getGeneratedQuestion() {
   console.log(localStorage);
   var question = JSON.parse(localStorage.getItem('questionBank'));

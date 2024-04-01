@@ -1,4 +1,6 @@
 //haven't finished this, sorry
+var answerArray = JSON.parse(localStorage.getItem('answerBank')) || [];
+
 // TODO: As of now, does not work.
 function closeModal() {
     const modal1 = document.getElementById("myModal");
@@ -12,19 +14,25 @@ function closeModal() {
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
     modal = false;
-
-    submitAnswer();
 }
 
 function submitAnswer() {
     let formAnswer = document.getElementById("myForm");
+    var index = localStorage.getItem('questionNumber'); // Same as gamePageSketches
 
     formAnswer.addEventListener("submit", function(event) {
         event.preventDefault();
         var answer = document.querySelector('input[name="answer"]:checked').value;
         alert(answer);
+
+        answerArray[index-1] = parseInt(answer);
+        localStorage.setItem('answerBank', JSON.stringify(answerArray));
+        console.log(answerArray);
+
+        closeModal();
     });
 }
+
 
 /*document.addEventListener("DOMContentLoaded", function() {
     alert("eventListener triggered");
