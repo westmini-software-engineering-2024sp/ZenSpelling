@@ -3,7 +3,6 @@
 function closeModal() {
     const modal1 = document.getElementById("myModal");
     modal1.classList.remove("slideDown")
-    console.log('yes');
     modal1.classList.add("slideUp"); // Add slideUp animation class
 
     setTimeout(() => {
@@ -13,7 +12,30 @@ function closeModal() {
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
     modal = false;
+
+    submitAnswer();
 }
+
+function submitAnswer() {
+    let formAnswer = document.getElementById("myForm");
+
+    formAnswer.addEventListener("submit", function(event) {
+        event.preventDefault();
+        var answer = document.querySelector('input[name="answer"]:checked').value;
+        alert(answer);
+    });
+}
+
+/*document.addEventListener("DOMContentLoaded", function() {
+    alert("eventListener triggered");
+    var formAnswer = document.getElementById("myForm");
+
+    formAnswer.addEventListener("submit", function(event) {
+        event.preventDefault();
+        var answer = document.querySelector('input[name="answer"]:checked').value;
+        alert(answer);
+    });
+});*/
 
 /*
 function completeGame() {
