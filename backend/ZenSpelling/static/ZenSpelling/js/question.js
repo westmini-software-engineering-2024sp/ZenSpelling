@@ -14,6 +14,8 @@ function closeModal() {
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
     modal = false;
+
+    gameComplete();
 }
 
 function submitAnswer() {
@@ -23,7 +25,6 @@ function submitAnswer() {
     formAnswer.addEventListener("submit", function(event) {
         event.preventDefault();
         var answer = document.querySelector('input[name="answer"]:checked').value;
-        alert(answer);
 
         answerArray[index-1] = parseInt(answer);
         localStorage.setItem('answerBank', JSON.stringify(answerArray));
@@ -31,6 +32,13 @@ function submitAnswer() {
 
         closeModal();
     });
+}
+
+function gameComplete() {
+    console.log(localStorage.getItem('questionNumber') + " " + localStorage.getItem('gameboardSize'));
+    if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
+        window.location.href = '../complete/';
+    }
 }
 
 
@@ -44,9 +52,3 @@ function submitAnswer() {
         alert(answer);
     });
 });*/
-
-/*
-function completeGame() {
-    window.location.href = '../complete/';
-}
- */

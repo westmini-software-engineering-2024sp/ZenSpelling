@@ -15,23 +15,23 @@ function playGame(size) {
  * This function will generate which question should pop up
  * In the end, I want this to generate the question array with length gameboardSize
  */
-function generateQuestion(gameboardSize) {
+function generateQuestion(sidelength) {
     var questionArray = [];
     var answerArray = [];
-    //var questionNumber = gameboardSize*gameboardSize; //uncomment this if wanting to generate the entire board
-    var questionNumber = gameboardSize; //uncomment this if wanting to run just the bare minimum of questions for testing
+    //var gameboardSize = sidelength*sidelength; //uncomment this if wanting to generate the entire board
+    var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
 
-    for (let i = 0; i < questionNumber; i++) {
+    for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
         do {
-            uniqueNumber = Math.floor(Math.random() * questionNumber) + 1;
+            uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;
         } while (questionArray.includes(uniqueNumber));
         questionArray[i] = uniqueNumber;
     }
 
     //set start time
-    localStorage.setItem('boardsize', questionNumber); //edge length
-    localStorage.setItem('gameboardSize', gameboardSize);
+    localStorage.setItem('boardsize', sidelength); //edge length
+    localStorage.setItem('gameboardSize', gameboardSize); //how many tiles
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
     localStorage.setItem('answerBank', JSON.stringify(answerArray));
     localStorage.setItem('questionNumber', JSON.stringify(0));
