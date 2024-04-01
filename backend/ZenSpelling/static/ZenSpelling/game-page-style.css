@@ -33,11 +33,11 @@ canvas{
 }
 
 div#grid-container{
-    background-image: url("../Assets/gamePageBackground.png");
+    background-image: url("../Assets/grid-background.png");
     background-size: cover;
     background-position: center;
     /*background-color: rgba(34, 139, 34, 0.75);*/
-    width: 60%;
+    width: 65%;
     height: 90%;
     border-radius: 3em;
     position: absolute;
@@ -46,13 +46,14 @@ div#grid-container{
 }
 
 div#tile-container{
-    width: 20%;
+    width: 25%;
     height: 90%;
     /*background-color: rgba(34, 139, 34, 0.75);*/
     border-radius: 3em;
     overflow: visible;
-    background-image: url("../Assets/gamePageBackground.png");
+    background-image: url("../Assets/tile-background.png");
     background-size: cover;
+    background-position: center;
 }
 
 .grid-canvas{
@@ -64,7 +65,7 @@ div#tile-container{
 .tile-canvas{
     position: absolute;
     top:5em;
-    left:7em;
+    left:4em;
     width: 100%;
     height:100%;
 }
