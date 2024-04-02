@@ -1,8 +1,9 @@
 //haven't finished this, sorry
-var answerArray = JSON.parse(localStorage.getItem('answerBank')) || [];
+let answerArray = JSON.parse(localStorage.getItem('answerBank')) || [];
+let onStreak = false;
+let streakCount;
+localStorage.setItem('streak', JSON.stringify(0));
 
-// TODO: As of now, does not work.
-// But it does
 function closeModal() {
     const modal1 = document.getElementById("myModal");
     modal1.classList.remove("slideDown")
@@ -54,8 +55,22 @@ function submitAnswer() {
                     let correct = parseInt(localStorage.getItem('correctAnswers'));
                     correct = correct + 1;
                     localStorage.setItem('correctAnswers', JSON.stringify(correct));
-                    // needs to also calculte streak
-                    localStorage.setItem('streak', JSON.stringify(0));
+
+                    // creating the streak
+                    if (onStreak === false) {
+                        onStreak = true;
+                        streakCount = 1;
+                    } else { // streak already exists
+                        streakCount = streakCount + 1;
+                    }
+
+                    //checking if the saved streak is larger than the current streak
+                    if (parseInt(localStorage.getItem('streak')) < streakCount) {
+                        localStorage.setItem('streak', JSON.stringify(streakCount));
+                    }
+
+                } else {
+                    onStreak = false;
                 }
                 closeModal();
             })
