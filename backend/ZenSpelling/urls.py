@@ -14,5 +14,5 @@ urlpatterns = [
     path("ZenSpelling/<int:question_id>/vote/", views.vote, name="vote"),
     path("tilepaths/", views.tile_paths, name="tilePaths"),
     path('setup/', views.display_question_sets, name='question_sets'),
-    path('answer', views.submit_answer, name='answer'),
+    path('game/answer/', views.submit_answer, name='submit_answer'),
 ]

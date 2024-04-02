@@ -111,14 +111,15 @@ def display_question_sets(request):
     return render(request, 'ZenSpelling/GameSetUp.html', {'question_sets': question_sets})
 
 
+# question.html form
 def submit_answer(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
-            answer_text = data.get('answer')
+            answer_id = data.get('answer')
 
             answer_exists = Answer.objects.filter(
-                answer_text=answer_text,
+                id=answer_id,
                 correct=True
             ).exists()
 
