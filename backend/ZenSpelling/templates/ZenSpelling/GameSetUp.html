@@ -18,7 +18,7 @@
             <ul class = "listOfSets">
             {% for question_set in question_sets %}
                 <li class = "questionSets">
-                <button class = "sets" onclick="logout()">
+                <button id = "sets" onclick="changeColor()">
                     {{ question_set.name }}
                 </button>
                 </li>
@@ -37,7 +37,7 @@
     </div>
 
 <audio id = "background-music" loop>
-        <source src="{% static 'Resources/calm.mp3' %}" type="audio/mp3">
+        <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
         No browser support
     </audio>
 
@@ -70,12 +70,6 @@
             }
         }
   window.onload = checkMusic;
-    
-    function changeColor() {
-        document.getElementsByClassName("questionSets")
-    }
-    
-    
 </script>
 </body>
 </html>

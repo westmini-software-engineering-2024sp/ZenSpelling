@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Level Complete</title>
     <link rel="stylesheet" href="{% static 'ZenSpelling/complete-style.css' %}">
+    <script src={% static 'ZenSpelling/js/complete.js' %} defer></script>
 </head>
 <body>
 
@@ -26,6 +27,19 @@
     <a href="/setup/" class="btn">Restart</a>
     <a href="#" class="btn2">Continue</a> <!-- will go to level select or something like that -->
     </div>
+    
+    <div class="flip-container">
+  <div class="flipper">
+    <div class="front">
+        <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px>
+    </div>
+    <div class="back">
+      <div class="text-overlay">
+        <p>You won this metal for getting all your questions correct!</p>
+      </div>
+    </div>
+  </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 

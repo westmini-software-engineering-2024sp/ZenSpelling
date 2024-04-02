@@ -19,6 +19,10 @@
     <div id="twinkling-container">
         <div class = "twinkling-pixel"> </div>
     </div>
+    <audio id = "background-music" loop>
+        <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
+        No browser support
+    </audio>
 <script>
     document.getElementById("mute_play").onclick = function() {
       let audio = document.getElementById("background-music");
@@ -33,21 +37,25 @@
       }
   }
 
-  function playMusic() {
-            // Your code to start playing the music
-            // Store the state of the music player in session storage
-            sessionStorage.setItem('musicPlaying', 'true');
-        }
+  function togglePlay() {
+    let audio = document.getElementById('audio-player');
+    if (audio.paused) {
+        audio.play();
+        localStorage.setItem('isPlaying', 'true');
+    } else {
+        audio.pause();
+        localStorage.setItem('isPlaying', 'false');
+    }
+}
 
-        // Function to check if the music should be playing
-        function checkMusic() {
-            let musicPlaying = sessionStorage.getItem('musicPlaying');
-            if (musicPlaying === 'true') {
-                // Your code to resume playing the music
-                // For demonstration purposes, let's just log a message
-            }
-        }
-  window.onload = checkMusic;
+// Check for playback state when the page loads
+window.onload = function() {
+    let audio = document.getElementById('audio-player');
+    let isPlaying = localStorage.getItem('isPlaying');
+    if (isPlaying === 'true') {
+        audio.play();
+    }
+}
 </script>
 </body>
 </html>

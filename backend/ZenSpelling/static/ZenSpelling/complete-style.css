@@ -17,45 +17,39 @@ body {
 }
 
 .title {
-    font-size: 70px;
-    color: darkolivegreen;
-}
-
-.title {
+    font-size: 7em;
+    color: #c48100;
     animation: slideAnimation 3s ease-in-out;
+    margin-top: 2em;
 }
 
 .score {
     font-size: 25px;
     text-align: center;
-    color: darkolivegreen;
+    color: #c48100;
+    animation: slideAnimation 3s ease-in-out;
+    margin-top: 5em;
 }
 
-.score {
-    animation: slideAnimation 3s ease-in-out;
-}
 
 .percent {
     font-size: 25px;
     text-align: center;
-    color: darkolivegreen;
-}
-
-.percent {
+    color: #c48100;
     animation: slideAnimation 3s ease-in-out;
+    margin-top: 1em;
 }
 
 .btn {
     display: block;
     margin: 50px auto;
     width: fit-content;
-    border: 1px solid darkolivegreen;
-    padding: 14px 50px;
+    border: 3px solid #c48100;
+    padding: 14px 70px;
     border-radius: 6px;
     text-decoration: none;
-    color: darkolivegreen;
-    transition: 0.5s;
-    margin-bottom: 20px;
+    color: #c48100;
+    margin-bottom: 15px;
     margin-left: 525px;
     transition: transform 0.5s;
 
@@ -66,12 +60,11 @@ body {
     display: block;
     margin: 50px auto;
     width: fit-content;
-    border: 1px solid darkolivegreen;
-    padding: 14px 50px;
+    border: 3px solid #c48100;
+    padding: 14px 70px;
     border-radius: 6px;
     text-decoration: none;
-    color: darkolivegreen;
-    transition: 0.5s;
+    color: #c48100;
     margin-top: -75px;
     margin-left: 740px;
     transition: transform 0.5s;
@@ -91,13 +84,13 @@ body {
 }
 
 .btn:hover {
-    background: darkolivegreen;
+    background: #c48100;
     color: #fff;
     transform: scale(1.1);
 }
 
 .btn2:hover {
-    background: darkolivegreen;
+    background: #c48100;
     color: #fff;
     transform: scale(1.1);
 }
@@ -110,16 +103,98 @@ body {
     font-size: 30px;
     text-decoration: none;
     transition: transform 0.5s;
-}
-
-.main {
     animation: slideAnimation 3s ease-in-out;
 }
 
+
 .main:hover {
-    color: darkolivegreen;
+    color: #c48100;
     transform: scale(1.1);
 }
+
+
+#clickable-image {
+    position: absolute;
+    cursor: pointer; /* Change cursor to pointer when hovering over image */
+    animation: scale 1s infinite alternate; /* Adjust animation duration and timing as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.flip-container {
+  perspective: 1000px;
+    position: relative;
+    animation: slideIn 3s forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        left: 0; /* Initial position off the screen */
+    }
+    30% {
+        transform: translateY(20%);
+    }
+    40% {
+        transform: translateY(0%);
+
+    }
+    100% {
+        left: 650px; /* Final position at the beginning of the screen */
+    }
+}
+
+.flipper {
+  width: 200px; /* Adjust width as needed */
+  height: 200px; /* Adjust height as needed */
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.flip-container:hover .flipper {
+  transform: rotateY(180deg);
+}
+
+.front, .back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 50%; /* Make the faces round */
+}
+
+.front {
+  z-index: 2;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.text-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-overlay p {
+  text-align: center;
+}
+
+
 
 
 

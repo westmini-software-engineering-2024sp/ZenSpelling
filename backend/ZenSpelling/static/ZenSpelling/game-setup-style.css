@@ -6,7 +6,7 @@
 html {
     height: 100vh;
     width: 100vw;
-    background: green url("images/background.svg") no-repeat center fixed;
+    background:green url("images/background.svg") no-repeat center fixed;
     background-size: cover;
     cursor: url("../Assets/bee.png"), pointer;
 }
@@ -97,7 +97,7 @@ ul .question-sets{
     font-size: 2em;
 }
 
-.sets {
+#sets {
     padding: 2vh;
     border-radius: 10px;
     font-size: large;
