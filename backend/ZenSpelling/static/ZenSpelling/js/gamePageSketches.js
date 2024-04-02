@@ -142,12 +142,6 @@ let TileSketch = function (sketch) {
     let offsetX = 0;
     let offsetY = 0;
 
-    sketch.preload = function () {
-        // TODO : Implement more dynamic parameterization for this.
-        //loadTilepaths(Math.pow(gridDimension, 2));
-        loadNextTile();
-    }
-
     /*
     ** Same as GridSketch.setup(), with additional math to calculate position offset of the tile.
      */
@@ -166,6 +160,7 @@ let TileSketch = function (sketch) {
         tileGridOffsetDiff = tileLeftOffset - gridLeftOffset + gridSketch.gridContainer.width / 2 + gridSketch.boxSize / 2;
 
         sketch.calculateTileSize();
+        loadNextTile();
     }
 
     sketch.calculateTileSize = function () {
@@ -297,20 +292,20 @@ let TileSketch = function (sketch) {
 
 // Fetches question/answers to populate modal.
 function showModal() {
-
-    $('#myModal').css('display', 'block');
-
-    $('.close').click(function () {
-        $('#myModal').css('display', 'none');
-    });
-
     $.ajax({
         url: '../ZenSpelling/' + getGeneratedQuestion(),
         method: 'GET',
         success: function (response) {
             $('#myModal').html(response);
+            $('#myModal').css('display', 'block');
         }
     });
+
+    $('.close').click(function () {
+        $('#myModal').css('display', 'none');
+    });
+
+
 }
 
 // From the localStorage questionBank, it gets the next question

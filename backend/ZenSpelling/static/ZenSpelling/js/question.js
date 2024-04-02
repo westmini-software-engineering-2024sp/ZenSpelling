@@ -6,13 +6,12 @@ localStorage.setItem('streak', JSON.stringify(0));
 
 function closeModal() {
     const modal1 = document.getElementById("myModal");
-    modal1.classList.remove("slideDown")
+    modal1.classList.remove("slideDown");
     modal1.classList.add("slideUp"); // Add slideUp animation class
 
     setTimeout(() => {
         modal1.style.display = "none"; // Hide the modal after animation
         modal1.classList.remove("slideUp"); // Remove slideUp animation class
-        modal1.classList.add("slideDown")
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
     modal = false;
@@ -78,7 +77,6 @@ function submitAnswer() {
                 console.error('Error:', error);
             });
     });
-
 }
 
 // when the game is complete (all questions answered) complete screen is shown
