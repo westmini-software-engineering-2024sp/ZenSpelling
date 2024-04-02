@@ -7,6 +7,9 @@ body {
     background-size: cover;
     height: 100vh;
 }
+html {
+    overflow: hidden;
+}
 
 .container  {
     display: flex;
@@ -37,7 +40,7 @@ body {
     text-align: center;
     color: #fff;
     animation: slideAnimation 3s ease-in-out;
-    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .time {
@@ -158,17 +161,10 @@ body {
 }
 
 @keyframes slideIn {
-    0% {
+    from {
         left: 0; /* Initial position off the screen */
     }
-    30% {
-        transform: translateY(20%);
-    }
-    40% {
-        transform: translateY(0%);
-
-    }
-    100% {
+    to {
         left: 650px; /* Final position at the beginning of the screen */
     }
 }
