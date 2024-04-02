@@ -6,52 +6,42 @@
     <title>Level Complete</title>
     <link rel="stylesheet" href="{% static 'ZenSpelling/complete-style.css' %}">
     <script src={% static 'ZenSpelling/js/complete.js' %}></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js" defer></script>
-
     <script src="{% static 'ZenSpelling/js/interact.js' %}"></script>
 </head>
 <body>
-
-<div class="container">
-    <h1 class="title"> Level Complete</h1>
-</div>
-
-<a href="/start/" class="main"> Main Menu </a>
-
-<div class="box">
-    <div class="score">
-        <h3>Score: <span id="scoreDisplay"></span></h3> <!-- is there a better way to do this-->
+    <div class="container">
+        <h1 class="title"> Level Complete</h1>
     </div>
-
-    <div class="percent">
-        <h3> Percentage: <span id="percentDisplay"></span> %</h3>
+    <a href="/start/" class="main"> Main Menu </a>
+    <div class="box">
+        <div class="score">
+            <h3>Score: <span id="scoreDisplay"></span></h3> <!-- is there a better way to do this-->
+        </div>
+        <div class="percent">
+            <h3> Percentage: <span id="percentDisplay"></span> %</h3>
+        </div>
+        <div class="time">
+            <!--<h3> Start Time: <span id="startTimeDisplay"></span> <br> Finish Time: <span id="finishTimeDisplay"></span></h3>-->
+            <h3>Time taken: <span id="timeSpentDisplay"></span></h3>
+        </div>
+        <div class="streak">
+            <h3> Highest Streak: <span id="streakDisplay"></span></h3>
+        </div>
+        <a href="/setup/" class="btn">Restart</a>
+        <a href="#" class="btn2">Continue</a>
     </div>
-    
-    <div class="time">
-        <!--<h3> Start Time: <span id="startTimeDisplay"></span> <br> Finish Time: <span id="finishTimeDisplay"></span></h3>-->
-        <h3>Time taken: <span id="timeSpentDisplay"></span></h3>
-    </div>
-    
-    <div class="streak">
-        <h3> Highest Streak: <span id="streakDisplay"></span></h3>
-    </div>
-
-    <a href="/setup/" class="btn">Restart</a>
-    <a href="#" class="btn2">Continue</a>
-    </div>
-    
     <div class="flip-container">
-  <div class="flipper">
-    <div class="front">
-        <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px>
+        <div class="flipper">
+            <div class="front">
+                <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px>
+            </div>
+            <div class="back">
+              <div class="text-overlay">
+                <p>You won this medal for getting all your questions correct!</p>
+              </div>
+            </div>
+        </div>
     </div>
-    <div class="back">
-      <div class="text-overlay">
-        <p>You won this medal for getting all your questions correct!</p>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>
