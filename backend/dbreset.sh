@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-python manage.py makemigrations
-python manage.py migrate
-python manage.py runscript csvimports
-python manage.py createsuperuser
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py runscript csvimports
+python3 manage.py createsuperuser

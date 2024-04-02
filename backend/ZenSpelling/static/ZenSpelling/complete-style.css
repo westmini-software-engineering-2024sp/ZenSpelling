@@ -3,7 +3,7 @@
 }
 
 body {
-    background: url(images/levelComplete.svg) no-repeat;
+    background: url(images/background.svg) no-repeat;
     background-size: cover;
     height: 100vh;
 }
@@ -18,7 +18,7 @@ body {
 
 .title {
     font-size: 7em;
-    color: #c48100;
+    color: #fff;
     animation: slideAnimation 3s ease-in-out;
     margin-top: 2em;
 }
@@ -26,7 +26,7 @@ body {
 .score {
     font-size: 25px;
     text-align: center;
-    color: #c48100;
+    color: #fff;
     animation: slideAnimation 3s ease-in-out;
     margin-top: 5em;
 }
@@ -35,7 +35,23 @@ body {
 .percent {
     font-size: 25px;
     text-align: center;
-    color: #c48100;
+    color: #fff;
+    animation: slideAnimation 3s ease-in-out;
+    margin-top: 1em;
+}
+
+.time {
+    font-size: 25px;
+    text-align: center;
+    color: #fff;
+    animation: slideAnimation 3s ease-in-out;
+    margin-top: 1em;
+}
+
+.streak {
+    font-size: 25px;
+    text-align: center;
+    color: #fff;
     animation: slideAnimation 3s ease-in-out;
     margin-top: 1em;
 }
@@ -44,14 +60,16 @@ body {
     display: block;
     margin: 50px auto;
     width: fit-content;
-    border: 3px solid #c48100;
+    border: 3px solid #fff;
     padding: 14px 70px;
     border-radius: 6px;
     text-decoration: none;
-    color: #c48100;
+    color: #fff;
     margin-bottom: 15px;
     margin-left: 525px;
     transition: transform 0.5s;
+    background-color: darkgreen;
+    font-weight: 600;
 
 }
 
@@ -60,14 +78,16 @@ body {
     display: block;
     margin: 50px auto;
     width: fit-content;
-    border: 3px solid #c48100;
+    border: 3px solid #fff;
     padding: 14px 70px;
     border-radius: 6px;
     text-decoration: none;
-    color: #c48100;
+    color: #fff;
     margin-top: -75px;
     margin-left: 740px;
     transition: transform 0.5s;
+    background-color: darkgreen;
+    font-weight: 600;
 }
 
 @keyframes slideAnimation {
@@ -84,13 +104,13 @@ body {
 }
 
 .btn:hover {
-    background: #c48100;
+    background: darkgreen;
     color: #fff;
     transform: scale(1.1);
 }
 
 .btn2:hover {
-    background: #c48100;
+    background: darkgreen;
     color: #fff;
     transform: scale(1.1);
 }
@@ -99,7 +119,7 @@ body {
     position: fixed;
     margin-top: -100px;
     margin-left: 1250px;
-    color: black;
+    color: white;
     font-size: 30px;
     text-decoration: none;
     transition: transform 0.5s;
@@ -108,7 +128,7 @@ body {
 
 
 .main:hover {
-    color: #c48100;
+    color: limegreen;
     transform: scale(1.1);
 }
 
