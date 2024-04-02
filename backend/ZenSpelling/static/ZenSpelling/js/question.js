@@ -54,6 +54,8 @@ function submitAnswer() {
                     let correct = parseInt(localStorage.getItem('correctAnswers'));
                     correct = correct + 1;
                     localStorage.setItem('correctAnswers', JSON.stringify(correct));
+                    // needs to also calculte streak
+                    localStorage.setItem('streak', JSON.stringify(0));
                 }
                 closeModal();
             })
@@ -66,8 +68,10 @@ function submitAnswer() {
 
 // when the game is complete (all questions answered) complete screen is shown
 function gameComplete() {
-    console.log(localStorage.getItem('questionNumber') + " " + localStorage.getItem('gameboardSize'));
+    //console.log(localStorage.getItem('questionNumber') + " " + localStorage.getItem('gameboardSize'));
     if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
+        var eventTimestamp = new Date();
+        localStorage.setItem('finishTime', eventTimestamp.toString());
         window.location.href = '../complete/';
     }
 }

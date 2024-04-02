@@ -8,6 +8,9 @@ function playGame(size) {
     shuffleTileStack();
     generateGameboard(size);
 
+    let currentTimestamp = new Date();
+    localStorage.setItem('startTime', currentTimestamp.toString());
+
     window.location.href = '/game/'
 }
 
@@ -29,7 +32,6 @@ function generateQuestion(sidelength) {
         questionArray[i] = uniqueNumber;
     }
 
-    //set start time
     localStorage.setItem('boardsize', sidelength); //edge length
     localStorage.setItem('gameboardSize', gameboardSize); //how many tiles
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
