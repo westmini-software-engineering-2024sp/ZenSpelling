@@ -17,18 +17,22 @@ function closeModal() {
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
     modal = false;
-
-    gameComplete();
+    setTimeout(function() {
+        gameComplete();
+    }, 1000);
 }
 
 // this submits the PK of answer to the server via an ajax call
 function submitAnswer() {
+    let sound;
     let formAnswer = document.getElementById("myForm");
     let index = localStorage.getItem('questionNumber'); // Same as gamePageSketches
 
     formAnswer.addEventListener("submit", function (event) {
         event.preventDefault();
         let answer = document.querySelector('input[name="answer"]:checked').value;
+        let modalSpace = document.getElementById('sub-label');
+        modalSpace.classList.add("pop");
 
         answerArray[index - 1] = parseInt(answer);
         localStorage.setItem('answerBank', JSON.stringify(answerArray));
@@ -51,8 +55,11 @@ function submitAnswer() {
                 return response.json();
             })
             .then(data => {
+
                 console.log('Server response:', data);
+
                 if (data.exists) { //aka if correct
+                    playSound('correct-sound').play();
                     let correct = parseInt(localStorage.getItem('correctAnswers'));
                     correct = correct + 1;
                     localStorage.setItem('correctAnswers', JSON.stringify(correct));
@@ -70,10 +77,17 @@ function submitAnswer() {
                         localStorage.setItem('streak', JSON.stringify(streakCount));
                     }
 
+                    modalSpace.innerHTML = 'CORRECT!';
                 } else {
+                    playSound('wrong-sound').play();
                     onStreak = false;
+
+                    modalSpace.innerHTML = 'WRONG!';
                 }
-                closeModal();
+                setTimeout(function() {
+                    closeModal();
+                }, 1000);
+
             })
             .catch((error) => {
                 console.error('Error:', error);
