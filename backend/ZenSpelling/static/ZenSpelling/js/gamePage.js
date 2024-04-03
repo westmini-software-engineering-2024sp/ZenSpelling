@@ -3,6 +3,8 @@ let tileSketch;
 let tileStack = JSON.parse(localStorage.getItem('tileBank')) || [];
 let currentTile;
 let currentFilepath;
+let numericDigits;
+let newFilePath;
 let placedTilePath;
 let dataArray = {};
 let tileSize = 0;
@@ -16,6 +18,7 @@ let pulse = 1.0;
 let oscillatePulse = 1;
 let soundPlayed = false;
 let modal = false;
+let newRow, newCol;
 
 
 // Creating the sketch of the game-board.
@@ -57,8 +60,7 @@ let GridSketch = function (sketch) {
                     x: "0",
                     y: "0",
                     collision: false,
-                    model: "",
-                    new: false
+                    model: ""
                 };
             }
         }
@@ -73,18 +75,18 @@ let GridSketch = function (sketch) {
                 let x = dataArray[i + '' + j].x = (i * sketch.boxSize) - (gridDimension / 2 * sketch.boxSize);
                 let y = dataArray[i + '' + j].y = (j * sketch.boxSize) - (gridDimension / 2 * sketch.boxSize);
 
-                sketch.drawBox(x, y, sketch.boxSize, dataArray[i + '' + j].model, dataArray[i + '' + j].collision);
+                sketch.drawBox(x, y, sketch.boxSize, dataArray[i + '' + j].model, dataArray[i + '' + j].collision, dataArray[i + '' + j].weed);
             }
         }
     }
 
     // This determines if the grid box remains a box, or is a placed tile image.
     // It also determines if a grid box is highlighted when hovered over.
-    sketch.drawBox = function (x, y, size, model, collision) {
+    sketch.drawBox = function (x, y, size, model, collision, weed) {
         sketch.push();
 
         if (collision === true && !soundPlayed) {
-            sketch.fill('rgb(210,179,25)');
+            sketch.fill('rgb(231,193,22)');
             // playSound(hoverSounds[0]).play();
             // soundPlayed = true;
         } else {
@@ -94,6 +96,9 @@ let GridSketch = function (sketch) {
 
         if (model) {
             sketch.image(model, x, y);
+            if(weed){
+                model.filter('GRAY');
+            }
         } else {
             sketch.square(x, y, size);
         }
@@ -114,12 +119,12 @@ let GridSketch = function (sketch) {
                     placed = true;
 
                     // Extract numeric digits from currentFilePath
-                    const numericDigits = currentFilepath.match(/\d+/)[0];
+                    numericDigits = currentFilepath.match(/\d+/)[0];
                     // Construct the new filepath
-                    const newFilepath = `/static/Assets/GridTiles/gridTile${numericDigits}.png`;
-
-                    dataArray[i + '' + j].new = true;
-                    dataArray[i + '' + j].model = sketch.loadImage(newFilepath, function (img) {
+                    newFilePath = `/static/Assets/GridTiles/gridTile${numericDigits}.png`;
+                    newRow = i;
+                    newCol = j;
+                    dataArray[i + '' + j].model = sketch.loadImage(newFilePath, function (img) {
                         img.resize(sketch.boxSize, 0);
                     });
                 }
@@ -340,6 +345,7 @@ function playSound(soundId) {
 document.addEventListener("DOMContentLoaded", function () {
     gridSketch = new p5(GridSketch);
     tileSketch = new p5(TileSketch);
+    console.log(tileStack);
 
     let calmMusic = playSound('calm');
     calmMusic.soundEffect.oncanplaythrough = function () {

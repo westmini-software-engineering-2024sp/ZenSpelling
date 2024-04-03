@@ -81,7 +81,10 @@ function submitAnswer() {
                 } else {
                     playSound('wrong-sound').play();
                     onStreak = false;
-
+                    newFilePath = `/static/Assets/WeedTiles/weedTile01.png`;
+                    dataArray[newRow + '' + newCol].model = gridSketch.loadImage(newFilePath, function (img) {
+                        img.resize(gridSketch.boxSize, 0);
+                    });
                     modalSpace.innerHTML = 'WRONG!';
                 }
                 setTimeout(function() {
