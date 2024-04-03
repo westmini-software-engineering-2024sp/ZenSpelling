@@ -44,6 +44,14 @@
     }
 }
 
+.slideDown {
+  animation: slideDown 0.5s ease-out;
+}
+
+.slideUp {
+  animation: slideUp 0.5s ease-in;
+}
+
 .modal-container{
     display:flex;
     flex-direction: column;

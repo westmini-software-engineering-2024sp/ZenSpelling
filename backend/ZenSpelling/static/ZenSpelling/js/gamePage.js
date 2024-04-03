@@ -304,8 +304,6 @@ function showModal() {
     $('.close').click(function () {
         $('#myModal').css('display', 'none');
     });
-
-
 }
 
 // From the localStorage questionBank, it gets the next question

@@ -12,6 +12,8 @@ function closeModal() {
     setTimeout(() => {
         modal1.style.display = "none"; // Hide the modal after animation
         modal1.classList.remove("slideUp"); // Remove slideUp animation class
+        modal1.classList.add("slideDown");
+
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
     modal = false;

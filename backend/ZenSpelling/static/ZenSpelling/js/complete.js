@@ -7,7 +7,7 @@ function getScore() {
 function getPercentage() {
     let correct = parseInt(localStorage.getItem('correctAnswers'));
     let total = parseInt(localStorage.getItem('gameboardSize'));
-    return ((correct/total)*100).toString();
+    return Math.round((correct/total)*100).toString();
 }
 
 function getStartTimeDisplay() {
