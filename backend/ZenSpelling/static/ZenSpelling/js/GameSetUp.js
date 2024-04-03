@@ -4,12 +4,12 @@ function logout() {
 
 function playGame(size) {
     generateQuestion(size);
-    generateTileStack();
-    shuffleTileStack();
+    generateTileStack(size);
     generateGameboard(size);
 
     let currentTimestamp = new Date();
     localStorage.setItem('startTime', currentTimestamp.toString());
+    localStorage.setItem('finishTime', JSON.stringify(0));
 
     window.location.href = '/game/'
 }
@@ -28,8 +28,8 @@ function changeColor() {
 function generateQuestion(sidelength) {
     var questionArray = [];
     var answerArray = [];
-    //var gameboardSize = sidelength*sidelength; //uncomment this if wanting to generate the entire board
-    var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
+    var gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    //var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
 
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
@@ -40,7 +40,7 @@ function generateQuestion(sidelength) {
     }
 
     localStorage.setItem('boardsize', sidelength); //edge length
-    localStorage.setItem('gameboardSize', gameboardSize); //how many tiles
+    localStorage.setItem('gameboardSize', JSON.stringify(gameboardSize)); //how many tiles
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
     localStorage.setItem('answerBank', JSON.stringify(answerArray));
     localStorage.setItem('questionNumber', JSON.stringify(0));
@@ -49,28 +49,30 @@ function generateQuestion(sidelength) {
 
 // Fetch tilepath endpoints and load them in a stack.
 //How many tiles are loaded into the stack, how is that determined?
-function generateTileStack() {
+function generateTileStack(gameboardSize) {
     let tileStack = [];
-
     fetch('/tilepaths/')
         .then(response => response.json())
         .then(data => {
-            tileStack.push(...data.tile_paths);
+            const fetchedTilePaths = data.tile_paths;
+            const repetitions = Math.ceil(gameboardSize / fetchedTilePaths.length);
+            const extendedTilePaths = Array.from({length: repetitions},
+                () => fetchedTilePaths).flat().slice(0, gameboardSize);
+            tileStack.push(...extendedTilePaths);
+            shuffleTileStack(tileStack);
             localStorage.setItem('tileBank', JSON.stringify(tileStack));
         })
         .catch(error => console.error('Error fetching filepaths:', error));
 }
 
-//this is not working and I do not know why
-function shuffleTileStack() {
-    var tileStack = JSON.parse(localStorage.getItem('tileBank'));
 
+// Fisher-Yates shuffle algorithm to randomize tiles.
+function shuffleTileStack(tileStack) {
     for (let i = tileStack.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [tileStack[i], tileStack[j]] = [tileStack[j], tileStack[i]];
     }
-
-    localStorage.setItem('tileBank', JSON.stringify(tileStack));
+    return tileStack;
 }
 
 function generateGameboard(size) {
