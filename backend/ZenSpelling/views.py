@@ -12,14 +12,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 
 
-class IndexView(generic.ListView):
-    template_name = "ZenSpelling/index.html"
-    context_object_name = "hardest_question_list"
-
-    def get_queryset(self):
-        return Question.objects.all().order_by("-times_correct")[:5]
-
-
 class DetailView(generic.DetailView):
     model = Question
     template_name = "ZenSpelling/question.html"
