@@ -96,9 +96,6 @@ let GridSketch = function (sketch) {
 
         if (model) {
             sketch.image(model, x, y);
-            if(weed){
-                model.filter('GRAY');
-            }
         } else {
             sketch.square(x, y, size);
         }
@@ -118,10 +115,11 @@ let GridSketch = function (sketch) {
                 if (valid) {
                     placed = true;
 
-                    // Extract numeric digits from currentFilePath
+                    // Extract numeric digits from currentFilePath.
                     numericDigits = currentFilepath.match(/\d+/)[0];
-                    // Construct the new filepath
+                    // Construct the new filepath pointing to the Tile's matching GridTile.
                     newFilePath = `/static/Assets/GridTiles/gridTile${numericDigits}.png`;
+
                     newRow = i;
                     newCol = j;
                     dataArray[i + '' + j].model = sketch.loadImage(newFilePath, function (img) {
@@ -301,8 +299,8 @@ function showModal() {
         url: '../ZenSpelling/' + getGeneratedQuestion(),
         method: 'GET',
         success: function (response) {
-            $('#myModal').html(response);
-            $('#myModal').css('display', 'block');
+            $('#myModal').html(response)
+                .css('display', 'block');
         }
     });
 
@@ -322,7 +320,6 @@ function getGeneratedQuestion() {
     return question[index];
 }
 
-
 function playSound(soundId) {
     let soundEffect = document.getElementById(soundId);
 
@@ -341,11 +338,20 @@ function playSound(soundId) {
     };
 }
 
-// Waits to create sketches until after DOM is loaded. This mitigates lag.
-document.addEventListener("DOMContentLoaded", function () {
+/*
+** Document/Window Event Listeners
+ */
+createGamePageOnDomLoaded();
+resizeBoardElementsOnScreenResize();
+hideLoadingScreenOnWindowLoad();
+
+/*
+** Below this point are all the helper function definitions.
+ */
+function createGamePageOnDomLoaded(){
+    document.addEventListener("DOMContentLoaded", function () {
     gridSketch = new p5(GridSketch);
     tileSketch = new p5(TileSketch);
-    console.log(tileStack);
 
     let calmMusic = playSound('calm');
     calmMusic.soundEffect.oncanplaythrough = function () {
@@ -356,17 +362,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById('modal');
     modal.style.display = 'block';
 
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-        } else {
-            modal.style.display = 'none';
-        }
+    showModalOnClick();
     });
-});
+}
 
-// Dynamic window resizing.
+function showModalOnClick(){
+    window.addEventListener('click', (event) => {if (event.target === modal) {
+    } else {
+        modal.style.display = 'none';
+    }
+    });
+}
+
 // TODO : This currently works, except it does not preserve the game board state on reload.
 //  Possible solution: Use cookie to save game state.
-window.addEventListener('resize', function () {
+function resizeBoardElementsOnScreenResize(){
+    window.addEventListener('resize', function () {
     window.location.reload();
-});
+    });
+}
+
+function hideLoadingScreenOnWindowLoad(){
+    window.addEventListener('load', function () {
+    let loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.classList.add("fadeOut");
+    setTimeout(function() {
+            loadingScreen.style.display = 'none'; // Hide loading screen when page is loaded
+            }, 1000);
+
+    });
+}
