@@ -103,3 +103,13 @@ class QuestionSet(models.Model):
             main_question_set.questions.add(instance)
             main_question_set.save()
             """
+
+
+class StudentAnalytics(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    times_answered = models.IntegerField(default=0)
+    times_correct = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.user.username + " " + self.answer.answer_text
