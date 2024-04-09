@@ -113,3 +113,7 @@ class StudentAnalytics(models.Model):
 
     def __str__(self):
         return self.user.username + " " + self.answer.answer_text
+
+    def get_most_incorrect(self):
+        pass
+        # TODO queryset/filter i think
