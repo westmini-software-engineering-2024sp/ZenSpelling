@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ZenSpelling.apps.ZenSpellingConfig',
     'django_extensions',
+    'import_export',
 ]
 
 MIDDLEWARE = [
