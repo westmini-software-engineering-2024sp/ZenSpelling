@@ -107,14 +107,6 @@ let GridSketch = function (sketch) {
                 let d = sketch.dist(sketch.mouseX, sketch.mouseY,
                     dataArray[i + '' + j].x + gridSketch.gridContainer.width/2 + sketch.boxSize/2,
                     dataArray[i + '' + j].y + gridSketch.gridContainer.height/2 + sketch.boxSize/2);
-                // console.log('Weed: ', dataArray[i + '' + j].weed)
-                // console.log('X: ', sketch.mouseX)
-                // console.log('Y: ', sketch.mouseY)
-                // console.log('gridX: ', dataArray[i + '' + j].x)
-                // console.log('gridY: ', dataArray[i + '' + j].y)
-                // console.log('gridWidth: ', sketch.gridContainer.width/2)
-                // console.log('gridWidth: ', sketch.gridContainer.height/2)
-                // console.log('diff: ', d);
                 if(d < sketch.boxSize/2 && dataArray[i + '' + j].weed && !modal){
                     playSound('release-sound').play();
                     newRow = i;
