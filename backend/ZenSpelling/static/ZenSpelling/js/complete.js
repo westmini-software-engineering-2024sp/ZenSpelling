@@ -1,11 +1,12 @@
+//This function returns the student's score as a string
 function getScore() {
-    let correct = localStorage.getItem('correctAnswers');
+    let correct = localStorage.getItem('correctAnswers'); //use this if you need to get the score as a string
     let total = localStorage.getItem('gameboardSize');
     return correct + "/" + total;
 }
 
 function getPercentage() {
-    let correct = parseInt(localStorage.getItem('correctAnswers'));
+    let correct = parseInt(localStorage.getItem('correctAnswers')); //use this if you need to get the score as a number
     let total = parseInt(localStorage.getItem('gameboardSize'));
     return Math.round((correct/total)*100).toString();
 }
@@ -26,15 +27,16 @@ function getTimeSpentDisplay() {
     end = end.getTime();
 
     //let hour = Math.floor((end-start)/(1000*60*60));
-    let minute = Math.floor(((end-start) % (1000*60*60))/(1000*60));
+    let minute = Math.floor(((end-start) % (1000*60*60))/(1000*60)); //these are the numbers as INT
     let second = Math.floor(((end-start) % (1000*60*60))/1000);
+    second =  second % 60; //these are the numbers as INT
 
     //return `${hour} hours, ${minute} minutes, ${second} seconds`;
-    return `${minute} minutes, ${second} seconds`;
+    return `${minute} minutes, ${second} seconds`;  //use this if you need to get the time as a string
 }
 
 function getStreakDisplay() {
-    return localStorage.getItem('streak');
+    return localStorage.getItem('streak'); //This is as a string, you can use parseInt() to make it an int
 
 }
 

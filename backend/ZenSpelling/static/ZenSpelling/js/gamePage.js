@@ -10,13 +10,11 @@ let dataArray = {};
 let tileSize = 0;
 let placed = false;
 let xShift, yShift;
-let tileLeftOffset, gridLeftOffset, tileGridOffsetDiff;
+let tileLeftOffset, tileTopOffset, gridLeftOffset, tileGridOffsetDiff;
 let dragging = false;
 let gridDimension;
-let hoverSounds = ['a4', 'b4', 'c3', 'd3', 'e3', 'g3'];
 let pulse = 1.0;
 let oscillatePulse = 1;
-let soundPlayed = false;
 let modal = false;
 let newRow, newCol;
 
@@ -60,7 +58,8 @@ let GridSketch = function (sketch) {
                     x: "0",
                     y: "0",
                     collision: false,
-                    model: ""
+                    model: "",
+                    weed: false
                 };
             }
         }
@@ -82,28 +81,41 @@ let GridSketch = function (sketch) {
 
     // This determines if the grid box remains a box, or is a placed tile image.
     // It also determines if a grid box is highlighted when hovered over.
-    sketch.drawBox = function (x, y, size, model, collision, weed) {
+    sketch.drawBox = function (x, y, size, model, collision) {
         sketch.push();
 
-        if (collision === true && !soundPlayed) {
+        if (collision === true && !model) {
             sketch.fill('rgb(231,193,22)');
-            // playSound(hoverSounds[0]).play();
-            // soundPlayed = true;
         } else {
             sketch.fill('rgba(255,255,255,0.10)');
-            // soundPlayed = false;
         }
 
         if (model) {
             sketch.image(model, x, y);
-            if(weed){
-                model.filter('GRAY');
-            }
         } else {
+            sketch.noStroke();
             sketch.square(x, y, size);
         }
 
         sketch.pop();
+    }
+
+    // Opens the question modal if weed tile is clicked.
+    sketch.mousePressed = function() {
+        for (let i = 0; i < gridDimension; i++) {
+            for (let j = 0; j < gridDimension; j++) {
+                let d = sketch.dist(sketch.mouseX, sketch.mouseY,
+                    dataArray[i + '' + j].x + gridSketch.gridContainer.width/2 + sketch.boxSize/2,
+                    dataArray[i + '' + j].y + gridSketch.gridContainer.height/2 + sketch.boxSize/2);
+                if(d < sketch.boxSize/2 && dataArray[i + '' + j].weed && !modal){
+                    playSound('release-sound').play();
+                    newRow = i;
+                    newCol = j;
+                    modal = true;
+                    showModal();
+                }
+            }
+        }
     }
 
     // Decides if an image needs to be loaded in the metadata array when user releases cursor.
@@ -118,10 +130,11 @@ let GridSketch = function (sketch) {
                 if (valid) {
                     placed = true;
 
-                    // Extract numeric digits from currentFilePath
+                    // Extract numeric digits from currentFilePath.
                     numericDigits = currentFilepath.match(/\d+/)[0];
-                    // Construct the new filepath
+                    // Construct the new filepath pointing to the Tile's matching GridTile.
                     newFilePath = `/static/Assets/GridTiles/gridTile${numericDigits}.png`;
+
                     newRow = i;
                     newCol = j;
                     dataArray[i + '' + j].model = sketch.loadImage(newFilePath, function (img) {
@@ -158,6 +171,8 @@ let TileSketch = function (sketch) {
         tileCanvas.parent(sketch.canvasContainer);
         tileCanvas.class('tile-canvas');
 
+        tileTopOffset = parseFloat(window.getComputedStyle(document.getElementById("grid-container"))
+            .getPropertyValue("top"));
         tileLeftOffset = parseFloat(window.getComputedStyle(document.getElementById("grid-container"))
             .getPropertyValue("left"));
         gridLeftOffset = parseFloat(window.getComputedStyle(document.getElementById("tile-container"))
@@ -301,8 +316,8 @@ function showModal() {
         url: '../ZenSpelling/' + getGeneratedQuestion(),
         method: 'GET',
         success: function (response) {
-            $('#myModal').html(response);
-            $('#myModal').css('display', 'block');
+            $('#myModal').html(response)
+                .css('display', 'block');
         }
     });
 
@@ -322,7 +337,6 @@ function getGeneratedQuestion() {
     return question[index];
 }
 
-
 function playSound(soundId) {
     let soundEffect = document.getElementById(soundId);
 
@@ -341,11 +355,20 @@ function playSound(soundId) {
     };
 }
 
-// Waits to create sketches until after DOM is loaded. This mitigates lag.
-document.addEventListener("DOMContentLoaded", function () {
+/*
+** Document/Window Event Listeners
+ */
+createGamePageOnDomLoaded();
+resizeBoardElementsOnScreenResize();
+hideLoadingScreenOnWindowLoad();
+
+/*
+** Below this point are all the helper function definitions.
+ */
+function createGamePageOnDomLoaded(){
+    document.addEventListener("DOMContentLoaded", function () {
     gridSketch = new p5(GridSketch);
     tileSketch = new p5(TileSketch);
-    console.log(tileStack);
 
     let calmMusic = playSound('calm');
     calmMusic.soundEffect.oncanplaythrough = function () {
@@ -356,17 +379,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById('modal');
     modal.style.display = 'block';
 
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-        } else {
-            modal.style.display = 'none';
-        }
+    showModalOnClick();
     });
-});
+}
 
-// Dynamic window resizing.
+function showModalOnClick(){
+    window.addEventListener('click', (event) => {if (event.target === modal) {
+    } else {
+        modal.style.display = 'none';
+    }
+    });
+}
+
 // TODO : This currently works, except it does not preserve the game board state on reload.
 //  Possible solution: Use cookie to save game state.
-window.addEventListener('resize', function () {
+function resizeBoardElementsOnScreenResize(){
+    window.addEventListener('resize', function () {
     window.location.reload();
-});
+    });
+}
+
+function hideLoadingScreenOnWindowLoad(){
+    window.addEventListener('load', function () {
+    let loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.classList.add("fadeOut");
+    setTimeout(function() {
+            loadingScreen.style.display = 'none'; // Hide loading screen when page is loaded
+            }, 1000);
+
+    });
+}
