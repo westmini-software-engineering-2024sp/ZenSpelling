@@ -8,7 +8,7 @@ html {
     width: 100vw;
     background:green url("images/background.svg") no-repeat center fixed;
     background-size: cover;
-    cursor: url("../Assets/bee.png"), pointer;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 /* Custom div classes */

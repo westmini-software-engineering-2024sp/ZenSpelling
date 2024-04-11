@@ -10,7 +10,7 @@ html{
     height: 100vh;
     width: 100%;
     overflow:hidden;
-    cursor: url("../Assets/bee.png"), pointer;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 /* H1-H7 and p */

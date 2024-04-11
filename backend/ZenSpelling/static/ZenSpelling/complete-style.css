@@ -9,7 +9,7 @@ body {
 }
 html {
     overflow: hidden;
-    cursor: url("../Assets/bee.png"), pointer;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 .container  {
