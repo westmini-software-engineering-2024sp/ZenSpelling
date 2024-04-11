@@ -19,7 +19,7 @@ body{
     justify-content: center;
     height:98vh;
     overflow:hidden;
-    cursor: url("../Assets/bee.png"), pointer;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 #loading-screen {

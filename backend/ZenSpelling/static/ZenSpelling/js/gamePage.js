@@ -10,13 +10,11 @@ let dataArray = {};
 let tileSize = 0;
 let placed = false;
 let xShift, yShift;
-let tileLeftOffset, gridLeftOffset, tileGridOffsetDiff;
+let tileLeftOffset, tileTopOffset, gridLeftOffset, tileGridOffsetDiff;
 let dragging = false;
 let gridDimension;
-let hoverSounds = ['a4', 'b4', 'c3', 'd3', 'e3', 'g3'];
 let pulse = 1.0;
 let oscillatePulse = 1;
-let soundPlayed = false;
 let modal = false;
 let newRow, newCol;
 
@@ -60,7 +58,8 @@ let GridSketch = function (sketch) {
                     x: "0",
                     y: "0",
                     collision: false,
-                    model: ""
+                    model: "",
+                    weed: false
                 };
             }
         }
@@ -82,25 +81,49 @@ let GridSketch = function (sketch) {
 
     // This determines if the grid box remains a box, or is a placed tile image.
     // It also determines if a grid box is highlighted when hovered over.
-    sketch.drawBox = function (x, y, size, model, collision, weed) {
+    sketch.drawBox = function (x, y, size, model, collision) {
         sketch.push();
 
-        if (collision === true && !soundPlayed) {
+        if (collision === true && !model) {
             sketch.fill('rgb(231,193,22)');
-            // playSound(hoverSounds[0]).play();
-            // soundPlayed = true;
         } else {
             sketch.fill('rgba(255,255,255,0.10)');
-            // soundPlayed = false;
         }
 
         if (model) {
             sketch.image(model, x, y);
         } else {
+            sketch.noStroke();
             sketch.square(x, y, size);
         }
 
         sketch.pop();
+    }
+
+    // Opens the question modal if weed tile is clicked.
+    sketch.mousePressed = function() {
+        for (let i = 0; i < gridDimension; i++) {
+            for (let j = 0; j < gridDimension; j++) {
+                let d = sketch.dist(sketch.mouseX, sketch.mouseY,
+                    dataArray[i + '' + j].x + gridSketch.gridContainer.width/2 + sketch.boxSize/2,
+                    dataArray[i + '' + j].y + gridSketch.gridContainer.height/2 + sketch.boxSize/2);
+                // console.log('Weed: ', dataArray[i + '' + j].weed)
+                // console.log('X: ', sketch.mouseX)
+                // console.log('Y: ', sketch.mouseY)
+                // console.log('gridX: ', dataArray[i + '' + j].x)
+                // console.log('gridY: ', dataArray[i + '' + j].y)
+                // console.log('gridWidth: ', sketch.gridContainer.width/2)
+                // console.log('gridWidth: ', sketch.gridContainer.height/2)
+                // console.log('diff: ', d);
+                if(d < sketch.boxSize/2 && dataArray[i + '' + j].weed && !modal){
+                    playSound('release-sound').play();
+                    newRow = i;
+                    newCol = j;
+                    modal = true;
+                    showModal();
+                }
+            }
+        }
     }
 
     // Decides if an image needs to be loaded in the metadata array when user releases cursor.
@@ -156,6 +179,8 @@ let TileSketch = function (sketch) {
         tileCanvas.parent(sketch.canvasContainer);
         tileCanvas.class('tile-canvas');
 
+        tileTopOffset = parseFloat(window.getComputedStyle(document.getElementById("grid-container"))
+            .getPropertyValue("top"));
         tileLeftOffset = parseFloat(window.getComputedStyle(document.getElementById("grid-container"))
             .getPropertyValue("left"));
         gridLeftOffset = parseFloat(window.getComputedStyle(document.getElementById("tile-container"))
