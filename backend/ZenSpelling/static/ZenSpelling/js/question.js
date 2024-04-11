@@ -78,6 +78,12 @@ function submitAnswer() {
                     }
 
                     modalSpace.innerHTML = 'CORRECT!';
+
+                    if(dataArray[newRow + '' + newCol].weed){
+                        dataArray[newRow + '' + newCol].model = '';
+                        dataArray[newRow + '' + newCol].weed = false;
+                        dataArray[newRow + '' + newCol].collision = false;
+                    }
                 } else {
                     playSound('wrong-sound').play();
                     onStreak = false;
@@ -85,6 +91,7 @@ function submitAnswer() {
                     dataArray[newRow + '' + newCol].model = gridSketch.loadImage(newFilePath, function (img) {
                         img.resize(gridSketch.boxSize, 0);
                     });
+                    dataArray[newRow + '' + newCol].weed = true;
                     modalSpace.innerHTML = 'WRONG!';
                 }
                 setTimeout(function() {
