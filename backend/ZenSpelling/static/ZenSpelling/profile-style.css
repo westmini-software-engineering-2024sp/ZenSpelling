@@ -1,0 +1,69 @@
+/* Default of the page */
+* {
+    font-size: 12px;
+    font-family: 'Arial', sans-serif;
+}
+
+html{
+    background: green url(images/background.svg);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    cursor: url("../Assets/bee.png"), pointer;
+}
+
+/* H1-H7 and p */
+h1 {
+    font-size: 7rem;
+    color:white;
+}
+
+h2 {
+    font-size: 4rem;
+    color: white;
+}
+
+h4 {
+    font-size: 2rem;
+    color: white;
+}
+
+/* Custom div classes */
+.center {
+    text-align: center;
+}
+
+.block {
+    background-color: #0a5e0a;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+}
+
+/* Custom form classes */
+
+
+/* Custom button classes */
+.logoutButton {
+    position: fixed;
+    top: 3em;
+    right: 3em;
+    border-radius: 10px;
+    border-color: black;
+    padding: 10px;
+    outline: none;
+    background: #0a5e0a;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.25em;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.logoutButton:hover {
+    background: green;
+    cursor: pointer;
+}

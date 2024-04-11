@@ -77,6 +77,10 @@ class CompleteView(LoginRequiredMixin, generic.TemplateView):
     login_url = "/"
     template_name = "ZenSpelling/complete.html"
 
+class ProfileView(LoginRequiredMixin, generic.TemplateView):
+    login_url = "/"
+    template_name = "ZenSpelling/profile.html"
+
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

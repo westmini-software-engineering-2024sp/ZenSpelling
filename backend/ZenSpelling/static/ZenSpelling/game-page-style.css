@@ -11,6 +11,7 @@ html{
     background: green url("images/background.svg");
     background-size: cover;
     overflow: hidden;
+    cursor: url("../Assets/bee.png"), pointer;
 }
 
 body{

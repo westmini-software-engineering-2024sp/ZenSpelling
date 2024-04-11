@@ -9,6 +9,7 @@ urlpatterns = [
     path("game/", views.GameView.as_view(), name="gamePage"),
     path("complete/", views.CompleteView.as_view(), name="complete"),
     path("ZenSpelling/", views.IndexView.as_view(), name="index"),
+    path("profile/", views.ProfileView.as_view(), name="profile"),
     path("ZenSpelling/<int:pk>/", views.DetailView.as_view(), name="detail"),
     path("ZenSpelling/<int:pk>/results/", views.ResultsView.as_view(), name="results"),
     path("ZenSpelling/<int:question_id>/vote/", views.vote, name="vote"),
