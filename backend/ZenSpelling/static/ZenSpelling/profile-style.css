@@ -36,7 +36,7 @@ h4 {
 .block {
     /* background-color: #0a5e0a; */
     backdrop-filter: blur(50px);
-    width: 90%;
+    width: 50%;
     border-radius: 10px;
     padding-top: 10px;
     padding-bottom: 50px;
