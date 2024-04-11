@@ -75,9 +75,11 @@ class GameView(LoginRequiredMixin, generic.TemplateView):
 
 class CompleteView(LoginRequiredMixin, generic.TemplateView):
     login_url = "/"
+    model = Student
     template_name = "ZenSpelling/complete.html"
 
-class ProfileView(LoginRequiredMixin, generic.TemplateView):
+
+class ProfileView(LoginRequiredMixin, generic.DetailView):
     login_url = "/"
     template_name = "ZenSpelling/profile.html"
 
