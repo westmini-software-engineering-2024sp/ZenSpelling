@@ -84,6 +84,8 @@ function submitAnswer() {
                         dataArray[newRow + '' + newCol].weed = false;
                         dataArray[newRow + '' + newCol].collision = false;
                     }
+
+                    //for hints, need to send to student and studentAnalytics
                 } else {
                     playSound('wrong-sound').play();
                     onStreak = false;
