@@ -8,9 +8,13 @@ from django.dispatch import receiver
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    time_spent = models.DecimalField(max_digits=5, decimal_places=2, default=0)  # minutes
+    time_spent = models.DecimalField(max_digits=16, decimal_places=0, default=0)
     questions_answered = models.IntegerField(default=0)
     questions_correct = models.IntegerField(default=0)
+    games_completed = models.IntegerField(default=0)
+    streak = models.IntegerField(default=0)
+    min_time = models.DecimalField(max_digits=8, decimal_places=0, default=100)
+    medals = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username

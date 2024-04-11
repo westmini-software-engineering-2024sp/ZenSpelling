@@ -4,24 +4,24 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProfilePlaceHolder</title>
+    <title>{{ student.user.username }}</title>
     <link rel="stylesheet" href="{% static 'ZenSpelling/profile-style.css' %}">
     <script src={% static 'Resources/p5.min.js' %}></script>
     <script src={% static 'Resources/jquery3.7.1.js' %}></script> 
   </head>
   <body>
     <div class = "center">
-        <h1>Profile Username goes here</h1>
+        <h1>{{ student.user.username }}</h1>
         <div class = "block">
             <h2>Stats</h2>
             <p>I need to fix the ajax in question and write an ajax in complete to send
                 stuff here</p>
-            <h4>Number of games completed: </h4>
-            <h4>Amount of time spent playing games: </h4>
+            <h4>Number of games completed: {{ student.games_completed }}</h4>
+            <h4>Amount of time spent playing games: {{ student.time_spent }}</h4>
             <br>
-            <h4>Number of correct answers: </h4>
-            <h4>Highest streak: </h4>
-            <h4>Fastest game: </h4>
+            <h4>Number of correct answers: {{ student.questions_correct }}</h4>
+            <h4>Highest streak: {{ student.streak }} games</h4>
+            <h4>Fastest game: {{ student.min_time }} seconds</h4>
         </div>
         <div class = "block">
             <h2>Medals</h2>

@@ -34,13 +34,13 @@ h4 {
 }
 
 .block {
-    background-color: #0a5e0a;
+    /* background-color: #0a5e0a; */
+    backdrop-filter: blur(50px);
     width: 90%;
     border-radius: 10px;
-    margin: 0 auto;
     padding-top: 10px;
     padding-bottom: 50px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
 }
 
 /* Custom form classes */
