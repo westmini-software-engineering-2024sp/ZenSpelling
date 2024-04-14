@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -67,7 +68,17 @@ class GameView(LoginRequiredMixin, generic.TemplateView):
 
 class CompleteView(LoginRequiredMixin, generic.TemplateView):
     login_url = "/"
+    model = Student
     template_name = "ZenSpelling/complete.html"
+
+
+class ProfileView(LoginRequiredMixin, generic.DetailView):
+    login_url = "/"
+    template_name = "ZenSpelling/profile.html"
+    model = Student
+
+    def get_queryset(self):
+        return Student.objects.filter(user=self.request.user)
 
 
 def vote(request, question_id):
