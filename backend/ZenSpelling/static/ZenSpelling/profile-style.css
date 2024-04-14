@@ -67,3 +67,24 @@ h4 {
     background: green;
     cursor: pointer;
 }
+
+.playButton {
+    position: fixed;
+    top: 3em;
+    Left: 3em;
+    border-radius: 10px;
+    border-color: black;
+    padding: 10px;
+    outline: none;
+    background: #0a5e0a;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.25em;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.playButton:hover {
+    background: green;
+    cursor: pointer;
+}

@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ student.user.username }}</title>
     <link rel="stylesheet" href="{% static 'ZenSpelling/profile-style.css' %}">
+    <script src={% static 'ZenSpelling/js/profile.js' %}></script> 
     <script src={% static 'Resources/p5.min.js' %}></script>
     <script src={% static 'Resources/jquery3.7.1.js' %}></script> 
   </head>
   <body>
+    <button class="logoutButton" onclick="logout()">Log Out</button>
+    <button class="playButton" onclick="startGame()">Play a Game</button>
     <div class = "center">
         <h1>{{ student.user.username }}</h1>
         <div class = "block">
