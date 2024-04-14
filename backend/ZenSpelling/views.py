@@ -11,6 +11,7 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
+from django.db import transaction
 
 
 class DetailView(generic.DetailView):
@@ -121,12 +122,23 @@ def submit_answer(request):
             data = json.loads(request.body.decode('utf-8'))
             answer_id = data.get('answer')
 
-            answer_exists = Answer.objects.filter(
-                id=answer_id,
-                correct=True
-            ).exists()
+            with transaction.atomic():
+                answer_exists = Answer.objects.filter(
+                    id=answer_id,
+                    correct=True
+                ).exists()
 
-            # Return a JSON response indicating whether a correct answer exists
+                #using answer to get the questionPK
+                answer = Answer.objects.select_for_update().get(id=answer_id)
+                question = answer.question #this should be the value of the question column from the Answer table
+
+                #code to update the Question table's times_answer and times_correct
+                question.times_answered += 1
+                if answer_exists:
+                    question.times_correct += 1
+
+                question.save()
+
             return JsonResponse({'exists': answer_exists})
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON.'}, status=400)
