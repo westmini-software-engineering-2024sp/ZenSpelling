@@ -40,8 +40,6 @@ function getStreakDisplay() {
 
 }
 
-//get highest answer streak
-
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('scoreDisplay').textContent = getScore();
     document.getElementById('percentDisplay').textContent = getPercentage();
