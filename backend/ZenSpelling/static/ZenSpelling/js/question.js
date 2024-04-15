@@ -27,6 +27,7 @@ function submitAnswer() {
     let sound;
     let formAnswer = document.getElementById("myForm");
     let index = localStorage.getItem('questionNumber'); // Same as gamePageSketches
+    let username = formAnswer.elements["username"].value; // this piece of crap
 
     formAnswer.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -45,7 +46,8 @@ function submitAnswer() {
                 'X-CSRFToken': getCookie('csrftoken'),
             },
             body: JSON.stringify({
-                answer: answer
+                answer: answer,
+                username: username
             })
         })
             .then(response => {
