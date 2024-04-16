@@ -51,16 +51,31 @@ function getStreakDisplay() {
 }
 
 function sendDataBack() {
-    fetch ('datatoprofile/', {
+    fetch ('/complete/datatoprofile/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': getCookie('csrftoken'),
         },
         body: JSON.stringify({
-                timespent: 2
-            })
+                timeSpent: getTimeSpentSeconds(),
+                questionCount: parseInt(localStorage.getItem('gameboardSize')),
+                questionCorrect: parseInt(localStorage.getItem('correctAnswers')),
+                streak: parseInt(localStorage.getItem('streak'))
+                // add code to also send the medals
+        })
     })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+        .then(data => {
+            if (data.exists) {
+                alert("Game Saved Successfully");
+            }
+        })
 }
 
 function getCookie(name) {
@@ -85,8 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
     //document.getElementById('finishTimeDisplay').textContent = getFinishTimeDisplay();
     document.getElementById('timeSpentDisplay').textContent = getTimeSpentDisplay();
     document.getElementById('streakDisplay').textContent = getStreakDisplay();
-    localStorage.clear() //localstorage is cleared
     sendDataBack();
+    localStorage.clear(); //localstorage is cleared
 });
 
 document.getElementById('clickable-image').addEventListener('click', function() {

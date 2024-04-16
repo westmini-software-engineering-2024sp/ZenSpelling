@@ -175,10 +175,17 @@ def submit_answer(request):
 
 
 def update_profile(request):
+    print("hello")
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
-            # stuff goes here
+            time = data['timeSpent']
+            count = data['questionCount']
+            correct = data['questionCorrect']
+            streak = data['streak']
+
+            user = request.user
+            print("something")
             return True;
 
         except json.JSONDecodeError:
