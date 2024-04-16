@@ -11,7 +11,7 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
-from django.db import transaction, models
+from django.db import transaction
 
 
 class DetailView(generic.DetailView):
@@ -143,13 +143,20 @@ def submit_answer(request):
                 user = request.user
 
                 if StudentAnalytics.objects.filter(user=user, question=question).exists():
-                    analytic=StudentAnalytics.objects.filter(
-                            user=user,
-                            question=question ).update(
-                        times_answered=models.F('times_answered') + 1,
-                        times_correct=models.F('times_correct') + 1 if answer_exists else models.F('times_correct'),
-                        hint=not answer_exists
-                    )
+                    print("if")
+                    analytic = StudentAnalytics.objects.get(user=user, question=question)
+                    print("happy")
+                    print(f"{analytic.times_answered} {analytic.times_correct}") #prints fine
+
+                    answered = analytic.times_answered #stops here
+                    correct = analytic.times_correct
+                    print(str(answered) + " " + str(correct))
+
+                    analytic.times_answered += 1
+                    analytic.times_correct += 1 if answer_exists else correct
+                    analytic.hint = not answer_exists
+                    print("should have updated")
+                    analytic.save()
                 else:
                     analytic=StudentAnalytics.objects.create(
                         user=user,
@@ -158,7 +165,8 @@ def submit_answer(request):
                         times_correct=1 if answer_exists else 0,
                         hint=not answer_exists
                     )
-                analytic.save()
+                    print("should have created")
+                    analytic.save()
 
             return JsonResponse({'exists': answer_exists})
         except json.JSONDecodeError:
