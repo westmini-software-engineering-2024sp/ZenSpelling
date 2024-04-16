@@ -143,14 +143,10 @@ def submit_answer(request):
                 user = request.user
 
                 if StudentAnalytics.objects.filter(user=user, question=question).exists():
-                    print("if")
                     analytic = StudentAnalytics.objects.get(user=user, question=question)
-                    print("happy")
-                    print(f"{analytic.times_answered} {analytic.times_correct}") #prints fine
 
-                    answered = analytic.times_answered #stops here
+                    answered = analytic.times_answered
                     correct = analytic.times_correct
-                    print(str(answered) + " " + str(correct))
 
                     analytic.times_answered += 1
                     analytic.times_correct += 1 if answer_exists else correct
