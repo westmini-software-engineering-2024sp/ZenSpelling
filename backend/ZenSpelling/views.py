@@ -143,7 +143,7 @@ def submit_answer(request):
                 user = request.user
 
                 if StudentAnalytics.objects.filter(user=user, question=question).exists():
-                    somethingstupid=StudentAnalytics.objects.filter(
+                    analytic=StudentAnalytics.objects.filter(
                             user=user,
                             question=question ).update(
                         times_answered=models.F('times_answered') + 1,
@@ -151,15 +151,14 @@ def submit_answer(request):
                         hint=not answer_exists
                     )
                 else:
-                    somethingstupid=StudentAnalytics.objects.create(
+                    analytic=StudentAnalytics.objects.create(
                         user=user,
                         question=question,
                         times_answered=1,
                         times_correct=1 if answer_exists else 0,
                         hint=not answer_exists
                     )
-                print("ugh")
-                somethingstupid.save()
+                analytic.save()
 
             return JsonResponse({'exists': answer_exists})
         except json.JSONDecodeError:
