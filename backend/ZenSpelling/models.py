@@ -117,7 +117,7 @@ class StudentAnalytics(models.Model):
     hint = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username + " " + self.question.question_text
+        return self.user.username + " | " + self.question.question_text
 
     def get_most_incorrect(self):
         pass
