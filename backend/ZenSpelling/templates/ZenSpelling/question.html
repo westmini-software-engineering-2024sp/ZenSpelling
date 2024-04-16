@@ -2,7 +2,6 @@
 {#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#}
 <form id="myForm" class="modal-main" action="{% url 'ZenSpelling:gamePage' %}" method="get"> <!-- Using this for demo -->
 {% csrf_token %}
-<input type="hidden" name="username" value="{{ user.username }}">
 <div class="modal-container" id="modal-container">
     <h1 class="question">{{ question.question_text }}</h1>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
