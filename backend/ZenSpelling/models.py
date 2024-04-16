@@ -122,3 +122,13 @@ class StudentAnalytics(models.Model):
     def get_most_incorrect(self):
         pass
         # TODO queryset/filter i think
+
+
+class Hint(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    hint = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.hint
+
+    
