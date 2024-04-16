@@ -116,9 +116,17 @@ class StudentAnalytics(models.Model):
     times_correct = models.IntegerField(default=0)
     hint = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = 'Student Analytic'
+
     def __str__(self):
         return self.user.username + " | " + self.question.question_text
+
+    def percent_correct(self):
+        return (self.times_correct / self.times_answered) * 100 if self.times_answered > 0 else "Not yet answered"
 
     def get_most_incorrect(self):
         pass
         # TODO queryset/filter i think
+        # this has to be done somewhere else unfortunately :(
+        # in another view. I think I know how to do it tho
