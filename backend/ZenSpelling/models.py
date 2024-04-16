@@ -69,7 +69,7 @@ class Question(models.Model):
         if self.times_answered > 0:
             return (self.times_correct / self.times_answered) * 100
         else:
-            return 0
+            return "Not yet answered"
 
 
 class Answer(models.Model):
@@ -117,7 +117,7 @@ class StudentAnalytics(models.Model):
     hint = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username + " " + self.answer.answer_text
+        return self.user.username + " " + self.question.question_text
 
     def get_most_incorrect(self):
         pass
