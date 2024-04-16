@@ -74,7 +74,7 @@ function generateTileStack() {
 // Fisher-Yates shuffle algorithm to randomize tiles.
 function shuffleTileStack(tileStack) {
     // let tileStack = JSON.parse(localStorage.getItem('tileBank'));
-    console.log(tileStack.length);
+    //console.log(tileStack.length);
     for (let i = tileStack.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [tileStack[i], tileStack[j]] = [tileStack[j], tileStack[i]];

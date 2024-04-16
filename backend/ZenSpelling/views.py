@@ -128,18 +128,18 @@ def submit_answer(request):
                     correct=True
                 ).exists()
 
-                #using answer to get the questionPK
+                # using answer to get the questionPK
                 answer = Answer.objects.select_for_update().get(id=answer_id)
-                question = answer.question #question object
+                question = answer.question  # question object
 
-                #code to update the Question table's times_answer and times_correct
+                # code to update the Question table's times_answer and times_correct
                 question.times_answered += 1
                 if answer_exists:
                     question.times_correct += 1
 
                 question.save()
 
-                #user object
+                # user object
                 user = request.user
 
                 if StudentAnalytics.objects.filter(user=user, question=question).exists():
@@ -154,7 +154,7 @@ def submit_answer(request):
                     print("should have updated")
                     analytic.save()
                 else:
-                    analytic=StudentAnalytics.objects.create(
+                    analytic = StudentAnalytics.objects.create(
                         user=user,
                         question=question,
                         times_answered=1,
@@ -165,6 +165,22 @@ def submit_answer(request):
                     analytic.save()
 
             return JsonResponse({'exists': answer_exists})
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+        except Exception as e:
+            # For production, consider logging the error
+            return JsonResponse({'error': 'An error occurred.'}, status=500)
+    else:
+        return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
+
+
+def update_profile(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            # stuff goes here
+            return True;
+
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON.'}, status=400)
         except Exception as e:

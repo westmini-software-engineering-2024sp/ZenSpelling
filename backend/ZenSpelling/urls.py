@@ -15,4 +15,5 @@ urlpatterns = [
     path("tilepaths/", views.tile_paths, name="tilePaths"),
     path('setup/', views.display_question_sets, name='question_sets'),
     path('game/answer/', views.submit_answer, name='submit_answer'),
+    path('datatoprofile/', views.update_profile, name='update_profile'),
 ]

@@ -328,12 +328,10 @@ function showModal() {
 
 // From the localStorage questionBank, it gets the next question
 function getGeneratedQuestion() {
-    console.log(localStorage);
     var question = JSON.parse(localStorage.getItem('questionBank'));
     var index = localStorage.getItem('questionNumber');
     var nextIndex = JSON.parse(localStorage.getItem('questionNumber'));
     localStorage.setItem('questionNumber', (nextIndex + 1));
-    console.log(localStorage);
     return question[index];
 }
 

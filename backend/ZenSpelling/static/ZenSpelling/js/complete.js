@@ -35,9 +35,47 @@ function getTimeSpentDisplay() {
     return `${minute} minutes, ${second} seconds`;  //use this if you need to get the time as a string
 }
 
+function getTimeSpentSeconds() {
+    let start = new Date(localStorage.getItem('startTime'));
+    let end = new Date(localStorage.getItem('finishTime'));
+
+    start = start.getTime();
+    end = end.getTime();
+
+    return Math.floor(((end-start) % (1000*60*60))/1000);//int as seconds
+}
+
 function getStreakDisplay() {
     return localStorage.getItem('streak'); //This is as a string, you can use parseInt() to make it an int
 
+}
+
+function sendDataBack() {
+    fetch ('datatoprofile/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+                timespent: 2
+            })
+    })
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -47,6 +85,8 @@ document.addEventListener('DOMContentLoaded', function() {
     //document.getElementById('finishTimeDisplay').textContent = getFinishTimeDisplay();
     document.getElementById('timeSpentDisplay').textContent = getTimeSpentDisplay();
     document.getElementById('streakDisplay').textContent = getStreakDisplay();
+    localStorage.clear() //localstorage is cleared
+    sendDataBack();
 });
 
 document.getElementById('clickable-image').addEventListener('click', function() {
