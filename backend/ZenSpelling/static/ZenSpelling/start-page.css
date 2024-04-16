@@ -32,6 +32,9 @@ h2 {
 
 /* Custom div classes */
 .center {
+    justify-content: center;
+    align-items: center;
+    width: auto;
     text-align: center;
     position: absolute;
     top: 50%;
@@ -57,13 +60,12 @@ h2 {
 
 /* Custom button classes */
 .startButton {
-    /* background-color: transparent; */
     color: white;
     border-color: dimgrey;
     font-size: 3rem;
     padding: 3rem 5rem;
     border-radius: 1rem;
-    margin-bottom: 6em;
+    margin-bottom: 1em;
     backdrop-filter: blur(10px);
     background-color: rgb(27, 27, 27, 0.3);
     cursor: url("../Assets/bee.png") 14 14, pointer;
@@ -77,6 +79,15 @@ h2 {
     border-radius: 1rem;
     backdrop-filter: blur(10px);
     background-color: rgb(27, 27, 27, 0.3);
+}
+
+.profile-container .startButton {
+    padding: 2rem 3rem;
+
+}
+
+.profile-container .startButton:hover {
+    padding: 2rem 3rem;
 }
 
 .logoutButton {

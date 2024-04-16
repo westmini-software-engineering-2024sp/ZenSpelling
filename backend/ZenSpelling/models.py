@@ -57,7 +57,6 @@ class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     times_answered = models.IntegerField(default=0)
     times_correct = models.IntegerField(default=0)
-    hint = models.CharField(max_length=200)
 
     def __str__(self):
         return self.question_text
@@ -123,6 +122,3 @@ class StudentAnalytics(models.Model):
     def get_most_incorrect(self):
         pass
         # TODO queryset/filter i think
-
-
-    

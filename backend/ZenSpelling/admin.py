@@ -29,10 +29,14 @@ class AddQuestionSet(admin.ModelAdmin):
     search_fields = ["name"]
 
 
+class StudentAnalyticsAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "percent_correct"]
+
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Course)
 admin.site.register(Tile)
 admin.site.register(Student)
 admin.site.register(QuestionSet, AddQuestionSet)
-admin.site.register(StudentAnalytics)
+admin.site.register(StudentAnalytics, StudentAnalyticsAdmin)
 
