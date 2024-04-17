@@ -18,11 +18,11 @@
         <div class = "block">
             <h2>Stats</h2>
             <h4>Number of games completed: {{ student.games_completed }}</h4>
-            <h4>Amount of time spent playing games: {{ student.time_spent }} seconds</h4>
+            <h4 id="timeSpent">Amount of time spent playing games: {{ student.time_spent }} seconds</h4>
             <br>
             <h4>Number of correct answers: {{ student.questions_correct }}</h4>
             <h4>Highest streak: {{ student.streak }} questions in a row</h4>
-            <h4>Fastest game: {{ student.min_time }} seconds</h4>
+            <h4 id="fastestGame">Fastest game: {{ student.min_time }} seconds</h4>
         </div>
         <div class = "block">
             <h2>Medals</h2>
