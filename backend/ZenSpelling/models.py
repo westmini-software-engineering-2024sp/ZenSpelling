@@ -123,3 +123,6 @@ class StudentAnalytics(models.Model):
     def get_most_incorrect(self):
         pass
         # TODO queryset/filter i think
+
+    def percent_correct(self):
+        return self.times_correct/self.times_answered * 100
