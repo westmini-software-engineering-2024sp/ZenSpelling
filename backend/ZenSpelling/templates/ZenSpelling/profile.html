@@ -17,13 +17,11 @@
         <h1>{{ student.user.username }}</h1>
         <div class = "block">
             <h2>Stats</h2>
-            <p>I need to fix the ajax in question and write an ajax in complete to send
-                stuff here</p>
             <h4>Number of games completed: {{ student.games_completed }}</h4>
-            <h4>Amount of time spent playing games: {{ student.time_spent }}</h4>
+            <h4>Amount of time spent playing games: {{ student.time_spent }} seconds</h4>
             <br>
             <h4>Number of correct answers: {{ student.questions_correct }}</h4>
-            <h4>Highest streak: {{ student.streak }} games</h4>
+            <h4>Highest streak: {{ student.streak }} questions in a row</h4>
             <h4>Fastest game: {{ student.min_time }} seconds</h4>
         </div>
         <div class = "block">
