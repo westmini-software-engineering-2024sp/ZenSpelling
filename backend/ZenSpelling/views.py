@@ -29,14 +29,18 @@ class DetailView(generic.DetailView):
         print(user.username)
         print(question.question_text)
 
-        analytic = StudentAnalytics.objects.get(user=user, question=question)
-        print(analytic.hint)
+        #check if the row exists
+        if StudentAnalytics.objects.filter(user=user, question=question).exists():
+            analytic = StudentAnalytics.objects.get(user=user, question=question)
+            print(analytic.hint)
 
-        context = {
-            'show_hint': analytic.hint,
-            'hint_text': question.hint,
-        }
-        return context
+            context = {
+                'show_hint': analytic.hint,
+                'hint_text': question.hint,
+            }
+            return context
+        else:
+            return
 
 class ResultsView(generic.DetailView):
     model = Question
