@@ -13,7 +13,7 @@ class Student(models.Model):
     questions_correct = models.IntegerField(default=0)
     games_completed = models.IntegerField(default=0)
     streak = models.IntegerField(default=0)
-    min_time = models.DecimalField(max_digits=8, decimal_places=0, default=100)
+    min_time = models.IntegerField(default=500)
     medals = models.IntegerField(default=0)
 
     def __str__(self):
