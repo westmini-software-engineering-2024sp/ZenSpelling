@@ -53,11 +53,11 @@ class Course(models.Model):
 
 
 class Question(models.Model):
-    question_text = models.CharField(max_length=200)
+    question_text = models.CharField(max_length=500)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     times_answered = models.IntegerField(default=0)
     times_correct = models.IntegerField(default=0)
-    hint = models.CharField(max_length=200, null=True, blank=True)
+    hint = models.CharField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return self.question_text
@@ -71,6 +71,9 @@ class Question(models.Model):
             return (self.times_correct / self.times_answered) * 100
         else:
             return "Not yet answered"
+
+    def get_hint_for_user(self, user):
+        return self.hint
 
 
 class Answer(models.Model):

@@ -19,11 +19,24 @@ class DetailView(generic.DetailView):
     template_name = "ZenSpelling/question.html"
 
     def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
         return Question.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        question = self.get_object()
+        user = self.request.user
+
+        print(user.username)
+        print(question.question_text)
+
+        analytic = StudentAnalytics.objects.get(user=user, question=question)
+        print(analytic.hint)
+
+        context = {
+            'show_hint': analytic.hint,
+            'hint_text': question.hint,
+        }
+        return context
 
 class ResultsView(generic.DetailView):
     model = Question
