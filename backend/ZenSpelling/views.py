@@ -32,7 +32,7 @@ class ResultsView(generic.DetailView):
 
 class LoginView(generic.FormView):
     form_class = LoginForm
-    template_name = "ZenSpelling/LoginPage.html"
+    template_name = "ZenSpelling/loginPage.html"
     success_url = "/start/"
     bgMusicPath = settings.MEDIA_URL
 
@@ -53,12 +53,12 @@ class LoginView(generic.FormView):
 
 class StartView(LoginRequiredMixin, generic.TemplateView):
     login_url = "/"
-    template_name = "ZenSpelling/StartPage.html"
+    template_name = "ZenSpelling/startPage.html"
 
 
 class SetupView(LoginRequiredMixin, generic.TemplateView):
     login_url = "/"
-    template_name = "ZenSpelling/GameSetUp.html"
+    template_name = "ZenSpelling/gameSetUp.html"
     question_sets = QuestionSet.objects.all()
 
 
@@ -112,7 +112,7 @@ def tile_paths(request):
 
 def display_question_sets(request):
     question_sets = QuestionSet.objects.all()
-    return render(request, 'ZenSpelling/GameSetUp.html', {'question_sets': question_sets})
+    return render(request, 'ZenSpelling/gameSetUp.html', {'question_sets': question_sets})
 
 
 # question.html form
