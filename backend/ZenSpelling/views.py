@@ -145,13 +145,11 @@ def submit_answer(request):
                 if StudentAnalytics.objects.filter(user=user, question=question).exists():
                     analytic = StudentAnalytics.objects.get(user=user, question=question)
 
-                    answered = analytic.times_answered
                     correct = analytic.times_correct
 
                     analytic.times_answered += 1
-                    analytic.times_correct += 1 if answer_exists else correct
+                    analytic.times_correct = correct + 1 if answer_exists else correct
                     analytic.hint = not answer_exists
-                    print("should have updated")
                     analytic.save()
                 else:
                     analytic = StudentAnalytics.objects.create(
@@ -161,7 +159,6 @@ def submit_answer(request):
                         times_correct=1 if answer_exists else 0,
                         hint=not answer_exists
                     )
-                    print("should have created")
                     analytic.save()
 
             return JsonResponse({'exists': answer_exists})
@@ -175,7 +172,6 @@ def submit_answer(request):
 
 
 def update_profile(request):
-    print("hello")
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
@@ -185,8 +181,48 @@ def update_profile(request):
             streak = data['streak']
 
             user = request.user
-            print("something")
-            return True;
+
+            with transaction.atomic():
+                print("Updating profile")
+                if Student.objects.filter(user=user).exists():
+                    print("Profile exists")
+                    profile = Student.objects.get(user=user)
+                    print("1")
+                    profileStreak = profile.streak #get streak number from profile
+                    print("profileStreak is: " + str(profileStreak))
+                    profileMinTime = profile.minTime #get min time from profile
+                    print("profileMinTime is: " + str(profileMinTime))
+                    print("2")
+                    profile.time_spent += time
+                    profile.questions_answered += count
+                    profile.questions_correct += correct
+                    profile.games_completed += 1
+                    print("3")
+                    if streak > profileStreak:
+                        profile.streak = streak
+                    print("4")
+                    if time < profileMinTime:
+                        profile.minTime = time
+                    print("5")
+                    print("Profile updated")
+                    profile.save()
+                    print("Profile saved")
+                else:
+                    print("Profile does not exist")
+                    profile = Student.objects.create(
+                        user=user,
+                        time_spent=time,
+                        questions_answered=count,
+                        questions_correct=correct,
+                        games_completed=1,
+                        streak=streak,
+                        minTime=time
+                    )
+                    print("Profile updated")
+                    profile.save()
+                    print("Profile saved")
+
+            return JsonResponse({"exists": True})
 
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON.'}, status=400)
