@@ -183,32 +183,24 @@ def update_profile(request):
             user = request.user
 
             with transaction.atomic():
-                print("Updating profile")
                 if Student.objects.filter(user=user).exists():
-                    print("Profile exists")
                     profile = Student.objects.get(user=user)
-                    print("1")
+
                     profileStreak = profile.streak #get streak number from profile
-                    print("profileStreak is: " + str(profileStreak))
-                    profileMinTime = profile.minTime #get min time from profile
-                    print("profileMinTime is: " + str(profileMinTime))
-                    print("2")
+                    profileMinTime = profile.min_time #get min time from profile
+
                     profile.time_spent += time
                     profile.questions_answered += count
                     profile.questions_correct += correct
                     profile.games_completed += 1
-                    print("3")
                     if streak > profileStreak:
                         profile.streak = streak
-                    print("4")
+
                     if time < profileMinTime:
-                        profile.minTime = time
-                    print("5")
-                    print("Profile updated")
+                        profile.min_time = time
+
                     profile.save()
-                    print("Profile saved")
                 else:
-                    print("Profile does not exist")
                     profile = Student.objects.create(
                         user=user,
                         time_spent=time,
@@ -218,9 +210,7 @@ def update_profile(request):
                         streak=streak,
                         minTime=time
                     )
-                    print("Profile updated")
                     profile.save()
-                    print("Profile saved")
 
             return JsonResponse({"exists": True})
 
