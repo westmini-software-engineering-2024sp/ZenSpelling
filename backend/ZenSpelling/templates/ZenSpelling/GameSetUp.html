@@ -8,6 +8,7 @@
     <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
     <link rel="stylesheet" href="{% static 'ZenSpelling/game-setup-style.css' %}">
     <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
+    <script src = {% static 'Resources/jquery3.7.1.js'  %}></script> 
 </head>
 <body>
     <div class="center">
@@ -15,15 +16,17 @@
         <button class="logoutButton" onclick="logout()">Log Out</button>
         <h1>Choose Board Size and Question Set</h1>
         <br>
+        <div class = "buttons-container">
             <ul class = "listOfSets">
             {% for question_set in question_sets %}
                 <li class = "questionSets">
-                <button id = "sets" onclick="changeColor()">
-                    {{ question_set.name }}
+                <button id = "sets" onclick="changeColor(this)">
+                    {{ question_set}}
                 </button>
                 </li>
             {% endfor %}
             </ul>
+    </div>
         <div class="item-center">
             <ul>
                 <li> <div class = "text"> 3x3</div> <button onclick="playGame(3)"><img alt="3x3grid" height = 250em width = 250em src={% static 'ZenSpelling/images/myCanvas-3.png' %}/></button></li>
@@ -69,6 +72,57 @@
             }
         }
   window.onload = checkMusic;
+
+    let prevButton = null;
+
+function changeColor(button) {
+    let buttons = document.querySelectorAll('.sets');
+    buttons.forEach(function(btn) {
+        if (btn !== button) {
+            // Reset background color and text color of all buttons except the clicked one
+            btn.style.backgroundColor = '';
+            btn.style.color = '';
+        }
+    });
+    
+    // If a previously selected button exists, reset its styles
+    if (prevButton !== null && prevButton !== button) {
+        prevButton.style.backgroundColor = '';
+        prevButton.style.color = '';
+    }
+    
+    // Set the clicked button's styles
+    button.style.backgroundColor = 'greenyellow';
+    button.style.color = 'black';
+    
+    // Update the previously selected button
+    prevButton = button;
+    }
+    
+const generateQuestionsButton = document.getElementById('sets');
+
+generateQuestionsButton.addEventListener('click', function() {
+    // Retrieve the question set ID from wherever it's stored (e.g., data attribute)
+    const questionSetId = generateQuestionsButton.dataset.questionSetId;
+    
+    // Make a request to the server to generate the question array
+    fetch(`/generate_questions/?question_set_id=${questionSetId}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Handle the response, data contains the generated question array
+        console.log('Questions:', data.questions);
+        console.log('Sidelengeth:', data.sidelength);
+        // You can perform any further actions here, like starting the game with the received questions
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
 </script>
 </body>
 </html>
