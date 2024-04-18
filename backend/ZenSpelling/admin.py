@@ -1,5 +1,7 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.forms import forms
 from import_export.admin import ImportMixin
 from .models import Answer, Question, Course, Tile, QuestionSet, Student, StudentAnalytics
 
@@ -30,7 +32,7 @@ class AddQuestionSet(admin.ModelAdmin):
     search_fields = ["name"]
 
 
-class UserAdmin(ImportMixin, admin.ModelAdmin):
+class UserAdminCustom(ImportMixin, UserAdmin):
     pass
 
 
@@ -39,7 +41,7 @@ class StudentAnalyticsAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, UserAdminCustom)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Course)
 admin.site.register(Tile)
