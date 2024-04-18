@@ -14,7 +14,7 @@
     border-color: black;
     padding: 10px;
     outline: none;
-    background: #0a5e0a;
+    background: #10590D;
     color: #fff;
     cursor: pointer;
     font-size: 1.25em;
@@ -30,7 +30,7 @@
     border-color: black;
     padding: 10px;
     outline: none;
-    background: #0a5e0a;
+    background: #10590D;
     color: #fff;
     cursor: pointer;
     font-size: 1.25em;
@@ -48,7 +48,7 @@
 }
 
 .title {
-    color: #0a5e0a;
+    color: #10590D;
     font-size: 5em;
     width: 100%;
     text-align: center;
@@ -99,7 +99,7 @@ html {
 
 .login h1 {
     font-size: 5em;
-    color: #0a5e0a;
+    color: #10590D;
     width: 100%;
     text-align: center;
     font-weight: 600;
@@ -146,7 +146,7 @@ label {
 .login .inputBox #btn {
     border: none;
     outline: none;
-    background: #0a5e0a;
+    background: #10590D;
     color: #fff;
     cursor: pointer;
     font-size: 1.25em;

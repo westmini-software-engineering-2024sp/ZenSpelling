@@ -90,7 +90,7 @@ html {
     margin-top: -75px;
     margin-left: 740px;
     transition: transform 0.5s;
-    background-color: darkgreen;
+    background-color: #10590D;
     font-weight: 600;
 }
 
@@ -132,7 +132,7 @@ html {
 
 
 .main:hover {
-    color: limegreen;
+    color: green;
     transform: scale(1.1);
 }
 
@@ -213,13 +213,3 @@ html {
   text-align: center;
     padding: 5px;
 }
-
-
-
-
-
-
-
-
-
-

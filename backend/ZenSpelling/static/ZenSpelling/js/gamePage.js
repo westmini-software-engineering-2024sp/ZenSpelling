@@ -18,7 +18,6 @@ let oscillatePulse = 1;
 let modal = false;
 let newRow, newCol;
 
-
 // Creating the sketch of the game-board.
 let GridSketch = function (sketch) {
     sketch.gridContainer = null;
@@ -93,7 +92,6 @@ let GridSketch = function (sketch) {
         if (model) {
             sketch.image(model, x, y);
         } else {
-            sketch.noStroke();
             sketch.square(x, y, size);
         }
 
@@ -352,7 +350,6 @@ function playSound(soundId) {
         soundEffect: soundEffect
     };
 }
-
 /*
 ** Document/Window Event Listeners
  */

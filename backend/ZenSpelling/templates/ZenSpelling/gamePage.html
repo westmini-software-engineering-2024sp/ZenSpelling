@@ -12,7 +12,7 @@
     <script src={% static 'ZenSpelling/js/gamePage.js' %}></script>
     <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
     <script src={% static 'ZenSpelling/js/question.js' %}></script>
-    <script src={% static 'Resources/jquery3.7.1.js' %}></script> 
+    <script src={% static 'Resources/jquery3.7.1.js' %}></script>
   </head>
   <body>
     <div id="loading-screen">Loading...</div>
@@ -26,14 +26,6 @@
         <audio id="release-sound" src={% static 'Resources/SoundEffects/releaseSound.mp3' %}></audio>
         <audio id="correct-sound" src={% static 'Resources/SoundEffects/correct.mp3' %}></audio>
         <audio id="wrong-sound" src={% static 'Resources/SoundEffects/wrong.mp3' %}></audio>
-        
-{#        TODO : This is my attempt at implementing hover sounds. Defer to R3.#}
-{#        <audio id="a4" src={% static 'Resources/HoverNotes/a4.wav' %}></audio>#}
-{#        <audio id="b4" src={% static 'Resources/HoverNotes/b4.wav' %}></audio>#}
-{#        <audio id="c3" src={% static 'Resources/HoverNotes/c3.wav' %}></audio>#}
-{#        <audio id="d3" src={% static 'Resources/HoverNotes/d3.wav' %}></audio>#}
-{#        <audio id="e3" src={% static 'Resources/HoverNotes/e3.wav' %}></audio>#}
-{#        <audio id="g3" src={% static 'Resources/HoverNotes/g3.wav' %}></audio>#}
     </main>
     <div id="twinkling-container">
         <div class = "twinkling-pixel"> </div>
