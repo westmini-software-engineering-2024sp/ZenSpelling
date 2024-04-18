@@ -65,10 +65,6 @@ function generateTileStack() {
         .catch(error => console.error('Error fetching filepaths:', error));
 }
 
-function generateGameboard(sidelength) {
-    let gameboardSize = sidelength*sidelength;
-}
-
 // Fisher-Yates shuffle algorithm to randomize tiles.
 function shuffleTileStack(tileStack) {
     // let tileStack = JSON.parse(localStorage.getItem('tileBank'));
