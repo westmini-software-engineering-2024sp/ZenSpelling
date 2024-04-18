@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Game Set Up Student</title>
-    <script src={% static 'ZenSpelling/js/GameSetUp.js' %}></script>
+    <script src={% static 'ZenSpelling/js/gameSetUp.js' %}></script>
     <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
     <link rel="stylesheet" href="{% static 'ZenSpelling/game-setup-style.css' %}">
     <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
@@ -41,7 +41,7 @@
         No browser support
     </audio>
 
-<script> 
+<script> <!-- move this -->
     document.getElementById("mute_play").onclick = function() {
       let audio = document.getElementById("background-music");
       

@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from django.forms import forms
 from import_export.admin import ImportMixin
-from .models import Answer, Question, Course, Tile, QuestionSet, Student
+from .models import Answer, Question, Course, Tile, QuestionSet, Student, StudentAnalytics
 
 
 admin.site.site_header = "Teacher View"
@@ -35,6 +34,10 @@ class UserAdmin(ImportMixin, admin.ModelAdmin):
     pass
 
 
+class StudentAnalyticsAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "percent_correct"]
+
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Question, QuestionAdmin)
@@ -42,3 +45,5 @@ admin.site.register(Course)
 admin.site.register(Tile)
 admin.site.register(Student)
 admin.site.register(QuestionSet, AddQuestionSet)
+admin.site.register(StudentAnalytics, StudentAnalyticsAdmin)
+

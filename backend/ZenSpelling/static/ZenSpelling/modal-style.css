@@ -17,7 +17,7 @@
     justify-content: center;
     align-items: center;
     width:100%;
-    cursor: url("../Assets/bee.png"), pointer;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 @keyframes slideDown {
@@ -70,7 +70,7 @@
     padding:0.2em;
     margin:0.1em;
     text-align: center;
-    cursor: url("../Assets/bee.png"), pointer;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 .choice:focus + .option{
@@ -96,7 +96,7 @@
     text-align: center;
     width:5em;
     height:5em;
-    cursor: url("../Assets/bee.png"), pointer;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 .sub:hover{
