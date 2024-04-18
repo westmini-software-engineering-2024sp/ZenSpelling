@@ -101,9 +101,9 @@ function changeColor(button) {
     
 const generateQuestionsButton = document.getElementById('sets');
 
-generateQuestionsButton.addEventListener('click', function() {
+generateQuestionsButton.addEventListener('click', function(event) {
     // Retrieve the question set ID from wherever it's stored (e.g., data attribute)
-    const questionSetId = generateQuestionsButton.dataset.questionSetId;
+    const questionSetId = event.target.id;
     
     // Make a request to the server to generate the question array
     fetch(`/generate_questions/?question_set_id=${questionSetId}`)
@@ -123,6 +123,7 @@ generateQuestionsButton.addEventListener('click', function() {
         console.error('Error:', error);
     });
 });
+
 </script>
 </body>
 </html>
