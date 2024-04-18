@@ -1,5 +1,6 @@
 from ZenSpelling.models import Question, Answer, Course, Student, Tile
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import PBKDF2PasswordHasher as hasher
 import csv
 
 
@@ -32,7 +33,7 @@ def user_import():
         for row in csv.reader(file):
             result, created = User.objects.get_or_create(
                 username=row[0],
-                password=row[1],
+                password=hasher.encode(hasher(), row[1], hasher.salt(hasher())),
             )
             print(created)
 
