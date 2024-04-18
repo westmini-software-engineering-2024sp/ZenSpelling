@@ -1,6 +1,6 @@
 from ZenSpelling.models import Question, Answer, Course, Student, Tile
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import PBKDF2SHA1PasswordHasher as hasher
+from django.contrib.auth.hashers import PBKDF2PasswordHasher as hasher
 import csv
 
 # repetitive code added with assistance from copilot.

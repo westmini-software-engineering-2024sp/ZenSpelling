@@ -19,7 +19,7 @@ class QuestionAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         print(request.user.student.course.name)
-        return qs if request.user.is_superuser else qs.filter(course__name=request.user.student.course.name)
+        return qs.filter(course__name=request.user.student.course.name) # qs if request.user.is_superuser else
 
 
 class AddQuestionSet(admin.ModelAdmin):
@@ -28,6 +28,11 @@ class AddQuestionSet(admin.ModelAdmin):
     ]
     list_display = ["name"]
     search_fields = ["name"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        print(request.user.student.course.name)
+        return qs.filter(course__name=request.user.student.course.name)
 
 
 admin.site.site_header = "Teacher View"
