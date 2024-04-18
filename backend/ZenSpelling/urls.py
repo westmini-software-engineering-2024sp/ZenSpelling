@@ -8,7 +8,7 @@ urlpatterns = [
     path("start/", views.StartView.as_view(), name="StartPage"),
     path("game/", views.GameView.as_view(), name="gamePage"),
     path("complete/", views.CompleteView.as_view(), name="complete"),
-    path("ZenSpelling/", views.IndexView.as_view(), name="index"),
+    path("profile/<int:pk>", views.ProfileView.as_view(), name="profile"),
     path("ZenSpelling/<int:pk>/", views.DetailView.as_view(), name="detail"),
     path("ZenSpelling/<int:pk>/results/", views.ResultsView.as_view(), name="results"),
     path("ZenSpelling/<int:question_id>/vote/", views.vote, name="vote"),
@@ -16,4 +16,5 @@ urlpatterns = [
     path('setup/', views.display_question_sets, name='question_sets'),
     path('game/answer/', views.submit_answer, name='submit_answer'),
     path('generate_questions/', views.generate_questions, name='generate_questions'),
+    path('complete/datatoprofile/', views.update_profile, name='update_profile'),
 ]

@@ -8,9 +8,13 @@ from django.dispatch import receiver
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    time_spent = models.DecimalField(max_digits=5, decimal_places=2, default=0)  # minutes
+    time_spent = models.DecimalField(max_digits=16, decimal_places=0, default=0)
     questions_answered = models.IntegerField(default=0)
     questions_correct = models.IntegerField(default=0)
+    games_completed = models.IntegerField(default=0)
+    streak = models.IntegerField(default=0)
+    min_time = models.IntegerField(default=500)
+    medals = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
@@ -65,7 +69,7 @@ class Question(models.Model):
         if self.times_answered > 0:
             return (self.times_correct / self.times_answered) * 100
         else:
-            return 0
+            return "Not yet answered"
 
 
 class Answer(models.Model):
@@ -103,3 +107,26 @@ class QuestionSet(models.Model):
             main_question_set.questions.add(instance)
             main_question_set.save()
             """
+
+
+class StudentAnalytics(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    times_answered = models.IntegerField(default=0)
+    times_correct = models.IntegerField(default=0)
+    hint = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Student Analytic'
+
+    def __str__(self):
+        return self.user.username + " | " + self.question.question_text
+
+    def percent_correct(self):
+        return (self.times_correct / self.times_answered) * 100 if self.times_answered > 0 else "Not yet answered"
+
+    def get_most_incorrect(self):
+        pass
+        # TODO queryset/filter i think
+        # this has to be done somewhere else unfortunately :(
+        # in another view. I think I know how to do it tho

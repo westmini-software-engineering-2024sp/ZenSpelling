@@ -56,8 +56,6 @@ function submitAnswer() {
             })
             .then(data => {
 
-                console.log('Server response:', data);
-
                 if (data.exists) { //aka if correct
                     playSound('correct-sound').play();
                     let correct = parseInt(localStorage.getItem('correctAnswers'));
@@ -78,6 +76,14 @@ function submitAnswer() {
                     }
 
                     modalSpace.innerHTML = 'CORRECT!';
+
+                    if(dataArray[newRow + '' + newCol].weed){
+                        dataArray[newRow + '' + newCol].model = '';
+                        dataArray[newRow + '' + newCol].weed = false;
+                        dataArray[newRow + '' + newCol].collision = false;
+                    }
+
+                    //for hints, need to send to student and studentAnalytics
                 } else {
                     playSound('wrong-sound').play();
                     onStreak = false;
@@ -85,6 +91,7 @@ function submitAnswer() {
                     dataArray[newRow + '' + newCol].model = gridSketch.loadImage(newFilePath, function (img) {
                         img.resize(gridSketch.boxSize, 0);
                     });
+                    dataArray[newRow + '' + newCol].weed = true;
                     modalSpace.innerHTML = 'WRONG!';
                 }
                 setTimeout(function() {
@@ -100,7 +107,6 @@ function submitAnswer() {
 
 // when the game is complete (all questions answered) complete screen is shown
 function gameComplete() {
-    //console.log(localStorage.getItem('questionNumber') + " " + localStorage.getItem('gameboardSize'));
     if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
         var eventTimestamp = new Date();
         localStorage.setItem('finishTime', eventTimestamp.toString());
