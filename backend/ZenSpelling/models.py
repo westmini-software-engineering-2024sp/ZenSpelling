@@ -57,7 +57,7 @@ class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     times_answered = models.IntegerField(default=0)
     times_correct = models.IntegerField(default=0)
-    hint = models.CharField(max_length=500, null=True, blank=True)
+    hint = models.CharField(max_length=500)
 
     def __str__(self):
         return self.question_text

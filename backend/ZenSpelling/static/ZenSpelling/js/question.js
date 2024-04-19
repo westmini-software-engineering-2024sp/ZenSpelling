@@ -98,7 +98,6 @@ function submitAnswer() {
 
                 if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
                     let eventTimestamp = new Date(); //do timestamp
-                    alert(eventTimestamp.toString());
                     localStorage.setItem('finishTime', eventTimestamp.toString());
                     //Maybe change this to a button called, complete game that only appears when the game is complete
                     gameComplete();
