@@ -20,15 +20,21 @@
     <main>
         <div class="question-set-container">
             <ul class = "question-set-list">{% for question_set in question_sets %}
-                <li class = "question-set-item" onclick="changeColor()">{{ question_set.name }}</li>
+                <li class = "question-set-item" onclick="playSoundAndHighlightQuestionSet(this)">{{ question_set.name }}</li>
                 {% endfor %}
             </ul>
         </div>
         <div class="grid-container">
             <ul class="grid-list">
-                <li class="grid-item" id="grid3"><button class="grid-button" onclick="playGame(3)"><span class = "text"> 3x3 </span></button></li>
-                <li class="grid-item" id="grid4"><button class="grid-button" onclick="playGame(4)"><span class = "text"> 4x4 </span></button></li>
-                <li class="grid-item" id="grid5"><button class="grid-button" onclick="playGame(5)"><span class = "text"> 5x5 </span></button></li>
+                <li class="grid-item" id="grid3">
+                    <button class="grid-button" onclick="playSoundAndStartGame(3)"><span class = "text"> 3x3 </span></button>
+                </li>
+                <li class="grid-item" id="grid4">
+                    <button class="grid-button" onclick="playSoundAndStartGame(4)"><span class = "text"> 4x4 </span></button>
+                </li>
+                <li class="grid-item" id="grid5">
+                    <button class="grid-button" onclick="playSoundAndStartGame(5)"><span class = "text"> 5x5 </span></button>
+                </li>
             </ul>
         </div>
     </main>
@@ -40,6 +46,7 @@
         <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
         No browser support
     </audio>
+    <audio id="click-sound" src={% static 'Resources/SoundEffects/clickSound.mp3' %}></audio>
 
 <script> <!-- move this -->
     document.getElementById("mute_play").onclick = function() {

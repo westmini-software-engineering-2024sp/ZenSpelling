@@ -78,9 +78,9 @@ main {
     transition: background-color 0.5s;
 }
 
-.question-set-item:focus{
-    color:white;
-    background-color: black;
+.clicked{
+    color:black;
+    background-color: #e7c116;
 }
 
 .grid-container {
@@ -137,6 +137,8 @@ li button:hover {
     color:black;
     transform: scale(1.2);
     cursor: url("../Assets/bee.png") 14 14, pointer;
+    border-radius: 2em;
+    border:1.5em solid black;
 }
 
 .text{

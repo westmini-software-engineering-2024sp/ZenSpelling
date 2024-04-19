@@ -276,7 +276,7 @@ let TileSketch = function (sketch) {
             for (let i = 0; i < gridDimension; i++) {
                 for (let j = 0; j < gridDimension; j++) {
                     let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + tileGridOffsetDiff, dataArray[i + '' + j].y + yShift);
-                    dataArray[i + '' + j].collision = d < tileSize / 4;
+                    dataArray[i + '' + j].collision = d < tileSize/6;
                 }
             }
             return false;
@@ -350,6 +350,7 @@ function playSound(soundId) {
         soundEffect: soundEffect
     };
 }
+
 /*
 ** Document/Window Event Listeners
  */
