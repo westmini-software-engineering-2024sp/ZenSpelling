@@ -108,7 +108,6 @@ function getCookie(name) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log(localStorage);
     document.getElementById('scoreDisplay').textContent = getScore();
     document.getElementById('percentDisplay').textContent = getPercentage();
     //document.getElementById('startTimeDisplay').textContent = getStartTimeDisplay();

@@ -100,7 +100,7 @@ function submitAnswer() {
                     let eventTimestamp = new Date(); //do timestamp
                     alert(eventTimestamp.toString());
                     localStorage.setItem('finishTime', eventTimestamp.toString());
-                    //a delay added. Maybe change this to a button called, complete game that only appears when the game is complete
+                    //Maybe change this to a button called, complete game that only appears when the game is complete
                     gameComplete();
                 }
 
