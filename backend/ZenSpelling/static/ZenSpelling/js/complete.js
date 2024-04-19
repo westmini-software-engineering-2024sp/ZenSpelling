@@ -73,7 +73,7 @@ function sendDataBack() {
             })
         .then(data => {
             if (data.exists) {
-                alert("Game Saved Successfully");
+                console.log("Game saved");
             }
         })
 }

@@ -17,7 +17,7 @@ class QuestionAdmin(admin.ModelAdmin):
         ("Other information", {"fields": ["course"], "classes": ["collapse"]}),
     ]
     inlines = [AnswerInline]
-    list_display = ["question_text", "percent_correct"]
+    list_display = ["question_text", "percent_correct", "hint"]
     search_fields = ["question_text"]
 
 

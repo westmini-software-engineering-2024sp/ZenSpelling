@@ -1,3 +1,5 @@
+import ("../../Resources/seedrandom.min.js");
+
 function logout() {
     window.location.href = '/';
 }
@@ -5,7 +7,6 @@ function logout() {
 function playGame(size) {
     generateQuestion(size);
     generateTileStack(size);
-    generateGameboard(size);
 
     let currentTimestamp = new Date();
     localStorage.setItem('startTime', currentTimestamp.toString());
@@ -81,9 +82,5 @@ function shuffleTileStack(tileStack) {
     }
 
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
-}
-
-function generateGameboard(size) {
-    var gameboardSize = size * size;
 }
 
