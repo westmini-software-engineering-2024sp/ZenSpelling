@@ -72,7 +72,7 @@ class Question(models.Model):
         else:
             return "Not yet answered"
 
-    def get_hint_for_user(self, user):
+    def get_hint_for_user(self):
         return self.hint
 
 

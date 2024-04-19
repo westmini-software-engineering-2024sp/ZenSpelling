@@ -18,7 +18,6 @@ function closeModal() {
     }, 500)// Adjust timeout to match animation duration
     modal = false;
     setTimeout(function() {
-        gameComplete();
     }, 1000);
 }
 
@@ -83,7 +82,6 @@ function submitAnswer() {
                         dataArray[newRow + '' + newCol].collision = false;
                     }
 
-                    //for hints, need to send to student and studentAnalytics
                 } else {
                     playSound('wrong-sound').play();
                     onStreak = false;
@@ -98,6 +96,14 @@ function submitAnswer() {
                     closeModal();
                 }, 1000);
 
+                if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
+                    setTimeout(() => {
+                        var eventTimestamp = new Date(); //do timestamp
+                        localStorage.setItem('finishTime', eventTimestamp.toString());
+                    }, 1000) //a delay added. Maybe change this to a button called, complete game that only appears when the game is complete
+                    gameComplete();
+                }
+
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -106,12 +112,8 @@ function submitAnswer() {
 }
 
 // when the game is complete (all questions answered) complete screen is shown
-function gameComplete() {
-    if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
-        var eventTimestamp = new Date();
-        localStorage.setItem('finishTime', eventTimestamp.toString());
-        window.location.href = '../complete/';
-    }
+function gameComplete() { //this can happen too early
+    window.location.href = '../complete/';
 }
 
 // passed to the server so we don't get a Forbidden

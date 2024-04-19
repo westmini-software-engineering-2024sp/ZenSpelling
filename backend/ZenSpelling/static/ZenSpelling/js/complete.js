@@ -26,6 +26,12 @@ function getTimeSpentDisplay() {
     start = start.getTime();
     end = end.getTime();
 
+    if (end < start) {
+        let temp = end;
+        end = start;
+        start = temp;
+    }
+
     //let hour = Math.floor((end-start)/(1000*60*60));
     let minute = Math.floor(((end-start) % (1000*60*60))/(1000*60)); //these are the numbers as INT
     let second = Math.floor(((end-start) % (1000*60*60))/1000);
@@ -41,6 +47,12 @@ function getTimeSpentSeconds() {
 
     start = start.getTime();
     end = end.getTime();
+
+    if (end < start) {
+        let temp = end;
+        end = start;
+        start = temp;
+    }
 
     return Math.floor(((end-start) % (1000*60*60))/1000);//int as seconds
 }

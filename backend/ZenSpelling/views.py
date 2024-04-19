@@ -26,18 +26,15 @@ class DetailView(generic.DetailView):
         question = self.get_object()
         user = self.request.user
 
-        print(user.username)
-        print(question.question_text)
-
         #check if the row exists
         if StudentAnalytics.objects.filter(user=user, question=question).exists():
             analytic = StudentAnalytics.objects.get(user=user, question=question)
-            print(analytic.hint)
+            print(question.hint)
 
             context = {
                 'show_hint': analytic.hint,
-                'hint_text': question.hint,
                 'question': question,
+                'hint': question.hint
             }
             return context
         else:
