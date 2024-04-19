@@ -38,7 +38,10 @@ class DetailView(generic.DetailView):
             }
             return context
         else:
-            return
+            context = {
+                'question': question,
+            }
+            return context
 
 class ResultsView(generic.DetailView):
     model = Question

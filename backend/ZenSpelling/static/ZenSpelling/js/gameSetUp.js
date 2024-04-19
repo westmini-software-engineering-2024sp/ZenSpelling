@@ -10,7 +10,6 @@ function playGame(size) {
 
     let currentTimestamp = new Date();
     localStorage.setItem('startTime', currentTimestamp.toString());
-    localStorage.setItem('finishTime', JSON.stringify(0));
 
     window.location.href = '/game/'
 }

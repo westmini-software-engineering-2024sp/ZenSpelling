@@ -32,13 +32,15 @@ function getTimeSpentDisplay() {
         start = temp;
     }
 
-    //let hour = Math.floor((end-start)/(1000*60*60));
-    let minute = Math.floor(((end-start) % (1000*60*60))/(1000*60)); //these are the numbers as INT
-    let second = Math.floor(((end-start) % (1000*60*60))/1000);
-    second =  second % 60; //these are the numbers as INT
+     let totalSeconds = Math.floor((end - start) / 1000);
+    let parts = [];
+    let minutes = Math.floor(totalSeconds / 60);
+    let remainingSeconds = totalSeconds % 60;
 
-    //return `${hour} hours, ${minute} minutes, ${second} seconds`;
-    return `${minute} minutes, ${second} seconds`;  //use this if you need to get the time as a string
+    if (minutes > 0) parts.push(`${minutes} minute${minutes > 1 ? 's' : ''}`);
+    if (remainingSeconds > 0 || parts.length === 0) parts.push(`${remainingSeconds} second${remainingSeconds > 1 ? 's' : ''}`);
+
+    return parts.join(' and '); //use this if you need to get the time as a string
 }
 
 function getTimeSpentSeconds() {
@@ -106,6 +108,7 @@ function getCookie(name) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log(localStorage);
     document.getElementById('scoreDisplay').textContent = getScore();
     document.getElementById('percentDisplay').textContent = getPercentage();
     //document.getElementById('startTimeDisplay').textContent = getStartTimeDisplay();

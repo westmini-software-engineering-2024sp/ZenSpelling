@@ -97,10 +97,10 @@ function submitAnswer() {
                 }, 1000);
 
                 if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
-                    setTimeout(() => {
-                        var eventTimestamp = new Date(); //do timestamp
-                        localStorage.setItem('finishTime', eventTimestamp.toString());
-                    }, 1000) //a delay added. Maybe change this to a button called, complete game that only appears when the game is complete
+                    let eventTimestamp = new Date(); //do timestamp
+                    alert(eventTimestamp.toString());
+                    localStorage.setItem('finishTime', eventTimestamp.toString());
+                    //a delay added. Maybe change this to a button called, complete game that only appears when the game is complete
                     gameComplete();
                 }
 
