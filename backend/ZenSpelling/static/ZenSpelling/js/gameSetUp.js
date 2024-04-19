@@ -26,7 +26,7 @@ function changeColor() {
  * This function will generate which question should pop up
  * In the end, I want this to generate the question array with length gameboardSize
  */
-function generateQuestion(sidelength) {
+function generateQuestion(sidelength) { //this has a bug!!!!!!!!!
     var questionArray = [];
     var answerArray = [];
     var gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board

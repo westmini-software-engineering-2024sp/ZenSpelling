@@ -37,6 +37,7 @@ class DetailView(generic.DetailView):
             context = {
                 'show_hint': analytic.hint,
                 'hint_text': question.hint,
+                'question': question,
             }
             return context
         else:

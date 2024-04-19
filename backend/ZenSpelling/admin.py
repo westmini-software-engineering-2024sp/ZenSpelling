@@ -30,7 +30,7 @@ class AddQuestionSet(admin.ModelAdmin):
 
 
 class StudentAnalyticsAdmin(admin.ModelAdmin):
-    list_display = ["__str__", "percent_correct"]
+    list_display = ["__str__", "percent_correct", "hint"]
 
 
 admin.site.register(Question, QuestionAdmin)
