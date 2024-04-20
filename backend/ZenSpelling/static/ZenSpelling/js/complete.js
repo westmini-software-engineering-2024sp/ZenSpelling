@@ -5,11 +5,37 @@ function getScore() {
     return correct + "/" + total;
 }
 
-function getPercentage() {
-    let correct = parseInt(localStorage.getItem('correctAnswers')); //use this if you need to get the score as a number
-    let total = parseInt(localStorage.getItem('gameboardSize'));
-    return Math.round((correct/total)*100).toString();
+function displayMedal() {
+
+    let correctAnswers = parseInt(localStorage.getItem('correctAnswers'));
+    let totalQuestions = parseInt(localStorage.getItem('gameboardSize'));
+    // Get the medal element
+    const medalElement = document.getElementById('medal');
+    const backOfMedal = document.getElementById('backOfMedal');
+
+    // Check if the user answered all questions correctly
+    if (correctAnswers === totalQuestions) {
+        // Show the medal
+        medalElement.style.display = 'flex';
+        backOfMedal.style.display = 'flex';
+
+    } else {
+        // Hide the medal
+        medalElement.style.display = 'none';
+        backOfMedal.style.display = 'none';
+    }
 }
+
+function getPercentage() {
+    let correct = parseInt(localStorage.getItem('correctAnswers'));
+    let total = parseInt(localStorage.getItem('gameboardSize'));
+
+    // Example usage:
+    displayMedal(correct, total * total);
+
+    return Math.round((correct / total) * 100).toString();
+}
+
 
 function getStartTimeDisplay() {
     return localStorage.getItem('startTime');
@@ -73,7 +99,7 @@ function sendDataBack() {
             })
         .then(data => {
             if (data.exists) {
-                alert("Game Saved Successfully");
+                //alert("Game Saved Successfully");
             }
         })
 }
@@ -104,17 +130,20 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.clear(); //localstorage is cleared
 });
 
-document.getElementById('clickable-image').addEventListener('click', function() {
+document.getElementById('medal').addEventListener('click', function() {
   let overlay = document.getElementById('overlay');
   if (overlay.style.display === 'block') {
     overlay.style.display = 'none';
   } else {
     overlay.style.display = 'block';
   }
-  let clickableImage = document.getElementById('clickable-image');
+  let clickableImage = document.getElementById('medal');
 
   // Check if the click event target is not the overlay or the clickable image
   if (event.target !== overlay && event.target !== clickableImage) {
     overlay.style.display = 'none'; // Hide the overlay
   }
 });
+
+
+

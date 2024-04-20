@@ -137,11 +137,11 @@ html {
 }
 
 
-#clickable-image {
+#medal {
     position: absolute;
     cursor: pointer; /* Change cursor to pointer when hovering over image */
-    animation: scale 1s infinite alternate; /* Adjust animation duration and timing as needed */
     display: flex;
+    animation: scale 1s infinite alternate; /* Adjust animation duration and timing as needed */
     justify-content: center;
     align-items: center;
 }
@@ -163,11 +163,12 @@ html {
 
 @keyframes slideIn {
     from {
+        top: -375px;
         left: 0; /* Initial position off the screen */
     }
     to {
-        left: 650px; /* Final position at the beginning of the screen */
-        bottom: 30px;
+        left: 200px; /* Final position at the beginning of the screen */
+        top: -375px;
     }
 }
 
@@ -183,20 +184,27 @@ html {
   transform: rotateY(180deg);
 }
 
-.front, .back {
+.front {
   width: 100%;
   height: 100%;
   position: absolute;
   backface-visibility: hidden;
   border-radius: 50%; /* Make the faces round */
+    display: flex;
 }
 
 .front {
   z-index: 2;
 }
 
-.back {
+#backOfMedal {
   transform: rotateY(180deg);
+    width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 50%; /* Make the faces round */
+    display: flex;
 }
 
 .text-overlay {

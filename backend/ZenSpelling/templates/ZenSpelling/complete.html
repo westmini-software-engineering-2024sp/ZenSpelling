@@ -33,19 +33,14 @@
     <div class="flip-container">
         <div class="flipper">
             <div class="front">
-                <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px>
+                <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="medal" width = 150px height = 150px>
             </div>
-            <div class="back">
+            <div id="backOfMedal">
               <div class="text-overlay">
                 <p>You won this medal for getting all your questions correct!</p>
               </div>
             </div>
         </div>
-    </div>
-    <div class="back">
-      <div class="text-overlay">
-        <p>You won this medal for getting all your questions correct!</p>
-      </div>
     </div>
 <script src="{% static 'ZenSpelling/js/interact.js' %}"></script>
 </body>
