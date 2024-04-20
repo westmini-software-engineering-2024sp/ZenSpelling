@@ -13,3 +13,11 @@ function goBack(){
         history.back();
     }, 500);
 }
+
+function returnToMain(){
+    playSound('click-sound').play();
+
+    setTimeout(function() {
+        window.location.href = "/start/";
+    }, 500);
+}

@@ -13,18 +13,23 @@ main{
 }
 
 .startButton {
-    text-align:center;
+    display: flex;
+    justify-content: center;
     align-items: center;
     background-color: #10590D;
     color: white;
     border-color: dimgrey;
     font-size: 3em;
-    padding: 3rem 5rem;
+    padding: 1em;
     border-radius: 2em;
     cursor: url("../Assets/bee.png") 14 14, pointer;
     min-width: 8em;
     min-height:2em;
     transition: background-color 0.5s;
+}
+
+#profile{
+    padding: 0.75em;
 }
 
 .startButton:hover {

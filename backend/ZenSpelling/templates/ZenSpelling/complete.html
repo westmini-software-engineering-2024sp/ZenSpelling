@@ -3,17 +3,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Level Complete</title>
+    <title>Complete</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/page-standard-style.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/nav-style.css' %}">
     <link rel="stylesheet" href="{% static 'ZenSpelling/complete-style.css' %}">
+    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
+    
+    <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
+    <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
     <script src={% static 'ZenSpelling/js/complete.js' %}></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js" defer></script>
+    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+    <script src={% static 'ZenSpelling/js/interact.js' %} defer></script>
 </head>
 <body>
-    <div class="container">
+    <header>
+        <div class="nav-container" id="left">
+            <div id="mute_play" onclick="toggleMusic(this)"> Turn Music ON </div>
+            <a class="main-menu" onclick="returnToMain()">Main Menu</a>
+        </div>
+        <div class="nav-container" id="right">
+            <div class="logoutButton" onclick="logout()">Log Out</div>
+        </div>
+    </header>
+    <main>
         <h1 class="title"> Level Complete</h1>
-    </div>
-    <a href="/start/" class="main"> Main Menu </a>
-    <div class="box">
         <div class="score">
             <h3>Score: <span id="scoreDisplay"></span></h3> <!-- is there a better way to do this-->
         </div>
@@ -27,9 +41,10 @@
         <div class="streak">
             <h3> Highest Streak: <span id="streakDisplay"></span></h3>
         </div>
-        <a href="/setup/" class="btn">New Game</a>
-        <a href="/profile/3" class="btn2">Profile</a>
-    </div>
+        <div class="option-container">
+            <a href="/setup/" class="btn">New Game</a>
+            <a href="/profile/3" class="btn2">Profile</a>
+        </div>
     <div class="flip-container">
         <div class="flipper">
             <div class="front">
@@ -47,6 +62,6 @@
         <p>You won this medal for getting all your questions correct!</p>
       </div>
     </div>
-<script src="{% static 'ZenSpelling/js/interact.js' %}"></script>
+    </main>
 </body>
 </html>

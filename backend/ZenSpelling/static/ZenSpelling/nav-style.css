@@ -17,7 +17,7 @@
     right: 2rem;
 }
 
-#mute_play, .logoutButton, .back, .teacherButton {
+#mute_play, .logoutButton, .back, .teacherButton, .main-menu{
     border-radius: 1em;
     display:flex;
     justify-content: center;
@@ -35,7 +35,7 @@
     text-decoration: none;
 }
 
-#mute_play:hover, .logoutButton:hover, .back:hover, .teacherButton:hover {
+#mute_play:hover, .logoutButton:hover, .back:hover, .teacherButton:hover, .main-menu:hover {
     background: #e7c116;
     color:black;
     cursor: pointer;

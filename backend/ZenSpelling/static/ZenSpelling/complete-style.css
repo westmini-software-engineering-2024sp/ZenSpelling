@@ -1,43 +1,23 @@
-* {
-    font-family: 'Luckiest Guy', cursive;
-}
-
-body {
-    background: url(images/background.svg) no-repeat;
-    background-size: cover;
-    height: 100vh;
-}
-html {
-    overflow: hidden;
-    cursor: url("../Assets/bee.png") 14 14, pointer;
-}
-
-.container  {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-height: 5em;
-    margin-top: 20px;
-}
-
 .title {
-    font-size: 7em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
+    color: #fff;
+    animation: slideAnimation 3s ease-in-out;
+    height: 25%;
+}
+
+.score {
+    font-size: 1em;
+    text-align: center;
     color: #fff;
     animation: slideAnimation 3s ease-in-out;
     margin-top: 2em;
 }
 
-.score {
-    font-size: 25px;
-    text-align: center;
-    color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-top: 5em;
-}
-
-
 .percent {
-    font-size: 25px;
+    font-size: 1.5em;
     text-align: center;
     color: #fff;
     animation: slideAnimation 3s ease-in-out;
@@ -45,7 +25,7 @@ html {
 }
 
 .time {
-    font-size: 25px;
+    font-size: 1.5em;
     text-align: center;
     color: #fff;
     animation: slideAnimation 3s ease-in-out;
@@ -53,89 +33,49 @@ html {
 }
 
 .streak {
-    font-size: 25px;
+    font-size: 1.5em;
     text-align: center;
     color: #fff;
     animation: slideAnimation 3s ease-in-out;
-    margin-top: 1em;
+    margin: 2em;
 }
 
-.btn {
-    display: block;
-    margin: 50px auto;
-    width: fit-content;
-    border: 3px solid #fff;
-    padding: 14px 70px;
-    border-radius: 6px;
-    text-decoration: none;
+.btn, .btn2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #fff;
-    margin-bottom: 15px;
-    margin-left: 525px;
-    transition: transform 0.5s;
-    background-color: darkgreen;
-    font-weight: 600;
-
-}
-
-
-.btn2 {
-    display: block;
-    margin: 50px auto;
-    width: fit-content;
-    border: 3px solid #fff;
-    padding: 14px 70px;
-    border-radius: 6px;
-    text-decoration: none;
-    color: #fff;
-    margin-top: -75px;
-    margin-left: 740px;
     transition: transform 0.5s;
     background-color: #10590D;
     font-weight: 600;
-}
-
-@keyframes slideAnimation {
-    0% { transform: translateX(0); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
-}
-
-.btn {
-    animation: slideAnimation 3s ease-in-out;
-}
-
-.btn2 {
-    animation: slideAnimation 3s ease-in-out;
-}
-
-.btn:hover {
-    background: darkgreen;
-    color: #fff;
-    transform: scale(1.1);
-}
-
-.btn2:hover {
-    background: darkgreen;
-    color: #fff;
-    transform: scale(1.1);
-}
-
-.main {
-    position: fixed;
-    margin-top: -100px;
-    margin-left: 1250px;
-    color: white;
-    font-size: 30px;
+    min-width: 8em;
+    min-height: 3em;
+    padding: 1em;
     text-decoration: none;
-    transition: transform 0.5s;
-    animation: slideAnimation 3s ease-in-out;
+    border-radius: 2em;
+    font-size: 2em;
+    animation: slideAnimation 2s ease-in-out;
 }
 
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
 
-.main:hover {
-    color: green;
+.btn:hover, .btn2:hover {
+    background: darkgreen;
+    color: #fff;
     transform: scale(1.1);
 }
 
+.option-container{
+    display:flex;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 2em;
+    align-items: center;
+    width: 100%;
+}
 
 #clickable-image {
     position: absolute;
@@ -206,7 +146,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .text-overlay p {
