@@ -1,65 +1,43 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Start Page</title>
-    <link rel="stylesheet" href={% static 'ZenSpelling/start-page.css' %}>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
-    <script src={% static 'ZenSpelling/js/startPage.js' %}></script>
-    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
-</head>
-<body class="StartPageBackground">
-    <button id="mute_play"> Turn Music ON </button>
-    <button class="logoutButton" onclick="logout()">Log Out</button>
-    <div class="center">
-        <h1> Ready to Spell? </h1>
-        <button class="startButton" onclick="startGame()"> <span class = "start"> Start </span></button>
-        <br>
-        <div class="profile-container">
-            <button class="startButton" onclick="profile()"><span class = "start"> Profile </span></button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Start</title>
+        <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
+        <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
+        <script src={% static 'ZenSpelling/js/startPage.js' %}></script>
+        <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+        
+        <link rel="stylesheet" href="{% static 'ZenSpelling/page-standard-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/nav-style.css' %}">
+        <link rel="stylesheet" href={% static 'ZenSpelling/start-page.css' %}>
+        <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
+    </head>
+    <body class="StartPageBackground">
+        <header>
+            <div class="nav-container" id="left">
+                <div id="mute_play" onclick="toggleMusic(this)"> Turn Music ON </div>
+                <a class="back" onclick="goBack()">Go Back</a>
+            </div>
+            <div class="nav-container" id="right">
+                <div class="logoutButton" onclick="logout()">Log Out</div>
+            </div>
+        </header>
+        <main>
+            <h1> Ready to Spell? </h1>
+            <a class="startButton" id="start" onclick="startGame()"> Start </a>
+            <a class="startButton" id="profile" onclick="profile()"> Profile </a>
+        </main>
+        <div id="twinkling-container">
+            <div class = "twinkling-pixel"> </div>
         </div>
-    </div>
-    <div id="twinkling-container">
-        <div class = "twinkling-pixel"> </div>
-    </div>
-    <audio id = "background-music" loop>
-        <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
-        No browser support
-    </audio>
-<script>
-    document.getElementById("mute_play").onclick = function() {
-      let audio = document.getElementById("background-music");
-
-      if(audio.paused) {
-          audio.play();
-          this.textContent = "Turn Music OFF";
-      }
-      else {
-          audio.pause();
-          this.textContent = "Turn Music ON";
-      }
-  }
-
-  function togglePlay() {
-    let audio = document.getElementById('audio-player');
-    if (audio.paused) {
-        audio.play();
-        localStorage.setItem('isPlaying', 'true');
-    } else {
-        audio.pause();
-        localStorage.setItem('isPlaying', 'false');
-    }
-}
-
-// Check for playback state when the page loads
-window.onload = function() {
-    let audio = document.getElementById('audio-player');
-    let isPlaying = localStorage.getItem('isPlaying');
-    if (isPlaying === 'true') {
-        audio.play();
-    }
-}
-</script>
-</body>
+        <audio id = "background-music" loop>
+{#            TODO : Browser Support? Works on Chrome.#}
+            <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
+        </audio>
+        <audio id="click-sound" src={% static 'Resources/SoundEffects/clickSound.mp3' %}></audio>
+        <audio id="start-select" src={% static 'Resources/SoundEffects/correct.mp3' %}></audio>
+    </body>
 </html>

@@ -1,11 +1,15 @@
 function startGame() {
-    window.location.href = '/setup/';
+    playSound('start-select').play();
+    setTimeout(function() {
+        window.location.href = '/setup/';
+    }, 1000);
+
 }
 
 function profile() {
-    window.location.href = '/profile/3';
-}
+    playSound('click-sound').play();
+    setTimeout(function() {
+        window.location.href = '/profile/3';
+    }, 1000);
 
-function logout() {
-    window.location.href = '/';
 }

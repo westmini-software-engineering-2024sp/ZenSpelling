@@ -1,7 +1,3 @@
-function logout() {
-    window.location.href = '/';
-}
-
 function playGame(size) {
     generateQuestion(size);
     generateTileStack(size);
@@ -21,8 +17,7 @@ function playGame(size) {
 function generateQuestion(sidelength) {
     let questionArray = [];
     let answerArray = [];
-    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
-    //var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
+    let gameboardSize = sidelength * sidelength;
 
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
@@ -77,29 +72,11 @@ function shuffleTileStack(tileStack) {
 }
 
 function generateGameboard(size) {
-    var gameboardSize = size * size;
-}
-
-function playSound(soundId) {
-    let soundEffect = document.getElementById(soundId);
-
-    // Nested function, in case we want to add more functionality (pause, reset, playOnce, etc).
-    return {
-        play: function () {
-            soundEffect.play();
-        },
-
-        loop: function () {
-            soundEffect.loop = true;
-            soundEffect.play();
-        },
-
-        soundEffect: soundEffect
-    };
+    let gameboardSize = size * size;
 }
 
 function playSoundAndStartGame(gridSize){
-    playSound('click-sound').play()
+    playSound('grid-select').play()
     setTimeout(function() {
         playGame(gridSize)
     }, 1000);
@@ -113,5 +90,3 @@ function playSoundAndHighlightQuestionSet(currentSet) {
         }
         currentSet.classList.add('clicked');
 }
-
-

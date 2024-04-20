@@ -1,82 +1,59 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Game Set Up Student</title>
-    <script src={% static 'ZenSpelling/js/gameSetUp.js' %}></script>
-    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/game-setup-style.css' %}">
-    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
-</head>
-<body>
-    <header>
-        <div class="nav-container">
-            <div id="mute_play"> Turn Music ON </div>
-            <div class="logoutButton" onclick="logout()">Log Out</div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Setup</title>
+        <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
+        <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
+        <script src={% static 'ZenSpelling/js/gameSetUp.js' %}></script>
+        <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+        <link rel="stylesheet" href="{% static 'ZenSpelling/page-standard-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/game-setup-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/nav-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
+    </head>
+    <body>
+        <header>
+            <div class="nav-container" id="left">
+                <div id="mute_play" onclick="toggleMusic(this)"> Turn Music ON </div>
+                <a class="back" onclick="goBack()">Go Back</a>
+            </div>
+            <div class="nav-container" id="right">
+                <div class="logoutButton" onclick="logout()">Log Out</div>
+            </div>
+        </header>
+        <main>
+            <h1>Choose Board Size and Question Set</h1>
+            <div class="question-set-container">
+                <ul class = "question-set-list">{% for question_set in question_sets %}
+                    <li class = "question-set-item" onclick="playSoundAndHighlightQuestionSet(this)">{{ question_set.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="grid-container">
+                <ul class="grid-list">
+                    <li class="grid-item" id="grid3">
+                        <button class="grid-button" onclick="playSoundAndStartGame(3)"><span class = "text"> 3x3 </span></button>
+                    </li>
+                    <li class="grid-item" id="grid4">
+                        <button class="grid-button" onclick="playSoundAndStartGame(4)"><span class = "text"> 4x4 </span></button>
+                    </li>
+                    <li class="grid-item" id="grid5">
+                        <button class="grid-button" onclick="playSoundAndStartGame(5)"><span class = "text"> 5x5 </span></button>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        <div id="twinkling-container">
+            <div class = "twinkling-pixel"> </div>
         </div>
-        <h1>Choose Board Size and Question Set</h1>
-    </header>
-    <main>
-        <div class="question-set-container">
-            <ul class = "question-set-list">{% for question_set in question_sets %}
-                <li class = "question-set-item" onclick="playSoundAndHighlightQuestionSet(this)">{{ question_set.name }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="grid-container">
-            <ul class="grid-list">
-                <li class="grid-item" id="grid3">
-                    <button class="grid-button" onclick="playSoundAndStartGame(3)"><span class = "text"> 3x3 </span></button>
-                </li>
-                <li class="grid-item" id="grid4">
-                    <button class="grid-button" onclick="playSoundAndStartGame(4)"><span class = "text"> 4x4 </span></button>
-                </li>
-                <li class="grid-item" id="grid5">
-                    <button class="grid-button" onclick="playSoundAndStartGame(5)"><span class = "text"> 5x5 </span></button>
-                </li>
-            </ul>
-        </div>
-    </main>
-    <div id="twinkling-container">
-        <div class = "twinkling-pixel"> </div>
-    </div>
-
-    <audio id = "background-music" loop>
-        <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
-        No browser support
-    </audio>
-    <audio id="click-sound" src={% static 'Resources/SoundEffects/clickSound.mp3' %}></audio>
-
-<script> <!-- move this -->
-    document.getElementById("mute_play").onclick = function() {
-      let audio = document.getElementById("background-music");
-      
-      if(audio.paused) {
-          audio.play();
-          this.textContent = "Turn Music OFF";
-      }
-      else {
-          audio.pause();
-          this.textContent = "Turn Music ON";
-      }
-  }
-  
-  function playMusic() {
-            // Your code to start playing the music
-            // Store the state of the music player in session storage
-            sessionStorage.setItem('musicPlaying', 'true');
-        }
-
-        // Function to check if the music should be playing
-        function checkMusic() {
-            let musicPlaying = sessionStorage.getItem('musicPlaying');
-            if (musicPlaying === 'true') {
-                // Your code to resume playing the music
-                // For demonstration purposes, let's just log a message
-            }
-        }
-  window.onload = checkMusic;
-</script>
-</body>
+        <audio id = "background-music" loop>
+{#            TODO : Browser Support? Works on Chrome.#}
+            <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
+        </audio>
+        <audio id="click-sound" src={% static 'Resources/SoundEffects/clickSound.mp3' %}></audio>
+        <audio id="grid-select" src={% static 'Resources/SoundEffects/correct.mp3' %}></audio>
+    </body>
 </html>
