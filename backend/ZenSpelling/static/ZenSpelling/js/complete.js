@@ -26,6 +26,33 @@ function displayMedal() {
     }
 }
 
+function displayTimeMedal() {
+
+    let start = new Date(localStorage.getItem('startTime'));
+    let end = new Date(localStorage.getItem('finishTime'));
+    const timeMedalElement = document.getElementById('timeMedal');
+    const backOfTimeMedal = document.getElementById('backOfTimeMedal');
+
+    start = start.getTime();
+    end = end.getTime();
+
+    //let hour = Math.floor((end-start)/(1000*60*60));
+    let minute = Math.floor(((end-start) % (1000*60*60))/(1000*60)); //these are the numbers as INT
+    let second = Math.floor(((end-start) % (1000*60*60))/1000);
+
+    // Check if the user answered all questions correctly
+    if (second <= 59 ) {
+        // Show the medal
+        timeMedalElement.style.display = 'flex';
+        backOfTimeMedal.style.display = 'flex';
+
+    } else {
+        // Hide the medal
+        timeMedalElement.style.display = 'none';
+        backOfTimeMedal.style.display = 'none';
+    }
+}
+
 function getPercentage() {
     let correct = parseInt(localStorage.getItem('correctAnswers'));
     let total = parseInt(localStorage.getItem('gameboardSize'));
@@ -51,6 +78,8 @@ function getTimeSpentDisplay() {
 
     start = start.getTime();
     end = end.getTime();
+
+    displayTimeMedal();
 
     //let hour = Math.floor((end-start)/(1000*60*60));
     let minute = Math.floor(((end-start) % (1000*60*60))/(1000*60)); //these are the numbers as INT
