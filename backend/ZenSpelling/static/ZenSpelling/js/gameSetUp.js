@@ -1,5 +1,3 @@
-import ("../../Resources/seedrandom.min.js");
-
 function logout() {
     window.location.href = '/';
 }
