@@ -16,4 +16,5 @@ urlpatterns = [
     path('setup/', views.display_question_sets, name='question_sets'),
     path('game/answer/', views.submit_answer, name='submit_answer'),
     path('complete/datatoprofile/', views.update_profile, name='update_profile'),
+    path('setup_backend/', views.gamepagesetup_counts, name='gamepagesetup_counts'),
 ]

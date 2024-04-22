@@ -40,6 +40,7 @@ class DetailView(generic.DetailView):
         else:
             return context
 
+
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "ZenSpelling/results.html"
@@ -130,6 +131,12 @@ def display_question_sets(request):
     return render(request, 'ZenSpelling/gameSetUp.html', {'question_sets': question_sets})
 
 
+def gamepagesetup_counts(request):
+    tile_count = Tile.objects.count()
+    question_count = Question.objects.count()
+    return JsonResponse({'tile_count': tile_count, 'question_count': question_count})
+
+
 # question.html form
 def submit_answer(request):
     if request.method == 'POST':
@@ -201,8 +208,8 @@ def update_profile(request):
                 if Student.objects.filter(user=user).exists():
                     profile = Student.objects.get(user=user)
 
-                    profileStreak = profile.streak #get streak number from profile
-                    profileMinTime = profile.min_time #get min time from profile
+                    profileStreak = profile.streak  #get streak number from profile
+                    profileMinTime = profile.min_time  #get min time from profile
 
                     profile.time_spent += time
                     profile.questions_answered += count

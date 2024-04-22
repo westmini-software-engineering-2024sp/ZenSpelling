@@ -5,13 +5,15 @@ function logout() {
 }
 
 function playGame(size) {
+    seedRandomGenerator();
+    alert(localStorage.getItem('tileCount') + " " +localStorage.getItem('questionCount'));
     generateQuestion(size);
     generateTileStack(size);
 
     let currentTimestamp = new Date();
     localStorage.setItem('startTime', currentTimestamp.toString());
 
-    window.location.href = '/game/'
+    //window.location.href = '/game/'
 }
 
 function changeColor() {
@@ -20,6 +22,21 @@ function changeColor() {
     button.disabled = 'true';
 }
 
+
+function seedRandomGenerator() {
+    let tileCount = 0;
+    let questionCount = 0;
+    fetch('/setup_backend/')
+        .then(response => response.json())
+        .then(data => {
+            tileCount = data.tile_count;
+            questionCount = data.question_count;
+            alert("Seeded with tile count: " + tileCount + " and question count: " + questionCount);
+            localStorage.setItem('tileCount', tileCount);
+            localStorage.setItem('questionCount', questionCount);
+        })
+        .catch(error => console.error("Failed: ", error));
+}
 
 /*
  * This function will generate which question should pop up
