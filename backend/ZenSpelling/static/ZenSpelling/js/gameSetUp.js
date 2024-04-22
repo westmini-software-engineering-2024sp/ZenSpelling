@@ -6,14 +6,14 @@ function logout() {
 
 function playGame(size) {
     seedRandomGenerator();
-    alert(localStorage.getItem('tileCount') + " " +localStorage.getItem('questionCount'));
+    //alert(localStorage.getItem('tileCount') + " " + localStorage.getItem('questionCount'));
     generateQuestion(size);
     generateTileStack(size);
 
     let currentTimestamp = new Date();
     localStorage.setItem('startTime', currentTimestamp.toString());
 
-    //window.location.href = '/game/'
+    window.location.href = '/game/'
 }
 
 function changeColor() {
@@ -31,7 +31,7 @@ function seedRandomGenerator() {
         .then(data => {
             tileCount = data.tile_count;
             questionCount = data.question_count;
-            alert("Seeded with tile count: " + tileCount + " and question count: " + questionCount);
+            //alert("Seeded with tile count: " + tileCount + " and question count: " + questionCount);
             localStorage.setItem('tileCount', tileCount);
             localStorage.setItem('questionCount', questionCount);
         })
@@ -51,7 +51,7 @@ function generateQuestion(sidelength) { //this has a bug!!!!!!!!!
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
         do {
-            uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;
+            uniqueNumber = Math.floor(Math.random() * localStorage.getItem('questionCount')) + 1;
         } while (questionArray.includes(uniqueNumber));
         questionArray[i] = uniqueNumber;
     }
