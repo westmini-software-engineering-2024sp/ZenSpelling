@@ -1,3 +1,5 @@
+import ("../../Resources/seedrandom.min.js");
+
 function logout() {
     window.location.href = '/';
 }
@@ -97,4 +99,3 @@ function shuffleTileStack(tileStack) {
 
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
-
