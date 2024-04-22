@@ -17,7 +17,7 @@
     right: 2rem;
 }
 
-#mute_play, .logoutButton, .back, .teacherButton, .main-menu{
+#mute_play, .logoutButton, .back, .teacherButton, .main-menu, .play-again{
     border-radius: 1em;
     display:flex;
     justify-content: center;
@@ -35,7 +35,7 @@
     text-decoration: none;
 }
 
-#mute_play:hover, .logoutButton:hover, .back:hover, .teacherButton:hover, .main-menu:hover {
+#mute_play:hover, .logoutButton:hover, .back:hover, .teacherButton:hover, .main-menu:hover, .play-again:hover {
     background: #e7c116;
     color:black;
     cursor: pointer;
@@ -44,4 +44,20 @@
 
 .teacherButton{
     font-size: 2em;
+}
+
+.pop {
+    animation: pop 0.5s;
+}
+
+@keyframes pop {
+    0% {
+        scale: 0.75;
+    }
+    50% {
+        scale: 1.25;
+    }
+    100% {
+        scale: 1.00;
+    }
 }

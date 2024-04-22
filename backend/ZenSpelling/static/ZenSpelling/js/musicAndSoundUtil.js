@@ -14,16 +14,17 @@ function playSound(soundId) {
     };
 }
 
-function toggleMusic(id) {
-      let audio = document.getElementById(id);
+function toggleMusic() {
+      let audio = document.getElementById('background-music');
+      let button = document.getElementById('mute_play')
 
       if(audio.paused) {
           audio.play();
-          this.textContent = "Music OFF";
+          button.textContent = "Turn Music OFF";
       }
       else {
           audio.pause();
-          this.textContent = "Music ON";
+          button.textContent = "Turn Music ON";
       }
 }
 

@@ -1,67 +1,57 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Complete</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'ZenSpelling/page-standard-style.css' %}">
-    <link rel="stylesheet" href="{% static 'ZenSpelling/nav-style.css' %}">
-    <link rel="stylesheet" href="{% static 'ZenSpelling/complete-style.css' %}">
-    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
-    
-    <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
-    <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
-    <script src={% static 'ZenSpelling/js/complete.js' %}></script>
-    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
-    <script src={% static 'ZenSpelling/js/interact.js' %} defer></script>
-</head>
-<body>
-    <header>
-        <div class="nav-container" id="left">
-            <div id="mute_play" onclick="toggleMusic(this)"> Turn Music ON </div>
-            <a class="main-menu" onclick="returnToMain()">Main Menu</a>
-        </div>
-        <div class="nav-container" id="right">
-            <div class="logoutButton" onclick="logout()">Log Out</div>
-        </div>
-    </header>
-    <main>
-        <h1 class="title"> Level Complete</h1>
-        <div class="score">
-            <h3>Score: <span id="scoreDisplay"></span></h3> <!-- is there a better way to do this-->
-        </div>
-        <div class="percent">
-            <h3> Percentage: <span id="percentDisplay"></span> %</h3>
-        </div>
-        <div class="time">
-            <!--<h3> Start Time: <span id="startTimeDisplay"></span> <br> Finish Time: <span id="finishTimeDisplay"></span></h3>-->
-            <h3>Time taken: <span id="timeSpentDisplay"></span></h3>
-        </div>
-        <div class="streak">
-            <h3> Highest Streak: <span id="streakDisplay"></span></h3>
-        </div>
-        <div class="option-container">
-            <a href="/setup/" class="btn">New Game</a>
-            <a href="/profile/3" class="btn2">Profile</a>
-        </div>
-    <div class="flip-container">
-        <div class="flipper">
-            <div class="front">
-                <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px>
+    <head>
+        <meta charset="UTF-8">
+        <title>Complete</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/page-standard-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/nav-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/complete-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
+        
+        <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
+        <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
+        <script src={% static 'ZenSpelling/js/complete.js' %}></script>
+        <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+        <script src={% static 'ZenSpelling/js/interact.js' %} defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="nav-container" id="left">
+                <div id="mute_play" onclick="toggleMusic()"> Turn Music ON </div>
+                <a class="main-menu" onclick="returnToMain()">Main Menu</a>
             </div>
-            <div class="back">
-              <div class="text-overlay">
-                <p>You won this medal for getting all your questions correct!</p>
-              </div>
+            <div class="nav-container" id="right">
+                <div class="logoutButton" onclick="logout()">Log Out</div>
             </div>
+        </header>
+        <main>
+            <h1 class="title"> Level Complete</h1>
+            <h3 class="score">Score: <span id="scoreDisplay"></span></h3>
+            <h3 class="score"> Percentage: <span id="percentDisplay"></span> %</h3>
+            <h3 class="score">Time taken: <span id="timeSpentDisplay"></span></h3>
+            <h3 class="score"> Highest Streak: <span id="streakDisplay"></span></h3>
+            <div class="option-container">
+                <a class="btn" onclick="playAgain(this)">New Game</a>
+                <a class="btn" onclick="toProfile(this)">Profile</a>
+            </div>
+            <div class="medal-container" onclick="rotateMedal(this)">
+                <div class="front">
+                    <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px>
+                </div>
+                <div class="back"><p id="overlay">You won this medal for getting all your questions correct!</p></div>
+            </div>
+        </main>
+        <div id="twinkling-container">
+        <div class = "twinkling-pixel"> </div>
         </div>
-    </div>
-    <div class="back">
-      <div class="text-overlay">
-        <p>You won this medal for getting all your questions correct!</p>
-      </div>
-    </div>
-    </main>
-</body>
+        <audio id = "background-music" loop>
+    {#        TODO : Browser Support? Works on Chrome.#}
+            <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
+        </audio>
+        <audio id="click-sound" src={% static 'Resources/SoundEffects/clickSound.mp3' %}></audio>
+        <audio id="pop-sound" src={% static 'Resources/SoundEffects/releaseSound.mp3' %}></audio>
+        <audio id="happy-sound" src={% static 'Resources/SoundEffects/correct.mp3' %}></audio>
+    </body>
 </html>

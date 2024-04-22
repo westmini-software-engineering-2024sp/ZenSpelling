@@ -107,24 +107,7 @@
     border: 5px solid #e7c116;
 }
 
-.pop {
-    animation: pop 0.5s;
-}
-
 .choice{
     position: absolute;
     left: -9999px;
-}
-
-@keyframes pop {
-    0% {
-        scale: 0.75;
-    }
-    50%{
-        scale: 1.25;
-    }
-    100%{
-        scale: 1.00;
-    }
-
 }

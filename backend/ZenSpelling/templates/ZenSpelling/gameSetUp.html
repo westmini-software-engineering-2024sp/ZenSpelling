@@ -17,7 +17,7 @@
     <body>
         <header>
             <div class="nav-container" id="left">
-                <div id="mute_play" onclick="toggleMusic(this)"> Turn Music ON </div>
+                <div id="mute_play" onclick="toggleMusic()"> Turn Music ON </div>
                 <a class="back" onclick="goBack()">Go Back</a>
             </div>
             <div class="nav-container" id="right">
@@ -35,13 +35,13 @@
             <div class="grid-container">
                 <ul class="grid-list">
                     <li class="grid-item" id="grid3">
-                        <button class="grid-button" onclick="playSoundAndStartGame(3)"><span class = "text"> 3x3 </span></button>
+                        <button class="grid-button" onclick="playSoundAndStartGame(3, this)"><span class = "text"> 3x3 </span></button>
                     </li>
                     <li class="grid-item" id="grid4">
-                        <button class="grid-button" onclick="playSoundAndStartGame(4)"><span class = "text"> 4x4 </span></button>
+                        <button class="grid-button" onclick="playSoundAndStartGame(4, this)"><span class = "text"> 4x4 </span></button>
                     </li>
                     <li class="grid-item" id="grid5">
-                        <button class="grid-button" onclick="playSoundAndStartGame(5)"><span class = "text"> 5x5 </span></button>
+                        <button class="grid-button" onclick="playSoundAndStartGame(5, this)"><span class = "text"> 5x5 </span></button>
                     </li>
                 </ul>
             </div>

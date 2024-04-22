@@ -75,9 +75,11 @@ function generateGameboard(size) {
     let gameboardSize = size * size;
 }
 
-function playSoundAndStartGame(gridSize){
+function playSoundAndStartGame(gridSize, id){
+    id.classList.add("pop");
     playSound('grid-select').play()
     setTimeout(function() {
+        id.classList.remove("pop");
         playGame(gridSize)
     }, 1000);
 }

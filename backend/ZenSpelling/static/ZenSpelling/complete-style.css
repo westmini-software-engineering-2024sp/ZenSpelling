@@ -4,43 +4,17 @@
     align-items: center;
     font-size: 5em;
     color: #fff;
-    animation: slideAnimation 3s ease-in-out;
     height: 25%;
 }
 
 .score {
-    font-size: 1em;
-    text-align: center;
-    color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-top: 2em;
-}
-
-.percent {
     font-size: 1.5em;
     text-align: center;
     color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-bottom: 1em;
+    margin: 1em;
 }
 
-.time {
-    font-size: 1.5em;
-    text-align: center;
-    color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-top: 1em;
-}
-
-.streak {
-    font-size: 1.5em;
-    text-align: center;
-    color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin: 2em;
-}
-
-.btn, .btn2 {
+.btn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,7 +28,6 @@
     text-decoration: none;
     border-radius: 2em;
     font-size: 2em;
-    animation: slideAnimation 2s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -62,10 +35,10 @@
     100% { opacity: 1; }
 }
 
-.btn:hover, .btn2:hover {
-    background: darkgreen;
-    color: #fff;
-    transform: scale(1.1);
+.btn:hover{
+    background-color: #e7c116;
+    color: black;
+    outline: 0.1em solid black;
 }
 
 .option-container{
@@ -79,77 +52,58 @@
 
 #clickable-image {
     position: absolute;
-    cursor: pointer; /* Change cursor to pointer when hovering over image */
-    animation: scale 1s infinite alternate; /* Adjust animation duration and timing as needed */
+    cursor: pointer;
+    animation: scale 1s infinite alternate;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 @keyframes scale {
-  0% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-.flip-container {
-  perspective: 1000px;
+.medal-container {
     position: relative;
-    animation: slideIn 3s forwards;
+    animation: slideIn 1s forwards;
+    min-width: 10em;
+    min-height: 10em;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 @keyframes slideIn {
-    from {
-        left: 0; /* Initial position off the screen */
+    0% {
+        left: -100em;
     }
-    to {
-        left: 650px; /* Final position at the beginning of the screen */
-        bottom: 30px;
+    90% {
+        left: 1em;
     }
-}
-
-.flipper {
-  width: 200px; /* Adjust width as needed */
-  height: 200px; /* Adjust height as needed */
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.8s;
-}
-
-.flip-container:hover .flipper {
-  transform: rotateY(180deg);
+    100%{
+        left:0;
+    }
 }
 
 .front, .back {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  border-radius: 50%; /* Make the faces round */
-}
-
-.front {
-  z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 50%;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 .back {
-  transform: rotateY(180deg);
-}
-
-.text-overlay {
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-}
-
-.text-overlay p {
-  text-align: center;
-    padding: 5px;
+    transform: rotateY(180deg);
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding:1em;
 }

@@ -21,3 +21,23 @@ function returnToMain(){
         window.location.href = "/start/";
     }, 500);
 }
+
+function playAgain(id){
+    id.classList.add("pop");
+    playSound('happy-sound').play();
+
+    setTimeout(function() {
+        id.classList.remove("pop");
+        window.location.href = "/setup/";
+    }, 1000);
+}
+
+function toProfile(id){
+    id.classList.add("pop");
+    playSound('click-sound').play();
+
+    setTimeout(function() {
+        id.classList.remove("pop");
+        window.location.href = "/profile/3";
+    }, 1000);
+}

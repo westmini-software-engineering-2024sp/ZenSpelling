@@ -18,7 +18,7 @@
     <body class="StartPageBackground">
         <header>
             <div class="nav-container" id="left">
-                <div id="mute_play" onclick="toggleMusic(this)"> Turn Music ON </div>
+                <div id="mute_play" onclick="toggleMusic()"> Turn Music ON </div>
                 <a class="back" onclick="goBack()">Go Back</a>
             </div>
             <div class="nav-container" id="right">
@@ -27,8 +27,8 @@
         </header>
         <main>
             <h1> Ready to Spell? </h1>
-            <a class="startButton" id="start" onclick="startGame()"> Start </a>
-            <a class="startButton" id="profile" onclick="profile()"> Profile </a>
+            <a class="startButton" id="start" onclick="startGame(this)"> Start </a>
+            <a class="startButton" id="profile" onclick="profile(this)"> Profile </a>
         </main>
         <div id="twinkling-container">
             <div class = "twinkling-pixel"> </div>

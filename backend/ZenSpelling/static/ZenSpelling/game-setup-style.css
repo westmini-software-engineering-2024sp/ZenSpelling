@@ -54,8 +54,10 @@ ul.grid-list {
 }
 
 li.grid-item{
-    min-height:15em;
-    min-width:15em;
+    min-height:8em;
+    min-width:8em;
+    max-height:15em;
+    max-width:15em;
     display:flex;
     justify-content: center;
     align-items: center;
