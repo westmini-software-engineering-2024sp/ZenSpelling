@@ -28,7 +28,6 @@ class DetailView(generic.DetailView):
 
         print(question.question_text)
         print(user.username)
-        print(question.get_hint_for_user())
 
         context["question"] = question
 
