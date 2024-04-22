@@ -26,9 +26,6 @@ class DetailView(generic.DetailView):
         question = self.get_object()
         user = self.request.user
 
-        print(question.question_text)
-        print(user.username)
-
         context["question"] = question
 
         #check if the row exists
@@ -131,12 +128,13 @@ def display_question_sets(request):
 
 
 def gamepagesetup_counts(request):
-    print("gamepagesetup_counts")
     tile_count = Tile.objects.count()
     question_count = Question.objects.count()
-    print(tile_count)
-    print(question_count)
     return JsonResponse({'tile_count': tile_count, 'question_count': question_count})
+
+
+def get_hint(request):
+    question = Question.objects.get(pk=request.GET["question"])
 
 
 # question.html form

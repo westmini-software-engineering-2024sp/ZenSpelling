@@ -3,15 +3,18 @@ function logout() {
 }
 
 function playGame(size) {
-    seedRandomGenerator();
-    alert(localStorage.getItem('tileCount') + " " + localStorage.getItem('questionCount'));
-    generateQuestion(size);
-    generateTileStack(size);
+    console.log(localStorage.getItem('tileCount'));
+    console.log(localStorage.getItem('questionCount'));
 
-    let currentTimestamp = new Date();
-    localStorage.setItem('startTime', currentTimestamp.toString());
+    setTimeout(() => {
+        generateQuestion(size);
+        generateTileStack(size);
 
-    window.location.href = '/game/'
+        let currentTimestamp = new Date();
+        localStorage.setItem('startTime', currentTimestamp.toString());
+
+        window.location.href = '/game/'
+    }, 100);
 }
 
 function changeColor() {
@@ -22,18 +25,20 @@ function changeColor() {
 
 
 function seedRandomGenerator() {
-    let tileCount = 0;
-    let questionCount = 0;
-    fetch('/setup_backend/')
+    localStorage.setItem('tileCount', '0');
+    localStorage.setItem('questionCount', '0');
+    fetch('/setup_backend/', {cache: "no-store"})
         .then(response => response.json())
         .then(data => {
-            tileCount = data.tile_count;
-            questionCount = data.question_count;
-            //alert("Seeded with tile count: " + tileCount + " and question count: " + questionCount);
-            localStorage.setItem('tileCount', tileCount);
-            localStorage.setItem('questionCount', questionCount);
+            localStorage.setItem('tileCount', data.tile_count);
+            localStorage.setItem('questionCount', data.question_count);
+            //alert("Seeded with tile count: " + data.tile_count + " and question count: " + data.question_count);
+            return true;
         })
-        .catch(error => console.error("Failed: ", error));
+        .catch(error => {
+            console.error("Failed: ", error);
+            return false;
+        });
 }
 
 /*
@@ -75,7 +80,7 @@ function generateTileStack() {
             let desiredCount = parseInt(localStorage.getItem('gameboardSize'));
             const fetchedTilePaths = data.tile_paths;
             const repetitions = Math.ceil(desiredCount / fetchedTilePaths.length);
-            const extendedTilePaths = Array.from({ length: repetitions },
+            const extendedTilePaths = Array.from({length: repetitions},
                 () => fetchedTilePaths).flat().slice(0, desiredCount);
             tileStack.push(...extendedTilePaths);
 
@@ -97,3 +102,7 @@ function shuffleTileStack(tileStack) {
 
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    seedRandomGenerator();
+});
