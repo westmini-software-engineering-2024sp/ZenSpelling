@@ -4,7 +4,7 @@ function logout() {
 
 function playGame(size) {
     seedRandomGenerator();
-    //alert(localStorage.getItem('tileCount') + " " + localStorage.getItem('questionCount'));
+    alert(localStorage.getItem('tileCount') + " " + localStorage.getItem('questionCount'));
     generateQuestion(size);
     generateTileStack(size);
 
@@ -24,7 +24,7 @@ function changeColor() {
 function seedRandomGenerator() {
     let tileCount = 0;
     let questionCount = 0;
-    fetch('/setup_backend/')
+    fetch('setup/setup_backend/')
         .then(response => response.json())
         .then(data => {
             tileCount = data.tile_count;

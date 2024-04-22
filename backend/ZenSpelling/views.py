@@ -134,6 +134,8 @@ def gamepagesetup_counts(request):
     print("gamepagesetup_counts")
     tile_count = Tile.objects.count()
     question_count = Question.objects.count()
+    print(tile_count)
+    print(question_count)
     return JsonResponse({'tile_count': tile_count, 'question_count': question_count})
 
 
