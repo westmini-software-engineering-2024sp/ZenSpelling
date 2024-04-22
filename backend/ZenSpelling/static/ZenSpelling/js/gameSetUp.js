@@ -24,7 +24,7 @@ function changeColor() {
 function seedRandomGenerator() {
     let tileCount = 0;
     let questionCount = 0;
-    fetch('setup/setup_backend/')
+    fetch('/setup_backend/')
         .then(response => response.json())
         .then(data => {
             tileCount = data.tile_count;
