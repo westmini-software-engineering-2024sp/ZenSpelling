@@ -1,3 +1,8 @@
+let correctMedalEarned = false;
+let timeMedalEarned = false;
+let streakMedalEarned = false;
+
+
 //This function returns the student's score as a string
 function getScore() {
     let correct = localStorage.getItem('correctAnswers'); //use this if you need to get the score as a string
@@ -68,8 +73,10 @@ async function sendDataBack() {
                 timeSpent: getTimeSpentSeconds(),
                 questionCount: parseInt(localStorage.getItem('gameboardSize')),
                 questionCorrect: parseInt(localStorage.getItem('correctAnswers')),
-                streak: parseInt(localStorage.getItem('streak'))
-                // add code to also send the medals
+                streak: parseInt(localStorage.getItem('streak')),
+                correctMedal: correctMedalEarned,
+                timeMedal: timeMedalEarned,
+                streakMedal: streakMedalEarned
         })
     })
         .then(response => {
@@ -184,14 +191,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('percentDisplay').textContent = getPercentage();
     document.getElementById('timeSpentDisplay').textContent = getTimeSpentDisplay();
     document.getElementById('streakDisplay').textContent = getStreakDisplay();
-    sendDataBack();
 
-    let correctMedalEarned = displayCorrectMedal();
+    correctMedalEarned = displayCorrectMedal();
     console.log("medal 1 check");
-    let timeMedalEarned = displayTimeMedal();
+    timeMedalEarned = displayTimeMedal();
     console.log("medal 2 check");
-    let steakMedalEarned = displayStreakMedal();
+    streakMedalEarned = displayStreakMedal();
     console.log("medal 3 check");
+
+    sendDataBack();
 
     localStorage.clear(); //localstorage is cleared
 });

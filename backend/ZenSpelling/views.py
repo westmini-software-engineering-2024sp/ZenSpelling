@@ -197,6 +197,9 @@ def update_profile(request):
             count = data['questionCount']
             correct = data['questionCorrect']
             streak = data['streak']
+            correctMedal = data['correctMedal']
+            timeMedal = data['timeMedal']
+            streakMedal = data['streakMedal']
 
             user = request.user
 
@@ -212,12 +215,26 @@ def update_profile(request):
                     profile.games_completed += 1
                     if streak > profileStreak:
                         profile.streak = streak
-
                     if time < profileMinTime:
                         profile.min_time = time
-
+                    if correctMedal:
+                        print("update percent")
+                        profile.percent_medal += 1
+                    if streakMedal:
+                        print("update streak")
+                        profile.streak_medal += 1
+                    if timeMedal:
+                        print("update time")
+                        profile.time_medal += 1
                     profile.save()
                 else:
+                    correctMedalCount, streakMedalCount, timeMedalCount = 0, 0, 0
+                    if correctMedal:
+                        correctMedalCount = 1
+                    if streakMedal:
+                        streakMedalCount = 1
+                    if timeMedal:
+                        timeMedalCount = 1
                     profile = Student.objects.create(
                         user=user,
                         time_spent=time,
@@ -225,7 +242,10 @@ def update_profile(request):
                         questions_correct=correct,
                         games_completed=1,
                         streak=streak,
-                        minTime=time
+                        minTime=time,
+                        percent_medal = correctMedalCount,
+                        streak_medal = streakMedalCount,
+                        time_medal = timeMedalCount
                     )
                     profile.save()
 
