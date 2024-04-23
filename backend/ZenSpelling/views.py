@@ -93,11 +93,6 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
     def get_queryset(self):
         return Student.objects.filter(user=self.request.user)
 
-    def medals(self):
-        return (Student.objects.filter(user=self.request.user).get(Student.time_medal),
-                Student.objects.filter(user=self.request.user).get(Student.percent_medal),
-                Student.objects.filter(user=self.request.user).get(Student.streak_medal),)
-
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
