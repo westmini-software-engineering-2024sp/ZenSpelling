@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.forms import forms
 from import_export.admin import ImportMixin
+from import_export import resources
 from .models import Answer, Question, Course, Tile, QuestionSet, Student, StudentAnalytics
 
 
@@ -32,8 +33,21 @@ class AddQuestionSet(admin.ModelAdmin):
     search_fields = ["name"]
 
 
+class UserResource(resources.ModelResource):
+
+    def before_import(self, dataset, **kwargs):
+        
+
+    def before_import_row(self, row, **kwargs):
+        setattr(row, "username", row['last_name']+row['first_name'])
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', "password", 'email',)
+
+
 class UserAdminCustom(ImportMixin, UserAdmin):
-    pass
+    resource_classes = [UserResource]
 
 
 class StudentAnalyticsAdmin(admin.ModelAdmin):
