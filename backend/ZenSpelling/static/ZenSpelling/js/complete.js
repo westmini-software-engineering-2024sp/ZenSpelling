@@ -57,7 +57,7 @@ function getStreakDisplay() {
     return localStorage.getItem('streak'); //This is as a string, you can use parseInt() to make it an int
 }
 
-function sendDataBack() {
+async function sendDataBack() {
     fetch ('/complete/datatoprofile/', {
         method: 'POST',
         headers: {
@@ -101,53 +101,71 @@ function getCookie(name) {
 }
 
 //all the medals are not working properly. DO NOT PUT INTO ANY OTHER METHODS!!!!!
-function displayMedal() {
-
+function displayCorrectMedal() {
     let correctAnswers = parseInt(localStorage.getItem('correctAnswers'));
     let totalQuestions = parseInt(localStorage.getItem('gameboardSize'));
-    // Get the medal element
-    const medalElement = document.getElementById('medal');
-    const backOfMedal = document.getElementById('backOfMedal');
+    // Get the medal div class
+    let correctMedal = document.getElementsByClassName('correctMedal');
 
     // Check if the user answered all questions correctly
     if (correctAnswers === totalQuestions) {
-        console.log(correctAnswers + " " + totalQuestions);
         // Show the medal
-        medalElement.style.display = 'flex';
-        backOfMedal.style.display = 'flex';
-
+        for (let i = 0; i < correctMedal.length; i++) {
+            correctMedal[i].style.display = 'flex';
+        }
+        console.log("correct medal earned");
+        return true;
     } else {
-        // Hide the medal
-        medalElement.style.display = 'none';
-        backOfMedal.style.display = 'none';
+        // default the medal is not displayed
+        return false;
     }
 }
 
 function displayTimeMedal() {
-
     let start = new Date(localStorage.getItem('startTime'));
     let end = new Date(localStorage.getItem('finishTime'));
-    const timeMedalElement = document.getElementById('timeMedal');
-    const backOfTimeMedal = document.getElementById('backOfTimeMedal');
+    // Get the medal div class
+    let timeMedal = document.getElementsByClassName('correctMedal');
 
     start = start.getTime();
     end = end.getTime();
 
-    //let hour = Math.floor((end-start)/(1000*60*60));
-    let minute = Math.floor(((end-start) % (1000*60*60))/(1000*60)); //these are the numbers as INT
     let second = Math.floor(((end-start) % (1000*60*60))/1000);
+    console.log(second);
 
     // Check if the user answered all questions correctly
-    if (second <= 59 ) {
+    if (second <= 59 && second !== 0) {
         // Show the medal
-        timeMedalElement.style.display = 'flex';
-        backOfTimeMedal.style.display = 'flex';
-
+        for (let i = 0; i < timeMedal.length; i++) {
+            timeMedal[i].style.display = 'flex';
+        }
+        console.log("time medal earned");
+        return true;
     } else {
-        // Hide the medal
-        timeMedalElement.style.display = 'none';
-        backOfTimeMedal.style.display = 'none';
+        return false;
     }
+}
+
+function displayStreakMedal() {
+    let streak = parseInt(localStorage.getItem('streak'));
+    let total = localStorage.getItem('gameboardSize');
+    // Get the medal div class
+    let streakMedal = document.getElementsByClassName('correctMedal');
+
+    console.log(Math.round((total/2)));
+
+    // Check if the user answered all questions correctly
+    if (streak >= Math.round((total/2))) {
+        // Show the medal
+        for (let i = 0; i < streakMedal.length; i++) {
+            streakMedal[i].style.display = 'flex';
+        }
+        console.log("streak medal earned");
+        return true;
+    } else {
+        return false;
+    }
+    return false;
 }
 
 
@@ -168,8 +186,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('streakDisplay').textContent = getStreakDisplay();
     sendDataBack();
 
-    displayMedal();
-    displayTimeMedal();
+    let correctMedalEarned = displayCorrectMedal();
+    console.log("medal 1 check");
+    let timeMedalEarned = displayTimeMedal();
+    console.log("medal 2 check");
+    let steakMedalEarned = displayStreakMedal();
+    console.log("medal 3 check");
+
     localStorage.clear(); //localstorage is cleared
 });
 

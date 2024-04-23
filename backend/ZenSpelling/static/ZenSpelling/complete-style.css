@@ -78,6 +78,18 @@
     cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
+.correctMedal {
+    display: none;
+}
+
+.timeMedal {
+    display: none;
+}
+
+.streakMedal {
+    display: none;
+}
+
 @keyframes slideIn {
     0% {
         left: -100em;
