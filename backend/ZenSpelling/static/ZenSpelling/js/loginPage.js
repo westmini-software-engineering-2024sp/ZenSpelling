@@ -1,8 +1,11 @@
-function startPageLoad() {
-    window.location.href = '/start/';
+function teacherPortal() {
+    playSound('click-sound').play();
+    setTimeout(function() {
+        window.location.href = '/admin/';
+    }, 500);
 }
 
-function teacherPortal() {
-    window.location.href = '/admin/';
+function loginPressed(){
+    playSound('login-pressed').play();
 }
 

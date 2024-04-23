@@ -1,132 +1,39 @@
-/* Default of the page */
-* {
-    font-size: 12px;
-    font-family: 'Arial', sans-serif;
-}
-
 html{
-    background: green url(images/background.svg);
-    background-size: cover;
-    height: 100vh;
-    width: 100%;
-    overflow:hidden;
-    cursor: url("../Assets/bee.png") 14 14, pointer;
+    overflow: hidden;
 }
 
-/* H1-H7 and p */
 h1 {
-    font-size: 7rem;
+    font-size: 4em;
     color:white;
+    margin-bottom:1em;
 }
 
-h2 {
-    font-size: 4rem;
-    color: white;
+main{
+    row-gap: 2em;
 }
 
-.start {
-    font-size: 2em;
-    font-weight: 700;
-
-}
-
-/* Custom div classes */
-.center {
+.startButton {
+    display: flex;
     justify-content: center;
     align-items: center;
-    width: auto;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Custom form classes */
-.loginInformation {
-    background-color: darkolivegreen;
-    padding: 4rem;
-    border-radius: 1rem;
-    margin-outside: 2rem;
-    color: white;
-    margin-left: 500px;
-    margin-right: 500px;
-    margin-top : 175px;
-}
-
-.loginInformation h2 {
-    color: white;
-}
-
-/* Custom button classes */
-.startButton {
+    background-color: #10590D;
     color: white;
     border-color: dimgrey;
-    font-size: 3rem;
-    padding: 3rem 5rem;
-    border-radius: 1rem;
-    margin-bottom: 1em;
-    backdrop-filter: blur(10px);
-    background-color: rgb(27, 27, 27, 0.3);
+    font-size: 3em;
+    padding: 1em;
+    border-radius: 2em;
     cursor: url("../Assets/bee.png") 14 14, pointer;
+    min-width: 8em;
+    min-height:2em;
+    transition: background-color 0.5s;
+}
+
+#profile{
+    padding: 0.75em;
 }
 
 .startButton:hover {
-    color: lightgrey;
-    border-color: grey;
-    font-size: 3rem;
-    padding: 3rem 5rem;
-    border-radius: 1rem;
-    backdrop-filter: blur(10px);
-    background-color: rgb(27, 27, 27, 0.3);
-}
-
-.profile-container .startButton {
-    padding: 2rem 3rem;
-
-}
-
-.profile-container .startButton:hover {
-    padding: 2rem 3rem;
-}
-
-.logoutButton {
-    position: fixed;
-    top: 3em;
-    right: 3em;
-    border-radius: 10px;
-    border-color: black;
-    padding: 10px;
-    outline: none;
-    background: #0a5e0a;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1.25em;
-    font-weight: 500;
-    transition: 0.5s;
-}
-
-#mute_play {
-    position: fixed;
-    top: 6em;
-    right: 3em;
-    border-radius: 10px;
-    border-color: black;
-    padding: 10px;
-    outline: none;
-    background: #0a5e0a;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1.25em;
-    font-weight: 500;
-    transition: 0.5s;
-}
-
-#mute_play:hover {
-    background: green;
-    cursor: pointer;
-}
-.logoutButton:hover {
-    background: green;
-    cursor: pointer;
+    color: black;
+    outline: 0.05em solid black;
+    background-color: #e7c116;
 }

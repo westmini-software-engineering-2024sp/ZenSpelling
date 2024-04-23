@@ -17,7 +17,7 @@ let pulse = 1.0;
 let oscillatePulse = 1;
 let modal = false;
 let newRow, newCol;
-
+let musicOff = false;
 
 // Creating the sketch of the game-board.
 let GridSketch = function (sketch) {
@@ -93,7 +93,6 @@ let GridSketch = function (sketch) {
         if (model) {
             sketch.image(model, x, y);
         } else {
-            sketch.noStroke();
             sketch.square(x, y, size);
         }
 
@@ -278,7 +277,7 @@ let TileSketch = function (sketch) {
             for (let i = 0; i < gridDimension; i++) {
                 for (let j = 0; j < gridDimension; j++) {
                     let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + tileGridOffsetDiff, dataArray[i + '' + j].y + yShift);
-                    dataArray[i + '' + j].collision = d < tileSize / 4;
+                    dataArray[i + '' + j].collision = d < tileSize/6;
                 }
             }
             return false;
@@ -335,24 +334,6 @@ function getGeneratedQuestion() {
     return question[index];
 }
 
-function playSound(soundId) {
-    let soundEffect = document.getElementById(soundId);
-
-    // Nested function, in case we want to add more functionality (pause, reset, playOnce, etc).
-    return {
-        play: function () {
-            soundEffect.play();
-        },
-
-        loop: function () {
-            soundEffect.loop = true;
-            soundEffect.play();
-        },
-
-        soundEffect: soundEffect
-    };
-}
-
 /*
 ** Document/Window Event Listeners
  */
@@ -365,19 +346,22 @@ hideLoadingScreenOnWindowLoad();
  */
 function createGamePageOnDomLoaded(){
     document.addEventListener("DOMContentLoaded", function () {
-    gridSketch = new p5(GridSketch);
-    tileSketch = new p5(TileSketch);
+        gridSketch = new p5(GridSketch);
+        tileSketch = new p5(TileSketch);
 
-    let calmMusic = playSound('calm');
-    calmMusic.soundEffect.oncanplaythrough = function () {
-        calmMusic.play();
-        calmMusic.loop();
-    };
+        toggleMusic("background-music");
 
-    const modal = document.getElementById('modal');
-    modal.style.display = 'block';
+         // let calmMusic = playSound('calm');
+         //
+         // calmMusic.soundEffect.oncanplaythrough = function () {
+         //     calmMusic.play();
+         //     calmMusic.loop();
+         // };
 
-    showModalOnClick();
+         const modal = document.getElementById('modal');
+         modal.style.display = 'block';
+
+         showModalOnClick();
     });
 }
 
