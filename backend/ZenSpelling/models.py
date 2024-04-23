@@ -57,7 +57,7 @@ class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     times_answered = models.IntegerField(default=0)
     times_correct = models.IntegerField(default=0)
-    hint = models.CharField(max_length=500)
+    hint = models.TextField(null=False, blank=False)
 
     def __str__(self):
         return self.question_text
@@ -71,9 +71,6 @@ class Question(models.Model):
             return (self.times_correct / self.times_answered) * 100
         else:
             return "Not yet answered"
-
-    def get_hint_for_user(self):
-        return self.hint
 
 
 class Answer(models.Model):

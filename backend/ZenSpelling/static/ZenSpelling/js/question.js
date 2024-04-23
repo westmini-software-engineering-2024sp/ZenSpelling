@@ -130,11 +130,3 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
-function getHint() {
-    return "this is a hint";
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('hint').textContent = getHint();
-});

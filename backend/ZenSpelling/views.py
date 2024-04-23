@@ -1,7 +1,6 @@
 import json
 
 from django.contrib.auth.models import User
-from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -131,10 +130,6 @@ def gamepagesetup_counts(request):
     tile_count = Tile.objects.count()
     question_count = Question.objects.count()
     return JsonResponse({'tile_count': tile_count, 'question_count': question_count})
-
-
-def get_hint(request):
-    question = Question.objects.get(pk=request.GET["question"])
 
 
 # question.html form
