@@ -37,7 +37,6 @@ class UserResource(resources.ModelResource):
 
     def before_import_row(self, row, **kwargs):
         setattr(row, "username", row['last_name']+row['first_name'])
-        # setattr(row, "id", row["id"]-1)
 
     class Meta:
         model = User
