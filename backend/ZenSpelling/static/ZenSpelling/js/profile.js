@@ -38,9 +38,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let timeSpentSeconds = extractSeconds(timeSpentElement.textContent);
     let fastestGameSeconds = extractSeconds(fastestGameElement.textContent);
 
-    console.log(timeSpentSeconds);
-    console.log(fastestGameSeconds);
-
     timeSpentElement.textContent = formatTimeWithHours(timeSpentSeconds);
     fastestGameElement.textContent = formatTime(fastestGameSeconds);
 });
