@@ -1,7 +1,3 @@
-function logout() {
-    window.location.href = '/';
-}
-
 function playGame(size) {
     generateQuestion(size);
     generateTileStack(size);

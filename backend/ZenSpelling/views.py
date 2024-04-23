@@ -189,26 +189,6 @@ def submit_answer(request):
         return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
 
 
-def generate_questions(request):
-    if request.method == 'GET':
-        print("Entering if")
-        question_set_id = request.GET.get('question_set_id')
-        sidelength = int(request.GET.get('sidelength', 3))  # Default sidelength is 3
-        question_set = get_object_or_404(QuestionSet, id=question_set_id)
-        questions = question_set.questions.all()  # Assuming questions is a related_name for the questions in QuestionSet
-        selected_questions = list(questions.values())  # Convert QuerySet to list of dictionaries
-        # You can perform any further processing on selected_questions here, like shuffling
-
-        # Prepare the response
-        response_data = {
-            'questions': questions,
-            'sidelength': sidelength
-        }
-        return JsonResponse(response_data)
-    else:
-        return JsonResponse({'error': 'Only GET requests are allowed.'})
-
-
 def update_profile(request):
     if request.method == 'POST':
         try:
@@ -259,6 +239,25 @@ def update_profile(request):
     else:
         return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
 
+
+def generate_questions(request):
+    if request.method == 'GET':
+        print("Entering if")
+        question_set_id = request.GET.get('question_set_id')
+        sidelength = int(request.GET.get('sidelength', 3))  # Default sidelength is 3
+        question_set = get_object_or_404(QuestionSet, id=question_set_id)
+        questions = question_set.questions.all()  # Assuming questions is a related_name for the questions in QuestionSet
+        selected_questions = list(questions.values())  # Convert QuerySet to list of dictionaries
+        # You can perform any further processing on selected_questions here, like shuffling
+
+        # Prepare the response
+        response_data = {
+            'questions': questions,
+            'sidelength': sidelength
+        }
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Only GET requests are allowed.'})
 
 # Fetches question-set list of question id's.
 def fetch_question_set(request):
