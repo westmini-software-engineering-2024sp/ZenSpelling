@@ -26,6 +26,7 @@ class DetailView(generic.DetailView):
         user = self.request.user
 
         context["question"] = question
+        context["hint"] = question.hint
 
         #check if the row exists
         if StudentAnalytics.objects.filter(user=user, question=question).exists():
