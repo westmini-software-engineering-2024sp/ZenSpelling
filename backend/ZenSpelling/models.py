@@ -14,7 +14,9 @@ class Student(models.Model):
     games_completed = models.IntegerField(default=0)
     streak = models.IntegerField(default=0)
     min_time = models.IntegerField(default=500)
-    medals = models.IntegerField(default=0)
+    time_medal = models.IntegerField(default=0)
+    percent_medal = models.IntegerField(default=0)
+    streak_medal = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
