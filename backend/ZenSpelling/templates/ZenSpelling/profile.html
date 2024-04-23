@@ -42,9 +42,15 @@
         <div class = "block">
             <h2>Medals</h2>
             <ul>
-                <li>{{ medals.time_medal }}</li>
-                <li>{{ medals.percent_medal }}</li>
-                <li>{{ medals.streak_medal }}</li>
+                <li>
+{#                    <img alt="time medal" src="{% static 'ZenSpelling/images/timeMedal.png' %}">#}
+                    {{ student.time_medal }}</li>
+                <li> 
+{#                    <img alt="percent medal" src="{% static 'ZenSpelling/images/' %}">#}
+                    {{ student.percent_medal }}</li>
+                <li>
+{#                    <img alt="streak medal" src="{% static 'ZenSpelling/images/streakMedal.png' %}">#}
+                    {{ student.streak_medal }}</li>
             </ul>
         </div>
         <div class = "block">
