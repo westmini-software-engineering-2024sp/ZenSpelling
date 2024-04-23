@@ -1,11 +1,3 @@
-function startGame() {
-    window.location.href = '/setup/';
-}
-
-function logout() {
-    window.location.href = '/';
-}
-
 document.addEventListener("DOMContentLoaded", function() {
     // Function to format seconds into hours, minutes, and seconds dynamically
     function formatTimeWithHours(seconds) {
@@ -46,6 +38,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let timeSpentSeconds = extractSeconds(timeSpentElement.textContent);
     let fastestGameSeconds = extractSeconds(fastestGameElement.textContent);
 
-    timeSpentElement.textContent = "Amount of time spent playing games: " + formatTimeWithHours(timeSpentSeconds);
-    fastestGameElement.textContent = "Fastest game: " + formatTime(fastestGameSeconds);
+    console.log(timeSpentSeconds);
+    console.log(fastestGameSeconds);
+
+    timeSpentElement.textContent = formatTimeWithHours(timeSpentSeconds);
+    fastestGameElement.textContent = formatTime(fastestGameSeconds);
 });
