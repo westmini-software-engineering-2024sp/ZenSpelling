@@ -1,155 +1,103 @@
-* {
-    font-family: 'Arial', sans-serif;
-    box-sizing: border-box;
+html{
+    overflow-x: hidden;
 }
 
-html {
-    height: 100vh;
-    width: 100%;
-    background:green url("images/background.svg") no-repeat center fixed;
-    background-size: cover;
-    overflow: hidden;
-    cursor: url("../Assets/bee.png") 14 14, pointer;
+.question-set-container{
+    padding:2em;
+    display:flex;
+    justify-content: center;
 }
 
-/* Custom div classes */
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+.question-set-list {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 0.5em 0.5em;
+    list-style-type: none;
 }
 
-/* This is from start-page.css, maybe inhert down? */
+.question-set-item {
+    max-height: 9em;
+    max-width: 18em;
+    text-align: center;
+    background-color: #10590D;
+    font-size: 1.5em;
+    color:white;
+    border-radius: 2em;
+    padding:1em;
+}
 
-.item-center {
+.question-set-item:hover{
+    color:black;
+    background-color: #e7c116;
+    transition: background-color 0.5s;
+}
+
+.clicked{
+    color:black;
+    background-color: #e7c116;
+    outline: 0.1em solid black;
+}
+
+.grid-container {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.item-center .text {
-    color: white;
-    font-weight: 400;
-    font-size: 2em;
+    padding:2em;
 }
 
-h1 {
-    width: 70vw;
-    text-align: center;
-    margin-left: 4em;
-    position: relative;
-    top: 1vh;
-    color: white;
-    object-position: center;
-    text-shadow: 1px 1px black;
-    font-size: 3em;
-    margin-bottom:5em;
-}
-
-ul {
+ul.grid-list {
     list-style-type: none;
-    padding: 0;
-    overflow: hidden;
+    display:flex;
+    justify-content: center;
+    column-gap: 5em;
+    align-items: center;
 }
 
-li {
-    float: left;
-    padding: 2em;
+li.grid-item{
+    min-height:8em;
+    min-width:8em;
+    max-height:15em;
+    max-width:15em;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.2em solid black;
+    border-radius: 2em;
 }
 
-li button {
-    background-color: green;
-    transition: .5s;
-    color: white;
-    border-radius: 10px;
+li#grid3{
+    background-image: url("images/myCanvas-3.png");
+    background-size: cover;
+}
+
+li#grid4{
+    background-image: url("images/myCanvas-4.png");
+    background-size: cover;
+}
+
+li#grid5{
+    background-image: url("images/myCanvas-5.png");
+    background-size: cover;
+}
+
+li button.grid-button{
+    opacity: 0;
+    min-height:15em;
+    min-width:15em;
+    color:white;
 }
 
 li button:hover {
-    background-color: greenyellow;
+    opacity:0.9;
+    transition: opacity 0.5s, transform 0.5s;
+    background-color: #e7c116;
+    color:black;
     transform: scale(1.2);
-    backdrop-filter: blur(3px);
-    color: black;
     cursor: url("../Assets/bee.png") 14 14, pointer;
+    border-radius: 2em;
+    border:1em solid black;
 }
 
-ul .question-sets{
-    position: absolute;
-    top: 10em;
-    right: 5em;
-    color: black;
+.text{
     font-size: 3em;
 }
-
-/* -------- QUESTION_SET CSS ---------- */
-
-.questionSets {
-    color: white;
-    margin-bottom: -4vh;
-    margin-top: -4vh;
-}
-
-.listOfSets {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    justify-content: space-between;
-    margin-top: -8em;
-    font-size: 2em;
-}
-
-#sets {
-    padding: 2vh;
-    border-radius: 10px;
-    font-size: large;
-    font-weight: 700;
-}
-
-#mute_play {
-    position: fixed;
-    top: 4rem;
-    right: 2rem;
-    border-radius: 10px;
-    border-color: black;
-    padding: 5px;
-    outline: none;
-    background: #0a5e0a;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 500;
-    transition: 0.5s;
-}
-
-#mute_play:hover {
-    background: green;
-    cursor: pointer;
-}
-
-.logoutButton {
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-    border-radius: 10px;
-    border-color: black;
-    padding: 5px;
-    outline: none;
-    background: #0a5e0a;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 500;
-    transition: 0.5s;
-}
-
-.logoutButton:hover {
-    background: green;
-    cursor: pointer;
-}
-
-
-
-
-
-
-

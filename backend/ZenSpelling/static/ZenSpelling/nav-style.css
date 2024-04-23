@@ -1,0 +1,63 @@
+.nav-container{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 0.2em;
+    z-index: 100;
+}
+
+#left{
+    top: 2rem;
+    left: 2rem;
+}
+
+#right{
+    top: 2rem;
+    right: 2rem;
+}
+
+#mute_play, .logoutButton, .back, .teacherButton, .main-menu, .play-again{
+    border-radius: 1em;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background: #10590D;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.5s;
+    width: 6.5em;
+    height: 3.5em;
+    padding:0.1em;
+    text-align: center;
+    text-decoration: none;
+}
+
+#mute_play:hover, .logoutButton:hover, .back:hover, .teacherButton:hover, .main-menu:hover, .play-again:hover {
+    background: #e7c116;
+    color:black;
+    cursor: pointer;
+    outline: 0.1em solid black;
+}
+
+.teacherButton{
+    font-size: 2em;
+}
+
+.pop {
+    animation: pop 0.5s;
+}
+
+@keyframes pop {
+    0% {
+        scale: 0.75;
+    }
+    50% {
+        scale: 1.25;
+    }
+    100% {
+        scale: 1.00;
+    }
+}

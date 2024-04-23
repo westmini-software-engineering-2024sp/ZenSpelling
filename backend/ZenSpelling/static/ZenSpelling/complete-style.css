@@ -1,253 +1,109 @@
-* {
-    font-family: 'Luckiest Guy', cursive;
-}
-
-body {
-    background: url(images/background.svg) no-repeat;
-    background-size: cover;
-    height: 100vh;
-}
-html {
-    overflow: hidden;
-    cursor: url("../Assets/bee.png") 14 14, pointer;
-}
-
-.container  {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-height: 5em;
-    margin-top: 20px;
-}
-
 .title {
-    font-size: 7em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
     color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-top: 2em;
+    height: 25%;
 }
 
 .score {
-    font-size: 25px;
+    font-size: 1.5em;
     text-align: center;
     color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-top: 5em;
+    margin: 1em;
 }
 
-
-.percent {
-    font-size: 25px;
-    text-align: center;
-    color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-bottom: 1em;
-}
-
-.time {
-    font-size: 25px;
-    text-align: center;
-    color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-top: 1em;
-}
-
-.streak {
-    font-size: 25px;
-    text-align: center;
-    color: #fff;
-    animation: slideAnimation 3s ease-in-out;
-    margin-top: 1em;
-}
-
-.btn {
-    display: block;
-    margin: 50px auto;
-    width: fit-content;
-    border: 3px solid #fff;
-    padding: 14px 70px;
-    border-radius: 6px;
-    text-decoration: none;
-    color: #fff;
-    margin-bottom: 15px;
-    margin-left: 525px;
-    transition: transform 0.5s;
-    background-color: darkgreen;
-    font-weight: 600;
-
-}
-
-
-.btn2 {
-    display: block;
-    margin: 50px auto;
-    width: fit-content;
-    border: 3px solid #fff;
-    padding: 14px 70px;
-    border-radius: 6px;
-    text-decoration: none;
-    color: #fff;
-    margin-top: -75px;
-    margin-left: 740px;
-    transition: transform 0.5s;
-    background-color: darkgreen;
-    font-weight: 600;
-}
-
-@keyframes slideAnimation {
-    0% { transform: translateX(0); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
-}
-
-.btn {
-    animation: slideAnimation 3s ease-in-out;
-}
-
-.btn2 {
-    animation: slideAnimation 3s ease-in-out;
-}
-
-.btn:hover {
-    background: darkgreen;
-    color: #fff;
-    transform: scale(1.1);
-}
-
-.btn2:hover {
-    background: darkgreen;
-    color: #fff;
-    transform: scale(1.1);
-}
-
-.main {
-    position: fixed;
-    margin-top: -100px;
-    margin-left: 1250px;
-    color: white;
-    font-size: 30px;
-    text-decoration: none;
-    transition: transform 0.5s;
-    animation: slideAnimation 3s ease-in-out;
-}
-
-
-.main:hover {
-    color: limegreen;
-    transform: scale(1.1);
-}
-
-
-#medal {
-    position: absolute;
-    cursor: pointer; /* Change cursor to pointer when hovering over image */
+.btn{
     display: flex;
-    animation: scale 1s infinite alternate; /* Adjust animation duration and timing as needed */
     justify-content: center;
     align-items: center;
+    color: #fff;
+    transition: transform 0.5s;
+    background-color: #10590D;
+    font-weight: 600;
+    min-width: 8em;
+    min-height: 3em;
+    padding: 1em;
+    text-decoration: none;
+    border-radius: 2em;
+    font-size: 2em;
 }
 
-#timeMedal {
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.btn:hover{
+    background-color: #e7c116;
+    color: black;
+    outline: 0.1em solid black;
+}
+
+.option-container{
+    display:flex;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 2em;
+    align-items: center;
+    width: 100%;
+}
+
+#clickable-image {
     position: absolute;
-    cursor: pointer; /* Change cursor to pointer when hovering over image */
+    cursor: pointer;
+    animation: scale 1s infinite alternate;
     display: flex;
-    animation: scale 1s infinite alternate; /* Adjust animation duration and timing as needed */
     justify-content: center;
     align-items: center;
 }
 
 @keyframes scale {
-  0% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-.flip-container {
-  perspective: 1000px;
+.medal-container {
     position: relative;
-    animation: slideIn 3s forwards;
+    animation: slideIn 1s forwards;
+    min-width: 10em;
+    min-height: 10em;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 @keyframes slideIn {
-    from {
-        top: -500px;
-        left: 0; /* Initial position off the screen */
+    0% {
+        left: -100em;
     }
-    to {
-        left: 150px; /* Final position at the beginning of the screen */
-        top: -500px;
+    90% {
+        left: 1em;
+    }
+    100%{
+        left:0;
     }
 }
 
-.flipper {
-  width: 200px; /* Adjust width as needed */
-  height: 200px; /* Adjust height as needed */
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.8s;
-}
-
-.flip-container:hover .flipper {
-  transform: rotateY(180deg);
-}
-
-.front {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  border-radius: 50%; /* Make the faces round */
-    display: flex;
-}
-
-.front {
-  z-index: 2;
-}
-
-#backOfMedal {
-  transform: rotateY(180deg);
+.front, .back {
+    position: absolute;
     width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  border-radius: 50%; /* Make the faces round */
-    display: flex;
-}
-
-#backOfTimeMedal {
-  transform: rotateY(180deg);
-    width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  border-radius: 50%; /* Make the faces round */
-    display: flex;
-}
-
-.text-overlay {
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    height: 100%;
+    backface-visibility: hidden;
     border-radius: 50%;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
-.text-overlay p {
-  text-align: center;
-    padding: 5px;
-    font-weight: 800;
+.back {
+    transform: rotateY(180deg);
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding:1em;
 }
-
-
-
-
-
-
-
-
-
-
