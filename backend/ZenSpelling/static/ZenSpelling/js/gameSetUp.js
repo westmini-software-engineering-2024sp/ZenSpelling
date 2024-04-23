@@ -76,6 +76,22 @@ function shuffleTileStack(tileStack) {
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
+function fetchQuestionSet() {
+    $.ajax({
+        url: '/generate_questions/', // Replace 'your_server_endpoint' with the actual URL to fetch the question set
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            // Assuming response is an array of questions
+            generateQuestion(response);
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to fetch question set:', error);
+        }
+    });
+}
+
+
 
 
 
