@@ -17,4 +17,5 @@ urlpatterns = [
     path('game/answer/', views.submit_answer, name='submit_answer'),
     path('/generate_questions/', views.generate_questions, name='generate_questions'),
     path('complete/datatoprofile/', views.update_profile, name='update_profile'),
+    path('fetch-question-set/', views.fetch_question_set, name='fetch_question_set'),
 ]

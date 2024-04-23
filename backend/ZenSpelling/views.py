@@ -206,8 +206,8 @@ def update_profile(request):
                 if Student.objects.filter(user=user).exists():
                     profile = Student.objects.get(user=user)
 
-                    profileStreak = profile.streak #get streak number from profile
-                    profileMinTime = profile.min_time #get min time from profile
+                    profileStreak = profile.streak  # get streak number from profile
+                    profileMinTime = profile.min_time  # get min time from profile
 
                     profile.time_spent += time
                     profile.questions_answered += count
@@ -242,3 +242,18 @@ def update_profile(request):
     else:
         return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
 
+
+# Fetches question-set list of question id's.
+def fetch_question_set(request):
+    if request.method == 'GET' and 'question_set_id' in request.GET:
+        question_set_id = request.GET.get('question_set_id')
+        try:
+            question_set = QuestionSet.objects.get(id=question_set_id)
+            data = {
+                'questions': list(question_set.questions.values('id'))
+            }
+            return JsonResponse(data)
+        except QuestionSet.DoesNotExist:
+            return JsonResponse({'error': 'Question set not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)

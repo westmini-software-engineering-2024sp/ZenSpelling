@@ -76,6 +76,31 @@ function shuffleTileStack(tileStack) {
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
+// Fetches question-set on associated button press.
+$(document).ready(function(){
+    $(".question-set").click(function(e){
+        e.preventDefault();
+
+        let questionSetId = $(this).data("question-set-id");
+        console.log(questionSetId);
+
+        $.ajax({
+            url: '/fetch-question-set/',
+            type: 'GET',
+            data: {
+                'question_set_id': questionSetId
+            },
+            success: function(response){
+                console.log("success: ", response);
+                alert("Successful fetch!");
+            },
+            error: function(error){
+                console.log("error: ", error);
+                alert("Unsuccessful fetch");
+            }
+        });
+    });
+});
 
 
 

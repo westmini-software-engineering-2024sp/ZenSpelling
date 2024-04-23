@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Game Set Up Student</title>
+    <script src = {% static 'Resources/jquery3.7.1.js'  %}></script> 
     <script src={% static 'ZenSpelling/js/gameSetUp.js' %}></script>
     <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
     <link rel="stylesheet" href="{% static 'ZenSpelling/game-setup-style.css' %}">
     <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
-    <script src = {% static 'Resources/jquery3.7.1.js'  %}></script> 
 </head>
 <body>
     <div class="center">
@@ -24,7 +24,7 @@
 {#                     {{question_set}}#}
 {#               </button>#}
                 {% for question_set in question_sets %}
-                <a href="#" class="question-set" data-question-set-id="{{ question_set.id }}">{{ question_set.name }}</a>
+                <a class="question-set" data-question-set-id="{{ question_set.id }}">{{ question_set.name }}</a>
                 {% endfor %}
                 </li>
             {% endfor %}
