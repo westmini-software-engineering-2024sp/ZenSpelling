@@ -6,6 +6,9 @@ function playGame(size) {
     console.log(localStorage.getItem('tileCount'));
     console.log(localStorage.getItem('questionCount'));
 
+    generateQuestion(size);
+    generateTileStack(size);
+
     setTimeout(() => {
         generateQuestion(size);
         generateTileStack(size);
@@ -45,11 +48,11 @@ function seedRandomGenerator() {
  * This function will generate which question should pop up
  * In the end, I want this to generate the question array with length gameboardSize
  */
-function generateQuestion(sidelength) { //this has a bug!!!!!!!!!
-    var questionArray = [];
-    var answerArray = [];
-    var gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
-    //var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
+function generateQuestion(sidelength) {
+    let questionArray = [];
+    let answerArray = [];
+    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    //let  gameboardSize = sidelength;
 
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
@@ -105,4 +108,30 @@ function shuffleTileStack(tileStack) {
 
 document.addEventListener('DOMContentLoaded', function () {
     seedRandomGenerator();
+});
+
+// Fetches question-set on associated button press.
+$(document).ready(function(){
+    $(".question-set").click(function(e){
+        e.preventDefault();
+
+        let questionSetId = $(this).data("question-set-id");
+        console.log(questionSetId);
+
+        $.ajax({
+            url: '/fetch-question-set/',
+            type: 'GET',
+            data: {
+                'question_set_id': questionSetId
+            },
+            success: function(response){
+                console.log("success: ", response);
+                alert("Successful fetch!");
+            },
+            error: function(error){
+                console.log("error: ", error);
+                alert("Unsuccessful fetch");
+            }
+        });
+    });
 });

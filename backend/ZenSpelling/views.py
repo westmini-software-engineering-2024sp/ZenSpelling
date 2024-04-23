@@ -189,6 +189,26 @@ def submit_answer(request):
         return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
 
 
+def generate_questions(request):
+    if request.method == 'GET':
+        print("Entering if")
+        question_set_id = request.GET.get('question_set_id')
+        sidelength = int(request.GET.get('sidelength', 3))  # Default sidelength is 3
+        question_set = get_object_or_404(QuestionSet, id=question_set_id)
+        questions = question_set.questions.all()  # Assuming questions is a related_name for the questions in QuestionSet
+        selected_questions = list(questions.values())  # Convert QuerySet to list of dictionaries
+        # You can perform any further processing on selected_questions here, like shuffling
+
+        # Prepare the response
+        response_data = {
+            'questions': questions,
+            'sidelength': sidelength
+        }
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Only GET requests are allowed.'})
+
+
 def update_profile(request):
     if request.method == 'POST':
         try:
@@ -203,9 +223,8 @@ def update_profile(request):
             with transaction.atomic():
                 if Student.objects.filter(user=user).exists():
                     profile = Student.objects.get(user=user)
-
-                    profileStreak = profile.streak  #get streak number from profile
-                    profileMinTime = profile.min_time  #get min time from profile
+                    profileStreak = profile.streak  # get streak number from profile
+                    profileMinTime = profile.min_time  # get min time from profile
 
                     profile.time_spent += time
                     profile.questions_answered += count
@@ -239,3 +258,19 @@ def update_profile(request):
             return JsonResponse({'error': 'An error occurred.'}, status=500)
     else:
         return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
+
+
+# Fetches question-set list of question id's.
+def fetch_question_set(request):
+    if request.method == 'GET' and 'question_set_id' in request.GET:
+        question_set_id = request.GET.get('question_set_id')
+        try:
+            question_set = QuestionSet.objects.get(id=question_set_id)
+            data = {
+                'questions': list(question_set.questions.values('id'))
+            }
+            return JsonResponse(data)
+        except QuestionSet.DoesNotExist:
+            return JsonResponse({'error': 'Question set not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)

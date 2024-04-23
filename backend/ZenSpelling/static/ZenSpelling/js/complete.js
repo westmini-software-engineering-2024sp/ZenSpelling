@@ -5,11 +5,64 @@ function getScore() {
     return correct + "/" + total;
 }
 
-function getPercentage() {
-    let correct = parseInt(localStorage.getItem('correctAnswers')); //use this if you need to get the score as a number
-    let total = parseInt(localStorage.getItem('gameboardSize'));
-    return Math.round((correct/total)*100).toString();
+function displayMedal() {
+
+    let correctAnswers = parseInt(localStorage.getItem('correctAnswers'));
+    let totalQuestions = parseInt(localStorage.getItem('gameboardSize'));
+    // Get the medal element
+    const medalElement = document.getElementById('medal');
+    const backOfMedal = document.getElementById('backOfMedal');
+
+    // Check if the user answered all questions correctly
+    if (correctAnswers === totalQuestions) {
+        // Show the medal
+        medalElement.style.display = 'flex';
+        backOfMedal.style.display = 'flex';
+
+    } else {
+        // Hide the medal
+        medalElement.style.display = 'none';
+        backOfMedal.style.display = 'none';
+    }
 }
+
+function displayTimeMedal() {
+
+    let start = new Date(localStorage.getItem('startTime'));
+    let end = new Date(localStorage.getItem('finishTime'));
+    const timeMedalElement = document.getElementById('timeMedal');
+    const backOfTimeMedal = document.getElementById('backOfTimeMedal');
+
+    start = start.getTime();
+    end = end.getTime();
+
+    //let hour = Math.floor((end-start)/(1000*60*60));
+    let minute = Math.floor(((end-start) % (1000*60*60))/(1000*60)); //these are the numbers as INT
+    let second = Math.floor(((end-start) % (1000*60*60))/1000);
+
+    // Check if the user answered all questions correctly
+    if (second <= 59 ) {
+        // Show the medal
+        timeMedalElement.style.display = 'flex';
+        backOfTimeMedal.style.display = 'flex';
+
+    } else {
+        // Hide the medal
+        timeMedalElement.style.display = 'none';
+        backOfTimeMedal.style.display = 'none';
+    }
+}
+
+function getPercentage() {
+    let correct = parseInt(localStorage.getItem('correctAnswers'));
+    let total = parseInt(localStorage.getItem('gameboardSize'));
+
+    // Example usage:
+    displayMedal(correct, total * total);
+
+    return Math.round((correct / total) * 100).toString();
+}
+
 
 function getStartTimeDisplay() {
     return localStorage.getItem('startTime');
@@ -25,14 +78,15 @@ function getTimeSpentDisplay() {
 
     start = start.getTime();
     end = end.getTime();
-
+    
     if (end < start) {
         let temp = end;
         end = start;
         start = temp;
     }
-
-     let totalSeconds = Math.floor((end - start) / 1000);
+    displayTimeMedal();
+    
+    let totalSeconds = Math.floor((end - start) / 1000);
     let parts = [];
     let minutes = Math.floor(totalSeconds / 60);
     let remainingSeconds = totalSeconds % 60;
@@ -118,14 +172,14 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.clear(); //localstorage is cleared
 });
 
-document.getElementById('clickable-image').addEventListener('click', function() {
+document.getElementById('medal').addEventListener('click', function() {
   let overlay = document.getElementById('overlay');
   if (overlay.style.display === 'block') {
     overlay.style.display = 'none';
   } else {
     overlay.style.display = 'block';
   }
-  let clickableImage = document.getElementById('clickable-image');
+  let clickableImage = document.getElementById('medal');
 
   // Check if the click event target is not the overlay or the clickable image
   if (event.target !== overlay && event.target !== clickableImage) {
