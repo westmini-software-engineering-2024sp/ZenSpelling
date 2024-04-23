@@ -45,6 +45,7 @@ def question_import():
                 course=Course.objects.get(id=row[1]),
                 times_answered=row[2],
                 times_correct=row[3],
+                hint=row[4],
             )
             print(created)
 
