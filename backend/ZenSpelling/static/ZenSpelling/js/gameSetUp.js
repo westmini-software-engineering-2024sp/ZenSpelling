@@ -1,7 +1,3 @@
-function logout() {
-    window.location.href = '/';
-}
-
 function playGame(size) {
     generateQuestion(size);
     generateTileStack(size);
@@ -14,22 +10,14 @@ function playGame(size) {
     window.location.href = '/game/'
 }
 
-function changeColor() {
-    let button = document.getElementById("sets");
-    button.classList.add("limegreen");
-    button.disabled = 'true';
-}
-
-
 /*
  * This function will generate which question should pop up
  * In the end, I want this to generate the question array with length gameboardSize
  */
 function generateQuestion(sidelength) {
-    var questionArray = [];
-    var answerArray = [];
-    var gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
-    //var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
+    let questionArray = [];
+    let answerArray = [];
+    let gameboardSize = sidelength * sidelength;
 
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
@@ -84,6 +72,23 @@ function shuffleTileStack(tileStack) {
 }
 
 function generateGameboard(size) {
-    var gameboardSize = size * size;
+    let gameboardSize = size * size;
 }
 
+function playSoundAndStartGame(gridSize, id){
+    id.classList.add("pop");
+    playSound('grid-select').play()
+    setTimeout(function() {
+        id.classList.remove("pop");
+        playGame(gridSize)
+    }, 1000);
+}
+
+function playSoundAndHighlightQuestionSet(currentSet) {
+        playSound('click-sound').play();
+        let setList = document.getElementsByClassName('question-set-item');
+        for (let i = 0; i < setList.length; i++) {
+            setList[i].classList.remove('clicked');
+        }
+        currentSet.classList.add('clicked');
+}

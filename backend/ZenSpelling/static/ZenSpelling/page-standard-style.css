@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Tsukimi+Rounded&display=swap');
+
+* {
+    font-family: "Tsukimi Rounded", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    background:green url("images/background.svg") no-repeat center fixed;
+    background-size: cover;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
+    overflow: hidden;
+}
+
+body{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 65%;
+    min-width: 50%;
+    height:100%;
+    margin:auto;
+}
+
+h1 {
+    color: white;
+    font-size: 3em;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    height:100%;
+    padding:4em;
+    backdrop-filter: blur(10px);
+    background-color: rgb(27, 27, 27, 0.3);
+}
