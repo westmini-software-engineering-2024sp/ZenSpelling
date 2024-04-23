@@ -218,13 +218,10 @@ def update_profile(request):
                     if time < profileMinTime:
                         profile.min_time = time
                     if correctMedal:
-                        print("update percent")
                         profile.percent_medal += 1
                     if streakMedal:
-                        print("update streak")
                         profile.streak_medal += 1
                     if timeMedal:
-                        print("update time")
                         profile.time_medal += 1
                     profile.save()
                 else:

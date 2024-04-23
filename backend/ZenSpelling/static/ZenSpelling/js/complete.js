@@ -138,7 +138,6 @@ function displayTimeMedal() {
     end = end.getTime();
 
     let second = Math.floor(((end-start) % (1000*60*60))/1000);
-    console.log(second);
 
     // Check if the user answered all questions correctly
     if (second <= 59 && second !== 0) {
@@ -158,8 +157,6 @@ function displayStreakMedal() {
     let total = localStorage.getItem('gameboardSize');
     // Get the medal div class
     let streakMedal = document.getElementsByClassName('correctMedal');
-
-    console.log(Math.round((total/2)));
 
     // Check if the user answered all questions correctly
     if (streak >= Math.round((total/2))) {
