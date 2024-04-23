@@ -1,43 +1,55 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login Page</title>
-    <script src={% static 'ZenSpelling/js/loginPage.js' %}></script>
-    <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
-    <link rel="stylesheet" href="{% static 'ZenSpelling/login-style.css' %}">
-    <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
-</head>
-<body>
-    <button class="teacherButton" onclick="teacherPortal()">Teacher Portal</button>
-    <button id="mute_play"> Turn Music ON </button>
-    <div class = "container">
-        <form method="post" class="login"> {% csrf_token %}
-            <h1>Zen Spelling</h1>
-            <h2>Sign In</h2>
-            <div class = "inputBox">
-                <label for="{{ form.username.id_for_label }}">Username</label>
-                {{ form.username }}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login</title>
+        <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
+        <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
+        <script src={% static 'ZenSpelling/js/loginPage.js' %}></script>
+        <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+        
+        <link rel="stylesheet" href="{% static 'ZenSpelling/page-standard-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/nav-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/login-style.css' %}">
+        <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
+    </head>
+    <body>
+        <header>
+            <div class="nav-container" id="left">
+                <div id="mute_play" onclick="toggleMusic()"> Turn Music ON </div>
             </div>
-            <div class = "inputBox">
-                <label for="{{ form.password.id_for_label }}">Password</label>
-                {{ form.password }}
+            <div class="nav-container" id="right">
+                <a class="teacherButton" onclick="teacherPortal()">Teacher Portal</a>
             </div>
-            <div class = "inputBox">
-                <input type = "submit" onclick=login() value = "Login" id = "btn">
-                <!-- <button class="btn" type="submit" onclick = login()>Log In</button> -->
+        </header>
+        <main>
+            <form method="post" class="login"> {% csrf_token %}
+                <h1>Zen Spelling</h1>
+                <div class="input-container">
+                    <div class = "inputBox">
+                        <label for="{{ form.username.id_for_label }}">Username</label>
+                        <span class="input-field">{{ form.username }}</span>
+                    </div>
+                    <div class = "inputBox">
+                        <label for="{{ form.password.id_for_label }}">Password</label>
+                        <span class="input-field">{{ form.password }}</span>
+                    </div>
+                    <div class = "inputBox">
+                        <input type = "submit" id ="btn" onclick="loginPressed()" value = "Login" >
+                    </div>
+                </div>
+            </form>
+        </main>
+        <div id="twinkling-container">
+                <div class = "twinkling-pixel"> </div>
             </div>
-        </form>
-    </div>
-    
-    <div id="twinkling-container">
-        <div class = "twinkling-pixel"> </div>
-    </div>
-
-    <audio id = "background-music" loop>
-        <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
-        No browser support
-    </audio>
-</body>
+        <audio id = "background-music" loop>
+{#            TODO : Browser Support? Works on Chrome.#}
+            <source src="{% static 'Resources/Music/calm.mp3' %}" type="audio/mp3">
+        </audio>
+        <audio id="click-sound" src={% static 'Resources/SoundEffects/clickSound.mp3' %}></audio>
+        <audio id="login-pressed" src={% static 'Resources/SoundEffects/correct.mp3' %}></audio>
+    </body>
 </html>

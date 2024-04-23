@@ -1,90 +1,33 @@
-/* Default of the page */
-* {
-    font-size: 12px;
-    font-family: 'Arial', sans-serif;
+body{
+    overflow: visible;
 }
 
-html{
-    background: green url(images/background.svg);
-    background-size: cover;
-    height: 100vh;
-    width: 100%;
-    cursor: url("../Assets/bee.png") 14 14, pointer;
+main{
+    row-gap: 1em;
 }
 
-/* H1-H7 and p */
-h1 {
-    font-size: 7rem;
-    color:white;
-}
-
-h2 {
-    font-size: 4rem;
-    color: white;
-}
-
-h4 {
-    font-size: 2rem;
-    color: white;
-}
-
-/* Custom div classes */
-.center {
-    text-align: center;
+main h1{
+    font-size:6em;
 }
 
 .block {
-    /* background-color: #0a5e0a; */
+    display: flex;
+    flex-direction: column;
+    column-gap: 1em;
+    justify-content: center;
+    align-items: center;
     backdrop-filter: blur(50px);
-    width: 50%;
+    min-width: 100%;
     border-radius: 10px;
-    padding-top: 10px;
-    padding-bottom: 50px;
-    margin: 0 auto 20px;
+    font-size: 1.5em;
+    color:white;
+    padding:1em;
 }
 
-/* Custom form classes */
-
-
-/* Custom button classes */
-.logoutButton {
-    position: fixed;
-    top: 3em;
-    right: 3em;
-    border-radius: 10px;
-    border-color: black;
-    padding: 10px;
-    outline: none;
-    background: #0a5e0a;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1.25em;
-    font-weight: 500;
-    transition: 0.5s;
+#stats-container{
+    display:grid;
+    grid-template-columns: 60% 40%;
+    column-gap: 2em;
 }
 
-.logoutButton:hover {
-    background: green;
-    cursor: pointer;
-}
 
-.playButton {
-    position: fixed;
-    top: 3em;
-    Left: 3em;
-    border-radius: 10px;
-    border-color: black;
-    padding: 10px;
-    outline: none;
-    background: #0a5e0a;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1.25em;
-    font-weight: 500;
-    transition: 0.5s;
-}
-
-.playButton:hover {
-    background: green;
-    cursor: pointer;
-}

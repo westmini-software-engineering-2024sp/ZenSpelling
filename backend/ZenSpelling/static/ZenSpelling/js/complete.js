@@ -115,7 +115,6 @@ function getTimeSpentSeconds() {
 
 function getStreakDisplay() {
     return localStorage.getItem('streak'); //This is as a string, you can use parseInt() to make it an int
-
 }
 
 function sendDataBack() {
@@ -186,3 +185,12 @@ document.getElementById('medal').addEventListener('click', function() {
     overlay.style.display = 'none'; // Hide the overlay
   }
 });
+
+function rotateMedal(element){
+    playSound('pop-sound').play();
+    if (element.style.transform === 'rotateY(180deg)') {
+        element.style.transform = 'rotateY(0deg)';
+    } else {
+        element.style.transform = 'rotateY(180deg)';
+    }
+}

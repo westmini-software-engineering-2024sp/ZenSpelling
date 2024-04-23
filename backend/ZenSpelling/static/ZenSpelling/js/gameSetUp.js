@@ -3,27 +3,15 @@ function logout() {
 }
 
 function playGame(size) {
-    console.log(localStorage.getItem('tileCount'));
-    console.log(localStorage.getItem('questionCount'));
-
     generateQuestion(size);
     generateTileStack(size);
+    generateGameboard(size);
 
-    setTimeout(() => {
-        generateQuestion(size);
-        generateTileStack(size);
+    let currentTimestamp = new Date();
+    localStorage.setItem('startTime', currentTimestamp.toString());
+    localStorage.setItem('finishTime', JSON.stringify(0));
 
-        let currentTimestamp = new Date();
-        localStorage.setItem('startTime', currentTimestamp.toString());
-
-        window.location.href = '/game/'
-    }, 100);
-}
-
-function changeColor() {
-    let button = document.getElementById("sets");
-    button.classList.add("limegreen");
-    button.disabled = 'true';
+    window.location.href = '/game/'
 }
 
 
@@ -49,15 +37,15 @@ function seedRandomGenerator() {
  * In the end, I want this to generate the question array with length gameboardSize
  */
 function generateQuestion(sidelength) {
-    let questionArray = [];
-    let answerArray = [];
-    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
-    //let  gameboardSize = sidelength;
+    var questionArray = [];
+    var answerArray = [];
+    var gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    //var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
 
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
         do {
-            uniqueNumber = Math.floor(Math.random() * localStorage.getItem('questionCount')) + 1;
+            uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;
         } while (questionArray.includes(uniqueNumber));
         questionArray[i] = uniqueNumber;
     }
@@ -83,7 +71,7 @@ function generateTileStack() {
             let desiredCount = parseInt(localStorage.getItem('gameboardSize'));
             const fetchedTilePaths = data.tile_paths;
             const repetitions = Math.ceil(desiredCount / fetchedTilePaths.length);
-            const extendedTilePaths = Array.from({length: repetitions},
+            const extendedTilePaths = Array.from({ length: repetitions },
                 () => fetchedTilePaths).flat().slice(0, desiredCount);
             tileStack.push(...extendedTilePaths);
 
@@ -106,6 +94,30 @@ function shuffleTileStack(tileStack) {
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
+function generateGameboard(size) {
+    let gameboardSize = size * size;
+}
+
+function playSoundAndStartGame(gridSize, id){
+    id.classList.add("pop");
+    playSound('grid-select').play()
+    setTimeout(function() {
+        id.classList.remove("pop");
+        playGame(gridSize)
+    }, 1000);
+}
+
+
+function playSoundAndHighlightQuestionSet(currentSet) {
+        playSound('click-sound').play();
+        let setList = document.getElementsByClassName('question-set-item');
+        for (let i = 0; i < setList.length; i++) {
+            setList[i].classList.remove('clicked');
+        }
+        currentSet.classList.add('clicked');
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
     seedRandomGenerator();
 });
@@ -117,6 +129,7 @@ $(document).ready(function(){
 
         let questionSetId = $(this).data("question-set-id");
         console.log(questionSetId);
+
 
         $.ajax({
             url: '/fetch-question-set/',
