@@ -1,4 +1,4 @@
-from ZenSpelling.models import Question, Answer, Course, Student, Tile
+from ZenSpelling.models import Question, Answer, Course, Student, Tile, QuestionSet
 from django.contrib.auth.models import User
 import csv
 
@@ -38,16 +38,19 @@ def user_import():
 
 
 def question_import():
+    question_list = []
     with open("./ZenSpelling/static/ZenSpelling/csv/question.csv", mode='r', encoding='utf-8-sig') as file:
         for row in csv.reader(file):
-            _, created = Question.objects.update_or_create(
+            result, created = Question.objects.update_or_create(
                 question_text=row[0],
                 course=Course.objects.get(id=row[1]),
                 times_answered=row[2],
                 times_correct=row[3],
                 hint=row[4],
             )
+            question_list.append(result)
             print(created)
+    return question_list
 
 
 def tile_import():
@@ -62,8 +65,15 @@ def tile_import():
 def run():
     user_import()
     course_import()
-    question_import()
+    question_list = question_import()
     answer_import()
     tile_import()
+
+    result, created = QuestionSet.objects.get_or_create(
+        name="Random",
+        course=Course.objects.get(name="Software Engineering"),
+    )
+    result.questions.set(question_list)
+    print(created)
 
     print("Done")
