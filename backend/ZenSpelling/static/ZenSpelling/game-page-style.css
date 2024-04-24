@@ -52,16 +52,46 @@ canvas{
 }
 
 div#grid-container{
-    background-image: url("../Assets/grid-background.png");
-    background-size: cover;
-    background-position: center;
-    /*background-color: rgba(34, 139, 34, 0.75);*/
     width: 65%;
     height: 90%;
     border-radius: 3em;
     position: absolute;
     top: 5em;
     left:40em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#img-flex-container{
+    background-image: url("../Assets/grid-background.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    height: 90%;
+    border-radius: 3em;
+    position: absolute;
+    top: 5em;
+    left:40em;
+    background-color: aqua;
+}
+
+div#img-grid{
+    display:grid;
+}
+
+img{
+    border:none;
+    outline: none;
+}
+
+canvas#garden{
+    z-index:-10;
+    display: none;
 }
 
 div#tile-container{

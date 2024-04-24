@@ -17,9 +17,9 @@ function playGame(size) {
 function generateQuestion(sidelength) {
     let questionArray = [];
     let answerArray = [];
-    let gameboardSize = sidelength * sidelength;
+    let gameboardSize = sidelength;
 
-    for (let i = 0; i < gameboardSize; i++) {
+    for (let i = 0; i < sidelength; i++) {
         let uniqueNumber;
         do {
             uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;

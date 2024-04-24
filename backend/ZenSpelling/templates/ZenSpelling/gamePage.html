@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'ZenSpelling/game-page-style.css' %}">
     <link rel="stylesheet" href="{% static 'ZenSpelling/twinkle.css' %}">
     <link rel="stylesheet" href="{% static 'ZenSpelling/modal-style.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src={% static 'Resources/p5.min.js' %}></script>
     <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
     <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
@@ -29,7 +30,10 @@
         </div>
     </header>
     <main id="canvas-container">
-        <div class="grid-canvas" id="grid-container"></div> <!-- Container div for main board. -->
+        <div class="grid-canvas" id="grid-container"></div> 
+        <div id="img-flex-container">
+            <div id="img-grid"></div>
+        </div>
         <div class="tile-canvas" id="tile-container"></div> <!-- Container div for tile sideboard -->
         <div id="myModal" class="modal"></div>
         

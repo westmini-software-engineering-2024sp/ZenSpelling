@@ -14,7 +14,6 @@
         <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
         <script src={% static 'ZenSpelling/js/complete.js' %}></script>
         <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
-        <script src={% static 'ZenSpelling/js/interact.js' %} defer></script>
     </head>
     <body>
         <header>
@@ -36,6 +35,7 @@
                 <a class="btn" onclick="playAgain(this)">New Game</a>
                 <a class="btn" onclick="toProfile(this)">Profile</a>
             </div>
+            <div id="saved-garden"></div>
             <div class="medal-container" onclick="rotateMedal(this)">
                 <div class="front">
                     <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px>

@@ -100,7 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('timeSpentDisplay').textContent = getTimeSpentDisplay();
     document.getElementById('streakDisplay').textContent = getStreakDisplay();
     sendDataBack();
-    localStorage.clear(); //localstorage is cleared
+    displaySavedGarden();
+    setTimeout(function() {
+        localStorage.clear(); //localstorage is cleared
+    }, 500)
 });
 
 document.getElementById('clickable-image').addEventListener('click', function() {
@@ -124,5 +127,19 @@ function rotateMedal(element){
         element.style.transform = 'rotateY(0deg)';
     } else {
         element.style.transform = 'rotateY(180deg)';
+    }
+}
+
+function displaySavedGarden() {
+    let savedGarden = localStorage.getItem("savedGarden");
+
+    if (savedGarden) {
+        let img = document.createElement("img");
+        let parent = document.getElementById("saved-garden");
+
+        img.src = savedGarden;
+        parent.appendChild(img);
+    } else {
+        alert("No saved garden found!");
     }
 }

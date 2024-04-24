@@ -17,7 +17,6 @@ let pulse = 1.0;
 let oscillatePulse = 1;
 let modal = false;
 let newRow, newCol;
-let musicOff = false;
 
 // Creating the sketch of the game-board.
 let GridSketch = function (sketch) {
@@ -41,6 +40,19 @@ let GridSketch = function (sketch) {
 
         sketch.calculateBoxSize();
         sketch.buildDataArray();
+
+        // Construct image grid to accept placed tiles.
+        let tileGrid = document.getElementById('img-grid');
+        tileGrid.style.gridTemplateColumns = `repeat(${gridDimension}, auto)`;
+        for(let i = 0; i < gridDimension; i++){
+            for(let j = 0; j < gridDimension; j++){
+                const img = document.createElement('img')
+                img.id = 'grid' + j + '' + i;
+                img.width = sketch.boxSize;
+                img.height = sketch.boxSize;
+                tileGrid.appendChild(img);
+            }
+        }
     }
 
     sketch.calculateBoxSize = function () {
@@ -90,9 +102,7 @@ let GridSketch = function (sketch) {
             sketch.fill('rgba(255,255,255,0.10)');
         }
 
-        if (model) {
-            sketch.image(model, x, y);
-        } else {
+        if (!model) {
             sketch.square(x, y, size);
         }
 
@@ -139,6 +149,9 @@ let GridSketch = function (sketch) {
                     dataArray[i + '' + j].model = sketch.loadImage(newFilePath, function (img) {
                         img.resize(sketch.boxSize, 0);
                     });
+                    let tilePlace = document.getElementById('grid' + i + '' + j);
+                    console.log('grid' + i + '' + j);
+                    tilePlace.src = newFilePath;
                 }
             }
         }
@@ -351,13 +364,6 @@ function createGamePageOnDomLoaded(){
 
         toggleMusic("background-music");
 
-         // let calmMusic = playSound('calm');
-         //
-         // calmMusic.soundEffect.oncanplaythrough = function () {
-         //     calmMusic.play();
-         //     calmMusic.loop();
-         // };
-
          const modal = document.getElementById('modal');
          modal.style.display = 'block';
 
@@ -388,6 +394,5 @@ function hideLoadingScreenOnWindowLoad(){
     setTimeout(function() {
             loadingScreen.style.display = 'none'; // Hide loading screen when page is loaded
             }, 1000);
-
     });
 }

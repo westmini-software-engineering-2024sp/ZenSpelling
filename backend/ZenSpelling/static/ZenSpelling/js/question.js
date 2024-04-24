@@ -17,14 +17,13 @@ function closeModal() {
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
     modal = false;
-    setTimeout(function() {
+    setTimeout(function () {
         gameComplete();
     }, 1000);
 }
 
 // this submits the PK of answer to the server via an ajax call
 function submitAnswer() {
-    let sound;
     let formAnswer = document.getElementById("myForm");
     let index = localStorage.getItem('questionNumber'); // Same as gamePageSketches
 
@@ -55,7 +54,6 @@ function submitAnswer() {
                 return response.json();
             })
             .then(data => {
-
                 if (data.exists) { //aka if correct
                     playSound('correct-sound').play();
                     let correct = parseInt(localStorage.getItem('correctAnswers'));
@@ -106,13 +104,36 @@ function submitAnswer() {
 }
 
 // when the game is complete (all questions answered) complete screen is shown
-function gameComplete() {
+async function gameComplete() {
     if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
-        var eventTimestamp = new Date();
-        localStorage.setItem('finishTime', eventTimestamp.toString());
-        window.location.href = '../complete/';
+        let eventTimestamp = new Date();
+
+        try {
+            await saveGardenOnGameComplete();
+            localStorage.setItem('finishTime', eventTimestamp.toString());
+            window.location.href = '../complete/';
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
     }
 }
+
+function saveGardenOnGameComplete() {
+    return new Promise((resolve, reject) => {
+        let garden = document.getElementById('img-flex-container');
+        setTimeout(() => {
+            html2canvas(garden).then(canvas => {
+                let imageData = canvas.toDataURL();
+                localStorage.setItem('savedGarden', imageData);
+                resolve();
+            }).catch(error => {
+                console.error('Error capturing combined canvas:', error);
+                reject(error);
+            });
+        }, 100);
+    });
+}
+
 
 // passed to the server so we don't get a Forbidden
 function getCookie(name) {
