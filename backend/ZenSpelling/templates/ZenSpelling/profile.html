@@ -43,13 +43,13 @@
             <h2>Medals</h2>
             <ul>
                 <li>
-{#                    <img alt="time medal" src="{% static 'ZenSpelling/images/timeMedal.png' %}">#}
+                    <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="clickable-image" width = 150px height = 150px>
                     {{ student.time_medal }}</li>
                 <li> 
-{#                    <img alt="percent medal" src="{% static 'ZenSpelling/images/' %}">#}
+                    <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="clickable-image" width = 150px height = 150px>
                     {{ student.percent_medal }}</li>
                 <li>
-{#                    <img alt="streak medal" src="{% static 'ZenSpelling/images/streakMedal.png' %}">#}
+                    <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="clickable-image" width = 150px height = 150px>
                     {{ student.streak_medal }}</li>
             </ul>
         </div>

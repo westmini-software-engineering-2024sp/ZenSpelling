@@ -1,13 +1,19 @@
 function playGame(size) {
+    console.log(localStorage.getItem('tileCount'));
+    console.log(localStorage.getItem('questionCount'));
+
     generateQuestion(size);
     generateTileStack(size);
-    generateGameboard(size);
 
-    let currentTimestamp = new Date();
-    localStorage.setItem('startTime', currentTimestamp.toString());
-    localStorage.setItem('finishTime', JSON.stringify(0));
+    setTimeout(() => {
+        generateQuestion(size);
+        generateTileStack(size);
 
-    window.location.href = '/game/'
+        let currentTimestamp = new Date();
+        localStorage.setItem('startTime', currentTimestamp.toString());
+
+        window.location.href = '/game/'
+    }, 100);
 }
 
 
@@ -33,15 +39,15 @@ function seedRandomGenerator() {
  * In the end, I want this to generate the question array with length gameboardSize
  */
 function generateQuestion(sidelength) {
-    var questionArray = [];
-    var answerArray = [];
-    var gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    let questionArray = [];
+    let answerArray = [];
+    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
     //var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
 
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
         do {
-            uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;
+            uniqueNumber = Math.floor(Math.random() * localStorage.getItem('questionCount')) + 1;
         } while (questionArray.includes(uniqueNumber));
         questionArray[i] = uniqueNumber;
     }
