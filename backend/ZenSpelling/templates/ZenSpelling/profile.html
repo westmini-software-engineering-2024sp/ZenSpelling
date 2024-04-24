@@ -45,24 +45,42 @@
             <ul>
                 <li> 
                     {% if student.percent_medal_earned %}
-                        <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="clickable-image" width = 150px height = 150px>
-                        {{ student.percent_medal }}
+                        <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="first" width = 150px height = 150px>
+                        {% if student.percent_medal >= 2 %}
+                            <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="second" width = 150px height = 150px>
+                        {% endif %}
+                        {% if student.percent_medal >= 3 %}
+                            <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="third" width = 150px height = 150px>
+                        {% endif %}
+                        <p>{{ student.percent_medal }}</p>
                     {% else %}
                         <img src="{% static 'ZenSpelling/images/correctMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
                     {% endif %}
                 </li>
                 <li>
                     {% if student.time_medal_earned %}
-                        <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="clickable-image" width = 150px height = 150px>
-                        {{ student.time_medal }}
+                        <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="first" width = 150px height = 150px>
+                        {% if student.time_medal >= 2 %}
+                            <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="second" width = 150px height = 150px>
+                        {% endif %}
+                        {% if student.time_medal >= 3 %}
+                            <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="third" width = 150px height = 150px>
+                        {% endif %}
+                        <p>{{ student.time_medal }}</p>
                     {% else %}
                         <img src="{% static 'ZenSpelling/images/timeMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
                     {% endif %}
                 </li>
                 <li>
                     {% if student.streak_medal_earned %}
-                        <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="clickable-image" width = 150px height = 150px>
-                        {{ student.streak_medal }}
+                        <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="first" width = 150px height = 150px>
+                        {% if student.streak_medal >= 2 %}
+                            <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="second" width = 150px height = 150px>
+                        {% endif %}
+                        {% if student.streak_medal >= 3 %}
+                            <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="third" width = 150px height = 150px>
+                        {% endif %}
+                        <p>{{ student.streak_medal }}</p>
                     {% else %}
                         <img src="{% static 'ZenSpelling/images/streakMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
                     {% endif %}
