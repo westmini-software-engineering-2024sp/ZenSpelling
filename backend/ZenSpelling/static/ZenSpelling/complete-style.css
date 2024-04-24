@@ -51,7 +51,6 @@
 }
 
 #clickable-image {
-    position: absolute;
     cursor: pointer;
     animation: scale 1s infinite alternate;
     display: flex;
@@ -88,6 +87,24 @@
 
 .streakMedal {
     display: none;
+}
+
+.correctMedal, .timeMedal, .streakMedal {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.front, .back {
+    backface-visibility: hidden;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+.back p {
+    color: black;
+    background-color: #e7c116;
 }
 
 @keyframes slideIn {

@@ -1,7 +1,4 @@
 function playGame(size) {
-    console.log(localStorage.getItem('tileCount'));
-    console.log(localStorage.getItem('questionCount'));
-
     generateQuestion(size);
     generateTileStack(size);
 

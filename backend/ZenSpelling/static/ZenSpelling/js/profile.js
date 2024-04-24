@@ -1,3 +1,18 @@
+function testCompletePage() {
+    let currentTimestamp = new Date();
+    localStorage.setItem('startTime', currentTimestamp.toString());
+    localStorage.setItem('gameboardSize', 9);
+    localStorage.setItem('correctAnswers', 9);
+    localStorage.setItem('streak', 5);
+
+    setTimeout(() => {
+        currentTimestamp = new Date();
+    localStorage.setItem('finishTime', currentTimestamp.toString());
+    window.location.href = '../complete/';
+    }, 2000);
+}
+
+
 document.addEventListener("DOMContentLoaded", function() {
     // Function to format seconds into hours, minutes, and seconds dynamically
     function formatTimeWithHours(seconds) {
