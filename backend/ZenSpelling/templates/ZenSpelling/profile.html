@@ -43,15 +43,30 @@
         <div class = "block">
             <h2>Medals</h2>
             <ul>
-                <li>
-                    <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="clickable-image" width = 150px height = 150px>
-                    {{ student.time_medal }}</li>
                 <li> 
-                    <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="clickable-image" width = 150px height = 150px>
-                    {{ student.percent_medal }}</li>
+                    {% if student.percent_medal_earned %}
+                        <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="clickable-image" width = 150px height = 150px>
+                        {{ student.percent_medal }}
+                    {% else %}
+                        <img src="{% static 'ZenSpelling/images/correctMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                    {% endif %}
+                </li>
                 <li>
-                    <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="clickable-image" width = 150px height = 150px>
-                    {{ student.streak_medal }}</li>
+                    {% if student.time_medal_earned %}
+                        <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="clickable-image" width = 150px height = 150px>
+                        {{ student.time_medal }}
+                    {% else %}
+                        <img src="{% static 'ZenSpelling/images/timeMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if student.streak_medal_earned %}
+                        <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="clickable-image" width = 150px height = 150px>
+                        {{ student.streak_medal }}
+                    {% else %}
+                        <img src="{% static 'ZenSpelling/images/streakMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                    {% endif %}
+                </li>
             </ul>
         </div>
         <div class = "block">

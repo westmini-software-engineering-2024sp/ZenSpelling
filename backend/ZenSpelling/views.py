@@ -219,10 +219,13 @@ def update_profile(request):
                         profile.min_time = time
                     if correctMedal:
                         profile.percent_medal += 1
+                        profile.percent_medal_earned = True
                     if streakMedal:
                         profile.streak_medal += 1
+                        profile.streak_medal_earned = True
                     if timeMedal:
                         profile.time_medal += 1
+                        profile.time_medal_earned = True
                     profile.save()
                 else:
                     correctMedalCount, streakMedalCount, timeMedalCount = 0, 0, 0
@@ -242,7 +245,10 @@ def update_profile(request):
                         minTime=time,
                         percent_medal = correctMedalCount,
                         streak_medal = streakMedalCount,
-                        time_medal = timeMedalCount
+                        time_medal = timeMedalCount,
+                        percent_medal_earned = correctMedal,
+                        streak_medal_earned = streakMedal,
+                        time_medal_earned = timeMedal
                     )
                     profile.save()
 

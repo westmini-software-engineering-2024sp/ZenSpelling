@@ -17,6 +17,9 @@ class Student(models.Model):
     time_medal = models.IntegerField(default=0)
     percent_medal = models.IntegerField(default=0)
     streak_medal = models.IntegerField(default=0)
+    time_medal_earned = models.BooleanField(default=False)
+    percent_medal_earned = models.BooleanField(default=False)
+    streak_medal_earned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
