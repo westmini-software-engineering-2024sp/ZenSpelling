@@ -48,6 +48,8 @@ let GridSketch = function (sketch) {
             for(let j = 0; j < gridDimension; j++){
                 const img = document.createElement('img')
                 img.id = 'grid' + j + '' + i;
+                // Encoded 1x1 transparent pixel to prevent broken image.
+                img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
                 img.width = sketch.boxSize;
                 img.height = sketch.boxSize;
                 tileGrid.appendChild(img);
@@ -129,16 +131,10 @@ let GridSketch = function (sketch) {
 
     // Decides if an image needs to be loaded in the metadata array when user releases cursor.
     sketch.mouseReleased = function () {
-        let valid;
         for (let i = 0; i < gridDimension; i++) {
             for (let j = 0; j < gridDimension; j++) {
-                // Saving this equation for now in case it is needed later.
-                // let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
-
-                valid = dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '';
-                if (valid) {
+                if (dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '') {
                     placed = true;
-
                     // Extract numeric digits from currentFilePath.
                     numericDigits = currentFilepath.match(/\d+/)[0];
                     // Construct the new filepath pointing to the Tile's matching GridTile.
@@ -146,11 +142,9 @@ let GridSketch = function (sketch) {
 
                     newRow = i;
                     newCol = j;
-                    dataArray[i + '' + j].model = sketch.loadImage(newFilePath, function (img) {
-                        img.resize(sketch.boxSize, 0);
-                    });
+                    dataArray[i + '' + j].model = sketch.loadImage(newFilePath);
+
                     let tilePlace = document.getElementById('grid' + i + '' + j);
-                    console.log('grid' + i + '' + j);
                     tilePlace.src = newFilePath;
                 }
             }
@@ -290,7 +284,12 @@ let TileSketch = function (sketch) {
             for (let i = 0; i < gridDimension; i++) {
                 for (let j = 0; j < gridDimension; j++) {
                     let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + tileGridOffsetDiff, dataArray[i + '' + j].y + yShift);
-                    dataArray[i + '' + j].collision = d < tileSize/6;
+                    if(gridDimension === 3){
+                        dataArray[i + '' + j].collision = d < tileSize/2;
+                    }else{
+                        dataArray[i + '' + j].collision = d < tileSize/6;
+                    }
+
                 }
             }
             return false;
@@ -373,14 +372,14 @@ function createGamePageOnDomLoaded(){
 
 function showModalOnClick(){
     window.addEventListener('click', (event) => {if (event.target === modal) {
-    } else {
-        modal.style.display = 'none';
-    }
+        } else {
+            modal.style.display = 'none';
+        }
     });
 }
 
 // TODO : This currently works, except it does not preserve the game board state on reload.
-//  Possible solution: Use cookie to save game state.
+//  Possible solution: Use cookie to save game state, or load everything in localStorage.
 function resizeBoardElementsOnScreenResize(){
     window.addEventListener('resize', function () {
     window.location.reload();

@@ -84,9 +84,8 @@ div#img-grid{
     display:grid;
 }
 
-img{
-    border:none;
-    outline: none;
+img[src=""] {
+    visibility: hidden;
 }
 
 canvas#garden{

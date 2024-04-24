@@ -2,6 +2,7 @@
 let answerArray = JSON.parse(localStorage.getItem('answerBank')) || [];
 let onStreak = false;
 let streakCount;
+
 localStorage.setItem('streak', JSON.stringify(0));
 
 function closeModal() {
@@ -54,6 +55,8 @@ function submitAnswer() {
                 return response.json();
             })
             .then(data => {
+                let tilePlace = document.getElementById('grid' + newRow + '' + newCol);
+
                 if (data.exists) { //aka if correct
                     playSound('correct-sound').play();
                     let correct = parseInt(localStorage.getItem('correctAnswers'));
@@ -79,6 +82,8 @@ function submitAnswer() {
                         dataArray[newRow + '' + newCol].model = '';
                         dataArray[newRow + '' + newCol].weed = false;
                         dataArray[newRow + '' + newCol].collision = false;
+                        // insert encoded 1x1 transparent pixel to prevent broken image.
+                        tilePlace.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
                     }
 
                     //for hints, need to send to student and studentAnalytics
@@ -86,10 +91,11 @@ function submitAnswer() {
                     playSound('wrong-sound').play();
                     onStreak = false;
                     newFilePath = `/static/Assets/WeedTiles/weedTile01.png`;
-                    dataArray[newRow + '' + newCol].model = gridSketch.loadImage(newFilePath, function (img) {
-                        img.resize(gridSketch.boxSize, 0);
-                    });
+                    dataArray[newRow + '' + newCol].model = gridSketch.loadImage(newFilePath);
                     dataArray[newRow + '' + newCol].weed = true;
+
+                    tilePlace.src = newFilePath;
+
                     modalSpace.innerHTML = 'WRONG!';
                 }
                 setTimeout(function() {
@@ -127,7 +133,7 @@ function saveGardenOnGameComplete() {
                 localStorage.setItem('savedGarden', imageData);
                 resolve();
             }).catch(error => {
-                console.error('Error capturing combined canvas:', error);
+                console.error('Error capturing canvas:', error);
                 reject(error);
             });
         }, 100);
