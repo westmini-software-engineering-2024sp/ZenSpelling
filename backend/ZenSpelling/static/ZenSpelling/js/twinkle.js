@@ -24,8 +24,6 @@
       }
 
       function playMusic() {
-          // Your code to start playing the music
-          // Store the state of the music player in session storage
           sessionStorage.setItem('musicPlaying', 'true');
       }
 
@@ -33,8 +31,6 @@
       function checkMusic() {
           let musicPlaying = sessionStorage.getItem('musicPlaying');
           if (musicPlaying === 'true') {
-              // Your code to resume playing the music
-              // For demonstration purposes, let's just log a message
           }
       }
 
