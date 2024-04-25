@@ -158,7 +158,7 @@ function displayStreakMedal() {
     // Get the medal div class
     let streakMedal = document.getElementsByClassName('streakMedal');
     localStorage.setItem('minStreak', (Math.round((total / 2)).toString()));
-    alert(localStorage.getItem('minStreak'));
+    //alert(localStorage.getItem('minStreak'));
 
     // Check if the user answered all questions correctly
     if (streak >= parseInt(localStorage.getItem('minStreak'))) {
