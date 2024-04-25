@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Let's Spell</title>
     <link rel="stylesheet" href="{% static 'ZenSpelling/nav-style.css' %}">
     <link rel="stylesheet" href="{% static 'ZenSpelling/game-page-style.css' %}">
@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="{% static 'ZenSpelling/modal-style.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src={% static 'Resources/p5.min.js' %}></script>
+    <script src={% static 'Resources/jquery3.7.1.js' %}></script>
     <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
     <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
+    <script src={% static 'ZenSpelling/js/question.js' %}></script>
     <script src={% static 'ZenSpelling/js/gamePage.js' %}></script>
     <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
-    <script src={% static 'ZenSpelling/js/question.js' %}></script>
-    <script src={% static 'Resources/jquery3.7.1.js' %}></script>
   </head>
   <body>
     <div id="loading-screen">Loading...</div>
@@ -35,7 +35,6 @@
             <div id="img-grid"></div>
         </div>
         <div class="tile-canvas" id="tile-container"></div> <!-- Container div for tile sideboard -->
-        <div id="myModal" class="modal"></div>
         
         <audio id = "background-music" loop>
 {#            TODO : Browser Support? Works on Chrome.#}
@@ -46,6 +45,7 @@
         <audio id="correct-sound" src={% static 'Resources/SoundEffects/correct.mp3' %}></audio>
         <audio id="wrong-sound" src={% static 'Resources/SoundEffects/wrong.mp3' %}></audio>
     </main>
+    <div id="myModal" class="modal"></div>
     <div id="twinkling-container">
         <div class = "twinkling-pixel"> </div>
     </div>

@@ -17,7 +17,9 @@ function closeModal() {
 
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
+
     modal = false;
+
     setTimeout(function() {
     }, 1000);
 }

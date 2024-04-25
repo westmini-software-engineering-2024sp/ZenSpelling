@@ -265,11 +265,18 @@ let TileSketch = function (sketch) {
 
     // This activates dragging toggle if cursor is in range of the tile.
     sketch.mousePressed = function () {
-        let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
+        // Get the bounding rectangle of the canvas
+        let canvasRect = sketch.canvas.getBoundingClientRect();
+        // Check if the mouse press event is within the canvas area
+        if (sketch.mouseX >= canvasRect.left && sketch.mouseX <= canvasRect.right &&
+            sketch.mouseY >= canvasRect.top && sketch.mouseY <= canvasRect.bottom) {
 
-        if (d < tileSize && !modal) {
-            playSound('click-sound').play();
-            dragging = true;
+            let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
+
+            if (d < tileSize && !modal) {
+                playSound('click-sound').play();
+                dragging = true;
+            }
         }
         return false;
     }
@@ -289,7 +296,6 @@ let TileSketch = function (sketch) {
                     }else{
                         dataArray[i + '' + j].collision = d < tileSize/6;
                     }
-
                 }
             }
             return false;
@@ -331,10 +337,6 @@ function showModal() {
                 .css('display', 'block');
         }
     });
-
-    $('.close').click(function () {
-        $('#myModal').css('display', 'none');
-    });
 }
 
 // From the localStorage questionBank, it gets the next question
@@ -362,19 +364,6 @@ function createGamePageOnDomLoaded(){
         tileSketch = new p5(TileSketch);
 
         toggleMusic("background-music");
-
-         const modal = document.getElementById('modal');
-         modal.style.display = 'block';
-
-         showModalOnClick();
-    });
-}
-
-function showModalOnClick(){
-    window.addEventListener('click', (event) => {if (event.target === modal) {
-        } else {
-            modal.style.display = 'none';
-        }
     });
 }
 
