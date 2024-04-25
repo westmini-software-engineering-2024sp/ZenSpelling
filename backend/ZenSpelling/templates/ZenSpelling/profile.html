@@ -32,17 +32,60 @@
         <div class = "block">
             <h2>Stats</h2>
             <div id="stats-container">
+                <!--<button onclick="testCompletePage()">Testing button</button>-->
                 <h4>Number of games completed: </h4><h4>{{ student.games_completed }}</h4>
-                <h4>Total play time: </h4><h4>{{ student.time_spent }} seconds</h4>
+                <h4>Total play time: </h4><h4 id="timeSpent">{{ student.time_spent }} seconds</h4>
                 <h4>Number of correct answers: </h4><h4>{{ student.questions_correct }}</h4>
                 <h4>Highest streak: </h4><h4>{{ student.streak }} correct in a row</h4>
-                <h4>Fastest game: </h4><h4>{{ student.min_time }} seconds</h4>
+                <h4>Fastest game: </h4><h4 id="fastestGame">{{ student.min_time }} seconds</h4>
             </div>
         </div>
         <div class = "block">
             <h2>Medals</h2>
-            <p>Medals in the database the student as earned are shown here</p>
-            <p>I need to write the ajax call</p>
+            <ul>
+                <li> 
+                    {% if student.percent_medal_earned %}
+                        <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="first" width = 150px height = 150px>
+                        {% if student.percent_medal >= 2 %}
+                            <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="second" width = 150px height = 150px>
+                        {% endif %}
+                        {% if student.percent_medal >= 3 %}
+                            <img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "Medal for Percent" id="third" width = 150px height = 150px>
+                        {% endif %}
+                        <p>{{ student.percent_medal }}</p>
+                    {% else %}
+                        <img src="{% static 'ZenSpelling/images/correctMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if student.time_medal_earned %}
+                        <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="first" width = 150px height = 150px>
+                        {% if student.time_medal >= 2 %}
+                            <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="second" width = 150px height = 150px>
+                        {% endif %}
+                        {% if student.time_medal >= 3 %}
+                            <img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "Medal for Time" id="third" width = 150px height = 150px>
+                        {% endif %}
+                        <p>{{ student.time_medal }}</p>
+                    {% else %}
+                        <img src="{% static 'ZenSpelling/images/timeMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if student.streak_medal_earned %}
+                        <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="first" width = 150px height = 150px>
+                        {% if student.streak_medal >= 2 %}
+                            <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="second" width = 150px height = 150px>
+                        {% endif %}
+                        {% if student.streak_medal >= 3 %}
+                            <img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "Medal for Streak" id="third" width = 150px height = 150px>
+                        {% endif %}
+                        <p>{{ student.streak_medal }}</p>
+                    {% else %}
+                        <img src="{% static 'ZenSpelling/images/streakMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
         <div class = "block">
             <h2>Saved Gardens</h2>

@@ -1,7 +1,6 @@
 import json
 
 from django.contrib.auth.models import User
-from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -19,10 +18,23 @@ class DetailView(generic.DetailView):
     template_name = "ZenSpelling/question.html"
 
     def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
         return Question.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        question = self.get_object()
+        user = self.request.user
+
+        context["question"] = question
+        context["hint"] = question.hint
+
+        #check if the row exists
+        if StudentAnalytics.objects.filter(user=user, question=question).exists():
+            analytic = StudentAnalytics.objects.get(user=user, question=question)
+            context['show_hint'] = analytic.hint
+            return context
+        else:
+            return context
 
 
 class ResultsView(generic.DetailView):
@@ -115,6 +127,12 @@ def display_question_sets(request):
     return render(request, 'ZenSpelling/gameSetUp.html', {'question_sets': question_sets})
 
 
+def gamepagesetup_counts(request):
+    tile_count = Tile.objects.count()
+    question_count = Question.objects.count()
+    return JsonResponse({'tile_count': tile_count, 'question_count': question_count})
+
+
 # question.html form
 def submit_answer(request):
     if request.method == 'POST':
@@ -179,15 +197,17 @@ def update_profile(request):
             count = data['questionCount']
             correct = data['questionCorrect']
             streak = data['streak']
+            correctMedal = data['correctMedal']
+            timeMedal = data['timeMedal']
+            streakMedal = data['streakMedal']
 
             user = request.user
 
             with transaction.atomic():
                 if Student.objects.filter(user=user).exists():
                     profile = Student.objects.get(user=user)
-
-                    profileStreak = profile.streak #get streak number from profile
-                    profileMinTime = profile.min_time #get min time from profile
+                    profileStreak = profile.streak  # get streak number from profile
+                    profileMinTime = profile.min_time  # get min time from profile
 
                     profile.time_spent += time
                     profile.questions_answered += count
@@ -195,12 +215,26 @@ def update_profile(request):
                     profile.games_completed += 1
                     if streak > profileStreak:
                         profile.streak = streak
-
                     if time < profileMinTime:
                         profile.min_time = time
-
+                    if correctMedal:
+                        profile.percent_medal += 1
+                        profile.percent_medal_earned = True
+                    if streakMedal:
+                        profile.streak_medal += 1
+                        profile.streak_medal_earned = True
+                    if timeMedal:
+                        profile.time_medal += 1
+                        profile.time_medal_earned = True
                     profile.save()
                 else:
+                    correctMedalCount, streakMedalCount, timeMedalCount = 0, 0, 0
+                    if correctMedal:
+                        correctMedalCount = 1
+                    if streakMedal:
+                        streakMedalCount = 1
+                    if timeMedal:
+                        timeMedalCount = 1
                     profile = Student.objects.create(
                         user=user,
                         time_spent=time,
@@ -208,7 +242,13 @@ def update_profile(request):
                         questions_correct=correct,
                         games_completed=1,
                         streak=streak,
-                        minTime=time
+                        minTime=time,
+                        percent_medal = correctMedalCount,
+                        streak_medal = streakMedalCount,
+                        time_medal = timeMedalCount,
+                        percent_medal_earned = correctMedal,
+                        streak_medal_earned = streakMedal,
+                        time_medal_earned = timeMedal
                     )
                     profile.save()
 
@@ -221,3 +261,38 @@ def update_profile(request):
             return JsonResponse({'error': 'An error occurred.'}, status=500)
     else:
         return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
+
+
+def generate_questions(request):
+    if request.method == 'GET':
+        print("Entering if")
+        question_set_id = request.GET.get('question_set_id')
+        sidelength = int(request.GET.get('sidelength', 3))  # Default sidelength is 3
+        question_set = get_object_or_404(QuestionSet, id=question_set_id)
+        questions = question_set.questions.all()  # Assuming questions is a related_name for the questions in QuestionSet
+        selected_questions = list(questions.values())  # Convert QuerySet to list of dictionaries
+        # You can perform any further processing on selected_questions here, like shuffling
+
+        # Prepare the response
+        response_data = {
+            'questions': questions,
+            'sidelength': sidelength
+        }
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Only GET requests are allowed.'})
+
+# Fetches question-set list of question id's.
+def fetch_question_set(request):
+    if request.method == 'GET' and 'question_set_id' in request.GET:
+        question_set_id = request.GET.get('question_set_id')
+        try:
+            question_set = QuestionSet.objects.get(id=question_set_id)
+            data = {
+                'questions': list(question_set.questions.values('id'))
+            }
+            return JsonResponse(data)
+        except QuestionSet.DoesNotExist:
+            return JsonResponse({'error': 'Question set not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)

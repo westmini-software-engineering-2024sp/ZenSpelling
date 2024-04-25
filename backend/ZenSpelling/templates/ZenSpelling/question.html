@@ -1,6 +1,6 @@
 {% load static %}
 {#<form action="{% url 'ZenSpelling:vote' question.id %}" method="post">#}
-<form id="myForm" class="modal-main" action="{% url 'ZenSpelling:gamePage' %}" method="get"> <!-- Using this for demo -->
+<form id="myForm" class="modal-main" action="{% url 'ZenSpelling:gamePage' %}" method="get">
 {% csrf_token %}
 <div class="modal-container" id="modal-container">
     <h1 class="question">{{ question.question_text }}</h1>
@@ -9,6 +9,11 @@
         <input class="choice" type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}">
         <label class="option" for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br>
     {% endfor %}
+    {% if show_hint %}
+        <div class="hint">
+            <h1>{{ hint }}</h1>
+        </div>
+    {% endif %}
 </div>
 <div class="submit-container">
     <input class="choice" id="subinput" type="submit" value="Spell!" name="sub" >

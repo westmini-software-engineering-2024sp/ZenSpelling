@@ -14,7 +14,12 @@ class Student(models.Model):
     games_completed = models.IntegerField(default=0)
     streak = models.IntegerField(default=0)
     min_time = models.IntegerField(default=500)
-    medals = models.IntegerField(default=0)
+    time_medal = models.IntegerField(default=0)
+    percent_medal = models.IntegerField(default=0)
+    streak_medal = models.IntegerField(default=0)
+    time_medal_earned = models.BooleanField(default=False)
+    percent_medal_earned = models.BooleanField(default=False)
+    streak_medal_earned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -53,10 +58,11 @@ class Course(models.Model):
 
 
 class Question(models.Model):
-    question_text = models.CharField(max_length=200)
+    question_text = models.CharField(max_length=500)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     times_answered = models.IntegerField(default=0)
     times_correct = models.IntegerField(default=0)
+    hint = models.TextField(null=False, blank=False)
 
     def __str__(self):
         return self.question_text
@@ -116,17 +122,12 @@ class StudentAnalytics(models.Model):
     times_correct = models.IntegerField(default=0)
     hint = models.BooleanField(default=False)
 
-    class Meta:
-        verbose_name = 'Student Analytic'
-
     def __str__(self):
         return self.user.username + " | " + self.question.question_text
-
-    def percent_correct(self):
-        return (self.times_correct / self.times_answered) * 100 if self.times_answered > 0 else "Not yet answered"
 
     def get_most_incorrect(self):
         pass
         # TODO queryset/filter i think
-        # this has to be done somewhere else unfortunately :(
-        # in another view. I think I know how to do it tho
+
+    def percent_correct(self):
+        return self.times_correct/self.times_answered * 100
