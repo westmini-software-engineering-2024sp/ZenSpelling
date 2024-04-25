@@ -107,7 +107,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-//all the medals are not working properly. DO NOT PUT INTO ANY OTHER METHODS!!!!!
 function displayCorrectMedal() {
     let correctAnswers = parseInt(localStorage.getItem('correctAnswers'));
     let totalQuestions = parseInt(localStorage.getItem('gameboardSize'));
