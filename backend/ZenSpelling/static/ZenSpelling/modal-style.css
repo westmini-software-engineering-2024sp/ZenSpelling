@@ -20,6 +20,11 @@
     cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
+.hint{
+    text-align: center;
+    padding:1em;
+}
+
 @keyframes slideDown {
       0% {
         transform: translateY(-100%);

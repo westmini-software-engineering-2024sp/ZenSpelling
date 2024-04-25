@@ -14,6 +14,7 @@
         <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
         <script src={% static 'ZenSpelling/js/complete.js' %}></script>
         <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
+        <script src={% static 'ZenSpelling/js/interact.js' %} defer></script>
     </head>
     <body>
         <header>
@@ -36,11 +37,19 @@
                 <a class="btn" onclick="toProfile(this)">Profile</a>
             </div>
             <div id="saved-garden"></div>
-            <div class="medal-container" onclick="rotateMedal(this)">
-                <div class="front">
-                    <img src="{% static 'ZenSpelling/images/beeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px>
+            <div class="medal-container">
+                <div class = "medal correctMedal">
+                    <div class="front"><img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px></div>
+                    <div class="back"><p id="overlay">You won this medal for a perfect game!</p></div>
                 </div>
-                <div class="back"><p id="overlay">You won this medal for getting all your questions correct!</p></div>
+                <div class = "medal timeMedal">
+                    <div class="front"><img src="{% static 'ZenSpelling/images/timeMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px></div>
+                    <div class="back"><p id="overlay">You won this medal for completing a game in under <span id = "time"></span> seconds!</p></div>
+                </div>
+                <div class = "medal streakMedal">
+                    <div class="front"><img src="{% static 'ZenSpelling/images/streakMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px></div>
+                    <div class="back"><p id="overlay">You won this medal for getting a streak of at least <span id = "number"></span>!</p></div>
+                </div>
             </div>
         </main>
         <div id="twinkling-container">

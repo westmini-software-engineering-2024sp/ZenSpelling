@@ -18,13 +18,13 @@ function closeModal() {
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
     modal = false;
-    setTimeout(function () {
-        gameComplete();
+    setTimeout(function() {
     }, 1000);
 }
 
 // this submits the PK of answer to the server via an ajax call
 function submitAnswer() {
+    let sound;
     let formAnswer = document.getElementById("myForm");
     let index = localStorage.getItem('questionNumber'); // Same as gamePageSketches
 
@@ -86,7 +86,6 @@ function submitAnswer() {
                         tilePlace.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
                     }
 
-                    //for hints, need to send to student and studentAnalytics
                 } else {
                     playSound('wrong-sound').play();
                     onStreak = false;
@@ -101,6 +100,13 @@ function submitAnswer() {
                 setTimeout(function() {
                     closeModal();
                 }, 1000);
+
+                if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
+                    let eventTimestamp = new Date(); //do timestamp
+                    localStorage.setItem('finishTime', eventTimestamp.toString());
+                    //Maybe change this to a button called, complete game that only appears when the game is complete
+                    gameComplete();
+                }
 
             })
             .catch((error) => {
