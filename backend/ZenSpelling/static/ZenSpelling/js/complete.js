@@ -30,7 +30,7 @@ function getTimeSpentDisplay() {
 
     start = start.getTime();
     end = end.getTime();
-    
+
     let totalSeconds = Math.floor((end - start) / 1000);
     let parts = [];
     let minutes = Math.floor(totalSeconds / 60);
@@ -55,7 +55,7 @@ function getTimeSpentSeconds() {
         start = temp;
     }
 
-    return Math.floor(((end-start) % (1000*60*60))/1000);//int as seconds
+    return Math.floor(((end - start) % (1000 * 60 * 60)) / 1000);//int as seconds
 }
 
 function getStreakDisplay() {
@@ -63,28 +63,28 @@ function getStreakDisplay() {
 }
 
 async function sendDataBack() {
-    fetch ('/complete/datatoprofile/', {
+    fetch('/complete/datatoprofile/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': getCookie('csrftoken'),
         },
         body: JSON.stringify({
-                timeSpent: getTimeSpentSeconds(),
-                questionCount: parseInt(localStorage.getItem('gameboardSize')),
-                questionCorrect: parseInt(localStorage.getItem('correctAnswers')),
-                streak: parseInt(localStorage.getItem('streak')),
-                correctMedal: correctMedalEarned,
-                timeMedal: timeMedalEarned,
-                streakMedal: streakMedalEarned
+            timeSpent: getTimeSpentSeconds(),
+            questionCount: parseInt(localStorage.getItem('gameboardSize')),
+            questionCorrect: parseInt(localStorage.getItem('correctAnswers')),
+            streak: parseInt(localStorage.getItem('streak')),
+            correctMedal: correctMedalEarned,
+            timeMedal: timeMedalEarned,
+            streakMedal: streakMedalEarned
         })
     })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.exists) {
                 console.log("Game saved");
@@ -132,12 +132,12 @@ function displayTimeMedal() {
     let start = new Date(localStorage.getItem('startTime'));
     let end = new Date(localStorage.getItem('finishTime'));
     // Get the medal div class
-    let timeMedal = document.getElementsByClassName('correctMedal');
+    let timeMedal = document.getElementsByClassName('timeMedal');
 
     start = start.getTime();
     end = end.getTime();
 
-    let second = Math.floor(((end-start) % (1000*60*60))/1000);
+    let second = Math.floor(((end - start) % (1000 * 60 * 60)) / 1000);
 
     // Check if the user answered all questions correctly
     if (second <= 59 && second !== 0) {
@@ -156,10 +156,12 @@ function displayStreakMedal() {
     let streak = parseInt(localStorage.getItem('streak'));
     let total = localStorage.getItem('gameboardSize');
     // Get the medal div class
-    let streakMedal = document.getElementsByClassName('correctMedal');
+    let streakMedal = document.getElementsByClassName('streakMedal');
+    localStorage.setItem('minStreak', (Math.round((total / 2)).toString()));
+    alert(localStorage.getItem('minStreak'));
 
     // Check if the user answered all questions correctly
-    if (streak >= Math.round((total/2))) {
+    if (streak >= parseInt(localStorage.getItem('minStreak'))) {
         // Show the medal
         for (let i = 0; i < streakMedal.length; i++) {
             streakMedal[i].style.display = 'flex';
@@ -173,7 +175,7 @@ function displayStreakMedal() {
 }
 
 
-function rotateMedal(element){
+function rotateMedal(element) {
     playSound('pop-sound').play();
     if (element.style.transform === 'rotateY(180deg)') {
         element.style.transform = 'rotateY(0deg)';
@@ -183,7 +185,7 @@ function rotateMedal(element){
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('scoreDisplay').textContent = getScore();
     document.getElementById('percentDisplay').textContent = getPercentage();
     document.getElementById('timeSpentDisplay').textContent = getTimeSpentDisplay();
@@ -196,22 +198,39 @@ document.addEventListener('DOMContentLoaded', function() {
     streakMedalEarned = displayStreakMedal();
     console.log("medal 3 check");
 
+    if (correctMedalEarned || timeMedalEarned || streakMedalEarned) {
+        if (streakMedalEarned) {
+            document.getElementById('number').textContent = localStorage.getItem('minStreak');
+        }
+
+        let medals = document.querySelectorAll('.medal');
+        medals.forEach(function (medal) {
+            medal.addEventListener('click', function () {
+                if (medal.style.transform === "rotateY(180deg)") {
+                    medal.style.transform = "rotateY(0deg)";
+                } else {
+                    medal.style.transform = "rotateY(180deg)";
+                }
+            });
+        });
+    }
+
     sendDataBack();
 
     localStorage.clear(); //localstorage is cleared
 });
 
-document.getElementById('medal').addEventListener('click', function() {
-  let overlay = document.getElementById('overlay');
-  if (overlay.style.display === 'block') {
-    overlay.style.display = 'none';
-  } else {
-    overlay.style.display = 'block';
-  }
-  let clickableImage = document.getElementById('medal');
+document.getElementById('medal').addEventListener('click', function () {
+    let overlay = document.getElementById('overlay');
+    if (overlay.style.display === 'block') {
+        overlay.style.display = 'none';
+    } else {
+        overlay.style.display = 'block';
+    }
+    let clickableImage = document.getElementById('medal');
 
-  // Check if the click event target is not the overlay or the clickable image
-  if (event.target !== overlay && event.target !== clickableImage) {
-    overlay.style.display = 'none'; // Hide the overlay
-  }
+    // Check if the click event target is not the overlay or the clickable image
+    if (event.target !== overlay && event.target !== clickableImage) {
+        overlay.style.display = 'none'; // Hide the overlay
+    }
 });
