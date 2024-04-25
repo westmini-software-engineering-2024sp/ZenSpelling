@@ -1,13 +1,34 @@
 function playGame(size) {
     generateQuestion(size);
     generateTileStack(size);
-    generateGameboard(size);
 
-    let currentTimestamp = new Date();
-    localStorage.setItem('startTime', currentTimestamp.toString());
-    localStorage.setItem('finishTime', JSON.stringify(0));
+    setTimeout(() => {
+        generateQuestion(size);
+        generateTileStack(size);
 
-    window.location.href = '/game/'
+        let currentTimestamp = new Date();
+        localStorage.setItem('startTime', currentTimestamp.toString());
+
+        window.location.href = '/game/'
+    }, 100);
+}
+
+
+function seedRandomGenerator() {
+    localStorage.setItem('tileCount', '0');
+    localStorage.setItem('questionCount', '0');
+    fetch('/setup_backend/', {cache: "no-store"})
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('tileCount', data.tile_count);
+            localStorage.setItem('questionCount', data.question_count);
+            //alert("Seeded with tile count: " + data.tile_count + " and question count: " + data.question_count);
+            return true;
+        })
+        .catch(error => {
+            console.error("Failed: ", error);
+            return false;
+        });
 }
 
 /*
@@ -17,12 +38,13 @@ function playGame(size) {
 function generateQuestion(sidelength) {
     let questionArray = [];
     let answerArray = [];
-    let gameboardSize = sidelength * sidelength;
+    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    //var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
 
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
         do {
-            uniqueNumber = Math.floor(Math.random() * gameboardSize) + 1;
+            uniqueNumber = Math.floor(Math.random() * localStorage.getItem('questionCount')) + 1;
         } while (questionArray.includes(uniqueNumber));
         questionArray[i] = uniqueNumber;
     }
@@ -84,6 +106,7 @@ function playSoundAndStartGame(gridSize, id){
     }, 1000);
 }
 
+
 function playSoundAndHighlightQuestionSet(currentSet) {
         playSound('click-sound').play();
         let setList = document.getElementsByClassName('question-set-item');
@@ -92,3 +115,35 @@ function playSoundAndHighlightQuestionSet(currentSet) {
         }
         currentSet.classList.add('clicked');
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    seedRandomGenerator();
+});
+
+// Fetches question-set on associated button press.
+$(document).ready(function(){
+    $(".question-set").click(function(e){
+        e.preventDefault();
+
+        let questionSetId = $(this).data("question-set-id");
+        console.log(questionSetId);
+
+
+        $.ajax({
+            url: '/fetch-question-set/',
+            type: 'GET',
+            data: {
+                'question_set_id': questionSetId
+            },
+            success: function(response){
+                console.log("success: ", response);
+                alert("Successful fetch!");
+            },
+            error: function(error){
+                console.log("error: ", error);
+                alert("Unsuccessful fetch");
+            }
+        });
+    });
+});
