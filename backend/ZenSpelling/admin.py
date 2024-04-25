@@ -35,13 +35,13 @@ class AddQuestionSet(admin.ModelAdmin):
 
 class UserResource(resources.ModelResource):
 
-    def before_import_row(self, row, **kwargs):
-        setattr(row, "username", row['last_name']+row['first_name'])
+    # def before_import(self, dataset, **kwargs):
+    #     setattr(dataset, "username", dataset['last_name']+dataset['first_name'])
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'password', 'email',)
-        import_id_fields = ('first_name',)
+        fields = ('username', 'first_name', 'last_name', 'password', 'email',)
+        import_id_fields = ('username',)
 
 
 class UserAdminCustom(ImportMixin, UserAdmin):
