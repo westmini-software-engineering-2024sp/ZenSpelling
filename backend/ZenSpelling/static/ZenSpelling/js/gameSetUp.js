@@ -33,9 +33,9 @@ function seedRandomGenerator() {
  * In the end, I want this to generate the question array with length gameboardSize
  */
 function generateQuestion(sidelength) {
-    var questionArray = [];
-    var answerArray = [];
-    var gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    let questionArray = [];
+    let answerArray = [];
+    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
     //var gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
 
     for (let i = 0; i < gameboardSize; i++) {
@@ -134,6 +134,8 @@ $(document).ready(function(){
                 'question_set_id': questionSetId
             },
             success: function(response){
+                let questionArray = response.questions; // Adjust this based on your response structure
+                console.log("Questions: ", questionArray);
                 console.log("success: ", response);
                 alert("Successful fetch!");
             },
