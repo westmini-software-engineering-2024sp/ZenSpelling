@@ -131,6 +131,8 @@ function displayCorrectMedal() {
 function displayTimeMedal() {
     let start = new Date(localStorage.getItem('startTime'));
     let end = new Date(localStorage.getItem('finishTime'));
+    let totalQuestions = parseInt(localStorage.getItem('gameboardSize'));
+    let time;
     // Get the medal div class
     let timeMedal = document.getElementsByClassName('timeMedal');
 
@@ -139,8 +141,18 @@ function displayTimeMedal() {
 
     let second = Math.floor(((end - start) % (1000 * 60 * 60)) / 1000);
 
+    if (totalQuestions === 9) {
+        time = 60;
+    } else if ( totalQuestions === 16) {
+        time = 120;
+    } else {
+        time = 180;
+    }
+
+    localStorage.setItem("timeStamp", time.toString());
+
     // Check if the user answered all questions correctly
-    if (second <= 59 && second !== 0) {
+    if (second < time && second !== 0) {
         // Show the medal
         for (let i = 0; i < timeMedal.length; i++) {
             timeMedal[i].style.display = 'flex';
@@ -199,6 +211,9 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("medal 3 check");
 
     if (correctMedalEarned || timeMedalEarned || streakMedalEarned) {
+        if (timeMedalEarned) {
+            document.getElementById('time').textContent = localStorage.getItem("timeStamp");
+        }
         if (streakMedalEarned) {
             document.getElementById('number').textContent = localStorage.getItem('minStreak');
         }

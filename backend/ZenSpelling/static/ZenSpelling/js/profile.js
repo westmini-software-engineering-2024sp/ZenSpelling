@@ -1,9 +1,9 @@
 function testCompletePage() {
     let currentTimestamp = new Date();
     localStorage.setItem('startTime', currentTimestamp.toString());
-    localStorage.setItem('gameboardSize', 9);
-    localStorage.setItem('correctAnswers', 9);
-    localStorage.setItem('streak', 5);
+    localStorage.setItem('gameboardSize', 25);
+    localStorage.setItem('correctAnswers', 13);
+    localStorage.setItem('streak', 13);
 
     setTimeout(() => {
         currentTimestamp = new Date();
