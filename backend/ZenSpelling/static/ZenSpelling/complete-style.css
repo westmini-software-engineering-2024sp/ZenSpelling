@@ -14,6 +14,16 @@
     max-width: 75%;
 }
 
+#save-button{
+    background-color: #10590D;
+    color: white;
+    font-size: 2em;
+    padding:0.5em;
+    width: 50%;
+    border-radius: 2em;
+    text-align: center;
+}
+
 img{
     width: 90%;
 }
@@ -50,7 +60,12 @@ img{
     }
 }
 
-.btn:hover {
+#save-button{
+    border:none;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
+}
+
+.btn:hover, #save-button:hover {
     background-color: #e7c116;
     color: black;
     outline: 0.1em solid black;

@@ -132,6 +132,7 @@ async function gameComplete() {
     }
 }
 
+// html2canvas renders contents of an element and converts it to an img. Hover over .toDataUrl() for more info.
 function saveGardenOnGameComplete() {
     return new Promise((resolve, reject) => {
         let garden = document.getElementById('img-flex-container');

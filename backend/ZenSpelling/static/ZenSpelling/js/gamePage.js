@@ -278,7 +278,6 @@ let TileSketch = function (sketch) {
                 dragging = true;
             }
         }
-        return false;
     }
 
     // Constant recalculation of tile position when dragging.
