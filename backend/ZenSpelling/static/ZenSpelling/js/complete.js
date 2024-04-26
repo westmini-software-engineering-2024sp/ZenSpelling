@@ -185,7 +185,6 @@ function displayStreakMedal() {
     return false;
 }
 
-
 function rotateMedal(element) {
     playSound('pop-sound').play();
     if (element.style.transform === 'rotateY(180deg)') {
@@ -194,7 +193,6 @@ function rotateMedal(element) {
         element.style.transform = 'rotateY(180deg)';
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('scoreDisplay').textContent = getScore();
@@ -267,16 +265,15 @@ function displaySavedGarden() {
 
 function saveGardenToDB(button){
     button.classList.add('pop');
+    setTimeout(() => {
+        button.innerHTML = "Garden Saved!";
+        button.setAttribute('disabled', 'true');
+
+        button.style.backgroundColor = '#e7c116';
+        button.style.color = 'black';
+        button.style.outline = '0.1em solid black';
+
         setTimeout(() => {
-            button.innerHTML = "Garden Saved!";
-            button.setAttribute('disabled', 'true');
-
-            button.style.backgroundColor = '#e7c116';
-            button.style.color = 'black';
-            button.style.outline = '0.1em solid black';
-
-            setTimeout(() => {
-                playSound('happy-sound').play();
-            }, 50); // Play the sound after a slight delay
-        }, 200);
+            playSound('happy-sound').play();}, 50);
+    }, 200);
 }
