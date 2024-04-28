@@ -265,7 +265,6 @@ def update_profile(request):
 
 def generate_questions(request):
     if request.method == 'GET':
-        print("Entering if")
         question_set_id = request.GET.get('question_set_id')
         sidelength = int(request.GET.get('sidelength', 3))  # Default sidelength is 3
         question_set = get_object_or_404(QuestionSet, id=question_set_id)

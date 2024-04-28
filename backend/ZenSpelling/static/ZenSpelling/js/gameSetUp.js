@@ -39,13 +39,19 @@ function generateQuestion(sidelength) {
     let answerArray = [];
     let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
     //let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
+    let questionCount = parseInt(localStorage.getItem('questionCount'));
 
     for (let i = 0; i < gameboardSize; i++) {
-        let uniqueNumber;
-        do {
-            uniqueNumber = Math.floor(Math.random() * localStorage.getItem('questionCount')) + 1;
-        } while (questionArray.includes(uniqueNumber));
-        questionArray[i] = uniqueNumber;
+        let randomNumber;
+
+        if (gameboardSize <= questionCount) {
+            do {
+            randomNumber = Math.floor(Math.random() * questionCount) + 1;
+            } while (questionArray.includes(randomNumber));
+        } else {
+            randomNumber = Math.floor(Math.random() * questionCount) + 1;
+        }
+        questionArray[i] = randomNumber;
     }
 
     localStorage.setItem('boardsize', sidelength); //edge length
