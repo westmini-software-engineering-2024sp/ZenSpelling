@@ -13,26 +13,14 @@ function playGame(size) {
     }, 100);
 }
 
+// This does everything (get the array of questions.id in the question set,
+// do the counts for randomization,
+// do the counts for tiles) in theory
 
-function seedRandomGenerator() {
-    localStorage.setItem('tileCount', '0');
-    localStorage.setItem('questionCount', '0');
-    fetch('/setup_backend/', {cache: "no-store"})
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem('tileCount', data.tile_count);
-            localStorage.setItem('questionCount', data.question_count);
-            return true;
-        })
-        .catch(error => {
-            console.error("Failed: ", error);
-            return false;
-        });
-}
 
 /*
  * This function will generate which question should pop up
- * In the end, I want this to generate the question array with length gameboardSize
+ * This should only be used if the player want to pull from the entire question table and not a question set
  */
 function generateQuestion(sidelength) {
     let questionArray = [];
@@ -96,53 +84,45 @@ function shuffleTileStack(tileStack) {
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
-function playSoundAndStartGame(gridSize, id){
-    id.classList.add("pop");
+function playSoundAndStartGame(gridSize, element){
+    console.log("playSoundAndStartGame is called");
+    const questionSetId = element.getAttribute('data-questionSetId');
+    if (questionSetId === null) {
+        alert("null");
+        return;
+    }
+    console.log(questionSetId);
+
+    fetch(`generate_questions/?question_set_id=${questionSetId}`, {
+        method: 'GET',
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+    element.classList.add("pop");
     playSound('grid-select').play()
     setTimeout(function() {
-        id.classList.remove("pop");
-        playGame(gridSize)
+        element.classList.remove("pop");
+        //playGame(gridSize)
     }, 1000);
 }
 
 
 function playSoundAndHighlightQuestionSet(currentSet) {
-        playSound('click-sound').play();
-        let setList = document.getElementsByClassName('question-set-item');
-        for (let i = 0; i < setList.length; i++) {
-            setList[i].classList.remove('clicked');
-        }
-        currentSet.classList.add('clicked');
+    playSound('click-sound').play();
+    let setList = document.getElementsByClassName('question-set-item');
+    for (let i = 0; i < setList.length; i++) {
+        setList[i].classList.remove('clicked');
+    }
+    currentSet.classList.add('clicked');
 }
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    seedRandomGenerator();
-});
-
-// Fetches question-set on associated button press.
-$(document).ready(function(){
-    $(".question-set").click(function(e){
-        e.preventDefault();
-
-        let questionSetId = $(this).data("question-set-id");
-        console.log(questionSetId);
-
-
-        $.ajax({
-            url: '/fetch-question-set/',
-            type: 'GET',
-            data: {
-                'question_set_id': questionSetId
-            },
-            success: function(response){
-                console.log("success: ", response);
-                alert("Successful fetch!");
-            },
-            error: function(error){
-                console.log("error: ", error);
-                alert("Unsuccessful fetch");
-            }
-        });
-    });
-});

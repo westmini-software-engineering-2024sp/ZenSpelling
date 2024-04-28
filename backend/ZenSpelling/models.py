@@ -97,7 +97,7 @@ class Tile(models.Model):
 class QuestionSet(models.Model):
     name = models.CharField(max_length=200)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    questions = models.ManyToManyField(Question)
+    question = models.ManyToManyField(Question)
 
     @admin.display(
         description='Set of questions to be answered in a level'

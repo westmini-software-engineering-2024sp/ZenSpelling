@@ -127,10 +127,45 @@ def display_question_sets(request):
     return render(request, 'ZenSpelling/gameSetUp.html', {'question_sets': question_sets})
 
 
-def gamepagesetup_counts(request):
-    tile_count = Tile.objects.count()
-    question_count = Question.objects.count()
-    return JsonResponse({'tile_count': tile_count, 'question_count': question_count})
+def generate_questions(request):
+    if request.method == 'GET':
+        print("Generating questions...")
+        if 'question_set_id' in request.GET and request.GET['question_set_id'] is not (None, 'null'): #if the user clicked a questions set
+            print("User selected a question set")
+            question_set_id = request.GET.get('question_set_id')
+            print(question_set_id)
+
+            if not question_set_id:
+                return JsonResponse({'error': 'No question set ID provided.'}, status=400)
+
+            question_set = get_object_or_404(QuestionSet, id=question_set_id) #all questions in the question set
+            questions = question_set.question.all()
+            for question in questions:
+                print(question.id)
+            questions_ids = list(questions.values('id', flat=True))
+
+            tile_count = Tile.objects.count()
+
+            # Prepare the response
+            response_data = {
+                'selectedQuestionSet': True, #check it the user selected a question set
+                'questionCount': questions.count(),
+                'tile_count': tile_count,
+                'questions_ids': questions_ids,
+            }
+            return JsonResponse(response_data)
+
+        else: #the user did not click a question set
+            print("User did not select a question set")
+            tile_count = Tile.objects.count()
+            question_count = Question.objects.count()
+            return JsonResponse({
+                'selectedQuestionSet': False, #user did not select a question set, so normal randomization should happen
+                'tile_count': tile_count,
+                'question_count': question_count
+            })
+    else:
+        return JsonResponse({'error': 'Only GET requests are allowed.'})
 
 
 # question.html form
@@ -261,37 +296,3 @@ def update_profile(request):
             return JsonResponse({'error': 'An error occurred.'}, status=500)
     else:
         return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
-
-
-def generate_questions(request):
-    if request.method == 'GET':
-        question_set_id = request.GET.get('question_set_id')
-        sidelength = int(request.GET.get('sidelength', 3))  # Default sidelength is 3
-        question_set = get_object_or_404(QuestionSet, id=question_set_id)
-        questions = question_set.questions.all()  # Assuming questions is a related_name for the questions in QuestionSet
-        selected_questions = list(questions.values())  # Convert QuerySet to list of dictionaries
-        # You can perform any further processing on selected_questions here, like shuffling
-
-        # Prepare the response
-        response_data = {
-            'questions': questions,
-            'sidelength': sidelength
-        }
-        return JsonResponse(response_data)
-    else:
-        return JsonResponse({'error': 'Only GET requests are allowed.'})
-
-# Fetches question-set list of question id's.
-def fetch_question_set(request):
-    if request.method == 'GET' and 'question_set_id' in request.GET:
-        question_set_id = request.GET.get('question_set_id')
-        try:
-            question_set = QuestionSet.objects.get(id=question_set_id)
-            data = {
-                'questions': list(question_set.questions.values('id'))
-            }
-            return JsonResponse(data)
-        except QuestionSet.DoesNotExist:
-            return JsonResponse({'error': 'Question set not found'}, status=404)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=400)

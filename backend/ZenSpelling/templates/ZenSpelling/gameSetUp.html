@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Setup</title>
+        <script src={% static 'Resources/jquery3.7.1.js' %}></script>
         <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
         <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
         <script src={% static 'ZenSpelling/js/gameSetUp.js' %}></script>
@@ -27,8 +28,9 @@
         <main>
             <h1>Choose Board Size and Question Set</h1>
             <div class="question-set-container">
-                <ul class = "question-set-list">{% for question_set in question_sets %}
-                    <li class = "question-set-item" onclick="playSoundAndHighlightQuestionSet(this)">{{ question_set.name }}</li>
+                <ul class = "question-set-list">
+                    {% for question_set in question_sets %}
+                        <button class = "question-set-item" data-questionSetId="{{ question_set.id }}" onclick="playSoundAndHighlightQuestionSet(this)">{{ question_set.name }}</button>
                     {% endfor %}
                 </ul>
             </div>
