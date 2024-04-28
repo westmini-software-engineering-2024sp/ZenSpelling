@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from .models import Answer, Question, Student, Course, Tile, QuestionSet, StudentAnalytics
+from .models import Answer, Question, Student, Course, Tile, QuestionSet, StudentAnalytics, Garden
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -92,6 +92,10 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
 
     def get_queryset(self):
         return Student.objects.filter(user=self.request.user)
+
+    def gardens(self):
+        print(Student.objects.filter(user=self.request.user).gardens.all())
+        return Student.objects.filter(user=self.request.user).gardens.all()
 
 
 def vote(request, question_id):

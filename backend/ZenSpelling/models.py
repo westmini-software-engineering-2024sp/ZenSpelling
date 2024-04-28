@@ -6,6 +6,17 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+class Garden(models.Model):
+    path = models.CharField(max_length=200)  # TODO save the images with a name and date and store it here
+    garden = models.ImageField(upload_to='ZenSpelling/static/ZenSpelling/images/gardens/')
+
+    def get_image(self):
+        return self.path
+
+    def __str__(self):
+        return self.path[46:]
+
+
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     time_spent = models.DecimalField(max_digits=16, decimal_places=0, default=0)
@@ -20,6 +31,7 @@ class Student(models.Model):
     time_medal_earned = models.BooleanField(default=False)
     percent_medal_earned = models.BooleanField(default=False)
     streak_medal_earned = models.BooleanField(default=False)
+    gardens = models.ManyToManyField(Garden)
 
     def __str__(self):
         return self.user.username

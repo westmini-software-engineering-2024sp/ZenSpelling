@@ -89,6 +89,11 @@
         </div>
         <div class = "block">
             <h2>Saved Gardens</h2>
+            <ul>
+                {% for garden in gardens %}
+                    <li><img alt="{{ student.user.username }}'s Garden" src="{% static garden.path %}"></li>
+                {% endfor %}
+            </ul>
         </div>
     </main>
     <div id="twinkling-container">
