@@ -87,6 +87,7 @@ function setUpGame(sidelength) {
     console.log("Tile stack looks like: " + tilesString);
 
     generateTileStack();
+    alert("check the console log");
     startGame();
 }
 
