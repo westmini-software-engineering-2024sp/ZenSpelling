@@ -84,14 +84,16 @@ function shuffleTileStack(tileStack) {
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
-function playSoundAndStartGame(gridSize, element){
+function playSoundAndStartGame(gridSize){
     console.log("playSoundAndStartGame is called");
-    const questionSetId = element.getAttribute('data-questionSetId');
+    const questionSetId = localStorage.getItem('questionSetId')
+    console.log("playSoundAndStartGame: " + questionSetId);
+    localStorage.removeItem('questionSetId');
+
     if (questionSetId === null) {
         alert("null");
         return;
     }
-    console.log(questionSetId);
 
     fetch(`generate_questions/?question_set_id=${questionSetId}`, {
         method: 'GET',
@@ -119,6 +121,10 @@ function playSoundAndStartGame(gridSize, element){
 
 
 function playSoundAndHighlightQuestionSet(currentSet) {
+    const questionSetId = currentSet.getAttribute('data-questionSetId');
+    //console.log(questionSetId);
+    localStorage.setItem('questionSetId', questionSetId);
+
     playSound('click-sound').play();
     let setList = document.getElementsByClassName('question-set-item');
     for (let i = 0; i < setList.length; i++) {

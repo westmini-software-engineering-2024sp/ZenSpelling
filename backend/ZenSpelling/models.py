@@ -109,7 +109,7 @@ class QuestionSet(models.Model):
     def add_to_main_question_set(sender, instance, created, **kwargs):
         if created:
             main_question_set = QuestionSet.objects.get(name='Random')
-            main_question_set.questions.add(instance)
+            main_question_set.question.add(instance)
             main_question_set.save()
 
 
