@@ -6,7 +6,7 @@ let imageData = localStorage.getItem('savedGarden');
 
 //This function returns the student's score as a string
 function getScore() {
-    let correct = localStorage.getItem('correctAnswers'); //use this if you need to get the score as a string
+    let correct = localStorage.getItem('correctAnswers');
     let total = localStorage.getItem('gameboardSize');
     return correct + "/" + total;
 }
@@ -40,7 +40,7 @@ function getTimeSpentDisplay() {
     if (minutes > 0) parts.push(`${minutes} minute${minutes > 1 ? 's' : ''}`);
     if (remainingSeconds > 0 || parts.length === 0) parts.push(`${remainingSeconds} second${remainingSeconds > 1 ? 's' : ''}`);
 
-    return parts.join(' and '); //use this if you need to get the time as a string
+    return parts.join(' and ');
 }
 
 function getTimeSpentSeconds() {
@@ -56,11 +56,11 @@ function getTimeSpentSeconds() {
         start = temp;
     }
 
-    return Math.floor(((end - start) % (1000 * 60 * 60)) / 1000);//int as seconds
+    return Math.floor(((end - start) % (1000 * 60 * 60)) / 1000);
 }
 
 function getStreakDisplay() {
-    return localStorage.getItem('streak'); //This is as a string, you can use parseInt() to make it an int
+    return localStorage.getItem('streak');
 }
 
 async function sendDataBack() {
@@ -111,19 +111,15 @@ function getCookie(name) {
 function displayCorrectMedal() {
     let correctAnswers = parseInt(localStorage.getItem('correctAnswers'));
     let totalQuestions = parseInt(localStorage.getItem('gameboardSize'));
-    // Get the medal div class
     let correctMedal = document.getElementsByClassName('correctMedal');
 
-    // Check if the user answered all questions correctly
     if (correctAnswers === totalQuestions) {
-        // Show the medal
         for (let i = 0; i < correctMedal.length; i++) {
             correctMedal[i].style.display = 'flex';
         }
         console.log("correct medal earned");
         return true;
     } else {
-        // default the medal is not displayed
         return false;
     }
 }
@@ -133,7 +129,6 @@ function displayTimeMedal() {
     let end = new Date(localStorage.getItem('finishTime'));
     let totalQuestions = parseInt(localStorage.getItem('gameboardSize'));
     let time;
-    // Get the medal div class
     let timeMedal = document.getElementsByClassName('timeMedal');
 
     start = start.getTime();
@@ -151,9 +146,7 @@ function displayTimeMedal() {
 
     localStorage.setItem("timeStamp", time.toString());
 
-    // Check if the user answered all questions correctly
     if (second < time && second !== 0) {
-        // Show the medal
         for (let i = 0; i < timeMedal.length; i++) {
             timeMedal[i].style.display = 'flex';
         }
@@ -167,14 +160,11 @@ function displayTimeMedal() {
 function displayStreakMedal() {
     let streak = parseInt(localStorage.getItem('streak'));
     let total = localStorage.getItem('gameboardSize');
-    // Get the medal div class
     let streakMedal = document.getElementsByClassName('streakMedal');
     localStorage.setItem('minStreak', (Math.round((total / 2)).toString()));
     //alert(localStorage.getItem('minStreak'));
 
-    // Check if the user answered all questions correctly
     if (streak >= parseInt(localStorage.getItem('minStreak'))) {
-        // Show the medal
         for (let i = 0; i < streakMedal.length; i++) {
             streakMedal[i].style.display = 'flex';
         }
@@ -231,8 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
     sendDataBack();
     displaySavedGarden();
 
-    localStorage.clear(); //localstorage is cleared
-
+    localStorage.clear();
 });
 
 document.getElementById('medal').addEventListener('click', function () {

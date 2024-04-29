@@ -124,14 +124,12 @@ class QuestionSet(models.Model):
     def __str__(self):
         return self.name
 
-    """
     @receiver(post_save, sender=Question)
     def add_to_main_question_set(sender, instance, created, **kwargs):
         if created:
-            main_question_set, _ = QuestionSet.objects.get_or_create(name='Main')
+            main_question_set = QuestionSet.objects.get(name='Random')
             main_question_set.questions.add(instance)
             main_question_set.save()
-            """
 
 
 class StudentAnalytics(models.Model):
@@ -140,6 +138,9 @@ class StudentAnalytics(models.Model):
     times_answered = models.IntegerField(default=0)
     times_correct = models.IntegerField(default=0)
     hint = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = 'Student Analytics'
 
     def __str__(self):
         return self.user.username + " | " + self.question.question_text

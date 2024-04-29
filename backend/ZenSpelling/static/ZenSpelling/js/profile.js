@@ -2,7 +2,7 @@ function testCompletePage() {
     let currentTimestamp = new Date();
     localStorage.setItem('startTime', currentTimestamp.toString());
     localStorage.setItem('gameboardSize', 25);
-    localStorage.setItem('correctAnswers', 13);
+    localStorage.setItem('correctAnswers', 25);
     localStorage.setItem('streak', 13);
 
     setTimeout(() => {
@@ -14,7 +14,6 @@ function testCompletePage() {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Function to format seconds into hours, minutes, and seconds dynamically
     function formatTimeWithHours(seconds) {
         let parts = [];
         let hours = Math.floor(seconds / 3600);
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return parts.join(', ');
     }
 
-    // Function to format seconds into minutes and seconds dynamically
     function formatTime(seconds) {
         let parts = [];
         let minutes = Math.floor(seconds / 60);
@@ -44,10 +42,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let timeSpentElement = document.getElementById('timeSpent');
     let fastestGameElement = document.getElementById('fastestGame');
 
-    // Function to extract numbers from text
     function extractSeconds(text) {
-        let parts = text.match(/(\d+)/); // Use regex to find the first number
-        return parts ? parseInt(parts[0]) : 0; // Return the number or 0 if not found
+        let parts = text.match(/(\d+)/);
+        return parts ? parseInt(parts[0]) : 0;
     }
 
     let timeSpentSeconds = extractSeconds(timeSpentElement.textContent);

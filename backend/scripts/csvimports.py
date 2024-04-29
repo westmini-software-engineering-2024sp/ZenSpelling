@@ -38,7 +38,6 @@ def user_import():
 
 
 def question_import():
-    question_list = []
     with open("./ZenSpelling/static/ZenSpelling/csv/question.csv", mode='r', encoding='utf-8-sig') as file:
         for row in csv.reader(file):
             result, created = Question.objects.update_or_create(
@@ -48,9 +47,7 @@ def question_import():
                 times_correct=row[3],
                 hint=row[4],
             )
-            question_list.append(result)
             print(created)
-    return question_list
 
 
 def tile_import():
@@ -65,15 +62,14 @@ def tile_import():
 def run():
     user_import()
     course_import()
-    question_list = question_import()
-    answer_import()
-    tile_import()
-
     result, created = QuestionSet.objects.get_or_create(
         name="Random",
         course=Course.objects.get(name="Software Engineering"),
     )
-    result.questions.set(question_list)
+    question_import()
+    answer_import()
+    tile_import()
+
     print(created)
 
     print("Done")

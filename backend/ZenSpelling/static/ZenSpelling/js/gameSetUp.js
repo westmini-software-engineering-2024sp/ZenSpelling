@@ -22,7 +22,6 @@ function seedRandomGenerator() {
         .then(data => {
             localStorage.setItem('tileCount', data.tile_count);
             localStorage.setItem('questionCount', data.question_count);
-            //alert("Seeded with tile count: " + data.tile_count + " and question count: " + data.question_count);
             return true;
         })
         .catch(error => {
@@ -38,8 +37,9 @@ function seedRandomGenerator() {
 function generateQuestion(sidelength) {
     let questionArray = [];
     let answerArray = [];
-    // let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
-    let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
+
+    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    //let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
 
     for (let i = 0; i < gameboardSize; i++) {
         let uniqueNumber;
@@ -83,18 +83,12 @@ function generateTileStack() {
 
 // Fisher-Yates shuffle algorithm to randomize tiles.
 function shuffleTileStack(tileStack) {
-    // let tileStack = JSON.parse(localStorage.getItem('tileBank'));
-    //console.log(tileStack.length);
     for (let i = tileStack.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [tileStack[i], tileStack[j]] = [tileStack[j], tileStack[i]];
     }
 
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
-}
-
-function generateGameboard(size) {
-    let gameboardSize = size * size;
 }
 
 function playSoundAndStartGame(gridSize, id){
