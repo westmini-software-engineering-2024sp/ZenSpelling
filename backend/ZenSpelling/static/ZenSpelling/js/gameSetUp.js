@@ -1,48 +1,10 @@
-function playGame(size) {
-    generateQuestion(size);
-    generateTileStack(size);
-
+function startGame(size) {
     setTimeout(() => {
-        generateQuestion(size);
-        generateTileStack(size);
-
         let currentTimestamp = new Date();
         localStorage.setItem('startTime', currentTimestamp.toString());
 
         window.location.href = '/game/'
     }, 100);
-}
-
-/*
- * This function will generate which question should pop up
- * This should only be used if the player want to pull from the entire question table and not a question set
- */
-function generateQuestion(sidelength) {
-    let questionArray = [];
-    let answerArray = [];
-    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
-    //let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
-    let questionCount = parseInt(localStorage.getItem('questionCount'));
-
-    for (let i = 0; i < gameboardSize; i++) {
-        let randomNumber;
-
-        if (gameboardSize <= questionCount) {
-            do {
-            randomNumber = Math.floor(Math.random() * questionCount) + 1;
-            } while (questionArray.includes(randomNumber));
-        } else {
-            randomNumber = Math.floor(Math.random() * questionCount) + 1;
-        }
-        questionArray[i] = randomNumber;
-    }
-
-    localStorage.setItem('boardsize', sidelength); //edge length
-    localStorage.setItem('gameboardSize', JSON.stringify(gameboardSize)); //how many tiles
-    localStorage.setItem('questionBank', JSON.stringify(questionArray));
-    localStorage.setItem('answerBank', JSON.stringify(answerArray));
-    localStorage.setItem('questionNumber', JSON.stringify(0));
-    localStorage.setItem('correctAnswers', JSON.stringify(0));
 }
 
 /* Fetch tilepath endpoints and load them in a stack.
@@ -117,16 +79,15 @@ function setUpGame(sidelength) {
     localStorage.setItem('gameboardSize', JSON.stringify(gameboardSize)); //how many tiles
     localStorage.setItem('questionBank', JSON.stringify(questionArray));
     localStorage.setItem('answerBank', JSON.stringify(answerArray));
-    localStorage.setItem('tileBank', JSON.stringify(tileStack));
+    //localStorage.setItem('tileBank', JSON.stringify(tileStack));
     localStorage.setItem('questionNumber', JSON.stringify(0));
     localStorage.setItem('correctAnswers', JSON.stringify(0));
 
     console.log("Question array looks like: " + questionsString);
     console.log("Tile stack looks like: " + tilesString);
 
-    let currentTimestamp = new Date();
-    localStorage.setItem('startTime', currentTimestamp.toString());
-    //window.location.href = '/game/'
+    generateTileStack();
+    startGame();
 }
 
 function playSoundAndStartGame(gridSize, element) {
