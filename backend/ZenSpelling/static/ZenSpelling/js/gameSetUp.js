@@ -50,12 +50,14 @@ function setUpGame(sidelength) {
     let tileStack = [];
     let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
     //let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
-    let questionsString = ""; //for testing
-    let tilesString = ""; //for testing
+    //let questionsString = ""; //for testing
+    //let tilesString = ""; //for testing
 
     let questionCount = parseInt(localStorage.getItem('questionCount'));
-    let tileCount = parseInt(localStorage.getItem('tileCount'));
-    let tilePaths = localStorage.getItem('tileArray');
+    //let tileCount = parseInt(localStorage.getItem('tileCount'));
+    let questionArrayOriginal = JSON.parse(localStorage.getItem('questionArray'));
+
+    //let tilePaths = localStorage.getItem('tileArray');
 
     for (let i = 0; i < gameboardSize; i++) {
         let randomNumber;
@@ -67,12 +69,12 @@ function setUpGame(sidelength) {
         } else {
             randomNumber = Math.floor(Math.random() * questionCount) + 1;
         }
-        questionArray[i] = randomNumber;
-        questionsString = questionsString + randomNumber.toString() + " "; //for testing
+        //questionsString = questionsString + randomNumber + " "; //for testing
+        questionArray[i] = questionArrayOriginal[randomNumber-1];
 
-        randomNumber = Math.floor(Math.random() * tileCount) + 1;
-        tileStack[i] = tilePaths[randomNumber];
-        tilesString = tilesString + randomNumber.toString() + " "; //for testing
+        //randomNumber = Math.floor(Math.random() * tileCount) + 1;
+        //tileStack[i] = tilePaths[randomNumber];
+        //tilesString = tilesString + randomNumber.toString() + " "; //for testing
     }
 
     localStorage.setItem('boardsize', sidelength); //edge length
@@ -83,11 +85,12 @@ function setUpGame(sidelength) {
     localStorage.setItem('questionNumber', JSON.stringify(0));
     localStorage.setItem('correctAnswers', JSON.stringify(0));
 
-    console.log("Question array looks like: " + questionsString);
-    console.log("Tile stack looks like: " + tilesString);
+    //console.log("Question string looks like: " + questionsString);
+    //console.log("Question array looks like: " + questionArray);
+    //console.log("Tile stack looks like: " + tilesString);
 
     generateTileStack();
-    alert("check the console log");
+    //alert("check the console log");
     startGame();
 }
 
@@ -110,9 +113,9 @@ function playSoundAndStartGame(gridSize, element) {
         })
         .then(data => {
             localStorage.setItem('questionCount', data.question_count);
-            localStorage.setItem('questionArray',data.questions_ids);
+            localStorage.setItem('questionArray',JSON.stringify(data.questions_ids));
             localStorage.setItem('tileCount', data.tile_count);
-            localStorage.setItem('tileArray', data.tile_paths);
+            localStorage.setItem('tileArray', JSON.stringify(data.tile_paths));
             setUpGame(gridSize);
         })
         .catch(error => {
