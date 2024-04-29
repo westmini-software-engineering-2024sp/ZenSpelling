@@ -23,7 +23,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 class AddQuestionSet(admin.ModelAdmin):
     fieldsets = [
-        (None, {"fields": [("name", "course"), "questions"]})
+        (None, {"fields": [("name", "course"), "question"]})
     ]
     list_display = ["name"]
     search_fields = ["name"]
