@@ -13,11 +13,6 @@ function playGame(size) {
     }, 100);
 }
 
-// This does everything (get the array of questions.id in the question set,
-// do the counts for randomization,
-// do the counts for tiles) in theory
-
-
 /*
  * This function will generate which question should pop up
  * This should only be used if the player want to pull from the entire question table and not a question set
@@ -84,13 +79,63 @@ function shuffleTileStack(tileStack) {
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
+// This does everything (get the array of questions.id in the question set,
+// do the counts for randomization,
+// do the counts for tiles) in theory
+function setUpGame(sidelength) {
+    let questionArray = [];
+    let answerArray = [];
+    let tileStack = [];
+    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    //let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
+    let questionsString = ""; //for testing
+    let tilesString = ""; //for testing
+
+    let questionCount = parseInt(localStorage.getItem('questionCount'));
+    let tileCount = parseInt(localStorage.getItem('tileCount'));
+    let tilePaths = localStorage.getItem('tileArray');
+
+    for (let i = 0; i < gameboardSize; i++) {
+        let randomNumber;
+
+        if (gameboardSize <= questionCount) { //randomizing questions
+            do {
+                randomNumber = Math.floor(Math.random() * questionCount) + 1;
+            } while (questionArray.includes(randomNumber));
+        } else {
+            randomNumber = Math.floor(Math.random() * questionCount) + 1;
+        }
+        questionArray[i] = randomNumber;
+        questionsString = questionsString + randomNumber.toString() + " "; //for testing
+
+        randomNumber = Math.floor(Math.random() * tileCount) + 1;
+        tileStack[i] = tilePaths[randomNumber];
+        tilesString = tilesString + randomNumber.toString() + " "; //for testing
+    }
+
+    localStorage.setItem('boardsize', sidelength); //edge length
+    localStorage.setItem('gameboardSize', JSON.stringify(gameboardSize)); //how many tiles
+    localStorage.setItem('questionBank', JSON.stringify(questionArray));
+    localStorage.setItem('answerBank', JSON.stringify(answerArray));
+    localStorage.setItem('tileBank', JSON.stringify(tileStack));
+    localStorage.setItem('questionNumber', JSON.stringify(0));
+    localStorage.setItem('correctAnswers', JSON.stringify(0));
+
+    console.log("Question array looks like: " + questionsString);
+    console.log("Tile stack looks like: " + tilesString);
+
+    let currentTimestamp = new Date();
+    localStorage.setItem('startTime', currentTimestamp.toString());
+    //window.location.href = '/game/'
+}
+
 function playSoundAndStartGame(gridSize, element) {
     let questionSetId = localStorage.getItem('questionSetId')
     localStorage.removeItem('questionSetId');
     if (questionSetId === null) {
-        questionSetId = '1';
+        questionSetId = '1'; //do the random question set
     }
-    console.log(questionSetId);
+    //console.log(questionSetId);
 
     fetch(`generate_questions/?question_set_id=${questionSetId}`, {
         method: 'GET',
@@ -102,9 +147,11 @@ function playSoundAndStartGame(gridSize, element) {
             return response.json();
         })
         .then(data => {
-            console.log('Number of questions:', data.questionCount);
-            console.log('Tile count:', data.tile_count);
-            console.log('Question IDs:', data.questions_ids);
+            localStorage.setItem('questionCount', data.question_count);
+            localStorage.setItem('questionArray',data.questions_ids);
+            localStorage.setItem('tileCount', data.tile_count);
+            localStorage.setItem('tileArray', data.tile_paths);
+            setUpGame(gridSize);
         })
         .catch(error => {
             console.error('Error:', error);

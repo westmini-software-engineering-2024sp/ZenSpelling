@@ -128,7 +128,6 @@ def display_question_sets(request):
 
 
 def generate_questions(request):
-    print("hello")
     if request.method == 'GET':
         questionSetId = request.GET.get('question_set_id')
         print(questionSetId)
@@ -140,11 +139,13 @@ def generate_questions(request):
         questions_ids = list(questions.values_list('id', flat=True))
 
         tile_count = Tile.objects.count()
+        file_paths = list(Tile.objects.values_list('path', flat=True))
 
         response_data = {
-            'questionCount': questions.count(),
+            'question_count': questions.count(),
             'tile_count': tile_count,
             'questions_ids': questions_ids,
+            'tile_paths': file_paths,
         }
         return JsonResponse(response_data)
     else:
