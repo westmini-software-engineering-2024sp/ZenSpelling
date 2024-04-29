@@ -6,15 +6,15 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class Garden(models.Model):
-    path = models.CharField(max_length=200)  # TODO save the images with a name and date and store it here
-    garden = models.ImageField(upload_to='ZenSpelling/static/ZenSpelling/images/gardens/')
-
-    def get_image(self):
-        return self.path
-
-    def __str__(self):
-        return self.path[46:]
+# class Garden(models.Model):
+#     path = models.CharField(max_length=200)  # TODO save the images with a name and date and store it here
+#     garden = models.ImageField(upload_to='ZenSpelling/static/ZenSpelling/images/gardens/')
+#
+#     def get_image(self):
+#         return self.path
+#
+#     def __str__(self):
+#         return self.path[46:]
 
 
 class Student(models.Model):
@@ -31,7 +31,6 @@ class Student(models.Model):
     time_medal_earned = models.BooleanField(default=False)
     percent_medal_earned = models.BooleanField(default=False)
     streak_medal_earned = models.BooleanField(default=False)
-    gardens = models.ManyToManyField(Garden)
 
     def __str__(self):
         return self.user.username
@@ -59,6 +58,14 @@ class Student(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.student.save()
+
+
+class Garden(models.Model):
+    garden = models.BinaryField()
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='gardens')
+
+    def get_image(self):
+        return self.garden
 
 
 class Course(models.Model):
@@ -142,4 +149,4 @@ class StudentAnalytics(models.Model):
         # TODO queryset/filter i think
 
     def percent_correct(self):
-        return self.times_correct/self.times_answered * 100
+        return self.times_correct / self.times_answered * 100

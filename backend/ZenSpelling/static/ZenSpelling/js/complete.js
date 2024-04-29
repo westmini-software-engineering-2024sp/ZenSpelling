@@ -1,6 +1,7 @@
 let correctMedalEarned = false;
 let timeMedalEarned = false;
 let streakMedalEarned = false;
+let imageData = localStorage.getItem('savedGarden');
 
 
 //This function returns the student's score as a string
@@ -250,13 +251,11 @@ document.getElementById('medal').addEventListener('click', function () {
 });
 
 function displaySavedGarden() {
-    let savedGarden = localStorage.getItem("savedGarden");
-
-    if (savedGarden) {
+    if (imageData) {
         let img = document.createElement("img");
         let parent = document.getElementById("saved-garden");
 
-        img.src = savedGarden;
+        img.src = imageData;
         parent.appendChild(img);
     } else {
         alert("No saved garden found!");
@@ -264,6 +263,26 @@ function displaySavedGarden() {
 }
 
 function saveGardenToDB(button){
+    // TODO : Unable to figure this out in time for R3.
+    // if (imageData) {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/save-garden/",
+    //         data: {
+    //             image_data: imageData,
+    //             csrfmiddlewaretoken: getCookie('csrftoken')
+    //         },
+    //         success: function(response) {
+    //             alert("Image saved successfully!");
+    //         },
+    //         error: function(xhr, status, error) {
+    //             alert("Error saving image: " + error);
+    //         }
+    //     });
+    // } else {
+    //     alert("No image data found in localStorage.");
+    // }
+
     button.classList.add('pop');
     setTimeout(() => {
         button.innerHTML = "Garden Saved!";

@@ -54,7 +54,8 @@
                         {% endif %}
                         <p>{{ student.percent_medal }}</p>
                     {% else %}
-                        <img src="{% static 'ZenSpelling/images/correctMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                        <img src="{% static 'ZenSpelling/images/correctMedalGrey.png' %}" alt = "Missing medal" id="first" width = 150px height = 150px>
+                        <p>{{ student.percent_medal }}</p>
                     {% endif %}
                 </li>
                 <li>
@@ -68,7 +69,8 @@
                         {% endif %}
                         <p>{{ student.time_medal }}</p>
                     {% else %}
-                        <img src="{% static 'ZenSpelling/images/timeMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                        <img src="{% static 'ZenSpelling/images/timeMedalGrey.png' %}" alt = "Missing medal" id="first" width = 150px height = 150px>
+                        <p>{{ student.time_medal }}</p>
                     {% endif %}
                 </li>
                 <li>
@@ -82,18 +84,19 @@
                         {% endif %}
                         <p>{{ student.streak_medal }}</p>
                     {% else %}
-                        <img src="{% static 'ZenSpelling/images/streakMedalGrey.png' %}" alt = "Missing medal" width = 150px height = 150px>
+                        <img src="{% static 'ZenSpelling/images/streakMedalGrey.png' %}" alt = "Missing medal" id="first" width = 150px height = 150px>
+                        <p>{{ student.streak_medal }}</p>
                     {% endif %}
                 </li>
             </ul>
         </div>
         <div class = "block">
             <h2>Saved Gardens</h2>
-            <ul>
-                {% for garden in gardens %}
-                    <li><img alt="{{ student.user.username }}'s Garden" src="{% static garden.path %}"></li>
-                {% endfor %}
-            </ul>
+{#            <ul>#}
+{#                {% for garden in gardens %}#}
+{#                    <li><img alt="{{ student.user.username }}'s Garden" src="{{ garden.garden.url }}"></li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
         </div>
     </main>
     <div id="twinkling-container">
