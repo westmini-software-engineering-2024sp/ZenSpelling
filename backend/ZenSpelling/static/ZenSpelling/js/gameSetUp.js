@@ -84,32 +84,31 @@ function shuffleTileStack(tileStack) {
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
-function playSoundAndStartGame(gridSize){
-    console.log("playSoundAndStartGame is called");
-    const questionSetId = localStorage.getItem('questionSetId')
-    console.log("playSoundAndStartGame: " + questionSetId);
+function playSoundAndStartGame(gridSize, element) {
+    let questionSetId = localStorage.getItem('questionSetId')
     localStorage.removeItem('questionSetId');
-
     if (questionSetId === null) {
-        alert("null");
-        return;
+        questionSetId = '1';
     }
+    console.log(questionSetId);
 
     fetch(`generate_questions/?question_set_id=${questionSetId}`, {
         method: 'GET',
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Number of questions:', data.questionCount);
+            console.log('Tile count:', data.tile_count);
+            console.log('Question IDs:', data.questions_ids);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
     element.classList.add("pop");
     playSound('grid-select').play()

@@ -128,44 +128,27 @@ def display_question_sets(request):
 
 
 def generate_questions(request):
+    print("hello")
     if request.method == 'GET':
-        print("Generating questions...")
-        if 'question_set_id' in request.GET and request.GET['question_set_id'] is not (None, 'null'): #if the user clicked a questions set
-            print("User selected a question set")
-            question_set_id = request.GET.get('question_set_id')
-            print(question_set_id)
+        questionSetId = request.GET.get('question_set_id')
+        print(questionSetId)
+        if questionSetId is None:
+            return JsonResponse({'error': 'Missing questionSetId'}, status=400)
 
-            if not question_set_id:
-                return JsonResponse({'error': 'No question set ID provided.'}, status=400)
+        question_set = get_object_or_404(QuestionSet, id=questionSetId)
+        questions = question_set.question.all()
+        questions_ids = list(questions.values_list('id', flat=True))
 
-            question_set = get_object_or_404(QuestionSet, id=question_set_id) #all questions in the question set
-            questions = question_set.question.all()
-            for question in questions:
-                print(question.id)
-            questions_ids = list(questions.values('id', flat=True))
+        tile_count = Tile.objects.count()
 
-            tile_count = Tile.objects.count()
-
-            # Prepare the response
-            response_data = {
-                'selectedQuestionSet': True, #check it the user selected a question set
-                'questionCount': questions.count(),
-                'tile_count': tile_count,
-                'questions_ids': questions_ids,
-            }
-            return JsonResponse(response_data)
-
-        else: #the user did not click a question set
-            print("User did not select a question set")
-            tile_count = Tile.objects.count()
-            question_count = Question.objects.count()
-            return JsonResponse({
-                'selectedQuestionSet': False, #user did not select a question set, so normal randomization should happen
-                'tile_count': tile_count,
-                'question_count': question_count
-            })
+        response_data = {
+            'questionCount': questions.count(),
+            'tile_count': tile_count,
+            'questions_ids': questions_ids,
+        }
+        return JsonResponse(response_data)
     else:
-        return JsonResponse({'error': 'Only GET requests are allowed.'})
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
 # question.html form
