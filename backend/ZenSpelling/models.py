@@ -120,6 +120,9 @@ class StudentAnalytics(models.Model):
     times_correct = models.IntegerField(default=0)
     hint = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = 'Student Analytics'
+
     def __str__(self):
         return self.user.username + " | " + self.question.question_text
 
