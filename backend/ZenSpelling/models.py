@@ -116,7 +116,7 @@ class Tile(models.Model):
 class QuestionSet(models.Model):
     name = models.CharField(max_length=200)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    questions = models.ManyToManyField(Question)
+    question = models.ManyToManyField(Question)
 
     @admin.display(
         description='Set of questions to be answered in a level'
@@ -128,7 +128,7 @@ class QuestionSet(models.Model):
     def add_to_main_question_set(sender, instance, created, **kwargs):
         if created:
             main_question_set = QuestionSet.objects.get(name='Random')
-            main_question_set.questions.add(instance)
+            main_question_set.question.add(instance)
             main_question_set.save()
 
 

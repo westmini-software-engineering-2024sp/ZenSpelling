@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
-
 from .models import Answer, Question, Student, Course, Tile, QuestionSet, StudentAnalytics, Garden
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
@@ -31,7 +30,7 @@ class DetailView(generic.DetailView):
         context["question"] = question
         context["hint"] = question.hint
 
-        # check if the row exists
+        #check if the row exists
         if StudentAnalytics.objects.filter(user=user, question=question).exists():
             analytic = StudentAnalytics.objects.get(user=user, question=question)
             context['show_hint'] = analytic.hint
@@ -135,10 +134,29 @@ def display_question_sets(request):
     return render(request, 'ZenSpelling/gameSetUp.html', {'question_sets': question_sets})
 
 
-def gamepagesetup_counts(request):
-    tile_count = Tile.objects.count()
-    question_count = Question.objects.count()
-    return JsonResponse({'tile_count': tile_count, 'question_count': question_count})
+def generate_questions(request):
+    if request.method == 'GET':
+        questionSetId = request.GET.get('question_set_id')
+        print(questionSetId)
+        if questionSetId is None:
+            return JsonResponse({'error': 'Missing questionSetId'}, status=400)
+
+        question_set = get_object_or_404(QuestionSet, id=questionSetId)
+        questions = question_set.question.all()
+        questions_ids = list(questions.values_list('id', flat=True))
+
+        tile_count = Tile.objects.count()
+        file_paths = list(Tile.objects.values_list('path', flat=True))
+
+        response_data = {
+            'question_count': questions.count(),
+            'tile_count': tile_count,
+            'questions_ids': questions_ids,
+            'tile_paths': file_paths,
+        }
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
 # question.html form
@@ -273,42 +291,7 @@ def update_profile(request):
         return JsonResponse({'error': 'This endpoint only supports POST requests.'}, status=405)
 
 
-def generate_questions(request):
-    if request.method == 'GET':
-        print("Entering if")
-        question_set_id = request.GET.get('question_set_id')
-        sidelength = int(request.GET.get('sidelength', 3))  # Default sidelength is 3
-        question_set = get_object_or_404(QuestionSet, id=question_set_id)
-        questions = question_set.questions.all()  # Assuming questions is a related_name for the questions in QuestionSet
-        selected_questions = list(questions.values())  # Convert QuerySet to list of dictionaries
-        # You can perform any further processing on selected_questions here, like shuffling
-
-        # Prepare the response
-        response_data = {
-            'questions': questions,
-            'sidelength': sidelength
-        }
-        return JsonResponse(response_data)
-    else:
-        return JsonResponse({'error': 'Only GET requests are allowed.'})
-
-
 # Fetches question-set list of question id's.
-def fetch_question_set(request):
-    if request.method == 'GET' and 'question_set_id' in request.GET:
-        question_set_id = request.GET.get('question_set_id')
-        try:
-            question_set = QuestionSet.objects.get(id=question_set_id)
-            data = {
-                'questions': list(question_set.questions.values('id'))
-            }
-            return JsonResponse(data)
-        except QuestionSet.DoesNotExist:
-            return JsonResponse({'error': 'Question set not found'}, status=404)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=400)
-
-
 @csrf_exempt
 def save_garden(request):
     if request.method == 'POST':

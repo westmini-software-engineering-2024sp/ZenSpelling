@@ -1,60 +1,10 @@
-function playGame(size) {
-    generateQuestion(size);
-    generateTileStack(size);
-
+function startGame(size) {
     setTimeout(() => {
-        generateQuestion(size);
-        generateTileStack(size);
-
         let currentTimestamp = new Date();
         localStorage.setItem('startTime', currentTimestamp.toString());
 
         window.location.href = '/game/'
     }, 100);
-}
-
-
-function seedRandomGenerator() {
-    localStorage.setItem('tileCount', '0');
-    localStorage.setItem('questionCount', '0');
-    fetch('/setup_backend/', {cache: "no-store"})
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem('tileCount', data.tile_count);
-            localStorage.setItem('questionCount', data.question_count);
-            return true;
-        })
-        .catch(error => {
-            console.error("Failed: ", error);
-            return false;
-        });
-}
-
-/*
- * This function will generate which question should pop up
- * In the end, I want this to generate the question array with length gameboardSize
- */
-function generateQuestion(sidelength) {
-    let questionArray = [];
-    let answerArray = [];
-
-    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
-    //let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
-
-    for (let i = 0; i < gameboardSize; i++) {
-        let uniqueNumber;
-        do {
-            uniqueNumber = Math.floor(Math.random() * localStorage.getItem('questionCount')) + 1;
-        } while (questionArray.includes(uniqueNumber));
-        questionArray[i] = uniqueNumber;
-    }
-
-    localStorage.setItem('boardsize', sidelength); //edge length
-    localStorage.setItem('gameboardSize', JSON.stringify(gameboardSize)); //how many tiles
-    localStorage.setItem('questionBank', JSON.stringify(questionArray));
-    localStorage.setItem('answerBank', JSON.stringify(answerArray));
-    localStorage.setItem('questionNumber', JSON.stringify(0));
-    localStorage.setItem('correctAnswers', JSON.stringify(0));
 }
 
 /* Fetch tilepath endpoints and load them in a stack.
@@ -91,52 +41,105 @@ function shuffleTileStack(tileStack) {
     localStorage.setItem('tileBank', JSON.stringify(tileStack));
 }
 
-function playSoundAndStartGame(gridSize, id){
-    id.classList.add("pop");
+// This does everything (get the array of questions.id in the question set,
+// do the counts for randomization,
+// do the counts for tiles) in theory
+function setUpGame(sidelength) {
+    let questionArray = [];
+    let answerArray = [];
+    let tileStack = [];
+    let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
+    //let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
+    //let questionsString = ""; //for testing
+    //let tilesString = ""; //for testing
+
+    let questionCount = parseInt(localStorage.getItem('questionCount'));
+    //let tileCount = parseInt(localStorage.getItem('tileCount'));
+    let questionArrayOriginal = JSON.parse(localStorage.getItem('questionArray'));
+
+    //let tilePaths = localStorage.getItem('tileArray');
+
+    for (let i = 0; i < gameboardSize; i++) {
+        let randomNumber;
+
+        if (gameboardSize <= questionCount) { //randomizing questions
+            do {
+                randomNumber = Math.floor(Math.random() * questionCount) + 1;
+            } while (questionArray.includes(randomNumber));
+        } else {
+            randomNumber = Math.floor(Math.random() * questionCount) + 1;
+        }
+        //questionsString = questionsString + randomNumber + " "; //for testing
+        questionArray[i] = questionArrayOriginal[randomNumber-1];
+
+        //randomNumber = Math.floor(Math.random() * tileCount) + 1;
+        //tileStack[i] = tilePaths[randomNumber];
+        //tilesString = tilesString + randomNumber.toString() + " "; //for testing
+    }
+
+    localStorage.setItem('boardsize', sidelength); //edge length
+    localStorage.setItem('gameboardSize', JSON.stringify(gameboardSize)); //how many tiles
+    localStorage.setItem('questionBank', JSON.stringify(questionArray));
+    localStorage.setItem('answerBank', JSON.stringify(answerArray));
+    //localStorage.setItem('tileBank', JSON.stringify(tileStack));
+    localStorage.setItem('questionNumber', JSON.stringify(0));
+    localStorage.setItem('correctAnswers', JSON.stringify(0));
+
+    //console.log("Question string looks like: " + questionsString);
+    //console.log("Question array looks like: " + questionArray);
+    //console.log("Tile stack looks like: " + tilesString);
+
+    generateTileStack();
+    //alert("check the console log");
+    startGame();
+}
+
+function playSoundAndStartGame(gridSize, element) {
+    let questionSetId = localStorage.getItem('questionSetId')
+    localStorage.removeItem('questionSetId');
+    if (questionSetId === null) {
+        questionSetId = '1'; //do the random question set
+    }
+    //console.log(questionSetId);
+
+    fetch(`generate_questions/?question_set_id=${questionSetId}`, {
+        method: 'GET',
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            localStorage.setItem('questionCount', data.question_count);
+            localStorage.setItem('questionArray',JSON.stringify(data.questions_ids));
+            localStorage.setItem('tileCount', data.tile_count);
+            localStorage.setItem('tileArray', JSON.stringify(data.tile_paths));
+            setUpGame(gridSize);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    element.classList.add("pop");
     playSound('grid-select').play()
     setTimeout(function() {
-        id.classList.remove("pop");
-        playGame(gridSize)
+        element.classList.remove("pop");
+        //playGame(gridSize)
     }, 1000);
 }
 
+
 function playSoundAndHighlightQuestionSet(currentSet) {
-        playSound('click-sound').play();
-        let setList = document.getElementsByClassName('question-set-item');
-        for (let i = 0; i < setList.length; i++) {
-            setList[i].classList.remove('clicked');
-        }
-        currentSet.classList.add('clicked');
+    const questionSetId = currentSet.getAttribute('data-questionSetId');
+    //console.log(questionSetId);
+    localStorage.setItem('questionSetId', questionSetId);
+
+    playSound('click-sound').play();
+    let setList = document.getElementsByClassName('question-set-item');
+    for (let i = 0; i < setList.length; i++) {
+        setList[i].classList.remove('clicked');
+    }
+    currentSet.classList.add('clicked');
 }
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    seedRandomGenerator();
-});
-
-// Fetches question-set on associated button press.
-$(document).ready(function(){
-    $(".question-set").click(function(e){
-        e.preventDefault();
-
-        let questionSetId = $(this).data("question-set-id");
-        console.log(questionSetId);
-
-
-        $.ajax({
-            url: '/fetch-question-set/',
-            type: 'GET',
-            data: {
-                'question_set_id': questionSetId
-            },
-            success: function(response){
-                console.log("success: ", response);
-                alert("Successful fetch!");
-            },
-            error: function(error){
-                console.log("error: ", error);
-                alert("Unsuccessful fetch");
-            }
-        });
-    });
-});
