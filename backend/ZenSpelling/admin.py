@@ -32,10 +32,14 @@ class StudentAnalyticsAdmin(admin.ModelAdmin):
     list_display = ["__str__", "percent_correct", "hint"]
 
 
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "percent_correct_lifetime", "time_spent"]
+
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Course)
 admin.site.register(Tile)
-admin.site.register(Student)
+admin.site.register(Student, StudentAdmin)
 admin.site.register(QuestionSet, AddQuestionSet)
 admin.site.register(StudentAnalytics, StudentAnalyticsAdmin)
 admin.site.register(Garden)

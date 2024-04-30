@@ -41,9 +41,9 @@ class Student(models.Model):
     )
     def percent_correct_lifetime(self):
         if self.questions_answered > 0:
-            return (self.questions_correct / self.questions_answered) * 100
+            return str((self.questions_correct / self.questions_answered) * 100) + "%"
         else:
-            return 0
+            return "0%"
 
     @staticmethod
     def authenticate_user(username, password):
