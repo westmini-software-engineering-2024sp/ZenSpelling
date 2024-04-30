@@ -37,6 +37,7 @@ function seedRandomGenerator() {
 function generateQuestion(sidelength) {
     let questionArray = [];
     let answerArray = [];
+
     let gameboardSize = sidelength * sidelength; //uncomment this if wanting to generate the entire board
     //let gameboardSize = sidelength; //uncomment this if wanting to run just the bare minimum of questions for testing
 
@@ -98,7 +99,6 @@ function playSoundAndStartGame(gridSize, id){
         playGame(gridSize)
     }, 1000);
 }
-
 
 function playSoundAndHighlightQuestionSet(currentSet) {
         playSound('click-sound').play();

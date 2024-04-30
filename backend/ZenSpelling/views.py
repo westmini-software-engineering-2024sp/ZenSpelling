@@ -5,12 +5,15 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from .models import Answer, Question, Student, Course, Tile, QuestionSet, StudentAnalytics
+from django.views.decorators.csrf import csrf_exempt
+
+from .models import Answer, Question, Student, Course, Tile, QuestionSet, StudentAnalytics, Garden
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.db import transaction
+import base64
 
 
 class DetailView(generic.DetailView):
@@ -28,7 +31,7 @@ class DetailView(generic.DetailView):
         context["question"] = question
         context["hint"] = question.hint
 
-        #check if the row exists
+        # check if the row exists
         if StudentAnalytics.objects.filter(user=user, question=question).exists():
             analytic = StudentAnalytics.objects.get(user=user, question=question)
             context['show_hint'] = analytic.hint
@@ -92,6 +95,11 @@ class ProfileView(LoginRequiredMixin, generic.DetailView):
 
     def get_queryset(self):
         return Student.objects.filter(user=self.request.user)
+
+    @property
+    def gardens(self):
+        current_student = self.get_object()  # Get the current student
+        return current_student.gardens.all()
 
 
 def vote(request, question_id):
@@ -200,6 +208,7 @@ def update_profile(request):
             correctMedal = data['correctMedal']
             timeMedal = data['timeMedal']
             streakMedal = data['streakMedal']
+            garden_image = data.get('gardenImage', None)
 
             user = request.user
 
@@ -227,6 +236,7 @@ def update_profile(request):
                         profile.time_medal += 1
                         profile.time_medal_earned = True
                     profile.save()
+
                 else:
                     correctMedalCount, streakMedalCount, timeMedalCount = 0, 0, 0
                     if correctMedal:
@@ -243,12 +253,12 @@ def update_profile(request):
                         games_completed=1,
                         streak=streak,
                         minTime=time,
-                        percent_medal = correctMedalCount,
-                        streak_medal = streakMedalCount,
-                        time_medal = timeMedalCount,
-                        percent_medal_earned = correctMedal,
-                        streak_medal_earned = streakMedal,
-                        time_medal_earned = timeMedal
+                        percent_medal=correctMedalCount,
+                        streak_medal=streakMedalCount,
+                        time_medal=timeMedalCount,
+                        percent_medal_earned=correctMedal,
+                        streak_medal_earned=streakMedal,
+                        time_medal_earned=timeMedal
                     )
                     profile.save()
 
@@ -282,6 +292,7 @@ def generate_questions(request):
     else:
         return JsonResponse({'error': 'Only GET requests are allowed.'})
 
+
 # Fetches question-set list of question id's.
 def fetch_question_set(request):
     if request.method == 'GET' and 'question_set_id' in request.GET:
@@ -296,3 +307,27 @@ def fetch_question_set(request):
             return JsonResponse({'error': 'Question set not found'}, status=404)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
+@csrf_exempt
+def save_garden(request):
+    if request.method == 'POST':
+        # Check if image_data is present in the form data
+        if 'image_data' in request.POST:
+            # Extract and decode base64-encoded image data
+            try:
+                image_data_b64 = request.POST['image_data']
+                image_data = base64.b64decode(image_data_b64)
+            except Exception as e:
+                return JsonResponse({'error': 'Failed to decode image data: ' + str(e)}, status=400)
+
+            # Create a new Garden object and save the image
+            try:
+                garden = Garden.objects.create(garden=image_data)
+                return JsonResponse({'garden_id': garden.id})
+            except Exception as e:
+                return JsonResponse({'error': 'Failed to save garden: ' + str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Image data not found in request'}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)

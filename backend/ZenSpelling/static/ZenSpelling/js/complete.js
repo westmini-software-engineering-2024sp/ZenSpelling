@@ -1,6 +1,7 @@
 let correctMedalEarned = false;
 let timeMedalEarned = false;
 let streakMedalEarned = false;
+let imageData = localStorage.getItem('savedGarden');
 
 
 //This function returns the student's score as a string
@@ -175,7 +176,6 @@ function displayStreakMedal() {
     return false;
 }
 
-
 function rotateMedal(element) {
     playSound('pop-sound').play();
     if (element.style.transform === 'rotateY(180deg)') {
@@ -184,7 +184,6 @@ function rotateMedal(element) {
         element.style.transform = 'rotateY(180deg)';
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('scoreDisplay').textContent = getScore();
@@ -220,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     sendDataBack();
+    displaySavedGarden();
 
     localStorage.clear();
 });
@@ -238,3 +238,50 @@ document.getElementById('medal').addEventListener('click', function () {
         overlay.style.display = 'none'; // Hide the overlay
     }
 });
+
+function displaySavedGarden() {
+    if (imageData) {
+        let img = document.createElement("img");
+        let parent = document.getElementById("saved-garden");
+
+        img.src = imageData;
+        parent.appendChild(img);
+    } else {
+        alert("No saved garden found!");
+    }
+}
+
+function saveGardenToDB(button){
+    // TODO : Unable to figure this out in time for R3.
+    // if (imageData) {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/save-garden/",
+    //         data: {
+    //             image_data: imageData,
+    //             csrfmiddlewaretoken: getCookie('csrftoken')
+    //         },
+    //         success: function(response) {
+    //             alert("Image saved successfully!");
+    //         },
+    //         error: function(xhr, status, error) {
+    //             alert("Error saving image: " + error);
+    //         }
+    //     });
+    // } else {
+    //     alert("No image data found in localStorage.");
+    // }
+
+    button.classList.add('pop');
+    setTimeout(() => {
+        button.innerHTML = "Garden Saved!";
+        button.setAttribute('disabled', 'true');
+
+        button.style.backgroundColor = '#e7c116';
+        button.style.color = 'black';
+        button.style.outline = '0.1em solid black';
+
+        setTimeout(() => {
+            playSound('happy-sound').play();}, 50);
+    }, 200);
+}

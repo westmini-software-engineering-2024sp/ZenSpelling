@@ -1,9 +1,4 @@
-html{
-    overflow: hidden;
-}
-
 .login {
-    height:100%;
     display: flex;
     flex-direction: column;
 }

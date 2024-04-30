@@ -17,7 +17,6 @@ let pulse = 1.0;
 let oscillatePulse = 1;
 let modal = false;
 let newRow, newCol;
-let musicOff = false;
 
 // Creating the sketch of the game-board.
 let GridSketch = function (sketch) {
@@ -41,6 +40,21 @@ let GridSketch = function (sketch) {
 
         sketch.calculateBoxSize();
         sketch.buildDataArray();
+
+        // Construct image grid to accept placed tiles.
+        let tileGrid = document.getElementById('img-grid');
+        tileGrid.style.gridTemplateColumns = `repeat(${gridDimension}, auto)`;
+        for(let i = 0; i < gridDimension; i++){
+            for(let j = 0; j < gridDimension; j++){
+                const img = document.createElement('img')
+                img.id = 'grid' + j + '' + i;
+                // Encoded 1x1 transparent pixel to prevent broken image.
+                img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+                img.width = sketch.boxSize;
+                img.height = sketch.boxSize;
+                tileGrid.appendChild(img);
+            }
+        }
     }
 
     sketch.calculateBoxSize = function () {
@@ -90,9 +104,7 @@ let GridSketch = function (sketch) {
             sketch.fill('rgba(255,255,255,0.10)');
         }
 
-        if (model) {
-            sketch.image(model, x, y);
-        } else {
+        if (!model) {
             sketch.square(x, y, size);
         }
 
@@ -119,16 +131,10 @@ let GridSketch = function (sketch) {
 
     // Decides if an image needs to be loaded in the metadata array when user releases cursor.
     sketch.mouseReleased = function () {
-        let valid;
         for (let i = 0; i < gridDimension; i++) {
             for (let j = 0; j < gridDimension; j++) {
-                // Saving this equation for now in case it is needed later.
-                // let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + xShift, dataArray[i + '' + j].y + yShift);
-
-                valid = dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '';
-                if (valid) {
+                if (dataArray[i + '' + j].collision && dataArray[i + '' + j].model === '') {
                     placed = true;
-
                     // Extract numeric digits from currentFilePath.
                     numericDigits = currentFilepath.match(/\d+/)[0];
                     // Construct the new filepath pointing to the Tile's matching GridTile.
@@ -136,9 +142,10 @@ let GridSketch = function (sketch) {
 
                     newRow = i;
                     newCol = j;
-                    dataArray[i + '' + j].model = sketch.loadImage(newFilePath, function (img) {
-                        img.resize(sketch.boxSize, 0);
-                    });
+                    dataArray[i + '' + j].model = sketch.loadImage(newFilePath);
+
+                    let tilePlace = document.getElementById('grid' + i + '' + j);
+                    tilePlace.src = newFilePath;
                 }
             }
         }
@@ -258,13 +265,19 @@ let TileSketch = function (sketch) {
 
     // This activates dragging toggle if cursor is in range of the tile.
     sketch.mousePressed = function () {
-        let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
+        // Get the bounding rectangle of the canvas
+        let canvasRect = sketch.canvas.getBoundingClientRect();
+        // Check if the mouse press event is within the canvas area
+        if (sketch.mouseX >= canvasRect.left && sketch.mouseX <= canvasRect.right &&
+            sketch.mouseY >= canvasRect.top && sketch.mouseY <= canvasRect.bottom) {
 
-        if (d < tileSize && !modal) {
-            playSound('click-sound').play();
-            dragging = true;
+            let d = sketch.dist(sketch.mouseX, sketch.mouseY, sketch.tileContainer.width / 2, sketch.tileContainer.height / 2);
+
+            if (d < tileSize && !modal) {
+                playSound('click-sound').play();
+                dragging = true;
+            }
         }
-        return false;
     }
 
     // Constant recalculation of tile position when dragging.
@@ -277,7 +290,11 @@ let TileSketch = function (sketch) {
             for (let i = 0; i < gridDimension; i++) {
                 for (let j = 0; j < gridDimension; j++) {
                     let d = sketch.dist(sketch.mouseX, sketch.mouseY, dataArray[i + '' + j].x + tileGridOffsetDiff, dataArray[i + '' + j].y + yShift);
-                    dataArray[i + '' + j].collision = d < tileSize/6;
+                    if(gridDimension === 3){
+                        dataArray[i + '' + j].collision = d < tileSize/2;
+                    }else{
+                        dataArray[i + '' + j].collision = d < tileSize/6;
+                    }
                 }
             }
             return false;
@@ -319,10 +336,6 @@ function showModal() {
                 .css('display', 'block');
         }
     });
-
-    $('.close').click(function () {
-        $('#myModal').css('display', 'none');
-    });
 }
 
 // From the localStorage questionBank, it gets the next question
@@ -350,31 +363,11 @@ function createGamePageOnDomLoaded(){
         tileSketch = new p5(TileSketch);
 
         toggleMusic("background-music");
-
-         // let calmMusic = playSound('calm');
-         //
-         // calmMusic.soundEffect.oncanplaythrough = function () {
-         //     calmMusic.play();
-         //     calmMusic.loop();
-         // };
-
-         const modal = document.getElementById('modal');
-         modal.style.display = 'block';
-
-         showModalOnClick();
-    });
-}
-
-function showModalOnClick(){
-    window.addEventListener('click', (event) => {if (event.target === modal) {
-    } else {
-        modal.style.display = 'none';
-    }
     });
 }
 
 // TODO : This currently works, except it does not preserve the game board state on reload.
-//  Possible solution: Use cookie to save game state.
+//  Possible solution: Use cookie to save game state, or load everything in localStorage.
 function resizeBoardElementsOnScreenResize(){
     window.addEventListener('resize', function () {
     window.location.reload();
@@ -388,6 +381,5 @@ function hideLoadingScreenOnWindowLoad(){
     setTimeout(function() {
             loadingScreen.style.display = 'none'; // Hide loading screen when page is loaded
             }, 1000);
-
     });
 }

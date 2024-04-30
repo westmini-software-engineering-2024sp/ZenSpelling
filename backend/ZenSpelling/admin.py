@@ -1,6 +1,5 @@
 from django.contrib import admin
-
-from .models import Answer, Question, Course, Tile, QuestionSet, Student, StudentAnalytics
+from .models import Answer, Question, Course, Tile, QuestionSet, Student, StudentAnalytics, Garden
 
 
 admin.site.site_header = "Teacher View"
@@ -39,4 +38,5 @@ admin.site.register(Tile)
 admin.site.register(Student)
 admin.site.register(QuestionSet, AddQuestionSet)
 admin.site.register(StudentAnalytics, StudentAnalyticsAdmin)
+admin.site.register(Garden)
 

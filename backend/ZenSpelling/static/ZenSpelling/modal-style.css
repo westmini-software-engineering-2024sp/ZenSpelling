@@ -6,9 +6,10 @@
 }
 
 .question{
-    font-size: 5em;
+    font-size: 3em;
     text-align: center;
     padding:1em;
+    width: 75%;
 }
 
 .submit-container{
@@ -21,9 +22,28 @@
 }
 
 .hint{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    right:4em;
+    top:15em;
     text-align: center;
     padding:1em;
+    border: 1px solid black;
+    max-width: 20em;
+    max-height: 15em;
 }
+
+.hint h1{
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.hint p{
+    font-size: 1.5em;
+}
+
 
 @keyframes slideDown {
       0% {
@@ -64,10 +84,11 @@
     align-items: center;
     background-color: #e7c116;
     animation: slideDown 0.5s ease-out;
+    font-size: 1em;
 }
 
 .option{
-    font-size:3em;
+    font-size:2em;
     background-color: white;
     border: 3px solid black;
     border-radius:3em;

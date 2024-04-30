@@ -6,6 +6,17 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+# class Garden(models.Model):
+#     path = models.CharField(max_length=200)  # TODO save the images with a name and date and store it here
+#     garden = models.ImageField(upload_to='ZenSpelling/static/ZenSpelling/images/gardens/')
+#
+#     def get_image(self):
+#         return self.path
+#
+#     def __str__(self):
+#         return self.path[46:]
+
+
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     time_spent = models.DecimalField(max_digits=16, decimal_places=0, default=0)
@@ -47,6 +58,14 @@ class Student(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.student.save()
+
+
+class Garden(models.Model):
+    garden = models.BinaryField()
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='gardens')
+
+    def get_image(self):
+        return self.garden
 
 
 class Course(models.Model):
@@ -131,4 +150,4 @@ class StudentAnalytics(models.Model):
         # TODO queryset/filter i think
 
     def percent_correct(self):
-        return self.times_correct/self.times_answered * 100
+        return self.times_correct / self.times_answered * 100

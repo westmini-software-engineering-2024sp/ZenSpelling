@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Start</title>
         <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
         <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
@@ -27,7 +27,7 @@
         </header>
         <main>
             <h1> Ready to Spell? </h1>
-            <a class="startButton" id="start" onclick="startGame(this)"> Start </a>
+            <a class="startButton" id="start" onclick="startGame(this)"> <p style="user-select: none; /* Standard syntax */">Start</p> </a>
             <a class="startButton" id="profile" onclick="profile(this)"> Profile </a>
         </main>
         <div id="twinkling-container">

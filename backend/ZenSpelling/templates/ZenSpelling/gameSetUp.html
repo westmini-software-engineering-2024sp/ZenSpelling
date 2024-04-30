@@ -25,13 +25,14 @@
             </div>
         </header>
         <main>
-            <h1>Choose Board Size and Question Set</h1>
+            <h1>Choose a Question Set (Optional)</h1>
             <div class="question-set-container">
                 <ul class = "question-set-list">{% for question_set in question_sets %}
                     <li class = "question-set-item" onclick="playSoundAndHighlightQuestionSet(this)">{{ question_set.name }}</li>
                     {% endfor %}
                 </ul>
             </div>
+            <h1>Choose a Board Size</h1>
             <div class="grid-container">
                 <ul class="grid-list">
                     <li class="grid-item" id="grid3">

@@ -2,6 +2,7 @@
 let answerArray = JSON.parse(localStorage.getItem('answerBank')) || [];
 let onStreak = false;
 let streakCount;
+
 localStorage.setItem('streak', JSON.stringify(0));
 
 function closeModal() {
@@ -16,7 +17,9 @@ function closeModal() {
 
         document.body.style.overflow = ""; // Re-enable scrolling of background content
     }, 500)// Adjust timeout to match animation duration
+
     modal = false;
+
     setTimeout(function() {
     }, 1000);
 }
@@ -54,6 +57,7 @@ function submitAnswer() {
                 return response.json();
             })
             .then(data => {
+                let tilePlace = document.getElementById('grid' + newRow + '' + newCol);
 
                 if (data.exists) { //aka if correct
                     playSound('correct-sound').play();
@@ -80,16 +84,19 @@ function submitAnswer() {
                         dataArray[newRow + '' + newCol].model = '';
                         dataArray[newRow + '' + newCol].weed = false;
                         dataArray[newRow + '' + newCol].collision = false;
+                        // insert encoded 1x1 transparent pixel to prevent broken image.
+                        tilePlace.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
                     }
 
                 } else {
                     playSound('wrong-sound').play();
                     onStreak = false;
                     newFilePath = `/static/Assets/WeedTiles/weedTile01.png`;
-                    dataArray[newRow + '' + newCol].model = gridSketch.loadImage(newFilePath, function (img) {
-                        img.resize(gridSketch.boxSize, 0);
-                    });
+                    dataArray[newRow + '' + newCol].model = gridSketch.loadImage(newFilePath);
                     dataArray[newRow + '' + newCol].weed = true;
+
+                    tilePlace.src = newFilePath;
+
                     modalSpace.innerHTML = 'WRONG!';
                 }
                 setTimeout(function() {
@@ -111,9 +118,37 @@ function submitAnswer() {
 }
 
 // when the game is complete (all questions answered) complete screen is shown
-function gameComplete() { //this can happen too early
-    window.location.href = '../complete/';
+async function gameComplete() {
+    if (parseInt(localStorage.getItem('questionNumber')) === parseInt(localStorage.getItem('gameboardSize'))) {
+        let eventTimestamp = new Date();
+
+        try {
+            await saveGardenOnGameComplete();
+            localStorage.setItem('finishTime', eventTimestamp.toString());
+            window.location.href = '../complete/';
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    }
 }
+
+// html2canvas renders contents of an element and converts it to an img. Hover over .toDataUrl() for more info.
+function saveGardenOnGameComplete() {
+    return new Promise((resolve, reject) => {
+        let garden = document.getElementById('img-flex-container');
+        setTimeout(() => {
+            html2canvas(garden).then(canvas => {
+                let imageData = canvas.toDataURL();
+                localStorage.setItem('savedGarden', imageData);
+                resolve();
+            }).catch(error => {
+                console.error('Error capturing canvas:', error);
+                reject(error);
+            });
+        }, 100);
+    });
+}
+
 
 // passed to the server so we don't get a Forbidden
 function getCookie(name) {

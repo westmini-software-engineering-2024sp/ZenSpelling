@@ -12,6 +12,7 @@
         
         <script src={% static 'ZenSpelling/js/musicAndSoundUtil.js' %}></script>
         <script src={% static 'ZenSpelling/js/navUtil.js' %}></script>
+        <script src={% static 'Resources/jquery3.7.1.js' %}></script>
         <script src={% static 'ZenSpelling/js/complete.js' %}></script>
         <script src={% static 'ZenSpelling/js/twinkle.js' %} defer></script>
         <script src={% static 'ZenSpelling/js/interact.js' %} defer></script>
@@ -28,14 +29,20 @@
         </header>
         <main>
             <h1 class="title"> Level Complete</h1>
+
             <h3 class="score">Score: <span id="scoreDisplay"></span></h3>
             <h3 class="score"> Percentage: <span id="percentDisplay"></span> %</h3>
             <h3 class="score">Time taken: <span id="timeSpentDisplay"></span></h3>
             <h3 class="score"> Highest Streak: <span id="streakDisplay"></span></h3>
+
             <div class="option-container">
                 <a class="btn" onclick="playAgain(this)">New Game</a>
                 <a class="btn" onclick="toProfile(this)">Profile</a>
             </div>
+
+            <div id="saved-garden"></div>
+            <button id="save-button" onclick="saveGardenToDB(this)">Save Garden</button>
+
             <div class="medal-container">
                 <div class = "medal correctMedal">
                     <div class="front"><img src="{% static 'ZenSpelling/images/correctMedal.png' %}" alt = "bee" id="clickable-image" width = 150px height = 150px></div>
@@ -52,7 +59,7 @@
             </div>
         </main>
         <div id="twinkling-container">
-        <div class = "twinkling-pixel"> </div>
+            <div class = "twinkling-pixel"> </div>
         </div>
         <audio id = "background-music" loop>
     {#        TODO : Browser Support? Works on Chrome.#}

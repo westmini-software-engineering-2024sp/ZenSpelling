@@ -19,4 +19,5 @@ urlpatterns = [
     path('complete/datatoprofile/', views.update_profile, name='update_profile'),
     path('setup_backend/', views.gamepagesetup_counts, name='gamepagesetup_counts'),
     path('fetch-question-set/', views.fetch_question_set, name='fetch_question_set'),
+    path('save-garden/', views.save_garden, name='save_garden')
 ]
