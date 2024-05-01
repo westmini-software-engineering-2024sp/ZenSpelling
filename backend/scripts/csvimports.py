@@ -63,7 +63,7 @@ def run():
     user_import()
     course_import()
     result, created = QuestionSet.objects.get_or_create(
-        name="Random",
+        name="All",
         course=Course.objects.get(name="Software Engineering"),
     )
     question_import()
