@@ -20,6 +20,8 @@
     color:white;
     border-radius: 2em;
     padding:1em;
+    border:none;
+    cursor: url("../Assets/bee.png") 14 14, pointer;
 }
 
 .question-set-item:hover{

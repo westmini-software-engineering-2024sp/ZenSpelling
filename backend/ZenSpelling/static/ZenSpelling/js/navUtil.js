@@ -38,6 +38,6 @@ function toProfile(id){
 
     setTimeout(function() {
         id.classList.remove("pop");
-        window.location.href = "/profile/3";
+        window.location.href = "/profile/5";
     }, 1000);
 }

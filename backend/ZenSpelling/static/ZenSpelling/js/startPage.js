@@ -12,7 +12,7 @@ function profile(id) {
     playSound('click-sound').play();
     setTimeout(function() {
         id.classList.remove("pop");
-        window.location.href = '/profile/3';
+        window.location.href = '/profile/5';
     }, 1000);
 
 }

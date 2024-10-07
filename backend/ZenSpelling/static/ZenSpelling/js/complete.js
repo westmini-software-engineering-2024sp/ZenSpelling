@@ -11,13 +11,11 @@ function getScore() {
     return correct + "/" + total;
 }
 
-
 function getPercentage() {
     let correct = parseInt(localStorage.getItem('correctAnswers'));
     let total = parseInt(localStorage.getItem('gameboardSize'));
     return Math.round((correct / total) * 100).toString();
 }
-
 
 function getTimeSpentDisplay() {
     let start = new Date(localStorage.getItem('startTime'));
